@@ -17,7 +17,9 @@ Future<void> main() async {
       }
 
       final seedFlow = AdminGallerySeedFlow();
-      await seedFlow.uploadAllPictures();
+      // Migrate existing GaleryList array entries to individual GaleryItems documents.
+      // Run this once to populate the subcollection used for Firestore cursor pagination.
+      await seedFlow.migrateToSubcollection();
       AppLogger.instance.i('Admin seed flow finished successfully.');
     },
     (error, stackTrace) {

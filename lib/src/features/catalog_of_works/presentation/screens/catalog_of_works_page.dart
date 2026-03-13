@@ -6,6 +6,7 @@ import 'package:web_art_galery/src/features/catalog_of_works/data/repository/cat
 import 'package:web_art_galery/src/features/catalog_of_works/domain/entities/painting.dart';
 import 'package:web_art_galery/src/features/catalog_of_works/presentation/cubits/catalog_of_works_cubit.dart';
 import 'package:web_art_galery/src/features/catalog_of_works/presentation/localization/painting_name_localization.dart';
+import 'package:web_art_galery/src/features/catalog_of_works/presentation/widgets/catalog_lazy_grid_view.dart';
 import 'package:web_art_galery/src/shared/config/ksize.dart';
 import 'package:web_art_galery/src/shared/presentation/widgets/cached_network_image_view.dart';
 
@@ -17,7 +18,7 @@ class CatalogOfWorksPage extends StatelessWidget {
     return BlocProvider<CatalogOfWorksCubit>(
       create: (_) => CatalogOfWorksCubit(
         repository: CatalogOfWorksRepositoryFirebase(apiController: CatalogOfWorksApiController()),
-      )..watchPaintings(),
+      )..loadInitial(),
       child: const _CatalogOfWorksContent(),
     );
   }
@@ -39,7 +40,12 @@ class _CatalogOfWorksContent extends StatelessWidget {
               child: Text('Failed to load paintings. $message', textAlign: TextAlign.center),
             ),
           ),
-          CatalogOfWorksLoaded(:final paintings) => _PaintingsGrid(paintings: paintings),
+          CatalogOfWorksLoaded(:final paintings, :final isLoadingMore, :final hasReachedMax) =>
+            _PaintingsGrid(
+              paintings: paintings,
+              isLoadingMore: isLoadingMore,
+              hasReachedMax: hasReachedMax,
+            ),
         };
       },
     );
@@ -47,22 +53,34 @@ class _CatalogOfWorksContent extends StatelessWidget {
 }
 
 class _PaintingsGrid extends StatelessWidget {
-  const _PaintingsGrid({required this.paintings});
+  const _PaintingsGrid({
+    required this.paintings,
+    required this.isLoadingMore,
+    required this.hasReachedMax,
+  });
 
   final List<Painting> paintings;
+  final bool isLoadingMore;
+  final bool hasReachedMax;
 
   @override
   Widget build(BuildContext context) {
+    final cubit = context.read<CatalogOfWorksCubit>();
+
     return LayoutBuilder(
       builder: (context, constraints) {
         final width = constraints.maxWidth;
         final maxCrossAxisExtent = width < KSize.adaptiveCompactBreakpoint
             ? width
             : width < KSize.adaptiveExpandedBreakpoint
-            ? 380.0
-            : 430.0;
+            ? 460.0
+            : 520.0;
 
-        return GridView.builder(
+        return CatalogLazyGridView(
+          itemCount: paintings.length,
+          isLoading: isLoadingMore,
+          hasReachedMax: hasReachedMax,
+          onLoadMore: cubit.loadMore,
           padding: const EdgeInsets.fromLTRB(
             KSize.margin4x,
             KSize.margin5x,
@@ -73,13 +91,13 @@ class _PaintingsGrid extends StatelessWidget {
             maxCrossAxisExtent: maxCrossAxisExtent,
             mainAxisSpacing: KSize.margin7x,
             crossAxisSpacing: KSize.margin4x,
-            childAspectRatio: width < KSize.adaptiveCompactBreakpoint ? 0.88 : 0.78,
+            childAspectRatio: width < KSize.adaptiveCompactBreakpoint ? 0.80 : 0.72,
           ),
-          itemCount: paintings.length,
-          itemBuilder: (context, index) {
-            final painting = paintings[index];
-            return _PaintingCard(painting: painting);
-          },
+          loadingWidget: const Padding(
+            padding: EdgeInsets.symmetric(vertical: KSize.margin5x),
+            child: Center(child: CircularProgressIndicator()),
+          ),
+          itemBuilder: (context, index) => _PaintingCard(painting: paintings[index]),
         );
       },
     );
@@ -108,52 +126,59 @@ class _PaintingCard extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Expanded(
+            flex: 8,
             child: CachedNetworkImageView(
               imagePathOrUrl: painting.imageUrl,
+              width: double.infinity,
+              height: double.infinity,
+              fit: BoxFit.cover,
               borderRadius: BorderRadius.zero,
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.fromLTRB(
-              KSize.margin3x,
-              KSize.margin3x,
-              KSize.margin3x,
-              KSize.margin4x,
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  localizedName,
-                  style: Theme.of(
-                    context,
-                  ).textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.w500),
-                  maxLines: 2,
-                  overflow: TextOverflow.ellipsis,
-                ),
-                const SizedBox(height: KSize.margin2x),
-                Text(
-                  '${painting.yearOfCreation}',
-                  style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                    fontStyle: FontStyle.italic,
-                    color: Theme.of(context).colorScheme.onSurfaceVariant,
-                  ),
-                ),
-                const SizedBox(height: KSize.margin1x),
-                Text(
-                  painting.paintedOnAndHow,
-                  maxLines: 2,
-                  overflow: TextOverflow.ellipsis,
-                  style: Theme.of(context).textTheme.bodyMedium,
-                ),
-                if (painting.location.isNotEmpty)
+          Expanded(
+            flex: 5,
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(
+                KSize.margin3x,
+                KSize.margin3x,
+                KSize.margin3x,
+                KSize.margin4x,
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
                   Text(
-                    painting.location,
-                    maxLines: 1,
+                    localizedName,
+                    style: Theme.of(
+                      context,
+                    ).textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.w500),
+                    maxLines: 2,
                     overflow: TextOverflow.ellipsis,
-                    style: Theme.of(context).textTheme.bodySmall,
                   ),
-              ],
+                  const SizedBox(height: KSize.margin2x),
+                  Text(
+                    '${painting.yearOfCreation}',
+                    style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                      fontStyle: FontStyle.italic,
+                      color: Theme.of(context).colorScheme.onSurfaceVariant,
+                    ),
+                  ),
+                  const SizedBox(height: KSize.margin1x),
+                  Text(
+                    painting.paintedOnAndHow,
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                    style: Theme.of(context).textTheme.bodyMedium,
+                  ),
+                  if (painting.location.isNotEmpty)
+                    Text(
+                      painting.location,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: Theme.of(context).textTheme.bodySmall,
+                    ),
+                ],
+              ),
             ),
           ),
         ],

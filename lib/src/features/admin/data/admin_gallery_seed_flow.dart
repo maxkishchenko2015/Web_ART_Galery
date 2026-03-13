@@ -23,18 +23,37 @@ class AdminGallerySeedFlow {
           final nextNumber = (countersByYear[yearKey] ?? 0) + 1;
           countersByYear[yearKey] = nextNumber;
           final pictureId = '$yearKey.$nextNumber';
+          final yearOfCreation = int.tryParse(yearKey) ?? 0;
 
           return <String, dynamic>{
             'pictureId': pictureId,
             'name': row.name,
             'year': yearKey,
+            'year_of_creation': yearOfCreation,
             'size': '${row.material}, ${row.size}',
+            'painted_on_and_how': '${row.material}, ${row.size}',
             'material': row.material,
             'size_raw': row.size,
             'picture': '',
+            'image_url': '',
           };
         })
         .toList(growable: false);
+
+    // Write each painting as an individual document in the subcollection used
+    // for Firestore cursor pagination (GaleryItems).
+    final itemsCollectionRef = _firestore
+        .collection(FirestoreCollections.paintings)
+        .doc(FirestoreCollections.paintingsDocumentId)
+        .collection(FirestoreCollections.paintingsItemsCollection);
+
+    // Firestore batches are limited to 500 ops; paintings fit well within that.
+    final batch = _firestore.batch();
+    for (final item in galleryList) {
+      final pictureId = item['pictureId'] as String;
+      batch.set(itemsCollectionRef.doc(pictureId), item, SetOptions(merge: true));
+    }
+    await batch.commit();
 
     await _firestore
         .collection(FirestoreCollections.paintings)
@@ -72,6 +91,64 @@ class AdminGallerySeedFlow {
     }
 
     return rows;
+  }
+
+  /// One-time migration: reads paintings from the legacy [GaleryList] array field
+  /// and writes each one as an individual document in the [GaleryItems] subcollection
+  /// used by Firestore cursor pagination.
+  ///
+  /// Safe to run multiple times — uses merge:true so existing documents are updated.
+  Future<void> migrateToSubcollection() async {
+    if (Firebase.apps.isEmpty) {
+      throw StateError('Firebase is not initialized.');
+    }
+
+    final docRef = _firestore
+        .collection(FirestoreCollections.paintings)
+        .doc(FirestoreCollections.paintingsDocumentId);
+
+    final snapshot = await docRef.get();
+    final data = snapshot.data();
+    if (data == null) {
+      AppLogger.instance.w('Migration aborted: paintings document not found.');
+      return;
+    }
+
+    final rawList =
+        (data[FirestoreCollections.paintingsListField] as List<dynamic>?) ?? const <dynamic>[];
+
+    final items = rawList.whereType<Map<String, dynamic>>().toList();
+    if (items.isEmpty) {
+      AppLogger.instance.w('Migration aborted: GaleryList array is empty.');
+      return;
+    }
+
+    final itemsCollectionRef = docRef.collection(FirestoreCollections.paintingsItemsCollection);
+
+    // Firestore batch limit is 500; split into chunks if needed.
+    const chunkSize = 400;
+    for (var offset = 0; offset < items.length; offset += chunkSize) {
+      final chunk = items.skip(offset).take(chunkSize);
+      final batch = _firestore.batch();
+      for (final item in chunk) {
+        final rawPictureId = item['pictureId'] as String?;
+        if (rawPictureId == null || rawPictureId.trim().isEmpty) continue;
+        final pictureId = rawPictureId.trim();
+        final yearRaw = item['year'] as String? ?? '';
+        final yearOfCreation = int.tryParse(yearRaw) ?? 0;
+        final merged = <String, dynamic>{
+          ...item,
+          'pictureId': pictureId,
+          'year_of_creation': yearOfCreation,
+          'painted_on_and_how': item['painted_on_and_how'] ?? item['size'] ?? '',
+          'image_url': item['image_url'] ?? item['picture'] ?? '',
+        };
+        batch.set(itemsCollectionRef.doc(pictureId), merged, SetOptions(merge: true));
+      }
+      await batch.commit();
+    }
+
+    AppLogger.instance.i('Migration completed: ${items.length} paintings written to GaleryItems.');
   }
 
   String _yearKey(String yearRaw) {
