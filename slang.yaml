@@ -1,0 +1,10 @@
+base_locale: ru
+input_directory: lib/i18n
+input_file_pattern: .i18n.json
+flutter_integration: true
+locale_handling: true
+lazy: true
+fallback_strategy: base_locale
+translate_var: t
+enum_name: AppLocale
+class_name: Translations
