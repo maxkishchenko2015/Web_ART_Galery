@@ -122,12 +122,13 @@ class _TranslationsBioEn extends TranslationsBioRu {
 	@override String get name => 'Alexander Mikhailovich Kishchanka (1933–1997)';
 	@override String get tagline => 'Painter. Philosopher. Monumentalist. Founder of Universal Realism.';
 	@override String get intro => 'Alexander Kishchanka is a figure of Renaissance stature in 20th-century art. A man who transformed the soft thread of tapestry into a powerful architectural statement, and city walls into open books of philosophical meaning. His work is a bridge between the archaic and the cosmic, between the pain of the earth and the light of distant galaxies.';
+	@override late final _TranslationsBioFeatureEn feature = _TranslationsBioFeatureEn._(_root);
 	@override late final _TranslationsBioUniversalRealismEn universalRealism = _TranslationsBioUniversalRealismEn._(_root);
 	@override late final _TranslationsBioTapestryEn tapestry = _TranslationsBioTapestryEn._(_root);
 	@override late final _TranslationsBioChernobylEn chernobyl = _TranslationsBioChernobylEn._(_root);
 	@override late final _TranslationsBioMosaicEn mosaic = _TranslationsBioMosaicEn._(_root);
 	@override late final _TranslationsBioLegacyEn legacy = _TranslationsBioLegacyEn._(_root);
-	@override String get quote => 'Happy is the artist whose brush is illuminated by a ray of sunlight... The Creator must paint Time, dipping his brush in the heavenly azure.';
+	@override String get quote => 'Art is a divine phenomenon. Only it is given the power to stop time. Art can unravel the mystery of the future and also restore the lost past.';
 	@override String get quoteAuthor => '— Alexander Kishchanka';
 }
 
@@ -299,6 +300,24 @@ class _TranslationsCatalogPaintingNamesEn extends TranslationsCatalogPaintingNam
 	@override String get idunknown_3 => 'Blue Thorns';
 	@override String get idunknown_4 => 'Nina';
 	@override String get idunknown_5 => 'Nina';
+}
+
+// Path: bio.feature
+class _TranslationsBioFeatureEn extends TranslationsBioFeatureRu {
+	_TranslationsBioFeatureEn._(TranslationsEn root) : this._root = root, super.internal(root);
+
+	final TranslationsEn _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'LEGACY OF GLOBAL SCALE';
+	@override String get body => 'This collection brings together works by an outstanding master whose art forever changed the understanding of monumental painting and tapestry. From the grand mosaics that became a visual code of Minsk to the celebrated Tapestry of the Century and the Chernobyl canvas displayed at United Nations Headquarters in New York, every work by Kishchanka is a philosophical treatise on the connection of times, the cosmos, and the indestructible human spirit.';
+	@override String get cta => 'EXPLORE THE COLLECTION';
+	@override String get worksValue => '200+';
+	@override String get worksLabel => 'Works of Art';
+	@override String get panelsValue => '6+';
+	@override String get panelsLabel => 'Monumental panels in Minsk';
+	@override String get guinnessValue => '1';
+	@override String get guinnessLabel => 'Guinness art record';
 }
 
 // Path: bio.universalRealism
@@ -556,6 +575,15 @@ extension on TranslationsEn {
 			'bio.name' => 'Alexander Mikhailovich Kishchanka (1933–1997)',
 			'bio.tagline' => 'Painter. Philosopher. Monumentalist. Founder of Universal Realism.',
 			'bio.intro' => 'Alexander Kishchanka is a figure of Renaissance stature in 20th-century art. A man who transformed the soft thread of tapestry into a powerful architectural statement, and city walls into open books of philosophical meaning. His work is a bridge between the archaic and the cosmic, between the pain of the earth and the light of distant galaxies.',
+			'bio.feature.title' => 'LEGACY OF GLOBAL SCALE',
+			'bio.feature.body' => 'This collection brings together works by an outstanding master whose art forever changed the understanding of monumental painting and tapestry. From the grand mosaics that became a visual code of Minsk to the celebrated Tapestry of the Century and the Chernobyl canvas displayed at United Nations Headquarters in New York, every work by Kishchanka is a philosophical treatise on the connection of times, the cosmos, and the indestructible human spirit.',
+			'bio.feature.cta' => 'EXPLORE THE COLLECTION',
+			'bio.feature.worksValue' => '200+',
+			'bio.feature.worksLabel' => 'Works of Art',
+			'bio.feature.panelsValue' => '6+',
+			'bio.feature.panelsLabel' => 'Monumental panels in Minsk',
+			'bio.feature.guinnessValue' => '1',
+			'bio.feature.guinnessLabel' => 'Guinness art record',
 			'bio.universalRealism.title' => 'Founder of Universal Realism',
 			'bio.universalRealism.body' => 'Kishchanka did not merely depict reality — he created a new system of coordinates, which he called Universal Realism. At the heart of his method lies the conviction that the artist is a weaver of time, obligated to connect past and future. His art transcended national boundaries, operating in terms of global human drama. For Kishchanka, man is a demigod whose actions resonate on a universal scale. In his works, shadows become autonomous forms, and colour becomes cosmic music subject to a strict higher order.',
 			'bio.tapestry.title' => 'Tapestry of the Century: The Pinnacle of World Weaving',
@@ -575,7 +603,7 @@ extension on TranslationsEn {
 			'bio.mosaic.panelsMeaning' => 'These works transformed standard housing blocks into an artistic space, where the triumph of the human spirit is celebrated through smalt and stone.',
 			'bio.legacy.title' => 'Legacy',
 			'bio.legacy.body' => 'Alexander Kishchanka left behind not only canvases housed in the Tretyakov Gallery and private collections of world leaders (B. Clinton, F. Mitterrand), but an entire school of Belarusian monumental tapestry. The Borisov Decorative and Applied Arts Combine, where his great tapestries were created, now bears his name.',
-			'bio.quote' => 'Happy is the artist whose brush is illuminated by a ray of sunlight... The Creator must paint Time, dipping his brush in the heavenly azure.',
+			'bio.quote' => 'Art is a divine phenomenon. Only it is given the power to stop time. Art can unravel the mystery of the future and also restore the lost past.',
 			'bio.quoteAuthor' => '— Alexander Kishchanka',
 			_ => null,
 		};

@@ -122,12 +122,13 @@ class _TranslationsBioFr extends TranslationsBioRu {
 	@override String get name => 'Alexandre Mikhaïlovitch Kichtchanka (1933–1997)';
 	@override String get tagline => 'Peintre. Philosophe. Monumentaliste. Fondateur du Réalisme Universel.';
 	@override String get intro => 'Alexandre Kichtchanka est une figure de dimension renaissante dans l\'art du XXe siècle. Un homme qui réussit à transformer le fil souple de la tapisserie en une déclaration architecturale puissante, et les murs des villes en livres ouverts de significations philosophiques. Son oeuvre est un pont entre l\'archaïque et le cosmos, entre la douleur de la terre et la lumière de galaxies lointaines.';
+	@override late final _TranslationsBioFeatureFr feature = _TranslationsBioFeatureFr._(_root);
 	@override late final _TranslationsBioUniversalRealismFr universalRealism = _TranslationsBioUniversalRealismFr._(_root);
 	@override late final _TranslationsBioTapestryFr tapestry = _TranslationsBioTapestryFr._(_root);
 	@override late final _TranslationsBioChernobylFr chernobyl = _TranslationsBioChernobylFr._(_root);
 	@override late final _TranslationsBioMosaicFr mosaic = _TranslationsBioMosaicFr._(_root);
 	@override late final _TranslationsBioLegacyFr legacy = _TranslationsBioLegacyFr._(_root);
-	@override String get quote => 'Heureux l\'artiste dont le pinceau est illuminé par un rayon de soleil... Le Créateur doit peindre le Temps en trempant son pinceau dans l\'azur céleste.';
+	@override String get quote => 'L\'art est un phénomène divin. Lui seul a le pouvoir d\'arrêter le temps. L\'art peut percer le mystère de l\'avenir et restaurer aussi le passé perdu.';
 	@override String get quoteAuthor => '— Alexandre Kichtchanka';
 }
 
@@ -299,6 +300,24 @@ class _TranslationsCatalogPaintingNamesFr extends TranslationsCatalogPaintingNam
 	@override String get idunknown_3 => 'Épines bleues';
 	@override String get idunknown_4 => 'Nina';
 	@override String get idunknown_5 => 'Nina';
+}
+
+// Path: bio.feature
+class _TranslationsBioFeatureFr extends TranslationsBioFeatureRu {
+	_TranslationsBioFeatureFr._(TranslationsFr root) : this._root = root, super.internal(root);
+
+	final TranslationsFr _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'HÉRITAGE D\'ENVERGURE MONDIALE';
+	@override String get body => 'Cette collection réunit les oeuvres d\'un maître exceptionnel dont l\'art a changé à jamais la perception de la peinture monumentale et de la tapisserie. Des mosaïques grandioses devenues le code visuel de Minsk jusqu\'à la célèbre Tapisserie du Siècle et à l\'oeuvre Tchernobyl qui orne le siège des Nations Unies à New York. Chaque oeuvre de Kichtchanka est un traité philosophique sur le lien des époques, le cosmos et l\'esprit humain indestructible.';
+	@override String get cta => 'EXPLORER LA COLLECTION';
+	@override String get worksValue => '200+';
+	@override String get worksLabel => 'Oeuvres d\'art';
+	@override String get panelsValue => '6+';
+	@override String get panelsLabel => 'Panneaux monumentaux à Minsk';
+	@override String get guinnessValue => '1';
+	@override String get guinnessLabel => 'Record Guinness dans l\'art';
 }
 
 // Path: bio.universalRealism
@@ -556,6 +575,15 @@ extension on TranslationsFr {
 			'bio.name' => 'Alexandre Mikhaïlovitch Kichtchanka (1933–1997)',
 			'bio.tagline' => 'Peintre. Philosophe. Monumentaliste. Fondateur du Réalisme Universel.',
 			'bio.intro' => 'Alexandre Kichtchanka est une figure de dimension renaissante dans l\'art du XXe siècle. Un homme qui réussit à transformer le fil souple de la tapisserie en une déclaration architecturale puissante, et les murs des villes en livres ouverts de significations philosophiques. Son oeuvre est un pont entre l\'archaïque et le cosmos, entre la douleur de la terre et la lumière de galaxies lointaines.',
+			'bio.feature.title' => 'HÉRITAGE D\'ENVERGURE MONDIALE',
+			'bio.feature.body' => 'Cette collection réunit les oeuvres d\'un maître exceptionnel dont l\'art a changé à jamais la perception de la peinture monumentale et de la tapisserie. Des mosaïques grandioses devenues le code visuel de Minsk jusqu\'à la célèbre Tapisserie du Siècle et à l\'oeuvre Tchernobyl qui orne le siège des Nations Unies à New York. Chaque oeuvre de Kichtchanka est un traité philosophique sur le lien des époques, le cosmos et l\'esprit humain indestructible.',
+			'bio.feature.cta' => 'EXPLORER LA COLLECTION',
+			'bio.feature.worksValue' => '200+',
+			'bio.feature.worksLabel' => 'Oeuvres d\'art',
+			'bio.feature.panelsValue' => '6+',
+			'bio.feature.panelsLabel' => 'Panneaux monumentaux à Minsk',
+			'bio.feature.guinnessValue' => '1',
+			'bio.feature.guinnessLabel' => 'Record Guinness dans l\'art',
 			'bio.universalRealism.title' => 'Fondateur du Réalisme Universel',
 			'bio.universalRealism.body' => 'Kichtchanka ne se contentait pas de représenter la réalité — il créait un nouveau système de coordonnées, qu\'il appelait le Réalisme Universel. Au coeur de sa méthode réside la conviction que l\'artiste est un tisserand du temps, tenu de relier le passé et l\'avenir. Son art dépassa les frontières nationales, opérant avec les catégories du drame humain mondial. Pour Kichtchanka, l\'homme est un demi-dieu dont les actes résonnent à l\'échelle de l\'Univers. Dans ses oeuvres, les ombres deviennent des formes autonomes, et la couleur une musique cosmique soumise à un ordre supérieur strict.',
 			'bio.tapestry.title' => 'La Tapisserie du Siècle: Le Sommet du Tissage Mondial',
@@ -575,7 +603,7 @@ extension on TranslationsFr {
 			'bio.mosaic.panelsMeaning' => 'Ces oeuvres ont transformé une construction typique en espace artistique, où le triomphe de l\'esprit humain est célébré à travers la smalt et la pierre.',
 			'bio.legacy.title' => 'Héritage',
 			'bio.legacy.body' => 'Alexandre Kichtchanka a laissé derrière lui non seulement des toiles conservées à la Galerie Tretiakov et dans des collections privées de dirigeants mondiaux (B. Clinton, F. Mitterrand), mais aussi toute une école de tapisserie monumentale biélorusse. Le Combinat des arts décoratifs et appliqués de Borisov, où furent créées ses grandes tapisseries, porte aujourd\'hui son nom.',
-			'bio.quote' => 'Heureux l\'artiste dont le pinceau est illuminé par un rayon de soleil... Le Créateur doit peindre le Temps en trempant son pinceau dans l\'azur céleste.',
+			'bio.quote' => 'L\'art est un phénomène divin. Lui seul a le pouvoir d\'arrêter le temps. L\'art peut percer le mystère de l\'avenir et restaurer aussi le passé perdu.',
 			'bio.quoteAuthor' => '— Alexandre Kichtchanka',
 			_ => null,
 		};

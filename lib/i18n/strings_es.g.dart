@@ -122,12 +122,13 @@ class _TranslationsBioEs extends TranslationsBioRu {
 	@override String get name => 'Alexander Mikhailovich Kishchanka (1933–1997)';
 	@override String get tagline => 'Pintor. Filósofo. Monumentalista. Fundador del Realismo Universal.';
 	@override String get intro => 'Alexander Kishchanka es una figura de escala renacentista en el arte del siglo XX. Un hombre que logró transformar el suave hilo del tapiz en una poderosa declaración arquitectónica, y las paredes de las ciudades en libros abiertos de significados filosóficos. Su obra es un puente entre lo arcaico y el cosmos, entre el dolor de la tierra y la luz de galaxias lejanas.';
+	@override late final _TranslationsBioFeatureEs feature = _TranslationsBioFeatureEs._(_root);
 	@override late final _TranslationsBioUniversalRealismEs universalRealism = _TranslationsBioUniversalRealismEs._(_root);
 	@override late final _TranslationsBioTapestryEs tapestry = _TranslationsBioTapestryEs._(_root);
 	@override late final _TranslationsBioChernobylEs chernobyl = _TranslationsBioChernobylEs._(_root);
 	@override late final _TranslationsBioMosaicEs mosaic = _TranslationsBioMosaicEs._(_root);
 	@override late final _TranslationsBioLegacyEs legacy = _TranslationsBioLegacyEs._(_root);
-	@override String get quote => 'Afortunado es el artista al que un rayo de sol ilumina el pincel... El Creador debe pintar el Tiempo, mojando el pincel en el azul celeste.';
+	@override String get quote => 'El arte es un fenómeno divino. Sólo a él le es dado detener el tiempo. El arte puede descifrar el misterio del futuro y también restaurar el pasado perdido.';
 	@override String get quoteAuthor => '— Alexander Kishchanka';
 }
 
@@ -299,6 +300,24 @@ class _TranslationsCatalogPaintingNamesEs extends TranslationsCatalogPaintingNam
 	@override String get idunknown_3 => 'Espinas azules';
 	@override String get idunknown_4 => 'Nina';
 	@override String get idunknown_5 => 'Nina';
+}
+
+// Path: bio.feature
+class _TranslationsBioFeatureEs extends TranslationsBioFeatureRu {
+	_TranslationsBioFeatureEs._(TranslationsEs root) : this._root = root, super.internal(root);
+
+	final TranslationsEs _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'LEGADO DE ESCALA MUNDIAL';
+	@override String get body => 'Esta colección reúne obras de un maestro excepcional cuyo arte cambió para siempre la idea de la pintura monumental y del tapiz. Desde los grandiosos mosaicos que se convirtieron en el código visual de Minsk hasta el célebre Tapiz del Siglo y la obra Chernóbil, que adorna la sede de las Naciones Unidas en Nueva York. Cada obra de Kishchanka es un tratado filosófico sobre la conexión de los tiempos, el cosmos y el espíritu humano indestructible.';
+	@override String get cta => 'EXPLORAR LA COLECCIÓN';
+	@override String get worksValue => '200+';
+	@override String get worksLabel => 'Obras de arte';
+	@override String get panelsValue => '6+';
+	@override String get panelsLabel => 'Paneles monumentales en Minsk';
+	@override String get guinnessValue => '1';
+	@override String get guinnessLabel => 'Récord Guinness en el arte';
 }
 
 // Path: bio.universalRealism
@@ -556,6 +575,15 @@ extension on TranslationsEs {
 			'bio.name' => 'Alexander Mikhailovich Kishchanka (1933–1997)',
 			'bio.tagline' => 'Pintor. Filósofo. Monumentalista. Fundador del Realismo Universal.',
 			'bio.intro' => 'Alexander Kishchanka es una figura de escala renacentista en el arte del siglo XX. Un hombre que logró transformar el suave hilo del tapiz en una poderosa declaración arquitectónica, y las paredes de las ciudades en libros abiertos de significados filosóficos. Su obra es un puente entre lo arcaico y el cosmos, entre el dolor de la tierra y la luz de galaxias lejanas.',
+			'bio.feature.title' => 'LEGADO DE ESCALA MUNDIAL',
+			'bio.feature.body' => 'Esta colección reúne obras de un maestro excepcional cuyo arte cambió para siempre la idea de la pintura monumental y del tapiz. Desde los grandiosos mosaicos que se convirtieron en el código visual de Minsk hasta el célebre Tapiz del Siglo y la obra Chernóbil, que adorna la sede de las Naciones Unidas en Nueva York. Cada obra de Kishchanka es un tratado filosófico sobre la conexión de los tiempos, el cosmos y el espíritu humano indestructible.',
+			'bio.feature.cta' => 'EXPLORAR LA COLECCIÓN',
+			'bio.feature.worksValue' => '200+',
+			'bio.feature.worksLabel' => 'Obras de arte',
+			'bio.feature.panelsValue' => '6+',
+			'bio.feature.panelsLabel' => 'Paneles monumentales en Minsk',
+			'bio.feature.guinnessValue' => '1',
+			'bio.feature.guinnessLabel' => 'Récord Guinness en el arte',
 			'bio.universalRealism.title' => 'Fundador del Realismo Universal',
 			'bio.universalRealism.body' => 'Kishchanka no sólo representaba la realidad — creaba un nuevo sistema de coordenadas, al que llamó Realismo Universal. La base de su método es la convicción de que el artista es un tejedor del tiempo, obligado a conectar el pasado y el futuro. Su arte trascendió las fronteras nacionales, operando en términos del drama humano global. Para Kishchanka, el hombre es un semidiós cuyos actos resuenan a escala universal. En sus obras, las sombras se convierten en formas independientes, y el color en música cósmica sujeta a un estricto orden superior.',
 			'bio.tapestry.title' => 'El Tapiz del Siglo: La Cima del Arte Textil Mundial',
@@ -575,7 +603,7 @@ extension on TranslationsEs {
 			'bio.mosaic.panelsMeaning' => 'Estas obras transformaron la construcción estándar en un espacio artístico, donde a través del esmalte y la piedra se celebra el triunfo del espíritu humano.',
 			'bio.legacy.title' => 'Legado',
 			'bio.legacy.body' => 'Alexander Kishchanka dejó tras de sí no sólo lienzos conservados en la Galería Tretiakov y colecciones privadas de líderes mundiales (B. Clinton, F. Mitterrand), sino toda una escuela del tapiz monumental bielorruso. El Combinado de Artes Decorativas y Aplicadas de Borisov, donde se crearon sus grandes tapices, lleva hoy su nombre.',
-			'bio.quote' => 'Afortunado es el artista al que un rayo de sol ilumina el pincel... El Creador debe pintar el Tiempo, mojando el pincel en el azul celeste.',
+			'bio.quote' => 'El arte es un fenómeno divino. Sólo a él le es dado detener el tiempo. El arte puede descifrar el misterio del futuro y también restaurar el pasado perdido.',
 			'bio.quoteAuthor' => '— Alexander Kishchanka',
 			_ => null,
 		};

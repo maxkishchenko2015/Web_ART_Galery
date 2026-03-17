@@ -195,6 +195,17 @@
     "name": "Alexander Mikhailovich Kishchanka (1933–1997)",
     "tagline": "Pintor. Filósofo. Monumentalista. Fundador del Realismo Universal.",
     "intro": "Alexander Kishchanka es una figura de escala renacentista en el arte del siglo XX. Un hombre que logró transformar el suave hilo del tapiz en una poderosa declaración arquitectónica, y las paredes de las ciudades en libros abiertos de significados filosóficos. Su obra es un puente entre lo arcaico y el cosmos, entre el dolor de la tierra y la luz de galaxias lejanas.",
+    "feature": {
+      "title": "LEGADO DE ESCALA MUNDIAL",
+      "body": "Esta colección reúne obras de un maestro excepcional cuyo arte cambió para siempre la idea de la pintura monumental y del tapiz. Desde los grandiosos mosaicos que se convirtieron en el código visual de Minsk hasta el célebre Tapiz del Siglo y la obra Chernóbil, que adorna la sede de las Naciones Unidas en Nueva York. Cada obra de Kishchanka es un tratado filosófico sobre la conexión de los tiempos, el cosmos y el espíritu humano indestructible.",
+      "cta": "EXPLORAR LA COLECCIÓN",
+      "worksValue": "200+",
+      "worksLabel": "Obras de arte",
+      "panelsValue": "6+",
+      "panelsLabel": "Paneles monumentales en Minsk",
+      "guinnessValue": "1",
+      "guinnessLabel": "Récord Guinness en el arte"
+    },
     "universalRealism": {
       "title": "Fundador del Realismo Universal",
       "body": "Kishchanka no sólo representaba la realidad — creaba un nuevo sistema de coordenadas, al que llamó Realismo Universal. La base de su método es la convicción de que el artista es un tejedor del tiempo, obligado a conectar el pasado y el futuro. Su arte trascendió las fronteras nacionales, operando en términos del drama humano global. Para Kishchanka, el hombre es un semidiós cuyos actos resuenan a escala universal. En sus obras, las sombras se convierten en formas independientes, y el color en música cósmica sujeta a un estricto orden superior."
@@ -224,7 +235,7 @@
       "title": "Legado",
       "body": "Alexander Kishchanka dejó tras de sí no sólo lienzos conservados en la Galería Tretiakov y colecciones privadas de líderes mundiales (B. Clinton, F. Mitterrand), sino toda una escuela del tapiz monumental bielorruso. El Combinado de Artes Decorativas y Aplicadas de Borisov, donde se crearon sus grandes tapices, lleva hoy su nombre."
     },
-    "quote": "Afortunado es el artista al que un rayo de sol ilumina el pincel... El Creador debe pintar el Tiempo, mojando el pincel en el azul celeste.",
+    "quote": "El arte es un fenómeno divino. Sólo a él le es dado detener el tiempo. El arte puede descifrar el misterio del futuro y también restaurar el pasado perdido.",
     "quoteAuthor": "— Alexander Kishchanka"
   }
 }

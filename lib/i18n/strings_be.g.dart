@@ -122,12 +122,13 @@ class _TranslationsBioBe extends TranslationsBioRu {
 	@override String get name => 'Аляксандр Міхайлавіч Кішчанка (1933–1997)';
 	@override String get tagline => 'Жывапісец. Філосаф. Манументаліст. Заснавальнік «Сусветнага рэалізму».';
 	@override String get intro => 'Аляксандр Кішчанка — постаць рэнесансавага маштабу ў мастацтве XX стагоддзя. Чалавек, якому ўдалося ператварыць мяккую нітку гобелена ў магутнае архітэктурнае выказванне, а сцены гарадоў — у адкрытыя кнігі філасофскіх сэнсаў. Яго творчасць — гэта мост паміж архаікай і космасам, паміж болем зямлі і святлом далёкіх галактык.';
+	@override late final _TranslationsBioFeatureBe feature = _TranslationsBioFeatureBe._(_root);
 	@override late final _TranslationsBioUniversalRealismBe universalRealism = _TranslationsBioUniversalRealismBe._(_root);
 	@override late final _TranslationsBioTapestryBe tapestry = _TranslationsBioTapestryBe._(_root);
 	@override late final _TranslationsBioChernobylBe chernobyl = _TranslationsBioChernobylBe._(_root);
 	@override late final _TranslationsBioMosaicBe mosaic = _TranslationsBioMosaicBe._(_root);
 	@override late final _TranslationsBioLegacyBe legacy = _TranslationsBioLegacyBe._(_root);
-	@override String get quote => 'Шчаслівы той мастак, якому промень сонца асвятліў пэндзлік... Творца павінен пісаць Час, акунаючы пэндзаль у нябесную лазур.';
+	@override String get quote => 'Мастацтва — гэта боская з\'ява. Толькі яно можа спыніць час. Мастацтва здольнае разгадаць таямніцу будучыні, а таксама аднавіць страчанае мінулае.';
 	@override String get quoteAuthor => '— Аляксандр Кішчанка';
 }
 
@@ -299,6 +300,24 @@ class _TranslationsCatalogPaintingNamesBe extends TranslationsCatalogPaintingNam
 	@override String get idunknown_3 => 'Блакітныя калючкі';
 	@override String get idunknown_4 => 'Ніна';
 	@override String get idunknown_5 => 'Ніна';
+}
+
+// Path: bio.feature
+class _TranslationsBioFeatureBe extends TranslationsBioFeatureRu {
+	_TranslationsBioFeatureBe._(TranslationsBe root) : this._root = root, super.internal(root);
+
+	final TranslationsBe _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'СПАДЧЫНА СУСВЕТНАГА МАШТАБУ';
+	@override String get body => 'У гэтай калекцыі сабраны творы выбітнага майстра, чыё мастацтва назаўсёды змяніла ўяўленне пра манументальны жывапіс і ткацтва. Ад грандыёзных мазаік, якія сталі візуальным кодам Мінска, да знакамітага «Гобелена стагоддзя» і палатна «Чарнобыль», што ўпрыгожвае штаб-кватэру ААН у Нью-Ёрку. Кожны твор Кішчанкі — гэта філасофскі трактат пра сувязь часоў, космас і нязломны чалавечы дух.';
+	@override String get cta => 'ДАСЛЕДАВАЦЬ КАЛЕКЦЫЮ';
+	@override String get worksValue => '200+';
+	@override String get worksLabel => 'Твораў мастацтва';
+	@override String get panelsValue => '6+';
+	@override String get panelsLabel => 'Манументальныя пано ў Мінску';
+	@override String get guinnessValue => '1';
+	@override String get guinnessLabel => 'Рэкорд Гінеса ў мастацтве';
 }
 
 // Path: bio.universalRealism
@@ -556,6 +575,15 @@ extension on TranslationsBe {
 			'bio.name' => 'Аляксандр Міхайлавіч Кішчанка (1933–1997)',
 			'bio.tagline' => 'Жывапісец. Філосаф. Манументаліст. Заснавальнік «Сусветнага рэалізму».',
 			'bio.intro' => 'Аляксандр Кішчанка — постаць рэнесансавага маштабу ў мастацтве XX стагоддзя. Чалавек, якому ўдалося ператварыць мяккую нітку гобелена ў магутнае архітэктурнае выказванне, а сцены гарадоў — у адкрытыя кнігі філасофскіх сэнсаў. Яго творчасць — гэта мост паміж архаікай і космасам, паміж болем зямлі і святлом далёкіх галактык.',
+			'bio.feature.title' => 'СПАДЧЫНА СУСВЕТНАГА МАШТАБУ',
+			'bio.feature.body' => 'У гэтай калекцыі сабраны творы выбітнага майстра, чыё мастацтва назаўсёды змяніла ўяўленне пра манументальны жывапіс і ткацтва. Ад грандыёзных мазаік, якія сталі візуальным кодам Мінска, да знакамітага «Гобелена стагоддзя» і палатна «Чарнобыль», што ўпрыгожвае штаб-кватэру ААН у Нью-Ёрку. Кожны твор Кішчанкі — гэта філасофскі трактат пра сувязь часоў, космас і нязломны чалавечы дух.',
+			'bio.feature.cta' => 'ДАСЛЕДАВАЦЬ КАЛЕКЦЫЮ',
+			'bio.feature.worksValue' => '200+',
+			'bio.feature.worksLabel' => 'Твораў мастацтва',
+			'bio.feature.panelsValue' => '6+',
+			'bio.feature.panelsLabel' => 'Манументальныя пано ў Мінску',
+			'bio.feature.guinnessValue' => '1',
+			'bio.feature.guinnessLabel' => 'Рэкорд Гінеса ў мастацтве',
 			'bio.universalRealism.title' => 'Заснавальнік «Сусветнага рэалізму»',
 			'bio.universalRealism.body' => 'Кішчанка не проста адлюстроўваў рэчаіснасць — ён ствараў новую сістэму каардынат, якую назваў Сусветным рэалізмам. Аснову яго метаду складае перакананне, што мастак — гэта «ткач часу», абавязаны злучаць мінулае і будучыню. Яго мастацтва выйшла за межы нацыянальных граніц, аперыруючы катэгорыямі глабальнай чалавечай драмы. Для Кішчанкі чалавек — гэта паўбог, чые ўчынкі рэзаніруюць у маштабах Сусвету. У яго работах цені становяцца самастойнымі формамі, а колер — «касмічнай музыкай», падначаленай строгаму вышэйшаму парадку.',
 			'bio.tapestry.title' => '«Гобелен стагоддзя»: Вяршыня сусветнага ткацтва',
@@ -575,7 +603,7 @@ extension on TranslationsBe {
 			'bio.mosaic.panelsMeaning' => 'Гэтыя работы ператварылі тыпавую забудову ў мастацкую прастору, дзе праз смальту і камень апяваецца трыумф чалавечага духу.',
 			'bio.legacy.title' => 'Спадчына',
 			'bio.legacy.body' => 'Аляксандр Кішчанка пакінуў пасля сябе не толькі палотны, якія захоўваюцца ў Траццякоўскай галерэі і прыватных калекцыях сусветных лідараў (Б. Клінтана, Ф. Мітэрана), але і цэлую школу беларускага манументальнага гобелена. Яго імя носіць Барысаўскі камбінат дэкаратыўна-прыкладнога мастацтва, дзе стваралісяя яго вялікія шпалеры.',
-			'bio.quote' => 'Шчаслівы той мастак, якому промень сонца асвятліў пэндзлік... Творца павінен пісаць Час, акунаючы пэндзаль у нябесную лазур.',
+			'bio.quote' => 'Мастацтва — гэта боская з\'ява. Толькі яно можа спыніць час. Мастацтва здольнае разгадаць таямніцу будучыні, а таксама аднавіць страчанае мінулае.',
 			'bio.quoteAuthor' => '— Аляксандр Кішчанка',
 			_ => null,
 		};

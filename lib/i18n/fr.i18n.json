@@ -195,6 +195,17 @@
     "name": "Alexandre Mikhaïlovitch Kichtchanka (1933–1997)",
     "tagline": "Peintre. Philosophe. Monumentaliste. Fondateur du Réalisme Universel.",
     "intro": "Alexandre Kichtchanka est une figure de dimension renaissante dans l'art du XXe siècle. Un homme qui réussit à transformer le fil souple de la tapisserie en une déclaration architecturale puissante, et les murs des villes en livres ouverts de significations philosophiques. Son oeuvre est un pont entre l'archaïque et le cosmos, entre la douleur de la terre et la lumière de galaxies lointaines.",
+    "feature": {
+      "title": "HÉRITAGE D'ENVERGURE MONDIALE",
+      "body": "Cette collection réunit les oeuvres d'un maître exceptionnel dont l'art a changé à jamais la perception de la peinture monumentale et de la tapisserie. Des mosaïques grandioses devenues le code visuel de Minsk jusqu'à la célèbre Tapisserie du Siècle et à l'oeuvre Tchernobyl qui orne le siège des Nations Unies à New York. Chaque oeuvre de Kichtchanka est un traité philosophique sur le lien des époques, le cosmos et l'esprit humain indestructible.",
+      "cta": "EXPLORER LA COLLECTION",
+      "worksValue": "200+",
+      "worksLabel": "Oeuvres d'art",
+      "panelsValue": "6+",
+      "panelsLabel": "Panneaux monumentaux à Minsk",
+      "guinnessValue": "1",
+      "guinnessLabel": "Record Guinness dans l'art"
+    },
     "universalRealism": {
       "title": "Fondateur du Réalisme Universel",
       "body": "Kichtchanka ne se contentait pas de représenter la réalité — il créait un nouveau système de coordonnées, qu'il appelait le Réalisme Universel. Au coeur de sa méthode réside la conviction que l'artiste est un tisserand du temps, tenu de relier le passé et l'avenir. Son art dépassa les frontières nationales, opérant avec les catégories du drame humain mondial. Pour Kichtchanka, l'homme est un demi-dieu dont les actes résonnent à l'échelle de l'Univers. Dans ses oeuvres, les ombres deviennent des formes autonomes, et la couleur une musique cosmique soumise à un ordre supérieur strict."
@@ -224,7 +235,7 @@
       "title": "Héritage",
       "body": "Alexandre Kichtchanka a laissé derrière lui non seulement des toiles conservées à la Galerie Tretiakov et dans des collections privées de dirigeants mondiaux (B. Clinton, F. Mitterrand), mais aussi toute une école de tapisserie monumentale biélorusse. Le Combinat des arts décoratifs et appliqués de Borisov, où furent créées ses grandes tapisseries, porte aujourd'hui son nom."
     },
-    "quote": "Heureux l'artiste dont le pinceau est illuminé par un rayon de soleil... Le Créateur doit peindre le Temps en trempant son pinceau dans l'azur céleste.",
+    "quote": "L'art est un phénomène divin. Lui seul a le pouvoir d'arrêter le temps. L'art peut percer le mystère de l'avenir et restaurer aussi le passé perdu.",
     "quoteAuthor": "— Alexandre Kichtchanka"
   }
 }

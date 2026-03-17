@@ -28,3 +28,8 @@ extension BuildContextShellTextX on BuildContext {
   /// Inactive / default text on a dark shell surface — [AppColors.onDarkBody].
   ShellTextTheme get textOnDarkDim => const ShellTextTheme.dim();
 }
+
+extension BuildContextContentTextX on BuildContext {
+  /// Text styles for light-surface content pages (features, biography, stats).
+  ContentTextTheme get textContent => const ContentTextTheme();
+}

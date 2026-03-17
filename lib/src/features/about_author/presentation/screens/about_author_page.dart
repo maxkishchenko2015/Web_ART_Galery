@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:web_art_galery/i18n/strings.g.dart';
+import 'package:web_art_galery/src/shared/config/app_colors.dart';
+import 'package:web_art_galery/src/shared/config/app_context_extensions.dart';
 import 'package:web_art_galery/src/shared/config/app_theme.dart';
 import 'package:web_art_galery/src/shared/config/ksize.dart';
 
@@ -104,43 +105,14 @@ class _HeroText extends StatelessWidget {
       children: [
         Text(
           context.t.navigation.aboutAuthor.toUpperCase(),
-          style: GoogleFonts.roboto(
-            fontSize: 11,
-            fontWeight: FontWeight.w400,
-            letterSpacing: 3,
-            color: Colors.white54,
-          ),
+          style: context.textOnDark.heroSectionLabel,
         ),
         const SizedBox(height: KSize.margin4x),
-        Text(
-          context.t.app.title,
-          style: GoogleFonts.roboto(
-            fontSize: headlineSize,
-            fontWeight: FontWeight.w300,
-            height: 1.15,
-            color: Colors.white,
-          ),
-        ),
+        Text(context.t.app.title, style: context.textOnDark.heroHeadline(headlineSize)),
         const SizedBox(height: KSize.margin3x),
-        Text(
-          context.t.bio.heroTitle,
-          style: GoogleFonts.roboto(
-            fontSize: 16,
-            fontWeight: FontWeight.w400,
-            letterSpacing: 1.5,
-            color: Colors.white70,
-          ),
-        ),
+        Text(context.t.bio.heroTitle, style: context.textOnDark.heroSubtitle),
         const SizedBox(height: KSize.margin4x),
-        Text(
-          context.t.bio.heroSubtitle,
-          style: GoogleFonts.roboto(
-            fontSize: 15,
-            fontWeight: FontWeight.w300,
-            height: 1.7,
-            color: Colors.white60,
-          ),
-        ),
+        Text(context.t.bio.heroSubtitle, style: context.textOnDark.heroBody),
         const SizedBox(height: KSize.margin9x),
         Wrap(
           spacing: KSize.margin4x,
@@ -175,19 +147,11 @@ class _HeroButton extends StatelessWidget {
         child: Container(
           padding: const EdgeInsets.symmetric(horizontal: KSize.margin8x, vertical: KSize.margin4x),
           decoration: BoxDecoration(
-            color: filled ? Colors.white : Colors.transparent,
-            border: Border.all(color: Colors.white70),
+            color: filled ? AppColors.onDark : Colors.transparent,
+            border: Border.all(color: AppColors.onDarkBody),
             borderRadius: BorderRadius.circular(KSize.radiusOfRoundButton),
           ),
-          child: Text(
-            label,
-            style: GoogleFonts.roboto(
-              fontSize: 12,
-              fontWeight: FontWeight.w500,
-              letterSpacing: 1.5,
-              color: filled ? AppTheme.forestGreen : Colors.white,
-            ),
-          ),
+          child: Text(label, style: context.textOnDark.heroButtonLabel(filled)),
         ),
       ),
     );
@@ -257,30 +221,14 @@ class _FeatureSection extends StatelessWidget {
 class _FeatureDescription extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final feature = context.t.bio.feature;
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          'A Legacy in\nUkrainian Art',
-          style: GoogleFonts.roboto(
-            fontSize: 34,
-            fontWeight: FontWeight.w300,
-            height: 1.2,
-            color: AppTheme.darkOlive,
-          ),
-        ),
+        Text(feature.title, style: context.textContent.featureHeadline),
         const SizedBox(height: KSize.margin6x),
-        Text(
-          'The gallery preserves and presents the works of a distinguished Ukrainian artist, '
-          'spanning decades of creative achievement. Each painting tells a story of life, '
-          'culture, and the enduring spirit of artistic expression.',
-          style: GoogleFonts.roboto(
-            fontSize: 16,
-            fontWeight: FontWeight.w300,
-            height: 1.75,
-            color: const Color(0xFF5A5A5A),
-          ),
-        ),
+        Text(feature.body, style: context.textContent.featureBody),
         const SizedBox(height: KSize.margin9x),
         MouseRegion(
           cursor: SystemMouseCursors.click,
@@ -289,15 +237,7 @@ class _FeatureDescription extends StatelessWidget {
             child: Row(
               mainAxisSize: MainAxisSize.min,
               children: [
-                Text(
-                  'EXPLORE THE COLLECTION',
-                  style: GoogleFonts.roboto(
-                    fontSize: 11,
-                    fontWeight: FontWeight.w500,
-                    letterSpacing: 2,
-                    color: AppTheme.forestGreen,
-                  ),
-                ),
+                Text(feature.cta, style: context.textContent.featureCta),
                 const SizedBox(width: KSize.margin3x),
                 const Icon(Icons.arrow_forward, size: 14, color: AppTheme.forestGreen),
               ],
@@ -312,17 +252,19 @@ class _FeatureDescription extends StatelessWidget {
 class _FeatureStats extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final feature = context.t.bio.feature;
+
     return Column(
       children: [
-        _StatItem(value: '100+', label: 'Works of Art'),
+        _StatItem(value: feature.worksValue, label: feature.worksLabel),
         const SizedBox(height: KSize.margin8x),
         const Divider(height: 1),
         const SizedBox(height: KSize.margin8x),
-        _StatItem(value: '60+', label: 'Years of Creativity'),
+        _StatItem(value: feature.panelsValue, label: feature.panelsLabel),
         const SizedBox(height: KSize.margin8x),
         const Divider(height: 1),
         const SizedBox(height: KSize.margin8x),
-        _StatItem(value: '5', label: 'Decades of Heritage'),
+        _StatItem(value: feature.guinnessValue, label: feature.guinnessLabel),
       ],
     );
   }
@@ -338,23 +280,9 @@ class _StatItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        Text(
-          value,
-          style: GoogleFonts.roboto(
-            fontSize: 36,
-            fontWeight: FontWeight.w300,
-            color: AppTheme.forestGreen,
-          ),
-        ),
+        Text(value, style: context.textContent.statValue),
         const SizedBox(width: KSize.margin4x),
-        Text(
-          label,
-          style: GoogleFonts.roboto(
-            fontSize: 14,
-            fontWeight: FontWeight.w400,
-            color: const Color(0xFF7A7E78),
-          ),
-        ),
+        Text(label, style: context.textContent.statLabel),
       ],
     );
   }
@@ -373,40 +301,16 @@ class _BiographySection extends StatelessWidget {
     final bio = context.t.bio;
 
     return Container(
-      color: const Color(0xFFF8F6F2),
+      color: AppColors.bioBg,
       padding: EdgeInsets.symmetric(horizontal: hPad, vertical: isCompact ? 48 : 80),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            bio.name,
-            style: GoogleFonts.roboto(
-              fontSize: isCompact ? 24.0 : 34.0,
-              fontWeight: FontWeight.w400,
-              height: 1.2,
-              color: AppTheme.darkOlive,
-            ),
-          ),
+          Text(bio.name, style: context.textContent.bioName(isCompact ? 24.0 : 34.0)),
           const SizedBox(height: KSize.margin3x),
-          Text(
-            bio.tagline,
-            style: GoogleFonts.roboto(
-              fontSize: 14,
-              fontWeight: FontWeight.w400,
-              letterSpacing: 0.3,
-              color: AppTheme.forestGreen,
-            ),
-          ),
+          Text(bio.tagline, style: context.textContent.bioTagline),
           const SizedBox(height: KSize.margin8x),
-          Text(
-            bio.intro,
-            style: GoogleFonts.roboto(
-              fontSize: 16,
-              fontWeight: FontWeight.w300,
-              height: 1.75,
-              color: const Color(0xFF4A4A4A),
-            ),
-          ),
+          Text(bio.intro, style: context.textContent.bioIntro),
           const SizedBox(height: KSize.margin12x),
           _BioSubSection(title: bio.universalRealism.title, body: bio.universalRealism.body),
           const SizedBox(height: KSize.margin12x),
@@ -424,15 +328,7 @@ class _BiographySection extends StatelessWidget {
           const SizedBox(height: KSize.margin4x),
           _BioHighlightRow(label: bio.mosaic.panelsLabel, text: bio.mosaic.panels),
           const SizedBox(height: KSize.margin4x),
-          Text(
-            bio.mosaic.panelsMeaning,
-            style: GoogleFonts.roboto(
-              fontSize: 14,
-              fontWeight: FontWeight.w300,
-              height: 1.75,
-              color: const Color(0xFF4A4A4A),
-            ),
-          ),
+          Text(bio.mosaic.panelsMeaning, style: context.textContent.bioDetail),
           const SizedBox(height: KSize.margin12x),
           _BioSubSection(title: bio.legacy.title, body: bio.legacy.body),
           const SizedBox(height: KSize.margin12x),
@@ -456,25 +352,9 @@ class _BioSubSection extends StatelessWidget {
       children: [
         Container(width: 40, height: 2, color: AppTheme.forestGreen),
         const SizedBox(height: KSize.margin4x),
-        Text(
-          title,
-          style: GoogleFonts.roboto(
-            fontSize: 18,
-            fontWeight: FontWeight.w500,
-            height: 1.3,
-            color: AppTheme.darkOlive,
-          ),
-        ),
+        Text(title, style: context.textContent.bioSectionTitle),
         const SizedBox(height: KSize.margin4x),
-        Text(
-          body,
-          style: GoogleFonts.roboto(
-            fontSize: 15,
-            fontWeight: FontWeight.w300,
-            height: 1.8,
-            color: const Color(0xFF4A4A4A),
-          ),
-        ),
+        Text(body, style: context.textContent.bioBody),
       ],
     );
   }
@@ -503,23 +383,8 @@ class _BioHighlightRow extends StatelessWidget {
             child: RichText(
               text: TextSpan(
                 children: [
-                  TextSpan(
-                    text: '$label: ',
-                    style: GoogleFonts.roboto(
-                      fontSize: 14,
-                      fontWeight: FontWeight.w500,
-                      color: AppTheme.darkOlive,
-                    ),
-                  ),
-                  TextSpan(
-                    text: text,
-                    style: GoogleFonts.roboto(
-                      fontSize: 14,
-                      fontWeight: FontWeight.w300,
-                      height: 1.7,
-                      color: const Color(0xFF4A4A4A),
-                    ),
-                  ),
+                  TextSpan(text: '$label: ', style: context.textContent.bioHighlightLabel),
+                  TextSpan(text: text, style: context.textContent.bioHighlightText),
                 ],
               ),
             ),
@@ -541,7 +406,7 @@ class _BioQuote extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(KSize.margin8x),
       decoration: const BoxDecoration(
-        color: Color(0xFFEDF3EF),
+        color: AppColors.quoteBg,
         border: Border(left: BorderSide(color: AppTheme.forestGreen, width: 3)),
         borderRadius: BorderRadius.only(
           topRight: Radius.circular(8),
@@ -551,26 +416,9 @@ class _BioQuote extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            text,
-            style: GoogleFonts.roboto(
-              fontSize: 16,
-              fontWeight: FontWeight.w300,
-              fontStyle: FontStyle.italic,
-              height: 1.75,
-              color: AppTheme.darkOlive,
-            ),
-          ),
+          Text(text, style: context.textContent.bioQuote),
           const SizedBox(height: KSize.margin4x),
-          Text(
-            author,
-            style: GoogleFonts.roboto(
-              fontSize: 13,
-              fontWeight: FontWeight.w400,
-              letterSpacing: 0.5,
-              color: AppTheme.forestGreen,
-            ),
-          ),
+          Text(author, style: context.textContent.bioQuoteAuthor),
         ],
       ),
     );

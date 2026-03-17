@@ -122,12 +122,13 @@ class _TranslationsBioDe extends TranslationsBioRu {
 	@override String get name => 'Alexander Michailowitsch Kischanka (1933–1997)';
 	@override String get tagline => 'Maler. Philosoph. Monumentalist. Begründer des Universellen Realismus.';
 	@override String get intro => 'Alexander Kischanka ist eine Persönlichkeit von Renaissance-Format in der Kunst des 20. Jahrhunderts. Ein Mann, dem es gelang, den weichen Faden des Wandteppichs in eine gewaltige architektonische Aussage zu verwandeln und Stadtmauern in offene Bücher philosophischer Bedeutung. Sein Werk ist eine Brücke zwischen Archaik und Kosmos, zwischen dem Schmerz der Erde und dem Licht ferner Galaxien.';
+	@override late final _TranslationsBioFeatureDe feature = _TranslationsBioFeatureDe._(_root);
 	@override late final _TranslationsBioUniversalRealismDe universalRealism = _TranslationsBioUniversalRealismDe._(_root);
 	@override late final _TranslationsBioTapestryDe tapestry = _TranslationsBioTapestryDe._(_root);
 	@override late final _TranslationsBioChernobylDe chernobyl = _TranslationsBioChernobylDe._(_root);
 	@override late final _TranslationsBioMosaicDe mosaic = _TranslationsBioMosaicDe._(_root);
 	@override late final _TranslationsBioLegacyDe legacy = _TranslationsBioLegacyDe._(_root);
-	@override String get quote => 'Glücklich der Künstler, dessen Pinsel ein Sonnenstrahl erleuchtet... Der Schöpfer muss die Zeit malen und dabei seinen Pinsel in das himmlische Azurblau tauchen.';
+	@override String get quote => 'Die Kunst ist ein göttliches Phänomen. Nur ihr ist es gegeben, die Zeit anzuhalten. Kunst kann das Geheimnis der Zukunft entschlüsseln und auch die verlorene Vergangenheit wiederherstellen.';
 	@override String get quoteAuthor => '— Alexander Kischanka';
 }
 
@@ -299,6 +300,24 @@ class _TranslationsCatalogPaintingNamesDe extends TranslationsCatalogPaintingNam
 	@override String get idunknown_3 => 'Blaue Dornen';
 	@override String get idunknown_4 => 'Nina';
 	@override String get idunknown_5 => 'Nina';
+}
+
+// Path: bio.feature
+class _TranslationsBioFeatureDe extends TranslationsBioFeatureRu {
+	_TranslationsBioFeatureDe._(TranslationsDe root) : this._root = root, super.internal(root);
+
+	final TranslationsDe _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'ERBE VON WELTRANG';
+	@override String get body => 'Diese Sammlung vereint Werke eines herausragenden Meisters, dessen Kunst das Verständnis von monumentaler Malerei und Tapisserie für immer verändert hat. Von den monumentalen Mosaiken, die zum visuellen Code von Minsk wurden, bis zum berühmten Wandteppich des Jahrhunderts und dem Werk Tschernobyl, das den Hauptsitz der Vereinten Nationen in New York schmückt. Jedes Werk Kischankas ist eine philosophische Abhandlung über die Verbindung der Zeiten, den Kosmos und den unzerstörbaren menschlichen Geist.';
+	@override String get cta => 'DIE SAMMLUNG ERKUNDEN';
+	@override String get worksValue => '200+';
+	@override String get worksLabel => 'Kunstwerke';
+	@override String get panelsValue => '6+';
+	@override String get panelsLabel => 'Monumentale Tafeln in Minsk';
+	@override String get guinnessValue => '1';
+	@override String get guinnessLabel => 'Guinness-Rekord der Kunst';
 }
 
 // Path: bio.universalRealism
@@ -556,6 +575,15 @@ extension on TranslationsDe {
 			'bio.name' => 'Alexander Michailowitsch Kischanka (1933–1997)',
 			'bio.tagline' => 'Maler. Philosoph. Monumentalist. Begründer des Universellen Realismus.',
 			'bio.intro' => 'Alexander Kischanka ist eine Persönlichkeit von Renaissance-Format in der Kunst des 20. Jahrhunderts. Ein Mann, dem es gelang, den weichen Faden des Wandteppichs in eine gewaltige architektonische Aussage zu verwandeln und Stadtmauern in offene Bücher philosophischer Bedeutung. Sein Werk ist eine Brücke zwischen Archaik und Kosmos, zwischen dem Schmerz der Erde und dem Licht ferner Galaxien.',
+			'bio.feature.title' => 'ERBE VON WELTRANG',
+			'bio.feature.body' => 'Diese Sammlung vereint Werke eines herausragenden Meisters, dessen Kunst das Verständnis von monumentaler Malerei und Tapisserie für immer verändert hat. Von den monumentalen Mosaiken, die zum visuellen Code von Minsk wurden, bis zum berühmten Wandteppich des Jahrhunderts und dem Werk Tschernobyl, das den Hauptsitz der Vereinten Nationen in New York schmückt. Jedes Werk Kischankas ist eine philosophische Abhandlung über die Verbindung der Zeiten, den Kosmos und den unzerstörbaren menschlichen Geist.',
+			'bio.feature.cta' => 'DIE SAMMLUNG ERKUNDEN',
+			'bio.feature.worksValue' => '200+',
+			'bio.feature.worksLabel' => 'Kunstwerke',
+			'bio.feature.panelsValue' => '6+',
+			'bio.feature.panelsLabel' => 'Monumentale Tafeln in Minsk',
+			'bio.feature.guinnessValue' => '1',
+			'bio.feature.guinnessLabel' => 'Guinness-Rekord der Kunst',
 			'bio.universalRealism.title' => 'Begründer des Universellen Realismus',
 			'bio.universalRealism.body' => 'Kischanka bildete die Wirklichkeit nicht nur ab — er schuf ein neues Koordinatensystem, das er Universellen Realismus nannte. Sein Ansatz beruht auf der Überzeugung, dass der Künstler ein Weben der Zeit ist, der Vergangenheit und Zukunft verbinden muss. Seine Kunst überschritt nationale Grenzen und operierte mit den Kategorien der menschlichen Weltdrama. Für Kischanka ist der Mensch ein Halbgott, dessen Handlungen im Maßstab des Universums widerhallen. In seinen Werken werden Schatten zu eigenständigen Formen, und die Farbe wird zur kosmischen Musik, die einer strengen höheren Ordnung unterliegt.',
 			'bio.tapestry.title' => 'Wandteppich des Jahrhunderts: Gipfel der Weltweberei',
@@ -575,7 +603,7 @@ extension on TranslationsDe {
 			'bio.mosaic.panelsMeaning' => 'Diese Werke verwandelten die standardisierte Bebauung in einen Kunstraum, in dem durch Smalt und Stein der Triumph des menschlichen Geistes besungen wird.',
 			'bio.legacy.title' => 'Erbe',
 			'bio.legacy.body' => 'Alexander Kischanka hinterließ nicht nur Leinwände, die sich in der Tretjakow-Galerie und Privatsammlungen von Weltführern (B. Clinton, F. Mitterrand) befinden, sondern auch eine ganze Schule des belarussischen Monumentalwandteppichs. Das Borissower Kombinat für dekorativ-angewandte Kunst, wo seine großen Wandteppiche entstanden, trägt heute seinen Namen.',
-			'bio.quote' => 'Glücklich der Künstler, dessen Pinsel ein Sonnenstrahl erleuchtet... Der Schöpfer muss die Zeit malen und dabei seinen Pinsel in das himmlische Azurblau tauchen.',
+			'bio.quote' => 'Die Kunst ist ein göttliches Phänomen. Nur ihr ist es gegeben, die Zeit anzuhalten. Kunst kann das Geheimnis der Zukunft entschlüsseln und auch die verlorene Vergangenheit wiederherstellen.',
 			'bio.quoteAuthor' => '— Alexander Kischanka',
 			_ => null,
 		};
