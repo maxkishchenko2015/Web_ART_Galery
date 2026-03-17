@@ -50,6 +50,7 @@ class LanguageSwitcher extends StatelessWidget {
       AppLocale.es => context.t.language.spanish,
       AppLocale.fr => context.t.language.french,
       AppLocale.de => context.t.language.german,
+      AppLocale.be => context.t.language.belarusian,
     };
   }
 }

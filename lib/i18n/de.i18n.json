@@ -1,6 +1,6 @@
 {
   "app": {
-    "title": "Kunstgalerie"
+    "title": "KISHCHANKA.ART"
   },
   "navigation": {
     "aboutAuthor": "Uber den Autor",
@@ -176,7 +176,9 @@
     }
   },
   "common": {
-    "pageNotFound": "Seite nicht gefunden"
+    "pageNotFound": "Seite nicht gefunden",
+    "viewCatalog": "KATALOG ANSEHEN",
+    "learnMore": "MEHR ERFAHREN"
   },
   "language": {
     "label": "Sprache",
@@ -184,6 +186,45 @@
     "english": "Englisch",
     "spanish": "Spanisch",
     "french": "Franzosisch",
-    "german": "Deutsch"
+    "german": "Deutsch",
+    "belarusian": "Belarussisch"
+  },
+  "bio": {
+    "heroTitle": "KUNST VON KOSMISCHEM AUSMAS",
+    "heroSubtitle": "Kunst, die Grenzen zwischen dem Irdischen und dem Ewigen verwischt. Volkskünstler der Republik Belarus, Schöpfer des weltgrößten Wandteppichs «Der Wandteppich des Jahrhunderts».",
+    "name": "Alexander Michailowitsch Kischanka (1933–1997)",
+    "tagline": "Maler. Philosoph. Monumentalist. Begründer des Universellen Realismus.",
+    "intro": "Alexander Kischanka ist eine Persönlichkeit von Renaissance-Format in der Kunst des 20. Jahrhunderts. Ein Mann, dem es gelang, den weichen Faden des Wandteppichs in eine gewaltige architektonische Aussage zu verwandeln und Stadtmauern in offene Bücher philosophischer Bedeutung. Sein Werk ist eine Brücke zwischen Archaik und Kosmos, zwischen dem Schmerz der Erde und dem Licht ferner Galaxien.",
+    "universalRealism": {
+      "title": "Begründer des Universellen Realismus",
+      "body": "Kischanka bildete die Wirklichkeit nicht nur ab — er schuf ein neues Koordinatensystem, das er Universellen Realismus nannte. Sein Ansatz beruht auf der Überzeugung, dass der Künstler ein Weben der Zeit ist, der Vergangenheit und Zukunft verbinden muss. Seine Kunst überschritt nationale Grenzen und operierte mit den Kategorien der menschlichen Weltdrama. Für Kischanka ist der Mensch ein Halbgott, dessen Handlungen im Maßstab des Universums widerhallen. In seinen Werken werden Schatten zu eigenständigen Formen, und die Farbe wird zur kosmischen Musik, die einer strengen höheren Ordnung unterliegt."
+    },
+    "tapestry": {
+      "title": "Wandteppich des Jahrhunderts: Gipfel der Weltweberei",
+      "intro": "Alexander Kischanka ist in die Geschichte eingegangen als Autor des größten Wandteppichs der Welt, der offiziell ins Guinness-Buch der Rekorde aufgenommen wurde.",
+      "scaleLabel": "Ausmaß",
+      "scale": "Ein Werk mit den Maßen 19 × 14 Meter (ca. 300 qm), mit einem Gewicht von über einer Tonne.",
+      "conceptLabel": "Konzept",
+      "concept": "Ein grandioses Gewebe der Geschichte, in dem die Schicksale von 80 bedeutenden Persönlichkeiten verflochten sind — von Christus und der Madonna bis Churchill, Castro und Gorbatschow.",
+      "meaningLabel": "Bedeutung",
+      "meaning": "Dieses Werk ist ein Tempel, in dessen Mitte der ewige Konflikt zwischen Schöpfung und Zerstörung entfaltet wird. Es wurde als nationales Kulturerbe Belarus anerkannt."
+    },
+    "chernobyl": {
+      "title": "Tschernobyl: Die Stimme einer Nation in den Hallen der UN",
+      "body": "Eines der emotional stärksten Werke des Meisters war der Wandteppich Tschernobyl (1991). Als Geschenk an die Vereinten Nationen übergeben, schmückt er noch heute den UN-Hauptsitz in New York. Als die Welt dieses Werk sah, verglich UN-Generalsekretär Javier Pérez de Cuéllar es mit Picassos Guernica. Für Kischanka war dieser Wandteppich nicht nur ein Denkmal der Tragödie, sondern die Augen Belarus — eine planetare Warnung über die Zerbrechlichkeit des Lebens, gewoben von den Händen großer belarussischer Meisterinnen."
+    },
+    "mosaic": {
+      "title": "Das Gesicht der Stadt: Die Mosaik-Tafeln Wostok",
+      "intro": "Kischanka prägte den visuellen Code des modernen Minsk. Seine berühmten Mosaike an Wohnhochhäusern im Stadtteil Wostok-1 wurden zum Wahrzeichen der Hauptstadt.",
+      "panelsLabel": "Vier monumentale Werke",
+      "panels": "Kriegerstadt, Stadt der Wissenschaft, Stadt der Kultur und Erbauerstadt.",
+      "panelsMeaning": "Diese Werke verwandelten die standardisierte Bebauung in einen Kunstraum, in dem durch Smalt und Stein der Triumph des menschlichen Geistes besungen wird."
+    },
+    "legacy": {
+      "title": "Erbe",
+      "body": "Alexander Kischanka hinterließ nicht nur Leinwände, die sich in der Tretjakow-Galerie und Privatsammlungen von Weltführern (B. Clinton, F. Mitterrand) befinden, sondern auch eine ganze Schule des belarussischen Monumentalwandteppichs. Das Borissower Kombinat für dekorativ-angewandte Kunst, wo seine großen Wandteppiche entstanden, trägt heute seinen Namen."
+    },
+    "quote": "Glücklich der Künstler, dessen Pinsel ein Sonnenstrahl erleuchtet... Der Schöpfer muss die Zeit malen und dabei seinen Pinsel in das himmlische Azurblau tauchen.",
+    "quoteAuthor": "— Alexander Kischanka"
   }
 }

@@ -44,6 +44,7 @@ class TranslationsFr extends Translations with BaseTranslations<AppLocale, Trans
 	@override late final _TranslationsCatalogFr catalog = _TranslationsCatalogFr._(_root);
 	@override late final _TranslationsCommonFr common = _TranslationsCommonFr._(_root);
 	@override late final _TranslationsLanguageFr language = _TranslationsLanguageFr._(_root);
+	@override late final _TranslationsBioFr bio = _TranslationsBioFr._(_root);
 }
 
 // Path: app
@@ -53,7 +54,7 @@ class _TranslationsAppFr extends TranslationsAppRu {
 	final TranslationsFr _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Galerie d\'Art';
+	@override String get title => 'KISHCHANKA.ART';
 }
 
 // Path: navigation
@@ -89,6 +90,8 @@ class _TranslationsCommonFr extends TranslationsCommonRu {
 
 	// Translations
 	@override String get pageNotFound => 'Page introuvable';
+	@override String get viewCatalog => 'VOIR LE CATALOGUE';
+	@override String get learnMore => 'EN SAVOIR PLUS';
 }
 
 // Path: language
@@ -104,6 +107,28 @@ class _TranslationsLanguageFr extends TranslationsLanguageRu {
 	@override String get spanish => 'Espagnol';
 	@override String get french => 'Francais';
 	@override String get german => 'Allemand';
+	@override String get belarusian => 'Bielorusse';
+}
+
+// Path: bio
+class _TranslationsBioFr extends TranslationsBioRu {
+	_TranslationsBioFr._(TranslationsFr root) : this._root = root, super.internal(root);
+
+	final TranslationsFr _root; // ignore: unused_field
+
+	// Translations
+	@override String get heroTitle => 'ART À L\'ÉCHELLE COSMIQUE';
+	@override String get heroSubtitle => 'Un art qui efface les frontières entre le terrestre et l\'éternel. Artiste du Peuple de la République du Bélarus, créateur de la plus grande tapisserie du monde «La Tapisserie du Siècle».';
+	@override String get name => 'Alexandre Mikhaïlovitch Kichtchanka (1933–1997)';
+	@override String get tagline => 'Peintre. Philosophe. Monumentaliste. Fondateur du Réalisme Universel.';
+	@override String get intro => 'Alexandre Kichtchanka est une figure de dimension renaissante dans l\'art du XXe siècle. Un homme qui réussit à transformer le fil souple de la tapisserie en une déclaration architecturale puissante, et les murs des villes en livres ouverts de significations philosophiques. Son oeuvre est un pont entre l\'archaïque et le cosmos, entre la douleur de la terre et la lumière de galaxies lointaines.';
+	@override late final _TranslationsBioUniversalRealismFr universalRealism = _TranslationsBioUniversalRealismFr._(_root);
+	@override late final _TranslationsBioTapestryFr tapestry = _TranslationsBioTapestryFr._(_root);
+	@override late final _TranslationsBioChernobylFr chernobyl = _TranslationsBioChernobylFr._(_root);
+	@override late final _TranslationsBioMosaicFr mosaic = _TranslationsBioMosaicFr._(_root);
+	@override late final _TranslationsBioLegacyFr legacy = _TranslationsBioLegacyFr._(_root);
+	@override String get quote => 'Heureux l\'artiste dont le pinceau est illuminé par un rayon de soleil... Le Créateur doit peindre le Temps en trempant son pinceau dans l\'azur céleste.';
+	@override String get quoteAuthor => '— Alexandre Kichtchanka';
 }
 
 // Path: catalog.paintingNames
@@ -276,6 +301,70 @@ class _TranslationsCatalogPaintingNamesFr extends TranslationsCatalogPaintingNam
 	@override String get idunknown_5 => 'Nina';
 }
 
+// Path: bio.universalRealism
+class _TranslationsBioUniversalRealismFr extends TranslationsBioUniversalRealismRu {
+	_TranslationsBioUniversalRealismFr._(TranslationsFr root) : this._root = root, super.internal(root);
+
+	final TranslationsFr _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Fondateur du Réalisme Universel';
+	@override String get body => 'Kichtchanka ne se contentait pas de représenter la réalité — il créait un nouveau système de coordonnées, qu\'il appelait le Réalisme Universel. Au coeur de sa méthode réside la conviction que l\'artiste est un tisserand du temps, tenu de relier le passé et l\'avenir. Son art dépassa les frontières nationales, opérant avec les catégories du drame humain mondial. Pour Kichtchanka, l\'homme est un demi-dieu dont les actes résonnent à l\'échelle de l\'Univers. Dans ses oeuvres, les ombres deviennent des formes autonomes, et la couleur une musique cosmique soumise à un ordre supérieur strict.';
+}
+
+// Path: bio.tapestry
+class _TranslationsBioTapestryFr extends TranslationsBioTapestryRu {
+	_TranslationsBioTapestryFr._(TranslationsFr root) : this._root = root, super.internal(root);
+
+	final TranslationsFr _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'La Tapisserie du Siècle: Le Sommet du Tissage Mondial';
+	@override String get intro => 'Alexandre Kichtchanka est entré dans l\'histoire en tant qu\'auteur de la plus grande tapisserie du monde, officiellement inscrite dans le Livre Guinness des records.';
+	@override String get scaleLabel => 'Dimensions';
+	@override String get scale => 'Une oeuvre mesurant 19 × 14 mètres (environ 300 m²), pesant plus d\'une tonne.';
+	@override String get conceptLabel => 'Concept';
+	@override String get concept => 'Une trame grandiose de l\'histoire, où s\'entrecroisent les destins de 80 personnalités emblématiques — du Christ et de la Madone à Churchill, Castro et Gorbatchev.';
+	@override String get meaningLabel => 'Signification';
+	@override String get meaning => 'Cette oeuvre est un temple, au centre duquel se déroule l\'éternel conflit entre création et destruction. Elle a été reconnue patrimoine national de la Biélorussie.';
+}
+
+// Path: bio.chernobyl
+class _TranslationsBioChernobylFr extends TranslationsBioChernobylRu {
+	_TranslationsBioChernobylFr._(TranslationsFr root) : this._root = root, super.internal(root);
+
+	final TranslationsFr _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Tchernobyl: La Voix d\'une Nation dans les Salles de l\'ONU';
+	@override String get body => 'L\'une des oeuvres les plus bouleversantes du maître est la tapisserie Tchernobyl (1991). Offerte aux Nations Unies, elle orne encore aujourd\'hui le siège de l\'ONU à New York. Quand le monde vit cette oeuvre, le Secrétaire général de l\'ONU Javier Pérez de Cuéllar la compara à la Guernica de Picasso. Pour Kichtchanka, cette tapisserie n\'était pas seulement un mémorial à la tragédie, mais les yeux de la Biélorussie — un avertissement planétaire sur la fragilité de la vie, tissé par les mains de grandes tisserandes biélorusses.';
+}
+
+// Path: bio.mosaic
+class _TranslationsBioMosaicFr extends TranslationsBioMosaicRu {
+	_TranslationsBioMosaicFr._(TranslationsFr root) : this._root = root, super.internal(root);
+
+	final TranslationsFr _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Le Visage de la Ville: Les Mosaïques Vostok';
+	@override String get intro => 'Kichtchanka a forgé le code visuel du Minsk moderne. Ses célèbres mosaïques sur les immeubles d\'habitation du quartier Vostok-1 sont devenues la carte de visite de la capitale.';
+	@override String get panelsLabel => 'Quatre oeuvres monumentales';
+	@override String get panels => 'Ville-guerrière, Ville de la Science, Ville de la Culture et Ville-bâtisseuse.';
+	@override String get panelsMeaning => 'Ces oeuvres ont transformé une construction typique en espace artistique, où le triomphe de l\'esprit humain est célébré à travers la smalt et la pierre.';
+}
+
+// Path: bio.legacy
+class _TranslationsBioLegacyFr extends TranslationsBioLegacyRu {
+	_TranslationsBioLegacyFr._(TranslationsFr root) : this._root = root, super.internal(root);
+
+	final TranslationsFr _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Héritage';
+	@override String get body => 'Alexandre Kichtchanka a laissé derrière lui non seulement des toiles conservées à la Galerie Tretiakov et dans des collections privées de dirigeants mondiaux (B. Clinton, F. Mitterrand), mais aussi toute une école de tapisserie monumentale biélorusse. Le Combinat des arts décoratifs et appliqués de Borisov, où furent créées ses grandes tapisseries, porte aujourd\'hui son nom.';
+}
+
 /// The flat map containing all translations for locale <fr>.
 /// Only for edge cases! For simple maps, use the map function of this library.
 ///
@@ -284,7 +373,7 @@ class _TranslationsCatalogPaintingNamesFr extends TranslationsCatalogPaintingNam
 extension on TranslationsFr {
 	dynamic _flatMapFunction(String path) {
 		return switch (path) {
-			'app.title' => 'Galerie d\'Art',
+			'app.title' => 'KISHCHANKA.ART',
 			'navigation.aboutAuthor' => 'A propos de l\'auteur',
 			'navigation.news' => 'Actualites',
 			'navigation.catalogOfWorks' => 'Catalogue des oeuvres',
@@ -453,12 +542,41 @@ extension on TranslationsFr {
 			'catalog.paintingNames.idunknown_4' => 'Nina',
 			'catalog.paintingNames.idunknown_5' => 'Nina',
 			'common.pageNotFound' => 'Page introuvable',
+			'common.viewCatalog' => 'VOIR LE CATALOGUE',
+			'common.learnMore' => 'EN SAVOIR PLUS',
 			'language.label' => 'Langue',
 			'language.russian' => 'Russe',
 			'language.english' => 'Anglais',
 			'language.spanish' => 'Espagnol',
 			'language.french' => 'Francais',
 			'language.german' => 'Allemand',
+			'language.belarusian' => 'Bielorusse',
+			'bio.heroTitle' => 'ART À L\'ÉCHELLE COSMIQUE',
+			'bio.heroSubtitle' => 'Un art qui efface les frontières entre le terrestre et l\'éternel. Artiste du Peuple de la République du Bélarus, créateur de la plus grande tapisserie du monde «La Tapisserie du Siècle».',
+			'bio.name' => 'Alexandre Mikhaïlovitch Kichtchanka (1933–1997)',
+			'bio.tagline' => 'Peintre. Philosophe. Monumentaliste. Fondateur du Réalisme Universel.',
+			'bio.intro' => 'Alexandre Kichtchanka est une figure de dimension renaissante dans l\'art du XXe siècle. Un homme qui réussit à transformer le fil souple de la tapisserie en une déclaration architecturale puissante, et les murs des villes en livres ouverts de significations philosophiques. Son oeuvre est un pont entre l\'archaïque et le cosmos, entre la douleur de la terre et la lumière de galaxies lointaines.',
+			'bio.universalRealism.title' => 'Fondateur du Réalisme Universel',
+			'bio.universalRealism.body' => 'Kichtchanka ne se contentait pas de représenter la réalité — il créait un nouveau système de coordonnées, qu\'il appelait le Réalisme Universel. Au coeur de sa méthode réside la conviction que l\'artiste est un tisserand du temps, tenu de relier le passé et l\'avenir. Son art dépassa les frontières nationales, opérant avec les catégories du drame humain mondial. Pour Kichtchanka, l\'homme est un demi-dieu dont les actes résonnent à l\'échelle de l\'Univers. Dans ses oeuvres, les ombres deviennent des formes autonomes, et la couleur une musique cosmique soumise à un ordre supérieur strict.',
+			'bio.tapestry.title' => 'La Tapisserie du Siècle: Le Sommet du Tissage Mondial',
+			'bio.tapestry.intro' => 'Alexandre Kichtchanka est entré dans l\'histoire en tant qu\'auteur de la plus grande tapisserie du monde, officiellement inscrite dans le Livre Guinness des records.',
+			'bio.tapestry.scaleLabel' => 'Dimensions',
+			'bio.tapestry.scale' => 'Une oeuvre mesurant 19 × 14 mètres (environ 300 m²), pesant plus d\'une tonne.',
+			'bio.tapestry.conceptLabel' => 'Concept',
+			'bio.tapestry.concept' => 'Une trame grandiose de l\'histoire, où s\'entrecroisent les destins de 80 personnalités emblématiques — du Christ et de la Madone à Churchill, Castro et Gorbatchev.',
+			'bio.tapestry.meaningLabel' => 'Signification',
+			'bio.tapestry.meaning' => 'Cette oeuvre est un temple, au centre duquel se déroule l\'éternel conflit entre création et destruction. Elle a été reconnue patrimoine national de la Biélorussie.',
+			'bio.chernobyl.title' => 'Tchernobyl: La Voix d\'une Nation dans les Salles de l\'ONU',
+			'bio.chernobyl.body' => 'L\'une des oeuvres les plus bouleversantes du maître est la tapisserie Tchernobyl (1991). Offerte aux Nations Unies, elle orne encore aujourd\'hui le siège de l\'ONU à New York. Quand le monde vit cette oeuvre, le Secrétaire général de l\'ONU Javier Pérez de Cuéllar la compara à la Guernica de Picasso. Pour Kichtchanka, cette tapisserie n\'était pas seulement un mémorial à la tragédie, mais les yeux de la Biélorussie — un avertissement planétaire sur la fragilité de la vie, tissé par les mains de grandes tisserandes biélorusses.',
+			'bio.mosaic.title' => 'Le Visage de la Ville: Les Mosaïques Vostok',
+			'bio.mosaic.intro' => 'Kichtchanka a forgé le code visuel du Minsk moderne. Ses célèbres mosaïques sur les immeubles d\'habitation du quartier Vostok-1 sont devenues la carte de visite de la capitale.',
+			'bio.mosaic.panelsLabel' => 'Quatre oeuvres monumentales',
+			'bio.mosaic.panels' => 'Ville-guerrière, Ville de la Science, Ville de la Culture et Ville-bâtisseuse.',
+			'bio.mosaic.panelsMeaning' => 'Ces oeuvres ont transformé une construction typique en espace artistique, où le triomphe de l\'esprit humain est célébré à travers la smalt et la pierre.',
+			'bio.legacy.title' => 'Héritage',
+			'bio.legacy.body' => 'Alexandre Kichtchanka a laissé derrière lui non seulement des toiles conservées à la Galerie Tretiakov et dans des collections privées de dirigeants mondiaux (B. Clinton, F. Mitterrand), mais aussi toute une école de tapisserie monumentale biélorusse. Le Combinat des arts décoratifs et appliqués de Borisov, où furent créées ses grandes tapisseries, porte aujourd\'hui son nom.',
+			'bio.quote' => 'Heureux l\'artiste dont le pinceau est illuminé par un rayon de soleil... Le Créateur doit peindre le Temps en trempant son pinceau dans l\'azur céleste.',
+			'bio.quoteAuthor' => '— Alexandre Kichtchanka',
 			_ => null,
 		};
 	}

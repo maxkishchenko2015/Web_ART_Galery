@@ -1,6 +1,6 @@
 {
   "app": {
-    "title": "Galerie d'Art"
+    "title": "KISHCHANKA.ART"
   },
   "navigation": {
     "aboutAuthor": "A propos de l'auteur",
@@ -176,7 +176,9 @@
     }
   },
   "common": {
-    "pageNotFound": "Page introuvable"
+    "pageNotFound": "Page introuvable",
+    "viewCatalog": "VOIR LE CATALOGUE",
+    "learnMore": "EN SAVOIR PLUS"
   },
   "language": {
     "label": "Langue",
@@ -184,6 +186,45 @@
     "english": "Anglais",
     "spanish": "Espagnol",
     "french": "Francais",
-    "german": "Allemand"
+    "german": "Allemand",
+    "belarusian": "Bielorusse"
+  },
+  "bio": {
+    "heroTitle": "ART À L'ÉCHELLE COSMIQUE",
+    "heroSubtitle": "Un art qui efface les frontières entre le terrestre et l'éternel. Artiste du Peuple de la République du Bélarus, créateur de la plus grande tapisserie du monde «La Tapisserie du Siècle».",
+    "name": "Alexandre Mikhaïlovitch Kichtchanka (1933–1997)",
+    "tagline": "Peintre. Philosophe. Monumentaliste. Fondateur du Réalisme Universel.",
+    "intro": "Alexandre Kichtchanka est une figure de dimension renaissante dans l'art du XXe siècle. Un homme qui réussit à transformer le fil souple de la tapisserie en une déclaration architecturale puissante, et les murs des villes en livres ouverts de significations philosophiques. Son oeuvre est un pont entre l'archaïque et le cosmos, entre la douleur de la terre et la lumière de galaxies lointaines.",
+    "universalRealism": {
+      "title": "Fondateur du Réalisme Universel",
+      "body": "Kichtchanka ne se contentait pas de représenter la réalité — il créait un nouveau système de coordonnées, qu'il appelait le Réalisme Universel. Au coeur de sa méthode réside la conviction que l'artiste est un tisserand du temps, tenu de relier le passé et l'avenir. Son art dépassa les frontières nationales, opérant avec les catégories du drame humain mondial. Pour Kichtchanka, l'homme est un demi-dieu dont les actes résonnent à l'échelle de l'Univers. Dans ses oeuvres, les ombres deviennent des formes autonomes, et la couleur une musique cosmique soumise à un ordre supérieur strict."
+    },
+    "tapestry": {
+      "title": "La Tapisserie du Siècle: Le Sommet du Tissage Mondial",
+      "intro": "Alexandre Kichtchanka est entré dans l'histoire en tant qu'auteur de la plus grande tapisserie du monde, officiellement inscrite dans le Livre Guinness des records.",
+      "scaleLabel": "Dimensions",
+      "scale": "Une oeuvre mesurant 19 × 14 mètres (environ 300 m²), pesant plus d'une tonne.",
+      "conceptLabel": "Concept",
+      "concept": "Une trame grandiose de l'histoire, où s'entrecroisent les destins de 80 personnalités emblématiques — du Christ et de la Madone à Churchill, Castro et Gorbatchev.",
+      "meaningLabel": "Signification",
+      "meaning": "Cette oeuvre est un temple, au centre duquel se déroule l'éternel conflit entre création et destruction. Elle a été reconnue patrimoine national de la Biélorussie."
+    },
+    "chernobyl": {
+      "title": "Tchernobyl: La Voix d'une Nation dans les Salles de l'ONU",
+      "body": "L'une des oeuvres les plus bouleversantes du maître est la tapisserie Tchernobyl (1991). Offerte aux Nations Unies, elle orne encore aujourd'hui le siège de l'ONU à New York. Quand le monde vit cette oeuvre, le Secrétaire général de l'ONU Javier Pérez de Cuéllar la compara à la Guernica de Picasso. Pour Kichtchanka, cette tapisserie n'était pas seulement un mémorial à la tragédie, mais les yeux de la Biélorussie — un avertissement planétaire sur la fragilité de la vie, tissé par les mains de grandes tisserandes biélorusses."
+    },
+    "mosaic": {
+      "title": "Le Visage de la Ville: Les Mosaïques Vostok",
+      "intro": "Kichtchanka a forgé le code visuel du Minsk moderne. Ses célèbres mosaïques sur les immeubles d'habitation du quartier Vostok-1 sont devenues la carte de visite de la capitale.",
+      "panelsLabel": "Quatre oeuvres monumentales",
+      "panels": "Ville-guerrière, Ville de la Science, Ville de la Culture et Ville-bâtisseuse.",
+      "panelsMeaning": "Ces oeuvres ont transformé une construction typique en espace artistique, où le triomphe de l'esprit humain est célébré à travers la smalt et la pierre."
+    },
+    "legacy": {
+      "title": "Héritage",
+      "body": "Alexandre Kichtchanka a laissé derrière lui non seulement des toiles conservées à la Galerie Tretiakov et dans des collections privées de dirigeants mondiaux (B. Clinton, F. Mitterrand), mais aussi toute une école de tapisserie monumentale biélorusse. Le Combinat des arts décoratifs et appliqués de Borisov, où furent créées ses grandes tapisseries, porte aujourd'hui son nom."
+    },
+    "quote": "Heureux l'artiste dont le pinceau est illuminé par un rayon de soleil... Le Créateur doit peindre le Temps en trempant son pinceau dans l'azur céleste.",
+    "quoteAuthor": "— Alexandre Kichtchanka"
   }
 }

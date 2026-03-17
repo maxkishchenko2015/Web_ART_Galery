@@ -44,6 +44,7 @@ class TranslationsDe extends Translations with BaseTranslations<AppLocale, Trans
 	@override late final _TranslationsCatalogDe catalog = _TranslationsCatalogDe._(_root);
 	@override late final _TranslationsCommonDe common = _TranslationsCommonDe._(_root);
 	@override late final _TranslationsLanguageDe language = _TranslationsLanguageDe._(_root);
+	@override late final _TranslationsBioDe bio = _TranslationsBioDe._(_root);
 }
 
 // Path: app
@@ -53,7 +54,7 @@ class _TranslationsAppDe extends TranslationsAppRu {
 	final TranslationsDe _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Kunstgalerie';
+	@override String get title => 'KISHCHANKA.ART';
 }
 
 // Path: navigation
@@ -89,6 +90,8 @@ class _TranslationsCommonDe extends TranslationsCommonRu {
 
 	// Translations
 	@override String get pageNotFound => 'Seite nicht gefunden';
+	@override String get viewCatalog => 'KATALOG ANSEHEN';
+	@override String get learnMore => 'MEHR ERFAHREN';
 }
 
 // Path: language
@@ -104,6 +107,28 @@ class _TranslationsLanguageDe extends TranslationsLanguageRu {
 	@override String get spanish => 'Spanisch';
 	@override String get french => 'Franzosisch';
 	@override String get german => 'Deutsch';
+	@override String get belarusian => 'Belarussisch';
+}
+
+// Path: bio
+class _TranslationsBioDe extends TranslationsBioRu {
+	_TranslationsBioDe._(TranslationsDe root) : this._root = root, super.internal(root);
+
+	final TranslationsDe _root; // ignore: unused_field
+
+	// Translations
+	@override String get heroTitle => 'KUNST VON KOSMISCHEM AUSMAS';
+	@override String get heroSubtitle => 'Kunst, die Grenzen zwischen dem Irdischen und dem Ewigen verwischt. Volkskünstler der Republik Belarus, Schöpfer des weltgrößten Wandteppichs «Der Wandteppich des Jahrhunderts».';
+	@override String get name => 'Alexander Michailowitsch Kischanka (1933–1997)';
+	@override String get tagline => 'Maler. Philosoph. Monumentalist. Begründer des Universellen Realismus.';
+	@override String get intro => 'Alexander Kischanka ist eine Persönlichkeit von Renaissance-Format in der Kunst des 20. Jahrhunderts. Ein Mann, dem es gelang, den weichen Faden des Wandteppichs in eine gewaltige architektonische Aussage zu verwandeln und Stadtmauern in offene Bücher philosophischer Bedeutung. Sein Werk ist eine Brücke zwischen Archaik und Kosmos, zwischen dem Schmerz der Erde und dem Licht ferner Galaxien.';
+	@override late final _TranslationsBioUniversalRealismDe universalRealism = _TranslationsBioUniversalRealismDe._(_root);
+	@override late final _TranslationsBioTapestryDe tapestry = _TranslationsBioTapestryDe._(_root);
+	@override late final _TranslationsBioChernobylDe chernobyl = _TranslationsBioChernobylDe._(_root);
+	@override late final _TranslationsBioMosaicDe mosaic = _TranslationsBioMosaicDe._(_root);
+	@override late final _TranslationsBioLegacyDe legacy = _TranslationsBioLegacyDe._(_root);
+	@override String get quote => 'Glücklich der Künstler, dessen Pinsel ein Sonnenstrahl erleuchtet... Der Schöpfer muss die Zeit malen und dabei seinen Pinsel in das himmlische Azurblau tauchen.';
+	@override String get quoteAuthor => '— Alexander Kischanka';
 }
 
 // Path: catalog.paintingNames
@@ -276,6 +301,70 @@ class _TranslationsCatalogPaintingNamesDe extends TranslationsCatalogPaintingNam
 	@override String get idunknown_5 => 'Nina';
 }
 
+// Path: bio.universalRealism
+class _TranslationsBioUniversalRealismDe extends TranslationsBioUniversalRealismRu {
+	_TranslationsBioUniversalRealismDe._(TranslationsDe root) : this._root = root, super.internal(root);
+
+	final TranslationsDe _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Begründer des Universellen Realismus';
+	@override String get body => 'Kischanka bildete die Wirklichkeit nicht nur ab — er schuf ein neues Koordinatensystem, das er Universellen Realismus nannte. Sein Ansatz beruht auf der Überzeugung, dass der Künstler ein Weben der Zeit ist, der Vergangenheit und Zukunft verbinden muss. Seine Kunst überschritt nationale Grenzen und operierte mit den Kategorien der menschlichen Weltdrama. Für Kischanka ist der Mensch ein Halbgott, dessen Handlungen im Maßstab des Universums widerhallen. In seinen Werken werden Schatten zu eigenständigen Formen, und die Farbe wird zur kosmischen Musik, die einer strengen höheren Ordnung unterliegt.';
+}
+
+// Path: bio.tapestry
+class _TranslationsBioTapestryDe extends TranslationsBioTapestryRu {
+	_TranslationsBioTapestryDe._(TranslationsDe root) : this._root = root, super.internal(root);
+
+	final TranslationsDe _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Wandteppich des Jahrhunderts: Gipfel der Weltweberei';
+	@override String get intro => 'Alexander Kischanka ist in die Geschichte eingegangen als Autor des größten Wandteppichs der Welt, der offiziell ins Guinness-Buch der Rekorde aufgenommen wurde.';
+	@override String get scaleLabel => 'Ausmaß';
+	@override String get scale => 'Ein Werk mit den Maßen 19 × 14 Meter (ca. 300 qm), mit einem Gewicht von über einer Tonne.';
+	@override String get conceptLabel => 'Konzept';
+	@override String get concept => 'Ein grandioses Gewebe der Geschichte, in dem die Schicksale von 80 bedeutenden Persönlichkeiten verflochten sind — von Christus und der Madonna bis Churchill, Castro und Gorbatschow.';
+	@override String get meaningLabel => 'Bedeutung';
+	@override String get meaning => 'Dieses Werk ist ein Tempel, in dessen Mitte der ewige Konflikt zwischen Schöpfung und Zerstörung entfaltet wird. Es wurde als nationales Kulturerbe Belarus anerkannt.';
+}
+
+// Path: bio.chernobyl
+class _TranslationsBioChernobylDe extends TranslationsBioChernobylRu {
+	_TranslationsBioChernobylDe._(TranslationsDe root) : this._root = root, super.internal(root);
+
+	final TranslationsDe _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Tschernobyl: Die Stimme einer Nation in den Hallen der UN';
+	@override String get body => 'Eines der emotional stärksten Werke des Meisters war der Wandteppich Tschernobyl (1991). Als Geschenk an die Vereinten Nationen übergeben, schmückt er noch heute den UN-Hauptsitz in New York. Als die Welt dieses Werk sah, verglich UN-Generalsekretär Javier Pérez de Cuéllar es mit Picassos Guernica. Für Kischanka war dieser Wandteppich nicht nur ein Denkmal der Tragödie, sondern die Augen Belarus — eine planetare Warnung über die Zerbrechlichkeit des Lebens, gewoben von den Händen großer belarussischer Meisterinnen.';
+}
+
+// Path: bio.mosaic
+class _TranslationsBioMosaicDe extends TranslationsBioMosaicRu {
+	_TranslationsBioMosaicDe._(TranslationsDe root) : this._root = root, super.internal(root);
+
+	final TranslationsDe _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Das Gesicht der Stadt: Die Mosaik-Tafeln Wostok';
+	@override String get intro => 'Kischanka prägte den visuellen Code des modernen Minsk. Seine berühmten Mosaike an Wohnhochhäusern im Stadtteil Wostok-1 wurden zum Wahrzeichen der Hauptstadt.';
+	@override String get panelsLabel => 'Vier monumentale Werke';
+	@override String get panels => 'Kriegerstadt, Stadt der Wissenschaft, Stadt der Kultur und Erbauerstadt.';
+	@override String get panelsMeaning => 'Diese Werke verwandelten die standardisierte Bebauung in einen Kunstraum, in dem durch Smalt und Stein der Triumph des menschlichen Geistes besungen wird.';
+}
+
+// Path: bio.legacy
+class _TranslationsBioLegacyDe extends TranslationsBioLegacyRu {
+	_TranslationsBioLegacyDe._(TranslationsDe root) : this._root = root, super.internal(root);
+
+	final TranslationsDe _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Erbe';
+	@override String get body => 'Alexander Kischanka hinterließ nicht nur Leinwände, die sich in der Tretjakow-Galerie und Privatsammlungen von Weltführern (B. Clinton, F. Mitterrand) befinden, sondern auch eine ganze Schule des belarussischen Monumentalwandteppichs. Das Borissower Kombinat für dekorativ-angewandte Kunst, wo seine großen Wandteppiche entstanden, trägt heute seinen Namen.';
+}
+
 /// The flat map containing all translations for locale <de>.
 /// Only for edge cases! For simple maps, use the map function of this library.
 ///
@@ -284,7 +373,7 @@ class _TranslationsCatalogPaintingNamesDe extends TranslationsCatalogPaintingNam
 extension on TranslationsDe {
 	dynamic _flatMapFunction(String path) {
 		return switch (path) {
-			'app.title' => 'Kunstgalerie',
+			'app.title' => 'KISHCHANKA.ART',
 			'navigation.aboutAuthor' => 'Uber den Autor',
 			'navigation.news' => 'Neuigkeiten',
 			'navigation.catalogOfWorks' => 'Werkkatalog',
@@ -453,12 +542,41 @@ extension on TranslationsDe {
 			'catalog.paintingNames.idunknown_4' => 'Nina',
 			'catalog.paintingNames.idunknown_5' => 'Nina',
 			'common.pageNotFound' => 'Seite nicht gefunden',
+			'common.viewCatalog' => 'KATALOG ANSEHEN',
+			'common.learnMore' => 'MEHR ERFAHREN',
 			'language.label' => 'Sprache',
 			'language.russian' => 'Russisch',
 			'language.english' => 'Englisch',
 			'language.spanish' => 'Spanisch',
 			'language.french' => 'Franzosisch',
 			'language.german' => 'Deutsch',
+			'language.belarusian' => 'Belarussisch',
+			'bio.heroTitle' => 'KUNST VON KOSMISCHEM AUSMAS',
+			'bio.heroSubtitle' => 'Kunst, die Grenzen zwischen dem Irdischen und dem Ewigen verwischt. Volkskünstler der Republik Belarus, Schöpfer des weltgrößten Wandteppichs «Der Wandteppich des Jahrhunderts».',
+			'bio.name' => 'Alexander Michailowitsch Kischanka (1933–1997)',
+			'bio.tagline' => 'Maler. Philosoph. Monumentalist. Begründer des Universellen Realismus.',
+			'bio.intro' => 'Alexander Kischanka ist eine Persönlichkeit von Renaissance-Format in der Kunst des 20. Jahrhunderts. Ein Mann, dem es gelang, den weichen Faden des Wandteppichs in eine gewaltige architektonische Aussage zu verwandeln und Stadtmauern in offene Bücher philosophischer Bedeutung. Sein Werk ist eine Brücke zwischen Archaik und Kosmos, zwischen dem Schmerz der Erde und dem Licht ferner Galaxien.',
+			'bio.universalRealism.title' => 'Begründer des Universellen Realismus',
+			'bio.universalRealism.body' => 'Kischanka bildete die Wirklichkeit nicht nur ab — er schuf ein neues Koordinatensystem, das er Universellen Realismus nannte. Sein Ansatz beruht auf der Überzeugung, dass der Künstler ein Weben der Zeit ist, der Vergangenheit und Zukunft verbinden muss. Seine Kunst überschritt nationale Grenzen und operierte mit den Kategorien der menschlichen Weltdrama. Für Kischanka ist der Mensch ein Halbgott, dessen Handlungen im Maßstab des Universums widerhallen. In seinen Werken werden Schatten zu eigenständigen Formen, und die Farbe wird zur kosmischen Musik, die einer strengen höheren Ordnung unterliegt.',
+			'bio.tapestry.title' => 'Wandteppich des Jahrhunderts: Gipfel der Weltweberei',
+			'bio.tapestry.intro' => 'Alexander Kischanka ist in die Geschichte eingegangen als Autor des größten Wandteppichs der Welt, der offiziell ins Guinness-Buch der Rekorde aufgenommen wurde.',
+			'bio.tapestry.scaleLabel' => 'Ausmaß',
+			'bio.tapestry.scale' => 'Ein Werk mit den Maßen 19 × 14 Meter (ca. 300 qm), mit einem Gewicht von über einer Tonne.',
+			'bio.tapestry.conceptLabel' => 'Konzept',
+			'bio.tapestry.concept' => 'Ein grandioses Gewebe der Geschichte, in dem die Schicksale von 80 bedeutenden Persönlichkeiten verflochten sind — von Christus und der Madonna bis Churchill, Castro und Gorbatschow.',
+			'bio.tapestry.meaningLabel' => 'Bedeutung',
+			'bio.tapestry.meaning' => 'Dieses Werk ist ein Tempel, in dessen Mitte der ewige Konflikt zwischen Schöpfung und Zerstörung entfaltet wird. Es wurde als nationales Kulturerbe Belarus anerkannt.',
+			'bio.chernobyl.title' => 'Tschernobyl: Die Stimme einer Nation in den Hallen der UN',
+			'bio.chernobyl.body' => 'Eines der emotional stärksten Werke des Meisters war der Wandteppich Tschernobyl (1991). Als Geschenk an die Vereinten Nationen übergeben, schmückt er noch heute den UN-Hauptsitz in New York. Als die Welt dieses Werk sah, verglich UN-Generalsekretär Javier Pérez de Cuéllar es mit Picassos Guernica. Für Kischanka war dieser Wandteppich nicht nur ein Denkmal der Tragödie, sondern die Augen Belarus — eine planetare Warnung über die Zerbrechlichkeit des Lebens, gewoben von den Händen großer belarussischer Meisterinnen.',
+			'bio.mosaic.title' => 'Das Gesicht der Stadt: Die Mosaik-Tafeln Wostok',
+			'bio.mosaic.intro' => 'Kischanka prägte den visuellen Code des modernen Minsk. Seine berühmten Mosaike an Wohnhochhäusern im Stadtteil Wostok-1 wurden zum Wahrzeichen der Hauptstadt.',
+			'bio.mosaic.panelsLabel' => 'Vier monumentale Werke',
+			'bio.mosaic.panels' => 'Kriegerstadt, Stadt der Wissenschaft, Stadt der Kultur und Erbauerstadt.',
+			'bio.mosaic.panelsMeaning' => 'Diese Werke verwandelten die standardisierte Bebauung in einen Kunstraum, in dem durch Smalt und Stein der Triumph des menschlichen Geistes besungen wird.',
+			'bio.legacy.title' => 'Erbe',
+			'bio.legacy.body' => 'Alexander Kischanka hinterließ nicht nur Leinwände, die sich in der Tretjakow-Galerie und Privatsammlungen von Weltführern (B. Clinton, F. Mitterrand) befinden, sondern auch eine ganze Schule des belarussischen Monumentalwandteppichs. Das Borissower Kombinat für dekorativ-angewandte Kunst, wo seine großen Wandteppiche entstanden, trägt heute seinen Namen.',
+			'bio.quote' => 'Glücklich der Künstler, dessen Pinsel ein Sonnenstrahl erleuchtet... Der Schöpfer muss die Zeit malen und dabei seinen Pinsel in das himmlische Azurblau tauchen.',
+			'bio.quoteAuthor' => '— Alexander Kischanka',
 			_ => null,
 		};
 	}

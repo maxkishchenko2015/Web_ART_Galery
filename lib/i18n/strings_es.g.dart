@@ -44,6 +44,7 @@ class TranslationsEs extends Translations with BaseTranslations<AppLocale, Trans
 	@override late final _TranslationsCatalogEs catalog = _TranslationsCatalogEs._(_root);
 	@override late final _TranslationsCommonEs common = _TranslationsCommonEs._(_root);
 	@override late final _TranslationsLanguageEs language = _TranslationsLanguageEs._(_root);
+	@override late final _TranslationsBioEs bio = _TranslationsBioEs._(_root);
 }
 
 // Path: app
@@ -53,7 +54,7 @@ class _TranslationsAppEs extends TranslationsAppRu {
 	final TranslationsEs _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Galeria de Arte';
+	@override String get title => 'KISHCHANKA.ART';
 }
 
 // Path: navigation
@@ -88,7 +89,9 @@ class _TranslationsCommonEs extends TranslationsCommonRu {
 	final TranslationsEs _root; // ignore: unused_field
 
 	// Translations
-	@override String get pageNotFound => 'Pagina no encontrada';
+	@override String get pageNotFound => 'Página no encontrada';
+	@override String get viewCatalog => 'VER CATÁLOGO';
+	@override String get learnMore => 'SABER MÁS';
 }
 
 // Path: language
@@ -104,6 +107,28 @@ class _TranslationsLanguageEs extends TranslationsLanguageRu {
 	@override String get spanish => 'Espanol';
 	@override String get french => 'Frances';
 	@override String get german => 'Aleman';
+	@override String get belarusian => 'Bielorruso';
+}
+
+// Path: bio
+class _TranslationsBioEs extends TranslationsBioRu {
+	_TranslationsBioEs._(TranslationsEs root) : this._root = root, super.internal(root);
+
+	final TranslationsEs _root; // ignore: unused_field
+
+	// Translations
+	@override String get heroTitle => 'ARTE DE ESCALA CÓSMICA';
+	@override String get heroSubtitle => 'Un arte que borra las fronteras entre lo terrenal y lo eterno. Artista del Pueblo de la República de Bielorrusia, creador del tapiz más grande del mundo «El Tapiz del Siglo».';
+	@override String get name => 'Alexander Mikhailovich Kishchanka (1933–1997)';
+	@override String get tagline => 'Pintor. Filósofo. Monumentalista. Fundador del Realismo Universal.';
+	@override String get intro => 'Alexander Kishchanka es una figura de escala renacentista en el arte del siglo XX. Un hombre que logró transformar el suave hilo del tapiz en una poderosa declaración arquitectónica, y las paredes de las ciudades en libros abiertos de significados filosóficos. Su obra es un puente entre lo arcaico y el cosmos, entre el dolor de la tierra y la luz de galaxias lejanas.';
+	@override late final _TranslationsBioUniversalRealismEs universalRealism = _TranslationsBioUniversalRealismEs._(_root);
+	@override late final _TranslationsBioTapestryEs tapestry = _TranslationsBioTapestryEs._(_root);
+	@override late final _TranslationsBioChernobylEs chernobyl = _TranslationsBioChernobylEs._(_root);
+	@override late final _TranslationsBioMosaicEs mosaic = _TranslationsBioMosaicEs._(_root);
+	@override late final _TranslationsBioLegacyEs legacy = _TranslationsBioLegacyEs._(_root);
+	@override String get quote => 'Afortunado es el artista al que un rayo de sol ilumina el pincel... El Creador debe pintar el Tiempo, mojando el pincel en el azul celeste.';
+	@override String get quoteAuthor => '— Alexander Kishchanka';
 }
 
 // Path: catalog.paintingNames
@@ -276,6 +301,70 @@ class _TranslationsCatalogPaintingNamesEs extends TranslationsCatalogPaintingNam
 	@override String get idunknown_5 => 'Nina';
 }
 
+// Path: bio.universalRealism
+class _TranslationsBioUniversalRealismEs extends TranslationsBioUniversalRealismRu {
+	_TranslationsBioUniversalRealismEs._(TranslationsEs root) : this._root = root, super.internal(root);
+
+	final TranslationsEs _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Fundador del Realismo Universal';
+	@override String get body => 'Kishchanka no sólo representaba la realidad — creaba un nuevo sistema de coordenadas, al que llamó Realismo Universal. La base de su método es la convicción de que el artista es un tejedor del tiempo, obligado a conectar el pasado y el futuro. Su arte trascendió las fronteras nacionales, operando en términos del drama humano global. Para Kishchanka, el hombre es un semidiós cuyos actos resuenan a escala universal. En sus obras, las sombras se convierten en formas independientes, y el color en música cósmica sujeta a un estricto orden superior.';
+}
+
+// Path: bio.tapestry
+class _TranslationsBioTapestryEs extends TranslationsBioTapestryRu {
+	_TranslationsBioTapestryEs._(TranslationsEs root) : this._root = root, super.internal(root);
+
+	final TranslationsEs _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'El Tapiz del Siglo: La Cima del Arte Textil Mundial';
+	@override String get intro => 'Alexander Kishchanka entró en la historia como el autor del tapiz más grande del mundo, registrado oficialmente en el Libro Guinness de los Récords.';
+	@override String get scaleLabel => 'Dimensiones';
+	@override String get scale => 'Un lienzo de 19 × 14 metros (aproximadamente 300 m²), con un peso superior a una tonelada.';
+	@override String get conceptLabel => 'Concepto';
+	@override String get concept => 'Una grandiosa trama de la historia, donde se entrelazan los destinos de 80 personalidades icónicas — desde Cristo y la Madonna hasta Churchill, Castro y Gorbachov.';
+	@override String get meaningLabel => 'Significado';
+	@override String get meaning => 'Esta obra es un templo, en cuyo centro se desarrolla el eterno conflicto entre la creación y la destrucción. Fue reconocida como patrimonio nacional de Bielorrusia.';
+}
+
+// Path: bio.chernobyl
+class _TranslationsBioChernobylEs extends TranslationsBioChernobylRu {
+	_TranslationsBioChernobylEs._(TranslationsEs root) : this._root = root, super.internal(root);
+
+	final TranslationsEs _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Chernóbil: La Voz de una Nación en las Salas de la ONU';
+	@override String get body => 'Una de las obras más emocionalmente poderosas del maestro fue el tapiz Chernóbil (1991). Entregado como obsequio a las Naciones Unidas, hoy sigue adornando la sede de la ONU en Nueva York. Cuando el mundo vio esta obra, el Secretario General de la ONU Javier Pérez de Cuéllar la comparó con la Guernica de Picasso. Para Kishchanka, este tapiz no era sólo un memorial a la tragedia, sino los ojos de Bielorrusia — una advertencia planetaria sobre la fragilidad de la vida, tejida por las manos de grandes artesanas bielorrusas.';
+}
+
+// Path: bio.mosaic
+class _TranslationsBioMosaicEs extends TranslationsBioMosaicRu {
+	_TranslationsBioMosaicEs._(TranslationsEs root) : this._root = root, super.internal(root);
+
+	final TranslationsEs _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'El Rostro de la Ciudad: Los Mosaicos Vostok';
+	@override String get intro => 'Kishchanka formó el código visual del Minsk moderno. Sus famosos mosaicos en edificios de viviendas del distrito Vostok-1 se convirtieron en la tarjeta de visita de la capital.';
+	@override String get panelsLabel => 'Cuatro obras monumentales';
+	@override String get panels => 'Ciudad-guerrera, Ciudad de la Ciencia, Ciudad de la Cultura y Ciudad-constructora.';
+	@override String get panelsMeaning => 'Estas obras transformaron la construcción estándar en un espacio artístico, donde a través del esmalte y la piedra se celebra el triunfo del espíritu humano.';
+}
+
+// Path: bio.legacy
+class _TranslationsBioLegacyEs extends TranslationsBioLegacyRu {
+	_TranslationsBioLegacyEs._(TranslationsEs root) : this._root = root, super.internal(root);
+
+	final TranslationsEs _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Legado';
+	@override String get body => 'Alexander Kishchanka dejó tras de sí no sólo lienzos conservados en la Galería Tretiakov y colecciones privadas de líderes mundiales (B. Clinton, F. Mitterrand), sino toda una escuela del tapiz monumental bielorruso. El Combinado de Artes Decorativas y Aplicadas de Borisov, donde se crearon sus grandes tapices, lleva hoy su nombre.';
+}
+
 /// The flat map containing all translations for locale <es>.
 /// Only for edge cases! For simple maps, use the map function of this library.
 ///
@@ -284,7 +373,7 @@ class _TranslationsCatalogPaintingNamesEs extends TranslationsCatalogPaintingNam
 extension on TranslationsEs {
 	dynamic _flatMapFunction(String path) {
 		return switch (path) {
-			'app.title' => 'Galeria de Arte',
+			'app.title' => 'KISHCHANKA.ART',
 			'navigation.aboutAuthor' => 'Sobre el autor',
 			'navigation.news' => 'Noticias',
 			'navigation.catalogOfWorks' => 'Catalogo de obras',
@@ -452,13 +541,42 @@ extension on TranslationsEs {
 			'catalog.paintingNames.idunknown_3' => 'Espinas azules',
 			'catalog.paintingNames.idunknown_4' => 'Nina',
 			'catalog.paintingNames.idunknown_5' => 'Nina',
-			'common.pageNotFound' => 'Pagina no encontrada',
+			'common.pageNotFound' => 'Página no encontrada',
+			'common.viewCatalog' => 'VER CATÁLOGO',
+			'common.learnMore' => 'SABER MÁS',
 			'language.label' => 'Idioma',
 			'language.russian' => 'Ruso',
 			'language.english' => 'Ingles',
 			'language.spanish' => 'Espanol',
 			'language.french' => 'Frances',
 			'language.german' => 'Aleman',
+			'language.belarusian' => 'Bielorruso',
+			'bio.heroTitle' => 'ARTE DE ESCALA CÓSMICA',
+			'bio.heroSubtitle' => 'Un arte que borra las fronteras entre lo terrenal y lo eterno. Artista del Pueblo de la República de Bielorrusia, creador del tapiz más grande del mundo «El Tapiz del Siglo».',
+			'bio.name' => 'Alexander Mikhailovich Kishchanka (1933–1997)',
+			'bio.tagline' => 'Pintor. Filósofo. Monumentalista. Fundador del Realismo Universal.',
+			'bio.intro' => 'Alexander Kishchanka es una figura de escala renacentista en el arte del siglo XX. Un hombre que logró transformar el suave hilo del tapiz en una poderosa declaración arquitectónica, y las paredes de las ciudades en libros abiertos de significados filosóficos. Su obra es un puente entre lo arcaico y el cosmos, entre el dolor de la tierra y la luz de galaxias lejanas.',
+			'bio.universalRealism.title' => 'Fundador del Realismo Universal',
+			'bio.universalRealism.body' => 'Kishchanka no sólo representaba la realidad — creaba un nuevo sistema de coordenadas, al que llamó Realismo Universal. La base de su método es la convicción de que el artista es un tejedor del tiempo, obligado a conectar el pasado y el futuro. Su arte trascendió las fronteras nacionales, operando en términos del drama humano global. Para Kishchanka, el hombre es un semidiós cuyos actos resuenan a escala universal. En sus obras, las sombras se convierten en formas independientes, y el color en música cósmica sujeta a un estricto orden superior.',
+			'bio.tapestry.title' => 'El Tapiz del Siglo: La Cima del Arte Textil Mundial',
+			'bio.tapestry.intro' => 'Alexander Kishchanka entró en la historia como el autor del tapiz más grande del mundo, registrado oficialmente en el Libro Guinness de los Récords.',
+			'bio.tapestry.scaleLabel' => 'Dimensiones',
+			'bio.tapestry.scale' => 'Un lienzo de 19 × 14 metros (aproximadamente 300 m²), con un peso superior a una tonelada.',
+			'bio.tapestry.conceptLabel' => 'Concepto',
+			'bio.tapestry.concept' => 'Una grandiosa trama de la historia, donde se entrelazan los destinos de 80 personalidades icónicas — desde Cristo y la Madonna hasta Churchill, Castro y Gorbachov.',
+			'bio.tapestry.meaningLabel' => 'Significado',
+			'bio.tapestry.meaning' => 'Esta obra es un templo, en cuyo centro se desarrolla el eterno conflicto entre la creación y la destrucción. Fue reconocida como patrimonio nacional de Bielorrusia.',
+			'bio.chernobyl.title' => 'Chernóbil: La Voz de una Nación en las Salas de la ONU',
+			'bio.chernobyl.body' => 'Una de las obras más emocionalmente poderosas del maestro fue el tapiz Chernóbil (1991). Entregado como obsequio a las Naciones Unidas, hoy sigue adornando la sede de la ONU en Nueva York. Cuando el mundo vio esta obra, el Secretario General de la ONU Javier Pérez de Cuéllar la comparó con la Guernica de Picasso. Para Kishchanka, este tapiz no era sólo un memorial a la tragedia, sino los ojos de Bielorrusia — una advertencia planetaria sobre la fragilidad de la vida, tejida por las manos de grandes artesanas bielorrusas.',
+			'bio.mosaic.title' => 'El Rostro de la Ciudad: Los Mosaicos Vostok',
+			'bio.mosaic.intro' => 'Kishchanka formó el código visual del Minsk moderno. Sus famosos mosaicos en edificios de viviendas del distrito Vostok-1 se convirtieron en la tarjeta de visita de la capital.',
+			'bio.mosaic.panelsLabel' => 'Cuatro obras monumentales',
+			'bio.mosaic.panels' => 'Ciudad-guerrera, Ciudad de la Ciencia, Ciudad de la Cultura y Ciudad-constructora.',
+			'bio.mosaic.panelsMeaning' => 'Estas obras transformaron la construcción estándar en un espacio artístico, donde a través del esmalte y la piedra se celebra el triunfo del espíritu humano.',
+			'bio.legacy.title' => 'Legado',
+			'bio.legacy.body' => 'Alexander Kishchanka dejó tras de sí no sólo lienzos conservados en la Galería Tretiakov y colecciones privadas de líderes mundiales (B. Clinton, F. Mitterrand), sino toda una escuela del tapiz monumental bielorruso. El Combinado de Artes Decorativas y Aplicadas de Borisov, donde se crearon sus grandes tapices, lleva hoy su nombre.',
+			'bio.quote' => 'Afortunado es el artista al que un rayo de sol ilumina el pincel... El Creador debe pintar el Tiempo, mojando el pincel en el azul celeste.',
+			'bio.quoteAuthor' => '— Alexander Kishchanka',
 			_ => null,
 		};
 	}

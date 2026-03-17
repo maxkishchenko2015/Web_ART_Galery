@@ -44,6 +44,7 @@ class TranslationsEn extends Translations with BaseTranslations<AppLocale, Trans
 	@override late final _TranslationsCatalogEn catalog = _TranslationsCatalogEn._(_root);
 	@override late final _TranslationsCommonEn common = _TranslationsCommonEn._(_root);
 	@override late final _TranslationsLanguageEn language = _TranslationsLanguageEn._(_root);
+	@override late final _TranslationsBioEn bio = _TranslationsBioEn._(_root);
 }
 
 // Path: app
@@ -53,7 +54,7 @@ class _TranslationsAppEn extends TranslationsAppRu {
 	final TranslationsEn _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Art Gallery';
+	@override String get title => 'KISHCHANKA.ART';
 }
 
 // Path: navigation
@@ -89,6 +90,8 @@ class _TranslationsCommonEn extends TranslationsCommonRu {
 
 	// Translations
 	@override String get pageNotFound => 'Page not found';
+	@override String get viewCatalog => 'VIEW CATALOG';
+	@override String get learnMore => 'LEARN MORE';
 }
 
 // Path: language
@@ -104,6 +107,28 @@ class _TranslationsLanguageEn extends TranslationsLanguageRu {
 	@override String get spanish => 'Spanish';
 	@override String get french => 'French';
 	@override String get german => 'German';
+	@override String get belarusian => 'Belarusian';
+}
+
+// Path: bio
+class _TranslationsBioEn extends TranslationsBioRu {
+	_TranslationsBioEn._(TranslationsEn root) : this._root = root, super.internal(root);
+
+	final TranslationsEn _root; // ignore: unused_field
+
+	// Translations
+	@override String get heroTitle => 'ART OF COSMIC SCALE';
+	@override String get heroSubtitle => 'Art that erases boundaries between the earthly and the eternal. People\'s Artist of the Republic of Belarus, creator of the world\'s largest tapestry "The Tapestry of the Century".';
+	@override String get name => 'Alexander Mikhailovich Kishchanka (1933–1997)';
+	@override String get tagline => 'Painter. Philosopher. Monumentalist. Founder of Universal Realism.';
+	@override String get intro => 'Alexander Kishchanka is a figure of Renaissance stature in 20th-century art. A man who transformed the soft thread of tapestry into a powerful architectural statement, and city walls into open books of philosophical meaning. His work is a bridge between the archaic and the cosmic, between the pain of the earth and the light of distant galaxies.';
+	@override late final _TranslationsBioUniversalRealismEn universalRealism = _TranslationsBioUniversalRealismEn._(_root);
+	@override late final _TranslationsBioTapestryEn tapestry = _TranslationsBioTapestryEn._(_root);
+	@override late final _TranslationsBioChernobylEn chernobyl = _TranslationsBioChernobylEn._(_root);
+	@override late final _TranslationsBioMosaicEn mosaic = _TranslationsBioMosaicEn._(_root);
+	@override late final _TranslationsBioLegacyEn legacy = _TranslationsBioLegacyEn._(_root);
+	@override String get quote => 'Happy is the artist whose brush is illuminated by a ray of sunlight... The Creator must paint Time, dipping his brush in the heavenly azure.';
+	@override String get quoteAuthor => '— Alexander Kishchanka';
 }
 
 // Path: catalog.paintingNames
@@ -276,6 +301,70 @@ class _TranslationsCatalogPaintingNamesEn extends TranslationsCatalogPaintingNam
 	@override String get idunknown_5 => 'Nina';
 }
 
+// Path: bio.universalRealism
+class _TranslationsBioUniversalRealismEn extends TranslationsBioUniversalRealismRu {
+	_TranslationsBioUniversalRealismEn._(TranslationsEn root) : this._root = root, super.internal(root);
+
+	final TranslationsEn _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Founder of Universal Realism';
+	@override String get body => 'Kishchanka did not merely depict reality — he created a new system of coordinates, which he called Universal Realism. At the heart of his method lies the conviction that the artist is a weaver of time, obligated to connect past and future. His art transcended national boundaries, operating in terms of global human drama. For Kishchanka, man is a demigod whose actions resonate on a universal scale. In his works, shadows become autonomous forms, and colour becomes cosmic music subject to a strict higher order.';
+}
+
+// Path: bio.tapestry
+class _TranslationsBioTapestryEn extends TranslationsBioTapestryRu {
+	_TranslationsBioTapestryEn._(TranslationsEn root) : this._root = root, super.internal(root);
+
+	final TranslationsEn _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Tapestry of the Century: The Pinnacle of World Weaving';
+	@override String get intro => 'Alexander Kishchanka entered history as the author of the world\'s largest tapestry, officially listed in the Guinness Book of Records.';
+	@override String get scaleLabel => 'Scale';
+	@override String get scale => 'A canvas measuring 19 × 14 metres (approx. 300 sq. m), weighing over a tonne.';
+	@override String get conceptLabel => 'Concept';
+	@override String get concept => 'A grandiose fabric of history, in which the destinies of 80 iconic figures are interwoven — from Christ and the Madonna to Churchill, Castro and Gorbachev.';
+	@override String get meaningLabel => 'Significance';
+	@override String get meaning => 'This work is a temple-piece, at the centre of which the eternal conflict between creation and destruction unfolds. It was recognised as a national treasure of Belarus.';
+}
+
+// Path: bio.chernobyl
+class _TranslationsBioChernobylEn extends TranslationsBioChernobylRu {
+	_TranslationsBioChernobylEn._(TranslationsEn root) : this._root = root, super.internal(root);
+
+	final TranslationsEn _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Chernobyl: The Voice of a Nation in the Halls of the UN';
+	@override String get body => 'One of the master\'s most emotionally powerful works was the tapestry Chernobyl (1991). Presented as a gift to the United Nations, it still adorns the UN headquarters in New York. When the world saw this work, UN Secretary-General Javier Pérez de Cuéllar compared it to Picasso\'s Guernica. For Kishchanka, this tapestry was not merely a memorial to the tragedy, but the eyes of Belarus — a planetary warning about the fragility of life, woven by the hands of great Belarusian craftswomen.';
+}
+
+// Path: bio.mosaic
+class _TranslationsBioMosaicEn extends TranslationsBioMosaicRu {
+	_TranslationsBioMosaicEn._(TranslationsEn root) : this._root = root, super.internal(root);
+
+	final TranslationsEn _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'The Face of the City: The Vostok Mosaic Panels';
+	@override String get intro => 'Kishchanka shaped the visual identity of modern Minsk. His famous mosaics on residential high-rises in the Vostok-1 district became the hallmark of the capital.';
+	@override String get panelsLabel => 'Four monumental works';
+	@override String get panels => 'City-Warrior, City of Science, City of Culture, and City-Builder.';
+	@override String get panelsMeaning => 'These works transformed standard housing blocks into an artistic space, where the triumph of the human spirit is celebrated through smalt and stone.';
+}
+
+// Path: bio.legacy
+class _TranslationsBioLegacyEn extends TranslationsBioLegacyRu {
+	_TranslationsBioLegacyEn._(TranslationsEn root) : this._root = root, super.internal(root);
+
+	final TranslationsEn _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Legacy';
+	@override String get body => 'Alexander Kishchanka left behind not only canvases housed in the Tretyakov Gallery and private collections of world leaders (B. Clinton, F. Mitterrand), but an entire school of Belarusian monumental tapestry. The Borisov Decorative and Applied Arts Combine, where his great tapestries were created, now bears his name.';
+}
+
 /// The flat map containing all translations for locale <en>.
 /// Only for edge cases! For simple maps, use the map function of this library.
 ///
@@ -284,7 +373,7 @@ class _TranslationsCatalogPaintingNamesEn extends TranslationsCatalogPaintingNam
 extension on TranslationsEn {
 	dynamic _flatMapFunction(String path) {
 		return switch (path) {
-			'app.title' => 'Art Gallery',
+			'app.title' => 'KISHCHANKA.ART',
 			'navigation.aboutAuthor' => 'About author',
 			'navigation.news' => 'News',
 			'navigation.catalogOfWorks' => 'Catalog of works',
@@ -453,12 +542,41 @@ extension on TranslationsEn {
 			'catalog.paintingNames.idunknown_4' => 'Nina',
 			'catalog.paintingNames.idunknown_5' => 'Nina',
 			'common.pageNotFound' => 'Page not found',
+			'common.viewCatalog' => 'VIEW CATALOG',
+			'common.learnMore' => 'LEARN MORE',
 			'language.label' => 'Language',
 			'language.russian' => 'Russian',
 			'language.english' => 'English',
 			'language.spanish' => 'Spanish',
 			'language.french' => 'French',
 			'language.german' => 'German',
+			'language.belarusian' => 'Belarusian',
+			'bio.heroTitle' => 'ART OF COSMIC SCALE',
+			'bio.heroSubtitle' => 'Art that erases boundaries between the earthly and the eternal. People\'s Artist of the Republic of Belarus, creator of the world\'s largest tapestry "The Tapestry of the Century".',
+			'bio.name' => 'Alexander Mikhailovich Kishchanka (1933–1997)',
+			'bio.tagline' => 'Painter. Philosopher. Monumentalist. Founder of Universal Realism.',
+			'bio.intro' => 'Alexander Kishchanka is a figure of Renaissance stature in 20th-century art. A man who transformed the soft thread of tapestry into a powerful architectural statement, and city walls into open books of philosophical meaning. His work is a bridge between the archaic and the cosmic, between the pain of the earth and the light of distant galaxies.',
+			'bio.universalRealism.title' => 'Founder of Universal Realism',
+			'bio.universalRealism.body' => 'Kishchanka did not merely depict reality — he created a new system of coordinates, which he called Universal Realism. At the heart of his method lies the conviction that the artist is a weaver of time, obligated to connect past and future. His art transcended national boundaries, operating in terms of global human drama. For Kishchanka, man is a demigod whose actions resonate on a universal scale. In his works, shadows become autonomous forms, and colour becomes cosmic music subject to a strict higher order.',
+			'bio.tapestry.title' => 'Tapestry of the Century: The Pinnacle of World Weaving',
+			'bio.tapestry.intro' => 'Alexander Kishchanka entered history as the author of the world\'s largest tapestry, officially listed in the Guinness Book of Records.',
+			'bio.tapestry.scaleLabel' => 'Scale',
+			'bio.tapestry.scale' => 'A canvas measuring 19 × 14 metres (approx. 300 sq. m), weighing over a tonne.',
+			'bio.tapestry.conceptLabel' => 'Concept',
+			'bio.tapestry.concept' => 'A grandiose fabric of history, in which the destinies of 80 iconic figures are interwoven — from Christ and the Madonna to Churchill, Castro and Gorbachev.',
+			'bio.tapestry.meaningLabel' => 'Significance',
+			'bio.tapestry.meaning' => 'This work is a temple-piece, at the centre of which the eternal conflict between creation and destruction unfolds. It was recognised as a national treasure of Belarus.',
+			'bio.chernobyl.title' => 'Chernobyl: The Voice of a Nation in the Halls of the UN',
+			'bio.chernobyl.body' => 'One of the master\'s most emotionally powerful works was the tapestry Chernobyl (1991). Presented as a gift to the United Nations, it still adorns the UN headquarters in New York. When the world saw this work, UN Secretary-General Javier Pérez de Cuéllar compared it to Picasso\'s Guernica. For Kishchanka, this tapestry was not merely a memorial to the tragedy, but the eyes of Belarus — a planetary warning about the fragility of life, woven by the hands of great Belarusian craftswomen.',
+			'bio.mosaic.title' => 'The Face of the City: The Vostok Mosaic Panels',
+			'bio.mosaic.intro' => 'Kishchanka shaped the visual identity of modern Minsk. His famous mosaics on residential high-rises in the Vostok-1 district became the hallmark of the capital.',
+			'bio.mosaic.panelsLabel' => 'Four monumental works',
+			'bio.mosaic.panels' => 'City-Warrior, City of Science, City of Culture, and City-Builder.',
+			'bio.mosaic.panelsMeaning' => 'These works transformed standard housing blocks into an artistic space, where the triumph of the human spirit is celebrated through smalt and stone.',
+			'bio.legacy.title' => 'Legacy',
+			'bio.legacy.body' => 'Alexander Kishchanka left behind not only canvases housed in the Tretyakov Gallery and private collections of world leaders (B. Clinton, F. Mitterrand), but an entire school of Belarusian monumental tapestry. The Borisov Decorative and Applied Arts Combine, where his great tapestries were created, now bears his name.',
+			'bio.quote' => 'Happy is the artist whose brush is illuminated by a ray of sunlight... The Creator must paint Time, dipping his brush in the heavenly azure.',
+			'bio.quoteAuthor' => '— Alexander Kishchanka',
 			_ => null,
 		};
 	}

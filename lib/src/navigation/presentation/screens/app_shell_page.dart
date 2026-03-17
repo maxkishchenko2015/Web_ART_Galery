@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:web_art_galery/i18n/strings.g.dart';
+import 'package:web_art_galery/src/shared/config/app_colors.dart';
+import 'package:web_art_galery/src/shared/config/app_context_extensions.dart';
 import 'package:web_art_galery/src/shared/config/app_theme.dart';
 import 'package:web_art_galery/src/shared/config/ksize.dart';
 import 'package:web_art_galery/src/shared/presentation/widgets/language_switcher.dart';
@@ -68,24 +69,26 @@ class _DesktopShell extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        children: [
-          _GalleryHeader(
-            items: items,
-            selectedIndex: selectedIndex,
-            onSelected: (i) => context.go(items[i].location),
-          ),
-          Expanded(
-            child: Align(
-              alignment: Alignment.topCenter,
-              child: ConstrainedBox(
-                constraints: const BoxConstraints(maxWidth: 1420),
-                child: child,
+      body: SelectionArea(
+        child: Column(
+          children: [
+            _GalleryHeader(
+              items: items,
+              selectedIndex: selectedIndex,
+              onSelected: (i) => context.go(items[i].location),
+            ),
+            Expanded(
+              child: Align(
+                alignment: Alignment.topCenter,
+                child: ConstrainedBox(
+                  constraints: const BoxConstraints(maxWidth: 1420),
+                  child: child,
+                ),
               ),
             ),
-          ),
-          _GalleryFooter(items: items, onSelected: (i) => context.go(items[i].location)),
-        ],
+            _GalleryFooter(items: items, onSelected: (i) => context.go(items[i].location)),
+          ],
+        ),
       ),
     );
   }
@@ -109,15 +112,7 @@ class _MobileShell extends StatelessWidget {
           children: [
             const _GalleryLogo(size: 32),
             const SizedBox(width: KSize.margin3x),
-            Text(
-              context.t.app.title.toUpperCase(),
-              style: GoogleFonts.roboto(
-                fontSize: 13,
-                fontWeight: FontWeight.w400,
-                letterSpacing: 2.5,
-                color: Colors.white,
-              ),
-            ),
+            Text(context.t.app.title.toUpperCase(), style: context.textOnDark.brandTitle),
           ],
         ),
       ),
@@ -129,15 +124,17 @@ class _MobileShell extends StatelessWidget {
           context.go(items[i].location);
         },
       ),
-      body: Column(
-        children: [
-          Expanded(child: child),
-          _GalleryFooter(
-            items: items,
-            onSelected: (i) => context.go(items[i].location),
-            compact: true,
-          ),
-        ],
+      body: SelectionArea(
+        child: Column(
+          children: [
+            Expanded(child: child),
+            _GalleryFooter(
+              items: items,
+              onSelected: (i) => context.go(items[i].location),
+              compact: true,
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -183,22 +180,9 @@ class _GalleryHeader extends StatelessWidget {
                       children: [
                         Text(
                           context.t.app.title.toUpperCase(),
-                          style: GoogleFonts.roboto(
-                            fontSize: 13,
-                            fontWeight: FontWeight.w400,
-                            letterSpacing: 2.5,
-                            color: Colors.white,
-                          ),
+                          style: context.textOnDark.brandTitle,
                         ),
-                        Text(
-                          'Collection of Fine Arts',
-                          style: GoogleFonts.roboto(
-                            fontSize: 11,
-                            fontWeight: FontWeight.w300,
-                            letterSpacing: 0.5,
-                            color: Colors.white60,
-                          ),
-                        ),
+                        Text('Collection of Fine Arts', style: context.textOnDark.brandSubtitle),
                       ],
                     ),
                   ],
@@ -226,8 +210,8 @@ class _GalleryHeader extends StatelessWidget {
             Theme(
               data: Theme.of(context).copyWith(
                 canvasColor: AppTheme.forestGreen,
-                textTheme: Theme.of(context).textTheme.apply(bodyColor: Colors.white),
-                iconTheme: const IconThemeData(color: Colors.white),
+                textTheme: Theme.of(context).textTheme.apply(bodyColor: AppColors.onDark),
+                iconTheme: const IconThemeData(color: AppColors.onDark),
               ),
               child: const LanguageSwitcher(),
             ),
@@ -258,17 +242,15 @@ class _HeaderNavItem extends StatelessWidget {
           padding: const EdgeInsets.symmetric(vertical: KSize.margin3x, horizontal: KSize.margin2x),
           decoration: BoxDecoration(
             border: Border(
-              bottom: BorderSide(color: selected ? Colors.white : Colors.transparent, width: 1.5),
+              bottom: BorderSide(
+                color: selected ? AppColors.onDark : Colors.transparent,
+                width: 1.5,
+              ),
             ),
           ),
           child: Text(
             label,
-            style: GoogleFonts.roboto(
-              fontSize: 12,
-              fontWeight: FontWeight.w400,
-              letterSpacing: 0.8,
-              color: selected ? Colors.white : Colors.white70,
-            ),
+            style: selected ? context.textOnDark.navLink : context.textOnDarkDim.navLink,
           ),
         ),
       ),
@@ -295,19 +277,11 @@ class _ContactsButton extends StatelessWidget {
           duration: const Duration(milliseconds: 150),
           padding: const EdgeInsets.symmetric(horizontal: KSize.margin6x, vertical: KSize.margin3x),
           decoration: BoxDecoration(
-            color: selected ? Colors.white24 : Colors.transparent,
-            border: Border.all(color: Colors.white60, width: 1),
+            color: selected ? AppColors.onDarkDivider : Colors.transparent,
+            border: Border.all(color: AppColors.onDarkMuted, width: 1),
             borderRadius: BorderRadius.circular(KSize.radiusOfRoundButton),
           ),
-          child: Text(
-            label.toUpperCase(),
-            style: GoogleFonts.roboto(
-              fontSize: 11,
-              fontWeight: FontWeight.w400,
-              letterSpacing: 1.5,
-              color: Colors.white,
-            ),
-          ),
+          child: Text(label.toUpperCase(), style: context.textOnDark.ctaLabel),
         ),
       ),
     );
@@ -328,18 +302,10 @@ class _GalleryLogo extends StatelessWidget {
       height: size,
       decoration: BoxDecoration(
         shape: BoxShape.circle,
-        border: Border.all(color: Colors.white54, width: 1),
+        border: Border.all(color: AppColors.onDarkSubtle, width: 1),
       ),
       child: Center(
-        child: Text(
-          'AG',
-          style: GoogleFonts.roboto(
-            fontSize: size * 0.28,
-            fontWeight: FontWeight.w300,
-            letterSpacing: 1.5,
-            color: Colors.white,
-          ),
-        ),
+        child: Builder(builder: (context) => Text('KA', style: context.textOnDark.logoMark(size))),
       ),
     );
   }
@@ -372,19 +338,11 @@ class _GalleryDrawer extends StatelessWidget {
                 children: [
                   const _GalleryLogo(size: 40),
                   const SizedBox(width: KSize.margin4x),
-                  Text(
-                    context.t.app.title.toUpperCase(),
-                    style: GoogleFonts.roboto(
-                      fontSize: 13,
-                      fontWeight: FontWeight.w400,
-                      letterSpacing: 2.5,
-                      color: Colors.white,
-                    ),
-                  ),
+                  Text(context.t.app.title.toUpperCase(), style: context.textOnDark.brandTitle),
                 ],
               ),
             ),
-            const Divider(color: Colors.white24, height: 1),
+            const Divider(color: AppColors.onDarkDivider, height: 1),
             const SizedBox(height: KSize.margin2x),
             for (int i = 0; i < items.length; i++)
               _DrawerNavItem(
@@ -393,14 +351,14 @@ class _GalleryDrawer extends StatelessWidget {
                 onTap: () => onSelected(i),
               ),
             const Spacer(),
-            const Divider(color: Colors.white24, height: 1),
+            const Divider(color: AppColors.onDarkDivider, height: 1),
             Padding(
               padding: const EdgeInsets.all(KSize.margin6x),
               child: Theme(
                 data: Theme.of(context).copyWith(
                   canvasColor: AppTheme.forestGreen,
-                  textTheme: Theme.of(context).textTheme.apply(bodyColor: Colors.white),
-                  iconTheme: const IconThemeData(color: Colors.white),
+                  textTheme: Theme.of(context).textTheme.apply(bodyColor: AppColors.onDark),
+                  iconTheme: const IconThemeData(color: AppColors.onDark),
                 ),
                 child: const LanguageSwitcher(),
               ),
@@ -426,19 +384,14 @@ class _DrawerNavItem extends StatelessWidget {
       child: Container(
         width: double.infinity,
         padding: const EdgeInsets.symmetric(horizontal: KSize.margin6x, vertical: KSize.margin5x),
-        color: selected ? Colors.white12 : Colors.transparent,
+        color: selected ? AppColors.onDarkOverlay : Colors.transparent,
         child: Row(
           children: [
-            Icon(item.icon, color: selected ? Colors.white : Colors.white60, size: 18),
+            Icon(item.icon, color: selected ? AppColors.onDark : AppColors.onDarkMuted, size: 18),
             const SizedBox(width: KSize.margin4x),
             Text(
               item.label,
-              style: GoogleFonts.roboto(
-                fontSize: 13,
-                fontWeight: FontWeight.w400,
-                letterSpacing: 0.5,
-                color: selected ? Colors.white : Colors.white70,
-              ),
+              style: selected ? context.textOnDark.drawerItem : context.textOnDarkDim.drawerItem,
             ),
           ],
         ),
@@ -470,40 +423,20 @@ class _GalleryFooter extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.symmetric(
               horizontal: KSize.margin12x,
-              vertical: KSize.margin12x,
+              vertical: KSize.margin4x,
             ),
             child: Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Expanded(
                   flex: 3,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                  child: Row(
                     children: [
-                      Row(
-                        children: [
-                          const _GalleryLogo(size: 36),
-                          const SizedBox(width: KSize.margin3x),
-                          Text(
-                            context.t.app.title.toUpperCase(),
-                            style: GoogleFonts.roboto(
-                              fontSize: 12,
-                              fontWeight: FontWeight.w400,
-                              letterSpacing: 2,
-                              color: Colors.white,
-                            ),
-                          ),
-                        ],
-                      ),
-                      const SizedBox(height: KSize.margin5x),
+                      const _GalleryLogo(size: 28),
+                      const SizedBox(width: KSize.margin3x),
                       Text(
-                        'A curated collection of Ukrainian fine arts,\npreserving and celebrating artistic heritage.',
-                        style: GoogleFonts.roboto(
-                          fontSize: 13,
-                          fontWeight: FontWeight.w300,
-                          height: 1.8,
-                          color: Colors.white60,
-                        ),
+                        context.t.app.title.toUpperCase(),
+                        style: context.textOnDark.footerBrand,
                       ),
                     ],
                   ),
@@ -514,31 +447,16 @@ class _GalleryFooter extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        'SITEMAP',
-                        style: GoogleFonts.roboto(
-                          fontSize: 10,
-                          fontWeight: FontWeight.w500,
-                          letterSpacing: 2.5,
-                          color: Colors.white38,
-                        ),
-                      ),
-                      const SizedBox(height: KSize.margin5x),
+                      Text('SITEMAP', style: context.textOnDark.footerSitemapLabel),
+                      const SizedBox(height: KSize.margin3x),
                       for (int i = 0; i < items.length; i++)
                         Padding(
-                          padding: const EdgeInsets.only(bottom: KSize.margin3x),
+                          padding: const EdgeInsets.only(bottom: KSize.margin2x),
                           child: MouseRegion(
                             cursor: SystemMouseCursors.click,
                             child: GestureDetector(
                               onTap: () => onSelected(i),
-                              child: Text(
-                                items[i].label,
-                                style: GoogleFonts.roboto(
-                                  fontSize: 13,
-                                  fontWeight: FontWeight.w300,
-                                  color: Colors.white70,
-                                ),
-                              ),
+                              child: Text(items[i].label, style: context.textOnDark.footerLink),
                             ),
                           ),
                         ),
@@ -558,11 +476,7 @@ class _GalleryFooter extends StatelessWidget {
               children: [
                 Text(
                   '© ${DateTime.now().year} ${context.t.app.title}. All rights reserved.',
-                  style: GoogleFonts.roboto(
-                    fontSize: 11,
-                    fontWeight: FontWeight.w300,
-                    color: Colors.white38,
-                  ),
+                  style: context.textOnDark.footerCopyright,
                 ),
               ],
             ),
@@ -579,11 +493,7 @@ class _GalleryFooter extends StatelessWidget {
       child: Center(
         child: Text(
           '© ${DateTime.now().year} ${context.t.app.title}',
-          style: GoogleFonts.roboto(
-            fontSize: 11,
-            fontWeight: FontWeight.w300,
-            color: Colors.white38,
-          ),
+          style: context.textOnDark.footerCopyright,
         ),
       ),
     );
