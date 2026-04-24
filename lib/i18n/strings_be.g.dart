@@ -45,6 +45,7 @@ class TranslationsBe extends Translations with BaseTranslations<AppLocale, Trans
 	@override late final _TranslationsCommonBe common = _TranslationsCommonBe._(_root);
 	@override late final _TranslationsLanguageBe language = _TranslationsLanguageBe._(_root);
 	@override late final _TranslationsArchiveFeedBe archiveFeed = _TranslationsArchiveFeedBe._(_root);
+	@override late final _TranslationsNewsFeedBe newsFeed = _TranslationsNewsFeedBe._(_root);
 	@override late final _TranslationsBioBe bio = _TranslationsBioBe._(_root);
 }
 
@@ -122,6 +123,22 @@ class _TranslationsArchiveFeedBe extends TranslationsArchiveFeedRu {
 	@override String get latestLabel => 'Апошняя публікацыя';
 	@override String get moreLabel => 'Навіны і матэрыялы';
 	@override String get openArticle => 'Адкрыць артыкул';
+	@override String get sourceLabel => 'Крыніца';
+}
+
+// Path: newsFeed
+class _TranslationsNewsFeedBe extends TranslationsNewsFeedRu {
+	_TranslationsNewsFeedBe._(TranslationsBe root) : this._root = root, super.internal(root);
+
+	final TranslationsBe _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Навіны';
+	@override String get subtitle => 'Публікацыі, выставы і падзеі';
+	@override String get emptyState => 'Навін пакуль няма. Зазірніце пазней.';
+	@override String get errorTitle => 'Не ўдалося загрузіць навіны';
+	@override String get retry => 'Паўтарыць';
+	@override String get back => 'Да спісу навін';
 	@override String get sourceLabel => 'Крыніца';
 }
 
@@ -590,6 +607,13 @@ extension on TranslationsBe {
 			'archiveFeed.moreLabel' => 'Навіны і матэрыялы',
 			'archiveFeed.openArticle' => 'Адкрыць артыкул',
 			'archiveFeed.sourceLabel' => 'Крыніца',
+			'newsFeed.title' => 'Навіны',
+			'newsFeed.subtitle' => 'Публікацыі, выставы і падзеі',
+			'newsFeed.emptyState' => 'Навін пакуль няма. Зазірніце пазней.',
+			'newsFeed.errorTitle' => 'Не ўдалося загрузіць навіны',
+			'newsFeed.retry' => 'Паўтарыць',
+			'newsFeed.back' => 'Да спісу навін',
+			'newsFeed.sourceLabel' => 'Крыніца',
 			'bio.heroTitle' => 'МАСТАЦТВА КАСМІЧНАГА МАШТАБУ',
 			'bio.heroSubtitle' => 'Мастацтва, якое сцірае межы паміж зямным і вечным. Народны мастак Рэспублікі Беларусь, стваральнік найбуйнейшага ў свеце «Гобелена стагоддзя»',
 			'bio.name' => 'Аляксандр Міхайлавіч Кішчанка (1933–1997)',

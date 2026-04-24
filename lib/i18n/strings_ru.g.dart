@@ -46,6 +46,7 @@ class Translations with BaseTranslations<AppLocale, Translations> {
 	late final TranslationsCommonRu common = TranslationsCommonRu.internal(_root);
 	late final TranslationsLanguageRu language = TranslationsLanguageRu.internal(_root);
 	late final TranslationsArchiveFeedRu archiveFeed = TranslationsArchiveFeedRu.internal(_root);
+	late final TranslationsNewsFeedRu newsFeed = TranslationsNewsFeedRu.internal(_root);
 	late final TranslationsBioRu bio = TranslationsBioRu.internal(_root);
 }
 
@@ -166,6 +167,36 @@ class TranslationsArchiveFeedRu {
 
 	/// ru: 'Открыть статью'
 	String get openArticle => 'Открыть статью';
+
+	/// ru: 'Источник'
+	String get sourceLabel => 'Источник';
+}
+
+// Path: newsFeed
+class TranslationsNewsFeedRu {
+	TranslationsNewsFeedRu.internal(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// ru: 'Новости'
+	String get title => 'Новости';
+
+	/// ru: 'Публикации, выставки и события'
+	String get subtitle => 'Публикации, выставки и события';
+
+	/// ru: 'Новостей пока нет. Загляните позже.'
+	String get emptyState => 'Новостей пока нет. Загляните позже.';
+
+	/// ru: 'Не удалось загрузить новости'
+	String get errorTitle => 'Не удалось загрузить новости';
+
+	/// ru: 'Повторить'
+	String get retry => 'Повторить';
+
+	/// ru: 'К списку новостей'
+	String get back => 'К списку новостей';
 
 	/// ru: 'Источник'
 	String get sourceLabel => 'Источник';
@@ -1029,6 +1060,13 @@ extension on Translations {
 			'archiveFeed.moreLabel' => 'Материалы и новости',
 			'archiveFeed.openArticle' => 'Открыть статью',
 			'archiveFeed.sourceLabel' => 'Источник',
+			'newsFeed.title' => 'Новости',
+			'newsFeed.subtitle' => 'Публикации, выставки и события',
+			'newsFeed.emptyState' => 'Новостей пока нет. Загляните позже.',
+			'newsFeed.errorTitle' => 'Не удалось загрузить новости',
+			'newsFeed.retry' => 'Повторить',
+			'newsFeed.back' => 'К списку новостей',
+			'newsFeed.sourceLabel' => 'Источник',
 			'bio.heroTitle' => 'ИСКУССТВО КОСМИЧЕСКОГО МАСШТАБА',
 			'bio.heroSubtitle' => 'Искусство, стирающее границы между земным и вечным. Народный художник Республики Беларусь, создатель самого большого в мире «Гобелена века»',
 			'bio.name' => 'Александр Михайлович Кищенко (1933–1997)',

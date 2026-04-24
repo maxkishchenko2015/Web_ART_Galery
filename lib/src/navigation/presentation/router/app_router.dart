@@ -5,6 +5,7 @@ import 'package:web_art_galery/src/features/archive/presentation/screens/archive
 import 'package:web_art_galery/src/features/catalog_of_works/presentation/screens/catalog_of_works_page.dart';
 import 'package:web_art_galery/src/features/catalog_of_works/presentation/screens/catalog_work_detail_page.dart';
 import 'package:web_art_galery/src/features/contacts/presentation/screens/contacts_page.dart';
+import 'package:web_art_galery/src/features/news/presentation/screens/news_detail_page.dart';
 import 'package:web_art_galery/src/features/news/presentation/screens/news_page.dart';
 import 'package:web_art_galery/src/navigation/presentation/screens/app_shell_page.dart';
 import 'package:web_art_galery/src/shared/presentation/screens/placeholder_page.dart';
@@ -23,7 +24,17 @@ final appRouter = GoRouter(
       builder: (context, state, child) => AppShellPage(child: child),
       routes: [
         GoRoute(path: '/about-author', builder: (context, state) => const AboutAuthorPage()),
-        GoRoute(path: '/news', builder: (context, state) => const NewsPage()),
+        GoRoute(
+          path: '/news',
+          builder: (context, state) => const NewsPage(),
+          routes: [
+            GoRoute(
+              path: ':articleId',
+              builder: (context, state) =>
+                  NewsDetailPage(articleId: state.pathParameters['articleId'] ?? ''),
+            ),
+          ],
+        ),
         GoRoute(
           path: '/catalog',
           builder: (context, state) => const CatalogOfWorksPage(),

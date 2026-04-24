@@ -196,6 +196,15 @@
     "openArticle": "Ouvrir l'article",
     "sourceLabel": "Source"
   },
+  "newsFeed": {
+    "title": "Actualites",
+    "subtitle": "Publications, expositions et evenements",
+    "emptyState": "Pas encore d'actualites. Revenez bientot.",
+    "errorTitle": "Impossible de charger les actualites",
+    "retry": "Reessayer",
+    "back": "Retour aux actualites",
+    "sourceLabel": "Source"
+  },
   "bio": {
     "heroTitle": "ART À L'ÉCHELLE COSMIQUE",
     "heroSubtitle": "Un art qui efface les frontières entre le terrestre et l'éternel. Artiste du Peuple de la République du Bélarus, créateur de la plus grande tapisserie du monde «La Tapisserie du Siècle».",

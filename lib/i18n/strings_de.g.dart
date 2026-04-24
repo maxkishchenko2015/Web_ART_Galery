@@ -45,6 +45,7 @@ class TranslationsDe extends Translations with BaseTranslations<AppLocale, Trans
 	@override late final _TranslationsCommonDe common = _TranslationsCommonDe._(_root);
 	@override late final _TranslationsLanguageDe language = _TranslationsLanguageDe._(_root);
 	@override late final _TranslationsArchiveFeedDe archiveFeed = _TranslationsArchiveFeedDe._(_root);
+	@override late final _TranslationsNewsFeedDe newsFeed = _TranslationsNewsFeedDe._(_root);
 	@override late final _TranslationsBioDe bio = _TranslationsBioDe._(_root);
 }
 
@@ -122,6 +123,22 @@ class _TranslationsArchiveFeedDe extends TranslationsArchiveFeedRu {
 	@override String get latestLabel => 'Neueste Veroffentlichung';
 	@override String get moreLabel => 'Nachrichten und Hinweise';
 	@override String get openArticle => 'Artikel offnen';
+	@override String get sourceLabel => 'Quelle';
+}
+
+// Path: newsFeed
+class _TranslationsNewsFeedDe extends TranslationsNewsFeedRu {
+	_TranslationsNewsFeedDe._(TranslationsDe root) : this._root = root, super.internal(root);
+
+	final TranslationsDe _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Neuigkeiten';
+	@override String get subtitle => 'Veroffentlichungen, Ausstellungen und Ereignisse';
+	@override String get emptyState => 'Noch keine Neuigkeiten. Schauen Sie bald wieder vorbei.';
+	@override String get errorTitle => 'Neuigkeiten konnten nicht geladen werden';
+	@override String get retry => 'Erneut versuchen';
+	@override String get back => 'Zuruck zu den Neuigkeiten';
 	@override String get sourceLabel => 'Quelle';
 }
 
@@ -590,6 +607,13 @@ extension on TranslationsDe {
 			'archiveFeed.moreLabel' => 'Nachrichten und Hinweise',
 			'archiveFeed.openArticle' => 'Artikel offnen',
 			'archiveFeed.sourceLabel' => 'Quelle',
+			'newsFeed.title' => 'Neuigkeiten',
+			'newsFeed.subtitle' => 'Veroffentlichungen, Ausstellungen und Ereignisse',
+			'newsFeed.emptyState' => 'Noch keine Neuigkeiten. Schauen Sie bald wieder vorbei.',
+			'newsFeed.errorTitle' => 'Neuigkeiten konnten nicht geladen werden',
+			'newsFeed.retry' => 'Erneut versuchen',
+			'newsFeed.back' => 'Zuruck zu den Neuigkeiten',
+			'newsFeed.sourceLabel' => 'Quelle',
 			'bio.heroTitle' => 'KUNST VON KOSMISCHEM AUSMAS',
 			'bio.heroSubtitle' => 'Kunst, die Grenzen zwischen dem Irdischen und dem Ewigen verwischt. Volkskünstler der Republik Belarus, Schöpfer des weltgrößten Wandteppichs «Der Wandteppich des Jahrhunderts».',
 			'bio.name' => 'Alexander Michailowitsch Kischanka (1933–1997)',

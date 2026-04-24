@@ -45,6 +45,7 @@ class TranslationsFr extends Translations with BaseTranslations<AppLocale, Trans
 	@override late final _TranslationsCommonFr common = _TranslationsCommonFr._(_root);
 	@override late final _TranslationsLanguageFr language = _TranslationsLanguageFr._(_root);
 	@override late final _TranslationsArchiveFeedFr archiveFeed = _TranslationsArchiveFeedFr._(_root);
+	@override late final _TranslationsNewsFeedFr newsFeed = _TranslationsNewsFeedFr._(_root);
 	@override late final _TranslationsBioFr bio = _TranslationsBioFr._(_root);
 }
 
@@ -122,6 +123,22 @@ class _TranslationsArchiveFeedFr extends TranslationsArchiveFeedRu {
 	@override String get latestLabel => 'Derniere publication';
 	@override String get moreLabel => 'Actualites et references';
 	@override String get openArticle => 'Ouvrir l\'article';
+	@override String get sourceLabel => 'Source';
+}
+
+// Path: newsFeed
+class _TranslationsNewsFeedFr extends TranslationsNewsFeedRu {
+	_TranslationsNewsFeedFr._(TranslationsFr root) : this._root = root, super.internal(root);
+
+	final TranslationsFr _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Actualites';
+	@override String get subtitle => 'Publications, expositions et evenements';
+	@override String get emptyState => 'Pas encore d\'actualites. Revenez bientot.';
+	@override String get errorTitle => 'Impossible de charger les actualites';
+	@override String get retry => 'Reessayer';
+	@override String get back => 'Retour aux actualites';
 	@override String get sourceLabel => 'Source';
 }
 
@@ -590,6 +607,13 @@ extension on TranslationsFr {
 			'archiveFeed.moreLabel' => 'Actualites et references',
 			'archiveFeed.openArticle' => 'Ouvrir l\'article',
 			'archiveFeed.sourceLabel' => 'Source',
+			'newsFeed.title' => 'Actualites',
+			'newsFeed.subtitle' => 'Publications, expositions et evenements',
+			'newsFeed.emptyState' => 'Pas encore d\'actualites. Revenez bientot.',
+			'newsFeed.errorTitle' => 'Impossible de charger les actualites',
+			'newsFeed.retry' => 'Reessayer',
+			'newsFeed.back' => 'Retour aux actualites',
+			'newsFeed.sourceLabel' => 'Source',
 			'bio.heroTitle' => 'ART À L\'ÉCHELLE COSMIQUE',
 			'bio.heroSubtitle' => 'Un art qui efface les frontières entre le terrestre et l\'éternel. Artiste du Peuple de la République du Bélarus, créateur de la plus grande tapisserie du monde «La Tapisserie du Siècle».',
 			'bio.name' => 'Alexandre Mikhaïlovitch Kichtchanka (1933–1997)',

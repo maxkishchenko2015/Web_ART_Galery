@@ -45,6 +45,7 @@ class TranslationsEs extends Translations with BaseTranslations<AppLocale, Trans
 	@override late final _TranslationsCommonEs common = _TranslationsCommonEs._(_root);
 	@override late final _TranslationsLanguageEs language = _TranslationsLanguageEs._(_root);
 	@override late final _TranslationsArchiveFeedEs archiveFeed = _TranslationsArchiveFeedEs._(_root);
+	@override late final _TranslationsNewsFeedEs newsFeed = _TranslationsNewsFeedEs._(_root);
 	@override late final _TranslationsBioEs bio = _TranslationsBioEs._(_root);
 }
 
@@ -122,6 +123,22 @@ class _TranslationsArchiveFeedEs extends TranslationsArchiveFeedRu {
 	@override String get latestLabel => 'Publicacion mas reciente';
 	@override String get moreLabel => 'Noticias y referencias';
 	@override String get openArticle => 'Abrir articulo';
+	@override String get sourceLabel => 'Fuente';
+}
+
+// Path: newsFeed
+class _TranslationsNewsFeedEs extends TranslationsNewsFeedRu {
+	_TranslationsNewsFeedEs._(TranslationsEs root) : this._root = root, super.internal(root);
+
+	final TranslationsEs _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Noticias';
+	@override String get subtitle => 'Publicaciones, exposiciones y eventos';
+	@override String get emptyState => 'Aun no hay noticias. Vuelve pronto.';
+	@override String get errorTitle => 'No se pudieron cargar las noticias';
+	@override String get retry => 'Reintentar';
+	@override String get back => 'Volver a las noticias';
 	@override String get sourceLabel => 'Fuente';
 }
 
@@ -590,6 +607,13 @@ extension on TranslationsEs {
 			'archiveFeed.moreLabel' => 'Noticias y referencias',
 			'archiveFeed.openArticle' => 'Abrir articulo',
 			'archiveFeed.sourceLabel' => 'Fuente',
+			'newsFeed.title' => 'Noticias',
+			'newsFeed.subtitle' => 'Publicaciones, exposiciones y eventos',
+			'newsFeed.emptyState' => 'Aun no hay noticias. Vuelve pronto.',
+			'newsFeed.errorTitle' => 'No se pudieron cargar las noticias',
+			'newsFeed.retry' => 'Reintentar',
+			'newsFeed.back' => 'Volver a las noticias',
+			'newsFeed.sourceLabel' => 'Fuente',
 			'bio.heroTitle' => 'ARTE DE ESCALA CÓSMICA',
 			'bio.heroSubtitle' => 'Un arte que borra las fronteras entre lo terrenal y lo eterno. Artista del Pueblo de la República de Bielorrusia, creador del tapiz más grande del mundo «El Tapiz del Siglo».',
 			'bio.name' => 'Alexander Mikhailovich Kishchanka (1933–1997)',

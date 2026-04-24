@@ -196,6 +196,15 @@
     "openArticle": "Artikel offnen",
     "sourceLabel": "Quelle"
   },
+  "newsFeed": {
+    "title": "Neuigkeiten",
+    "subtitle": "Veroffentlichungen, Ausstellungen und Ereignisse",
+    "emptyState": "Noch keine Neuigkeiten. Schauen Sie bald wieder vorbei.",
+    "errorTitle": "Neuigkeiten konnten nicht geladen werden",
+    "retry": "Erneut versuchen",
+    "back": "Zuruck zu den Neuigkeiten",
+    "sourceLabel": "Quelle"
+  },
   "bio": {
     "heroTitle": "KUNST VON KOSMISCHEM AUSMAS",
     "heroSubtitle": "Kunst, die Grenzen zwischen dem Irdischen und dem Ewigen verwischt. Volkskünstler der Republik Belarus, Schöpfer des weltgrößten Wandteppichs «Der Wandteppich des Jahrhunderts».",

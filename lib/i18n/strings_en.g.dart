@@ -45,6 +45,7 @@ class TranslationsEn extends Translations with BaseTranslations<AppLocale, Trans
 	@override late final _TranslationsCommonEn common = _TranslationsCommonEn._(_root);
 	@override late final _TranslationsLanguageEn language = _TranslationsLanguageEn._(_root);
 	@override late final _TranslationsArchiveFeedEn archiveFeed = _TranslationsArchiveFeedEn._(_root);
+	@override late final _TranslationsNewsFeedEn newsFeed = _TranslationsNewsFeedEn._(_root);
 	@override late final _TranslationsBioEn bio = _TranslationsBioEn._(_root);
 }
 
@@ -122,6 +123,22 @@ class _TranslationsArchiveFeedEn extends TranslationsArchiveFeedRu {
 	@override String get latestLabel => 'Latest publication';
 	@override String get moreLabel => 'News and references';
 	@override String get openArticle => 'Open article';
+	@override String get sourceLabel => 'Source';
+}
+
+// Path: newsFeed
+class _TranslationsNewsFeedEn extends TranslationsNewsFeedRu {
+	_TranslationsNewsFeedEn._(TranslationsEn root) : this._root = root, super.internal(root);
+
+	final TranslationsEn _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'News';
+	@override String get subtitle => 'Publications, exhibitions, and events';
+	@override String get emptyState => 'No news yet. Check back soon.';
+	@override String get errorTitle => 'Failed to load news';
+	@override String get retry => 'Retry';
+	@override String get back => 'Back to news';
 	@override String get sourceLabel => 'Source';
 }
 
@@ -590,6 +607,13 @@ extension on TranslationsEn {
 			'archiveFeed.moreLabel' => 'News and references',
 			'archiveFeed.openArticle' => 'Open article',
 			'archiveFeed.sourceLabel' => 'Source',
+			'newsFeed.title' => 'News',
+			'newsFeed.subtitle' => 'Publications, exhibitions, and events',
+			'newsFeed.emptyState' => 'No news yet. Check back soon.',
+			'newsFeed.errorTitle' => 'Failed to load news',
+			'newsFeed.retry' => 'Retry',
+			'newsFeed.back' => 'Back to news',
+			'newsFeed.sourceLabel' => 'Source',
 			'bio.heroTitle' => 'ART OF COSMIC SCALE',
 			'bio.heroSubtitle' => 'Art that erases boundaries between the earthly and the eternal. People\'s Artist of the Republic of Belarus, creator of the world\'s largest tapestry "The Tapestry of the Century".',
 			'bio.name' => 'Alexander Mikhailovich Kishchanka (1933–1997)',
