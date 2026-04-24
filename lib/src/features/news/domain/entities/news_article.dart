@@ -11,14 +11,14 @@ class NewsArticle {
   const NewsArticle({
     required this.id,
     required this.translations,
+    required this.imageUrls,
     this.publishedAt,
-    this.imageUrl,
     this.sourceUrl,
   });
 
   final String id;
   final DateTime? publishedAt;
-  final String? imageUrl;
+  final List<String> imageUrls;
   final String? sourceUrl;
 
   /// Map of locale language codes (`ru`, `en`, `be`, `de`, `es`, `fr`) to
@@ -35,7 +35,7 @@ class NewsArticle {
 
   String bodyFor(AppLocale locale) => _resolve(locale, (t) => t.body);
 
-  bool get hasImage => (imageUrl ?? '').trim().isNotEmpty;
+  bool get hasImage => imageUrls.isNotEmpty;
 
   bool get hasSourceUrl => (sourceUrl ?? '').trim().isNotEmpty;
 

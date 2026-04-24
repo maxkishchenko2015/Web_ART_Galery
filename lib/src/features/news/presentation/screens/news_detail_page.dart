@@ -209,19 +209,8 @@ class _ArticleBody extends StatelessWidget {
                 style: context.textContent.bioIntro,
               ),
             ],
-            if (article.hasImage) ...[
-              const SizedBox(height: KSize.margin8x),
-              ClipRRect(
-                borderRadius: BorderRadius.circular(KSize.radiusLargeExtra),
-                child: AspectRatio(
-                  aspectRatio: isCompact ? 4 / 3 : 16 / 9,
-                  child: CachedNetworkImageView(
-                    imagePathOrUrl: article.imageUrl!,
-                    fit: BoxFit.cover,
-                  ),
-                ),
-              ),
-            ],
+            const SizedBox(height: KSize.margin8x),
+            _ImageStrip(imageUrls: article.imageUrls),
             if (body.isNotEmpty) ...[
               const SizedBox(height: KSize.margin8x),
               _BodyText(body: body),
@@ -233,6 +222,45 @@ class _ArticleBody extends StatelessWidget {
             const SizedBox(height: KSize.margin15x),
           ],
         ),
+      ),
+    );
+  }
+}
+
+class _ImageStrip extends StatelessWidget {
+  const _ImageStrip({required this.imageUrls});
+
+  final List<String> imageUrls;
+
+  static const double _itemHeight = 240;
+  static const double _itemWidth = 320;
+  static const double _itemSpacing = KSize.margin3x;
+
+  @override
+  Widget build(BuildContext context) {
+    if (imageUrls.isEmpty) {
+      return const SizedBox(height: KSize.margin8x);
+    }
+
+    return SizedBox(
+      height: _itemHeight,
+      child: ListView.separated(
+        scrollDirection: Axis.horizontal,
+        itemCount: imageUrls.length,
+        separatorBuilder: (_, __) => const SizedBox(width: _itemSpacing),
+        itemBuilder: (context, index) {
+          return ClipRRect(
+            borderRadius: BorderRadius.circular(KSize.radiusLarge),
+            child: SizedBox(
+              width: _itemWidth,
+              height: _itemHeight,
+              child: CachedNetworkImageView(
+                imagePathOrUrl: imageUrls[index],
+                fit: BoxFit.cover,
+              ),
+            ),
+          );
+        },
       ),
     );
   }

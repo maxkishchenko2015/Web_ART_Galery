@@ -170,7 +170,7 @@ class _NewsArtwork extends StatelessWidget {
         aspectRatio: aspectRatio,
         child: article.hasImage
             ? CachedNetworkImageView(
-                imagePathOrUrl: article.imageUrl!,
+                imagePathOrUrl: article.imageUrls.first,
                 fit: BoxFit.cover,
               )
             : _GradientFallback(featured: featured, year: article.publishedAt?.year),

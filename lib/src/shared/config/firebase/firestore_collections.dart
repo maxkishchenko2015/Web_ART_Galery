@@ -21,11 +21,11 @@ class FirestoreCollections {
   // News articles collection (auto-created on first write). Each document
   // embeds all locale translations in a `translations` map so that
   // editorial content can be updated without an app release.
-  static const String news = 'news';
+  static const String news = 'News';
 
   static const String newsIdField = 'id';
   static const String newsPublishedAtField = 'publishedAt';
-  static const String newsImageUrlField = 'imageUrl';
+  static const String newsImageUrlsField = 'imageUrls';
   static const String newsSourceUrlField = 'sourceUrl';
   static const String newsTranslationsField = 'translations';
 

@@ -34,18 +34,15 @@ class AdminNewsSeedFlow {
     for (final template in _templates) {
       final docRef = await collectionRef.add(<String, dynamic>{
         FirestoreCollections.newsPublishedAtField: FieldValue.serverTimestamp(),
-        if (template.imageUrl != null)
-          FirestoreCollections.newsImageUrlField: template.imageUrl,
-        if (template.sourceUrl != null)
-          FirestoreCollections.newsSourceUrlField: template.sourceUrl,
+        if (template.imageUrls.isNotEmpty)
+          FirestoreCollections.newsImageUrlsField: template.imageUrls,
+        if (template.sourceUrl != null) FirestoreCollections.newsSourceUrlField: template.sourceUrl,
         FirestoreCollections.newsTranslationsField: _translationsPayload(template),
       });
 
       // Mirror the auto-id back into the document so clients can rely on
       // either the doc id or the `id` field interchangeably.
-      await docRef.update(<String, dynamic>{
-        FirestoreCollections.newsIdField: docRef.id,
-      });
+      await docRef.update(<String, dynamic>{FirestoreCollections.newsIdField: docRef.id});
 
       AppLogger.instance.i('News seed: wrote template "${template.ruTitle}" -> ${docRef.id}');
     }
@@ -96,7 +93,7 @@ class AdminNewsSeedFlow {
       // Sample fields: replace with real URLs in Firebase Console (or leave
       // empty). They are written so Console editors see the full document
       // shape.
-      imageUrl: '',
+      imageUrls: ['https://via.placeholder.com/150', 'https://via.placeholder.com/150'],
       sourceUrl: '',
     ),
   ];
@@ -107,13 +104,13 @@ class _NewsTemplate {
     required this.ruTitle,
     required this.ruExcerpt,
     required this.ruBody,
-    this.imageUrl,
+    this.imageUrls = const [],
     this.sourceUrl,
   });
 
   final String ruTitle;
   final String ruExcerpt;
   final String ruBody;
-  final String? imageUrl;
+  final List<String> imageUrls;
   final String? sourceUrl;
 }

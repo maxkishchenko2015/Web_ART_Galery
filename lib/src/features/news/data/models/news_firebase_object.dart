@@ -7,8 +7,8 @@ class NewsFirebaseObject {
   const NewsFirebaseObject({
     required this.id,
     required this.translations,
+    required this.imageUrls,
     this.publishedAt,
-    this.imageUrl,
     this.sourceUrl,
   });
 
@@ -40,10 +40,19 @@ class NewsFirebaseObject {
     final storedId = (data[FirestoreCollections.newsIdField] as String?)?.trim();
     final resolvedId = (storedId == null || storedId.isEmpty) ? snapshot.id : storedId;
 
+    final rawImageUrls = data[FirestoreCollections.newsImageUrlsField];
+    final imageUrls = <String>[];
+    if (rawImageUrls is List) {
+      for (final item in rawImageUrls) {
+        final url = (item as String?)?.trim() ?? '';
+        if (url.isNotEmpty) imageUrls.add(url);
+      }
+    }
+
     return NewsFirebaseObject(
       id: resolvedId,
       publishedAt: publishedAt,
-      imageUrl: (data[FirestoreCollections.newsImageUrlField] as String?)?.trim(),
+      imageUrls: imageUrls,
       sourceUrl: (data[FirestoreCollections.newsSourceUrlField] as String?)?.trim(),
       translations: translations,
     );
@@ -51,7 +60,7 @@ class NewsFirebaseObject {
 
   final String id;
   final DateTime? publishedAt;
-  final String? imageUrl;
+  final List<String> imageUrls;
   final String? sourceUrl;
   final Map<String, NewsTranslationFirebaseObject> translations;
 
@@ -59,7 +68,7 @@ class NewsFirebaseObject {
     FirestoreCollections.newsIdField: id,
     if (publishedAt != null)
       FirestoreCollections.newsPublishedAtField: Timestamp.fromDate(publishedAt!),
-    if (imageUrl != null) FirestoreCollections.newsImageUrlField: imageUrl,
+    if (imageUrls.isNotEmpty) FirestoreCollections.newsImageUrlsField: imageUrls,
     if (sourceUrl != null) FirestoreCollections.newsSourceUrlField: sourceUrl,
     FirestoreCollections.newsTranslationsField: <String, dynamic>{
       for (final entry in translations.entries) entry.key: entry.value.toMap(),

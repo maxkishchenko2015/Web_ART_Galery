@@ -7,7 +7,7 @@ extension NewsFirebaseObjectX on NewsFirebaseObject {
   NewsArticle toDomain() => NewsArticle(
     id: id,
     publishedAt: publishedAt,
-    imageUrl: imageUrl,
+    imageUrls: imageUrls,
     sourceUrl: sourceUrl,
     translations: <String, NewsTranslation>{
       for (final entry in translations.entries) entry.key: entry.value.toDomain(),
