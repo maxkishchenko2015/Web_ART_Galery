@@ -9,12 +9,20 @@ import 'package:web_art_galery/src/shared/config/app_context_extensions.dart';
 import 'package:web_art_galery/src/shared/config/ksize.dart';
 import 'package:web_art_galery/src/shared/presentation/widgets/cached_network_image_view.dart';
 import 'package:web_art_galery/src/shared/presentation/widgets/fullscreen_image_viewer.dart';
+import 'package:web_art_galery/src/shared/utils/url_launcher_utils.dart';
 
 /// Indices of the Firestore `AboutAuthor.items` array pinned to each section.
 const int _heroPhotoIndex = 0;
 const int _universalRealismPhotoIndex = 1;
 const int _tapestryPhotoIndex = 2;
 const int _chernobylPhotoIndex = 3;
+const int _mosaicPhotoIndex = 4;
+
+/// External references shown as "Open article"-style text buttons next to the
+/// matching biography sections.
+const String _tapestryExternalUrl = 'https://robbielafleur.com/2016/01/16/tapestry-of-the-century/';
+const String _chernobylExternalUrl = 'https://www.un.org/ungifts/chernobyl';
+const String _mosaicExternalUrl = 'https://streetartcities.com/artists/alexander-kishchenko';
 
 class AboutAuthorPage extends StatelessWidget {
   const AboutAuthorPage({super.key});
@@ -348,14 +356,14 @@ class _BiographySection extends StatelessWidget {
           _BioSectionWithPhoto(
             isCompact: isCompact,
             photoIndex: _chernobylPhotoIndex,
-            child: _BioSubSection(title: bio.chernobyl.title, body: bio.chernobyl.body),
+            child: _ChernobylCopy(),
           ),
           const SizedBox(height: KSize.margin12x),
-          _BioSubSection(title: bio.mosaic.title, body: bio.mosaic.intro),
-          const SizedBox(height: KSize.margin4x),
-          _BioHighlightRow(label: bio.mosaic.panelsLabel, text: bio.mosaic.panels),
-          const SizedBox(height: KSize.margin4x),
-          Text(bio.mosaic.panelsMeaning, style: context.textContent.bioDetail),
+          _BioSectionWithPhoto(
+            isCompact: isCompact,
+            photoIndex: _mosaicPhotoIndex,
+            child: _MosaicCopy(),
+          ),
           const SizedBox(height: KSize.margin12x),
           _BioSubSection(title: bio.legacy.title, body: bio.legacy.body),
           const SizedBox(height: KSize.margin12x),
@@ -437,6 +445,44 @@ class _TapestryCopy extends StatelessWidget {
         _BioHighlightRow(label: tapestry.conceptLabel, text: tapestry.concept),
         const SizedBox(height: KSize.margin4x),
         _BioHighlightRow(label: tapestry.meaningLabel, text: tapestry.meaning),
+        const SizedBox(height: KSize.margin5x),
+        const _BioExternalLinkButton(url: _tapestryExternalUrl),
+      ],
+    );
+  }
+}
+
+class _ChernobylCopy extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    final chernobyl = context.t.bio.chernobyl;
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        _BioSubSection(title: chernobyl.title, body: chernobyl.body),
+        const SizedBox(height: KSize.margin5x),
+        const _BioExternalLinkButton(url: _chernobylExternalUrl),
+      ],
+    );
+  }
+}
+
+class _MosaicCopy extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    final mosaic = context.t.bio.mosaic;
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        _BioSubSection(title: mosaic.title, body: mosaic.intro),
+        const SizedBox(height: KSize.margin4x),
+        _BioHighlightRow(label: mosaic.panelsLabel, text: mosaic.panels),
+        const SizedBox(height: KSize.margin4x),
+        Text(mosaic.panelsMeaning, style: context.textContent.bioDetail),
+        const SizedBox(height: KSize.margin5x),
+        const _BioExternalLinkButton(url: _mosaicExternalUrl),
       ],
     );
   }
@@ -637,6 +683,49 @@ class _BioHighlightRow extends StatelessWidget {
             ),
           ),
         ],
+      ),
+    );
+  }
+}
+
+/// Text CTA for an external reference attached to a biography section.
+///
+/// Visually mirrors the "Open article" link used in the archive feed
+/// ([`_NewsMetaRow`](../../archive/presentation/widgets/news_section.dart)):
+/// uppercase label in `archiveLink` style + outward-arrow icon, all in
+/// [AppColors.forestGreen]. The URL opens in a new tab/window on web and in
+/// the system browser on native platforms.
+class _BioExternalLinkButton extends StatelessWidget {
+  const _BioExternalLinkButton({required this.url});
+
+  final String url;
+
+  @override
+  Widget build(BuildContext context) {
+    final label = context.t.common.learnMore;
+
+    return MouseRegion(
+      cursor: SystemMouseCursors.click,
+      child: Semantics(
+        button: true,
+        link: true,
+        label: label,
+        child: GestureDetector(
+          behavior: HitTestBehavior.opaque,
+          onTap: () => UrlLauncherUtils.launchUrlIfPossible(url: url),
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(label, style: context.textContent.archiveLink),
+              const SizedBox(width: KSize.margin1Halfx),
+              Icon(
+                Icons.arrow_outward_rounded,
+                size: KSize.iconSPlus,
+                color: context.colors.forestGreen,
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }
