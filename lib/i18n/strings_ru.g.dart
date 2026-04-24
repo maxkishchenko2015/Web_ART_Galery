@@ -45,6 +45,7 @@ class Translations with BaseTranslations<AppLocale, Translations> {
 	late final TranslationsCatalogRu catalog = TranslationsCatalogRu.internal(_root);
 	late final TranslationsCommonRu common = TranslationsCommonRu.internal(_root);
 	late final TranslationsLanguageRu language = TranslationsLanguageRu.internal(_root);
+	late final TranslationsArchiveFeedRu archiveFeed = TranslationsArchiveFeedRu.internal(_root);
 	late final TranslationsBioRu bio = TranslationsBioRu.internal(_root);
 }
 
@@ -144,6 +145,30 @@ class TranslationsLanguageRu {
 
 	/// ru: 'Белорусский'
 	String get belarusian => 'Белорусский';
+}
+
+// Path: archiveFeed
+class TranslationsArchiveFeedRu {
+	TranslationsArchiveFeedRu.internal(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// ru: 'Архив публикаций'
+	String get title => 'Архив публикаций';
+
+	/// ru: 'Последняя публикация'
+	String get latestLabel => 'Последняя публикация';
+
+	/// ru: 'Материалы и новости'
+	String get moreLabel => 'Материалы и новости';
+
+	/// ru: 'Открыть статью'
+	String get openArticle => 'Открыть статью';
+
+	/// ru: 'Источник'
+	String get sourceLabel => 'Источник';
 }
 
 // Path: bio
@@ -999,6 +1024,11 @@ extension on Translations {
 			'language.french' => 'Français',
 			'language.german' => 'Deutsch',
 			'language.belarusian' => 'Белорусский',
+			'archiveFeed.title' => 'Архив публикаций',
+			'archiveFeed.latestLabel' => 'Последняя публикация',
+			'archiveFeed.moreLabel' => 'Материалы и новости',
+			'archiveFeed.openArticle' => 'Открыть статью',
+			'archiveFeed.sourceLabel' => 'Источник',
 			'bio.heroTitle' => 'ИСКУССТВО КОСМИЧЕСКОГО МАСШТАБА',
 			'bio.heroSubtitle' => 'Искусство, стирающее границы между земным и вечным. Народный художник Республики Беларусь, создатель самого большого в мире «Гобелена века»',
 			'bio.name' => 'Александр Михайлович Кищенко (1933–1997)',

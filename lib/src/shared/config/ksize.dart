@@ -2,6 +2,8 @@ import 'package:flutter/cupertino.dart';
 
 /// Constants for margins, font sizes and other layout related parameters.
 class KSize {
+  const KSize._();
+
   /// Margins are based roughly on a 4x4 grid.
   static const double marginMinimum = 1;
   static const double marginHalf = 2;
@@ -179,6 +181,21 @@ class KSize {
   static const double newDesignAppbarHeight = 46;
   static const double modalBottomSheetAppbarHeight = 48;
 
+  static const double floatingMenuMinWidth = 220;
+  static const double floatingMenuMaxWidth = 260;
+  static const double indicatorBox = 18;
+  static const double newsRuleWidth = 92;
+  static const double newsListArtworkWidth = 228;
+  static const double newsFeaturedArtworkHeight = 320;
+  static const double newsCardArtworkHeight = 168;
+  static const double bulletXS = 5;
+
+  static const Duration durationFast = Duration(milliseconds: 150);
+  static const Duration durationShort = Duration(milliseconds: 160);
+  static const Duration durationStandard = Duration(milliseconds: 180);
+  static const Duration durationMedium = Duration(milliseconds: 220);
+  static const Duration durationScroll = Duration(milliseconds: 600);
+
   static const double messageBoxWidthToScreenRatio = 0.8;
 
   static const int bottomSheetLoadingHeightPercent = 40;
@@ -219,9 +236,13 @@ class KSize {
 
   // Icon sizes
   static const double iconXS = 12;
+  static const double iconSPlus = 14;
   static const double iconS = 16;
+  static const double iconSM = 17;
+  static const double iconSMedium = 18;
   static const double iconMS = 20;
   static const double iconM = 24;
+  static const double iconHeroPlaceholder = 64;
   static const double iconL = 32;
   static const double iconXL = 40;
 

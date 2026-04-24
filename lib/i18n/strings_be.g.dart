@@ -44,6 +44,7 @@ class TranslationsBe extends Translations with BaseTranslations<AppLocale, Trans
 	@override late final _TranslationsCatalogBe catalog = _TranslationsCatalogBe._(_root);
 	@override late final _TranslationsCommonBe common = _TranslationsCommonBe._(_root);
 	@override late final _TranslationsLanguageBe language = _TranslationsLanguageBe._(_root);
+	@override late final _TranslationsArchiveFeedBe archiveFeed = _TranslationsArchiveFeedBe._(_root);
 	@override late final _TranslationsBioBe bio = _TranslationsBioBe._(_root);
 }
 
@@ -108,6 +109,20 @@ class _TranslationsLanguageBe extends TranslationsLanguageRu {
 	@override String get french => 'Французская';
 	@override String get german => 'Нямецкая';
 	@override String get belarusian => 'Беларуская';
+}
+
+// Path: archiveFeed
+class _TranslationsArchiveFeedBe extends TranslationsArchiveFeedRu {
+	_TranslationsArchiveFeedBe._(TranslationsBe root) : this._root = root, super.internal(root);
+
+	final TranslationsBe _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Архіў публікацый';
+	@override String get latestLabel => 'Апошняя публікацыя';
+	@override String get moreLabel => 'Навіны і матэрыялы';
+	@override String get openArticle => 'Адкрыць артыкул';
+	@override String get sourceLabel => 'Крыніца';
 }
 
 // Path: bio
@@ -570,6 +585,11 @@ extension on TranslationsBe {
 			'language.french' => 'Французская',
 			'language.german' => 'Нямецкая',
 			'language.belarusian' => 'Беларуская',
+			'archiveFeed.title' => 'Архіў публікацый',
+			'archiveFeed.latestLabel' => 'Апошняя публікацыя',
+			'archiveFeed.moreLabel' => 'Навіны і матэрыялы',
+			'archiveFeed.openArticle' => 'Адкрыць артыкул',
+			'archiveFeed.sourceLabel' => 'Крыніца',
 			'bio.heroTitle' => 'МАСТАЦТВА КАСМІЧНАГА МАШТАБУ',
 			'bio.heroSubtitle' => 'Мастацтва, якое сцірае межы паміж зямным і вечным. Народны мастак Рэспублікі Беларусь, стваральнік найбуйнейшага ў свеце «Гобелена стагоддзя»',
 			'bio.name' => 'Аляксандр Міхайлавіч Кішчанка (1933–1997)',

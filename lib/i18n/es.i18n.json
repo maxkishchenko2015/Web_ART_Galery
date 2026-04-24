@@ -189,6 +189,13 @@
     "german": "Aleman",
     "belarusian": "Bielorruso"
   },
+  "archiveFeed": {
+    "title": "Archivo y publicaciones",
+    "latestLabel": "Publicacion mas reciente",
+    "moreLabel": "Noticias y referencias",
+    "openArticle": "Abrir articulo",
+    "sourceLabel": "Fuente"
+  },
   "bio": {
     "heroTitle": "ARTE DE ESCALA CÓSMICA",
     "heroSubtitle": "Un arte que borra las fronteras entre lo terrenal y lo eterno. Artista del Pueblo de la República de Bielorrusia, creador del tapiz más grande del mundo «El Tapiz del Siglo».",

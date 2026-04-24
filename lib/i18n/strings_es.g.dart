@@ -44,6 +44,7 @@ class TranslationsEs extends Translations with BaseTranslations<AppLocale, Trans
 	@override late final _TranslationsCatalogEs catalog = _TranslationsCatalogEs._(_root);
 	@override late final _TranslationsCommonEs common = _TranslationsCommonEs._(_root);
 	@override late final _TranslationsLanguageEs language = _TranslationsLanguageEs._(_root);
+	@override late final _TranslationsArchiveFeedEs archiveFeed = _TranslationsArchiveFeedEs._(_root);
 	@override late final _TranslationsBioEs bio = _TranslationsBioEs._(_root);
 }
 
@@ -108,6 +109,20 @@ class _TranslationsLanguageEs extends TranslationsLanguageRu {
 	@override String get french => 'Frances';
 	@override String get german => 'Aleman';
 	@override String get belarusian => 'Bielorruso';
+}
+
+// Path: archiveFeed
+class _TranslationsArchiveFeedEs extends TranslationsArchiveFeedRu {
+	_TranslationsArchiveFeedEs._(TranslationsEs root) : this._root = root, super.internal(root);
+
+	final TranslationsEs _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Archivo y publicaciones';
+	@override String get latestLabel => 'Publicacion mas reciente';
+	@override String get moreLabel => 'Noticias y referencias';
+	@override String get openArticle => 'Abrir articulo';
+	@override String get sourceLabel => 'Fuente';
 }
 
 // Path: bio
@@ -570,6 +585,11 @@ extension on TranslationsEs {
 			'language.french' => 'Frances',
 			'language.german' => 'Aleman',
 			'language.belarusian' => 'Bielorruso',
+			'archiveFeed.title' => 'Archivo y publicaciones',
+			'archiveFeed.latestLabel' => 'Publicacion mas reciente',
+			'archiveFeed.moreLabel' => 'Noticias y referencias',
+			'archiveFeed.openArticle' => 'Abrir articulo',
+			'archiveFeed.sourceLabel' => 'Fuente',
 			'bio.heroTitle' => 'ARTE DE ESCALA CÓSMICA',
 			'bio.heroSubtitle' => 'Un arte que borra las fronteras entre lo terrenal y lo eterno. Artista del Pueblo de la República de Bielorrusia, creador del tapiz más grande del mundo «El Tapiz del Siglo».',
 			'bio.name' => 'Alexander Mikhailovich Kishchanka (1933–1997)',

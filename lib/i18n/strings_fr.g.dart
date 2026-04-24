@@ -44,6 +44,7 @@ class TranslationsFr extends Translations with BaseTranslations<AppLocale, Trans
 	@override late final _TranslationsCatalogFr catalog = _TranslationsCatalogFr._(_root);
 	@override late final _TranslationsCommonFr common = _TranslationsCommonFr._(_root);
 	@override late final _TranslationsLanguageFr language = _TranslationsLanguageFr._(_root);
+	@override late final _TranslationsArchiveFeedFr archiveFeed = _TranslationsArchiveFeedFr._(_root);
 	@override late final _TranslationsBioFr bio = _TranslationsBioFr._(_root);
 }
 
@@ -108,6 +109,20 @@ class _TranslationsLanguageFr extends TranslationsLanguageRu {
 	@override String get french => 'Francais';
 	@override String get german => 'Allemand';
 	@override String get belarusian => 'Bielorusse';
+}
+
+// Path: archiveFeed
+class _TranslationsArchiveFeedFr extends TranslationsArchiveFeedRu {
+	_TranslationsArchiveFeedFr._(TranslationsFr root) : this._root = root, super.internal(root);
+
+	final TranslationsFr _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Archives et publications';
+	@override String get latestLabel => 'Derniere publication';
+	@override String get moreLabel => 'Actualites et references';
+	@override String get openArticle => 'Ouvrir l\'article';
+	@override String get sourceLabel => 'Source';
 }
 
 // Path: bio
@@ -570,6 +585,11 @@ extension on TranslationsFr {
 			'language.french' => 'Francais',
 			'language.german' => 'Allemand',
 			'language.belarusian' => 'Bielorusse',
+			'archiveFeed.title' => 'Archives et publications',
+			'archiveFeed.latestLabel' => 'Derniere publication',
+			'archiveFeed.moreLabel' => 'Actualites et references',
+			'archiveFeed.openArticle' => 'Ouvrir l\'article',
+			'archiveFeed.sourceLabel' => 'Source',
 			'bio.heroTitle' => 'ART À L\'ÉCHELLE COSMIQUE',
 			'bio.heroSubtitle' => 'Un art qui efface les frontières entre le terrestre et l\'éternel. Artiste du Peuple de la République du Bélarus, créateur de la plus grande tapisserie du monde «La Tapisserie du Siècle».',
 			'bio.name' => 'Alexandre Mikhaïlovitch Kichtchanka (1933–1997)',

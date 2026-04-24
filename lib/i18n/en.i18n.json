@@ -189,6 +189,13 @@
     "german": "German",
     "belarusian": "Belarusian"
   },
+  "archiveFeed": {
+    "title": "Archive & Publications",
+    "latestLabel": "Latest publication",
+    "moreLabel": "News and references",
+    "openArticle": "Open article",
+    "sourceLabel": "Source"
+  },
   "bio": {
     "heroTitle": "ART OF COSMIC SCALE",
     "heroSubtitle": "Art that erases boundaries between the earthly and the eternal. People's Artist of the Republic of Belarus, creator of the world's largest tapestry \"The Tapestry of the Century\".",

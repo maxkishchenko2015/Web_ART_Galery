@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:web_art_galery/i18n/strings.g.dart';
-import 'package:web_art_galery/src/shared/config/app_colors.dart';
 import 'package:web_art_galery/src/shared/config/app_context_extensions.dart';
-import 'package:web_art_galery/src/shared/config/app_theme.dart';
 import 'package:web_art_galery/src/shared/config/ksize.dart';
 import 'package:web_art_galery/src/shared/presentation/widgets/language_switcher.dart';
 
@@ -69,26 +67,24 @@ class _DesktopShell extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SelectionArea(
-        child: Column(
-          children: [
-            _GalleryHeader(
-              items: items,
-              selectedIndex: selectedIndex,
-              onSelected: (i) => context.go(items[i].location),
-            ),
-            Expanded(
-              child: Align(
-                alignment: Alignment.topCenter,
-                child: ConstrainedBox(
-                  constraints: const BoxConstraints(maxWidth: 1420),
-                  child: child,
-                ),
+      body: Column(
+        children: [
+          _GalleryHeader(
+            items: items,
+            selectedIndex: selectedIndex,
+            onSelected: (i) => context.go(items[i].location),
+          ),
+          Expanded(
+            child: Align(
+              alignment: Alignment.topCenter,
+              child: ConstrainedBox(
+                constraints: const BoxConstraints(maxWidth: 1420),
+                child: child,
               ),
             ),
-            _GalleryFooter(items: items, onSelected: (i) => context.go(items[i].location)),
-          ],
-        ),
+          ),
+          _GalleryFooter(items: items, onSelected: (i) => context.go(items[i].location)),
+        ],
       ),
     );
   }
@@ -124,17 +120,15 @@ class _MobileShell extends StatelessWidget {
           context.go(items[i].location);
         },
       ),
-      body: SelectionArea(
-        child: Column(
-          children: [
-            Expanded(child: child),
-            _GalleryFooter(
-              items: items,
-              onSelected: (i) => context.go(items[i].location),
-              compact: true,
-            ),
-          ],
-        ),
+      body: Column(
+        children: [
+          Expanded(child: child),
+          _GalleryFooter(
+            items: items,
+            onSelected: (i) => context.go(items[i].location),
+            compact: true,
+          ),
+        ],
       ),
     );
   }
@@ -149,20 +143,24 @@ class _GalleryHeader extends StatelessWidget {
     required this.onSelected,
   });
 
+  static const double _compactDesktopHeaderBreakpoint = 1180;
+
   final List<_NavItem> items;
   final int selectedIndex;
   final ValueChanged<int> onSelected;
 
   @override
   Widget build(BuildContext context) {
+    final width = MediaQuery.sizeOf(context).width;
+    final isMediumWidth = width < _compactDesktopHeaderBreakpoint;
     final contactsIndex = items.indexWhere((e) => e.location == '/contacts');
     final navItems = items.where((e) => e.location != '/contacts').toList();
 
     return Container(
-      color: AppTheme.forestGreen,
+      color: context.colors.forestGreen,
       height: 80,
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: KSize.margin12x),
+        padding: EdgeInsets.symmetric(horizontal: isMediumWidth ? KSize.margin6x : KSize.margin12x),
         child: Row(
           children: [
             // Logo + gallery name
@@ -172,8 +170,8 @@ class _GalleryHeader extends StatelessWidget {
                 cursor: SystemMouseCursors.click,
                 child: Row(
                   children: [
-                    const _GalleryLogo(size: 40),
-                    const SizedBox(width: KSize.margin4x),
+                    _GalleryLogo(size: isMediumWidth ? 32 : 40),
+                    SizedBox(width: isMediumWidth ? KSize.margin3x : KSize.margin4x),
                     Column(
                       mainAxisSize: MainAxisSize.min,
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -182,36 +180,53 @@ class _GalleryHeader extends StatelessWidget {
                           context.t.app.title.toUpperCase(),
                           style: context.textOnDark.brandTitle,
                         ),
-                        Text('Collection of Fine Arts', style: context.textOnDark.brandSubtitle),
+                        if (!isMediumWidth)
+                          Text('Collection of Fine Arts', style: context.textOnDark.brandSubtitle),
                       ],
                     ),
                   ],
                 ),
               ),
             ),
-            const Spacer(),
+            SizedBox(width: isMediumWidth ? KSize.margin4x : KSize.margin8x),
             // Navigation links (all except contacts)
-            for (final item in navItems)
-              _HeaderNavItem(
-                label: item.label,
-                selected: items.indexOf(item) == selectedIndex,
-                onTap: () => onSelected(items.indexOf(item)),
+            Expanded(
+              child: Align(
+                alignment: Alignment.center,
+                child: SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  primary: false,
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      for (final item in navItems)
+                        _HeaderNavItem(
+                          label: item.label,
+                          selected: items.indexOf(item) == selectedIndex,
+                          onTap: () => onSelected(items.indexOf(item)),
+                          compact: isMediumWidth,
+                        ),
+                    ],
+                  ),
+                ),
               ),
-            const Spacer(),
+            ),
+            SizedBox(width: isMediumWidth ? KSize.margin3x : KSize.margin6x),
             // Contacts CTA button
             if (contactsIndex >= 0)
               _ContactsButton(
                 label: items[contactsIndex].label,
                 selected: selectedIndex == contactsIndex,
                 onTap: () => onSelected(contactsIndex),
+                compact: isMediumWidth,
               ),
-            const SizedBox(width: KSize.margin6x),
+            SizedBox(width: isMediumWidth ? KSize.margin3x : KSize.margin6x),
             // Language switcher themed for dark background
             Theme(
               data: Theme.of(context).copyWith(
-                canvasColor: AppTheme.forestGreen,
-                textTheme: Theme.of(context).textTheme.apply(bodyColor: AppColors.onDark),
-                iconTheme: const IconThemeData(color: AppColors.onDark),
+                canvasColor: context.colors.forestGreen,
+                textTheme: Theme.of(context).textTheme.apply(bodyColor: context.colors.onDark),
+                iconTheme: IconThemeData(color: context.colors.onDark),
               ),
               child: const LanguageSwitcher(),
             ),
@@ -225,26 +240,37 @@ class _GalleryHeader extends StatelessWidget {
 // ─── Header nav item ──────────────────────────────────────────────────────────
 
 class _HeaderNavItem extends StatelessWidget {
-  const _HeaderNavItem({required this.label, required this.selected, required this.onTap});
+  const _HeaderNavItem({
+    required this.label,
+    required this.selected,
+    required this.onTap,
+    this.compact = false,
+  });
 
   final String label;
   final bool selected;
   final VoidCallback onTap;
+  final bool compact;
 
   @override
   Widget build(BuildContext context) {
+    final colors = context.colors;
+
     return MouseRegion(
       cursor: SystemMouseCursors.click,
       child: GestureDetector(
         onTap: onTap,
         child: Container(
-          margin: const EdgeInsets.only(right: KSize.margin8x),
-          padding: const EdgeInsets.symmetric(vertical: KSize.margin3x, horizontal: KSize.margin2x),
+          margin: EdgeInsets.only(right: compact ? KSize.margin4x : KSize.margin8x),
+          padding: EdgeInsets.symmetric(
+            vertical: KSize.margin3x,
+            horizontal: compact ? KSize.margin1x : KSize.margin2x,
+          ),
           decoration: BoxDecoration(
             border: Border(
               bottom: BorderSide(
-                color: selected ? AppColors.onDark : Colors.transparent,
-                width: 1.5,
+                color: selected ? colors.onDark : Colors.transparent,
+                width: KSize.borderWidthSmallHalf,
               ),
             ),
           ),
@@ -261,24 +287,35 @@ class _HeaderNavItem extends StatelessWidget {
 // ─── Contacts CTA button ──────────────────────────────────────────────────────
 
 class _ContactsButton extends StatelessWidget {
-  const _ContactsButton({required this.label, required this.selected, required this.onTap});
+  const _ContactsButton({
+    required this.label,
+    required this.selected,
+    required this.onTap,
+    this.compact = false,
+  });
 
   final String label;
   final bool selected;
   final VoidCallback onTap;
+  final bool compact;
 
   @override
   Widget build(BuildContext context) {
+    final colors = context.colors;
+
     return MouseRegion(
       cursor: SystemMouseCursors.click,
       child: GestureDetector(
         onTap: onTap,
         child: AnimatedContainer(
-          duration: const Duration(milliseconds: 150),
-          padding: const EdgeInsets.symmetric(horizontal: KSize.margin6x, vertical: KSize.margin3x),
+          duration: KSize.durationFast,
+          padding: EdgeInsets.symmetric(
+            horizontal: compact ? KSize.margin4x : KSize.margin6x,
+            vertical: KSize.margin3x,
+          ),
           decoration: BoxDecoration(
-            color: selected ? AppColors.onDarkDivider : Colors.transparent,
-            border: Border.all(color: AppColors.onDarkMuted, width: 1),
+            color: selected ? colors.onDarkDivider : Colors.transparent,
+            border: Border.all(color: colors.onDarkMuted, width: KSize.borderWidthVerySmall),
             borderRadius: BorderRadius.circular(KSize.radiusOfRoundButton),
           ),
           child: Text(label.toUpperCase(), style: context.textOnDark.ctaLabel),
@@ -297,12 +334,14 @@ class _GalleryLogo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = context.colors;
+
     return Container(
       width: size,
       height: size,
       decoration: BoxDecoration(
         shape: BoxShape.circle,
-        border: Border.all(color: AppColors.onDarkSubtle, width: 1),
+        border: Border.all(color: colors.onDarkSubtle, width: KSize.borderWidthVerySmall),
       ),
       child: Center(
         child: Builder(builder: (context) => Text('KA', style: context.textOnDark.logoMark(size))),
@@ -327,7 +366,7 @@ class _GalleryDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Drawer(
-      backgroundColor: AppTheme.forestGreen,
+      backgroundColor: context.colors.forestGreen,
       child: SafeArea(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -342,7 +381,7 @@ class _GalleryDrawer extends StatelessWidget {
                 ],
               ),
             ),
-            const Divider(color: AppColors.onDarkDivider, height: 1),
+            Divider(color: context.colors.onDarkDivider, height: KSize.borderWidthVerySmall),
             const SizedBox(height: KSize.margin2x),
             for (int i = 0; i < items.length; i++)
               _DrawerNavItem(
@@ -351,14 +390,14 @@ class _GalleryDrawer extends StatelessWidget {
                 onTap: () => onSelected(i),
               ),
             const Spacer(),
-            const Divider(color: AppColors.onDarkDivider, height: 1),
+            Divider(color: context.colors.onDarkDivider, height: KSize.borderWidthVerySmall),
             Padding(
               padding: const EdgeInsets.all(KSize.margin6x),
               child: Theme(
                 data: Theme.of(context).copyWith(
-                  canvasColor: AppTheme.forestGreen,
-                  textTheme: Theme.of(context).textTheme.apply(bodyColor: AppColors.onDark),
-                  iconTheme: const IconThemeData(color: AppColors.onDark),
+                  canvasColor: context.colors.forestGreen,
+                  textTheme: Theme.of(context).textTheme.apply(bodyColor: context.colors.onDark),
+                  iconTheme: IconThemeData(color: context.colors.onDark),
                 ),
                 child: const LanguageSwitcher(),
               ),
@@ -379,15 +418,21 @@ class _DrawerNavItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = context.colors;
+
     return InkWell(
       onTap: onTap,
       child: Container(
         width: double.infinity,
         padding: const EdgeInsets.symmetric(horizontal: KSize.margin6x, vertical: KSize.margin5x),
-        color: selected ? AppColors.onDarkOverlay : Colors.transparent,
+        color: selected ? colors.onDarkOverlay : Colors.transparent,
         child: Row(
           children: [
-            Icon(item.icon, color: selected ? AppColors.onDark : AppColors.onDarkMuted, size: 18),
+            Icon(
+              item.icon,
+              color: selected ? colors.onDark : colors.onDarkMuted,
+              size: KSize.iconSMedium,
+            ),
             const SizedBox(width: KSize.margin4x),
             Text(
               item.label,
@@ -416,7 +461,7 @@ class _GalleryFooter extends StatelessWidget {
 
   Widget _buildFull(BuildContext context) {
     return Container(
-      color: AppTheme.darkOlive,
+      color: context.colors.darkOlive,
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
@@ -467,7 +512,7 @@ class _GalleryFooter extends StatelessWidget {
             ),
           ),
           Container(
-            color: Colors.black12,
+            color: context.colors.footerOverlay,
             padding: const EdgeInsets.symmetric(
               horizontal: KSize.margin12x,
               vertical: KSize.margin4x,
@@ -488,7 +533,7 @@ class _GalleryFooter extends StatelessWidget {
 
   Widget _buildCompact(BuildContext context) {
     return Container(
-      color: AppTheme.darkOlive,
+      color: context.colors.darkOlive,
       padding: const EdgeInsets.symmetric(horizontal: KSize.margin6x, vertical: KSize.margin4x),
       child: Center(
         child: Text(

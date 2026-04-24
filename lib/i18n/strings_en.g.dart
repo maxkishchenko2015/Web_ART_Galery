@@ -44,6 +44,7 @@ class TranslationsEn extends Translations with BaseTranslations<AppLocale, Trans
 	@override late final _TranslationsCatalogEn catalog = _TranslationsCatalogEn._(_root);
 	@override late final _TranslationsCommonEn common = _TranslationsCommonEn._(_root);
 	@override late final _TranslationsLanguageEn language = _TranslationsLanguageEn._(_root);
+	@override late final _TranslationsArchiveFeedEn archiveFeed = _TranslationsArchiveFeedEn._(_root);
 	@override late final _TranslationsBioEn bio = _TranslationsBioEn._(_root);
 }
 
@@ -108,6 +109,20 @@ class _TranslationsLanguageEn extends TranslationsLanguageRu {
 	@override String get french => 'French';
 	@override String get german => 'German';
 	@override String get belarusian => 'Belarusian';
+}
+
+// Path: archiveFeed
+class _TranslationsArchiveFeedEn extends TranslationsArchiveFeedRu {
+	_TranslationsArchiveFeedEn._(TranslationsEn root) : this._root = root, super.internal(root);
+
+	final TranslationsEn _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Archive & Publications';
+	@override String get latestLabel => 'Latest publication';
+	@override String get moreLabel => 'News and references';
+	@override String get openArticle => 'Open article';
+	@override String get sourceLabel => 'Source';
 }
 
 // Path: bio
@@ -570,6 +585,11 @@ extension on TranslationsEn {
 			'language.french' => 'French',
 			'language.german' => 'German',
 			'language.belarusian' => 'Belarusian',
+			'archiveFeed.title' => 'Archive & Publications',
+			'archiveFeed.latestLabel' => 'Latest publication',
+			'archiveFeed.moreLabel' => 'News and references',
+			'archiveFeed.openArticle' => 'Open article',
+			'archiveFeed.sourceLabel' => 'Source',
 			'bio.heroTitle' => 'ART OF COSMIC SCALE',
 			'bio.heroSubtitle' => 'Art that erases boundaries between the earthly and the eternal. People\'s Artist of the Republic of Belarus, creator of the world\'s largest tapestry "The Tapestry of the Century".',
 			'bio.name' => 'Alexander Mikhailovich Kishchanka (1933–1997)',

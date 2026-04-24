@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:web_art_galery/i18n/strings.g.dart';
-import 'package:web_art_galery/src/shared/config/app_colors.dart';
 import 'package:web_art_galery/src/shared/config/app_context_extensions.dart';
-import 'package:web_art_galery/src/shared/config/app_theme.dart';
 import 'package:web_art_galery/src/shared/config/ksize.dart';
 
 class AboutAuthorPage extends StatefulWidget {
@@ -19,11 +17,7 @@ class _AboutAuthorPageState extends State<AboutAuthorPage> {
   void _scrollToBio() {
     final ctx = _bioKey.currentContext;
     if (ctx == null) return;
-    Scrollable.ensureVisible(
-      ctx,
-      duration: const Duration(milliseconds: 600),
-      curve: Curves.easeInOut,
-    );
+    Scrollable.ensureVisible(ctx, duration: KSize.durationScroll, curve: Curves.easeInOut);
   }
 
   @override
@@ -58,7 +52,7 @@ class _HeroSection extends StatelessWidget {
     final headlineSize = isCompact ? 36.0 : 56.0;
 
     return Container(
-      color: AppTheme.forestGreen,
+      color: context.colors.forestGreen,
       padding: EdgeInsets.symmetric(horizontal: hPad, vertical: isCompact ? 48 : 80),
       child: isCompact
           ? _buildCompactHero(context, headlineSize)
@@ -140,6 +134,8 @@ class _HeroButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = context.colors;
+
     return MouseRegion(
       cursor: SystemMouseCursors.click,
       child: GestureDetector(
@@ -147,8 +143,8 @@ class _HeroButton extends StatelessWidget {
         child: Container(
           padding: const EdgeInsets.symmetric(horizontal: KSize.margin8x, vertical: KSize.margin4x),
           decoration: BoxDecoration(
-            color: filled ? AppColors.onDark : Colors.transparent,
-            border: Border.all(color: AppColors.onDarkBody),
+            color: filled ? colors.onDark : Colors.transparent,
+            border: Border.all(color: colors.onDarkBody),
             borderRadius: BorderRadius.circular(KSize.radiusOfRoundButton),
           ),
           child: Text(label, style: context.textOnDark.heroButtonLabel(filled)),
@@ -159,8 +155,12 @@ class _HeroButton extends StatelessWidget {
 }
 
 class _HeroImagePlaceholder extends StatelessWidget {
+  const _HeroImagePlaceholder();
+
   @override
   Widget build(BuildContext context) {
+    final colors = context.colors;
+
     return ClipRRect(
       borderRadius: const BorderRadius.vertical(
         top: Radius.circular(KSize.radius3XL),
@@ -169,8 +169,14 @@ class _HeroImagePlaceholder extends StatelessWidget {
       child: AspectRatio(
         aspectRatio: 0.75,
         child: Container(
-          color: Colors.white10,
-          child: Center(child: Icon(Icons.palette_outlined, size: 64, color: Colors.white24)),
+          color: colors.onDarkPlaceholder,
+          child: Center(
+            child: Icon(
+              Icons.palette_outlined,
+              size: KSize.iconHeroPlaceholder,
+              color: colors.onDarkPlaceholderIcon,
+            ),
+          ),
         ),
       ),
     );
@@ -189,7 +195,7 @@ class _FeatureSection extends StatelessWidget {
     final hPad = isCompact ? KSize.margin6x : KSize.margin12x * 2;
 
     return Container(
-      color: Colors.white,
+      color: context.colors.white,
       padding: EdgeInsets.symmetric(horizontal: hPad, vertical: isCompact ? 48 : 80),
       child: isCompact ? _buildCompact(context) : _buildWide(context),
     );
@@ -239,7 +245,7 @@ class _FeatureDescription extends StatelessWidget {
               children: [
                 Text(feature.cta, style: context.textContent.featureCta),
                 const SizedBox(width: KSize.margin3x),
-                const Icon(Icons.arrow_forward, size: 14, color: AppTheme.forestGreen),
+                Icon(Icons.arrow_forward, size: KSize.iconSPlus, color: context.colors.forestGreen),
               ],
             ),
           ),
@@ -301,7 +307,7 @@ class _BiographySection extends StatelessWidget {
     final bio = context.t.bio;
 
     return Container(
-      color: AppColors.bioBg,
+      color: context.colors.bioBg,
       padding: EdgeInsets.symmetric(horizontal: hPad, vertical: isCompact ? 48 : 80),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -350,7 +356,11 @@ class _BioSubSection extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Container(width: 40, height: 2, color: AppTheme.forestGreen),
+        Container(
+          width: KSize.margin10x,
+          height: KSize.borderWidthSmall,
+          color: context.colors.forestGreen,
+        ),
         const SizedBox(height: KSize.margin4x),
         Text(title, style: context.textContent.bioSectionTitle),
         const SizedBox(height: KSize.margin4x),
@@ -374,10 +384,10 @@ class _BioHighlightRow extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
-            width: 5,
-            height: 5,
+            width: KSize.bulletXS,
+            height: KSize.bulletXS,
             margin: const EdgeInsets.only(top: 7, right: KSize.margin3x),
-            decoration: const BoxDecoration(color: AppTheme.forestGreen, shape: BoxShape.circle),
+            decoration: BoxDecoration(color: context.colors.forestGreen, shape: BoxShape.circle),
           ),
           Expanded(
             child: RichText(
@@ -405,9 +415,11 @@ class _BioQuote extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(KSize.margin8x),
-      decoration: const BoxDecoration(
-        color: AppColors.quoteBg,
-        border: Border(left: BorderSide(color: AppTheme.forestGreen, width: 3)),
+      decoration: BoxDecoration(
+        color: context.colors.quoteBg,
+        border: Border(
+          left: BorderSide(color: context.colors.forestGreen, width: KSize.borderWidthMedium),
+        ),
         borderRadius: BorderRadius.only(
           topRight: Radius.circular(8),
           bottomRight: Radius.circular(8),

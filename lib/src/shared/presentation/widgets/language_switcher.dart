@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:web_art_galery/i18n/strings.g.dart';
-import 'package:web_art_galery/src/shared/config/app_colors.dart';
 import 'package:web_art_galery/src/shared/config/app_context_extensions.dart';
 import 'package:web_art_galery/src/shared/config/ksize.dart';
 import 'package:web_art_galery/src/shared/platform/page_title/page_title.dart';
@@ -15,55 +14,66 @@ class LanguageSwitcher extends StatefulWidget {
 }
 
 class _LanguageSwitcherState extends State<LanguageSwitcher> {
-  bool _isOpen = false;
+  final MenuController _menuController = MenuController();
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<AppLocaleCubit, AppLocale>(
-      builder: (context, currentLocale) {
+    return BlocBuilder<AppLocaleCubit, AppLocaleState>(
+      builder: (context, state) {
+        final colors = context.colors;
+        final currentLocale = state.locale;
         final locales = _orderedLocales(context, currentLocale);
+        final localeCubit = context.read<AppLocaleCubit>();
 
         return MenuAnchor(
+          controller: _menuController,
           style: MenuStyle(
-            backgroundColor: const WidgetStatePropertyAll(AppColors.onDarkPanel),
+            backgroundColor: WidgetStatePropertyAll(colors.onDarkPanel),
             surfaceTintColor: const WidgetStatePropertyAll(Colors.transparent),
-            shadowColor: const WidgetStatePropertyAll(Color(0x44000000)),
+            shadowColor: WidgetStatePropertyAll(colors.overlayShadow),
             elevation: const WidgetStatePropertyAll(14),
             padding: const WidgetStatePropertyAll(EdgeInsets.all(KSize.margin1x)),
             shape: WidgetStatePropertyAll(
               RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(KSize.radiusDefaultLarge),
-                side: const BorderSide(color: AppColors.onDarkPanelBorder),
+                side: BorderSide(color: colors.onDarkPanelBorder),
               ),
             ),
           ),
-          onOpen: () => setState(() => _isOpen = true),
-          onClose: () => setState(() => _isOpen = false),
+          onOpen: localeCubit.openLanguageMenu,
+          onClose: localeCubit.closeLanguageMenu,
           menuChildren: [
             ConstrainedBox(
-              constraints: const BoxConstraints(minWidth: 220, maxWidth: 260),
+              constraints: const BoxConstraints(
+                minWidth: KSize.floatingMenuMinWidth,
+                maxWidth: KSize.floatingMenuMaxWidth,
+              ),
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  for (int index = 0; index < locales.length; index++) ...[
+                  for (final (index, locale) in locales.indexed) ...[
                     _LocaleMenuItem(
-                      label: _label(context, locales[index]),
-                      selected: locales[index] == currentLocale,
+                      label: _label(context, locale),
+                      selected: locale == currentLocale,
                       onTap: () {
-                        if (locales[index] == currentLocale) {
-                          MenuController.maybeOf(context)?.close();
+                        if (locale == currentLocale) {
+                          _menuController.close();
+                          localeCubit.closeLanguageMenu();
                           return;
                         }
 
-                        context.read<AppLocaleCubit>().setLocale(locales[index]);
+                        localeCubit.setLocale(locale);
                         setPageTitle(t.app.title);
-                        MenuController.maybeOf(context)?.close();
+                        _menuController.close();
                       },
                     ),
                     if (index == 0 && locales.length > 1)
-                      const Padding(
+                      Padding(
                         padding: EdgeInsets.symmetric(vertical: KSize.margin2x),
-                        child: Divider(color: AppColors.onDarkPanelBorder, height: 1),
+                        child: Divider(
+                          color: colors.onDarkPanelBorder,
+                          height: KSize.borderWidthVerySmall,
+                        ),
                       ),
                   ],
                 ],
@@ -75,45 +85,36 @@ class _LanguageSwitcherState extends State<LanguageSwitcher> {
               cursor: SystemMouseCursors.click,
               child: GestureDetector(
                 onTap: () {
-                  if (_isOpen) {
+                  if (state.isLanguageMenuOpen) {
                     controller.close();
                   } else {
                     controller.open();
                   }
                 },
                 child: AnimatedContainer(
-                  duration: const Duration(milliseconds: 180),
+                  duration: KSize.durationStandard,
                   curve: Curves.easeOutCubic,
                   padding: const EdgeInsets.symmetric(
                     horizontal: KSize.margin3x,
                     vertical: KSize.margin1Halfx,
                   ),
                   decoration: BoxDecoration(
-                    color: _isOpen ? AppColors.onDarkOverlay : Colors.transparent,
+                    color: state.isLanguageMenuOpen ? colors.onDarkOverlay : Colors.transparent,
                     borderRadius: BorderRadius.circular(KSize.radiusDefaultLarge),
                     border: Border.all(
-                      color: _isOpen ? AppColors.onDarkDivider : Colors.transparent,
+                      color: state.isLanguageMenuOpen ? colors.onDarkDivider : Colors.transparent,
                     ),
                   ),
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      const Icon(Icons.language_rounded, size: 17, color: AppColors.onDarkMuted),
+                      Icon(Icons.language_rounded, size: KSize.iconSM, color: colors.onDarkMuted),
                       const SizedBox(width: KSize.margin1Halfx),
                       Text(context.t.language.label, style: context.textOnDarkDim.languageLabel),
                       const SizedBox(width: KSize.margin2x),
                       Text(_label(context, currentLocale), style: context.textOnDark.languageValue),
                       const SizedBox(width: KSize.margin1x),
-                      AnimatedRotation(
-                        turns: _isOpen ? 0.5 : 0,
-                        duration: const Duration(milliseconds: 180),
-                        curve: Curves.easeOutCubic,
-                        child: const Icon(
-                          Icons.keyboard_arrow_down_rounded,
-                          size: 18,
-                          color: AppColors.onDarkMuted,
-                        ),
-                      ),
+                      _LanguageMenuIndicator(isOpen: state.isLanguageMenuOpen),
                     ],
                   ),
                 ),
@@ -144,6 +145,48 @@ class _LanguageSwitcherState extends State<LanguageSwitcher> {
   }
 }
 
+class _LanguageMenuIndicator extends StatelessWidget {
+  const _LanguageMenuIndicator({required this.isOpen});
+
+  final bool isOpen;
+
+  @override
+  Widget build(BuildContext context) {
+    final colors = context.colors;
+
+    return SizedBox(
+      width: KSize.indicatorBox,
+      height: KSize.indicatorBox,
+      child: AnimatedSwitcher(
+        duration: KSize.durationMedium,
+        reverseDuration: KSize.durationShort,
+        switchInCurve: Curves.easeOutBack,
+        switchOutCurve: Curves.easeInCubic,
+        transitionBuilder: (child, animation) {
+          final slideAnimation = Tween<Offset>(
+            begin: const Offset(0, 0.2),
+            end: Offset.zero,
+          ).animate(animation);
+
+          return FadeTransition(
+            opacity: animation,
+            child: SlideTransition(
+              position: slideAnimation,
+              child: ScaleTransition(scale: animation, child: child),
+            ),
+          );
+        },
+        child: Icon(
+          isOpen ? Icons.keyboard_arrow_up_rounded : Icons.keyboard_arrow_down_rounded,
+          key: ValueKey(isOpen),
+          size: KSize.iconSMedium,
+          color: colors.onDarkMuted,
+        ),
+      ),
+    );
+  }
+}
+
 class _LocaleMenuItem extends StatelessWidget {
   const _LocaleMenuItem({required this.label, required this.selected, required this.onTap});
 
@@ -153,17 +196,19 @@ class _LocaleMenuItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = context.colors;
+
     return Material(
       color: Colors.transparent,
       child: InkWell(
         borderRadius: BorderRadius.circular(KSize.radiusDefaultMedium),
         onTap: onTap,
         child: AnimatedContainer(
-          duration: const Duration(milliseconds: 160),
+          duration: KSize.durationShort,
           curve: Curves.easeOutCubic,
           padding: const EdgeInsets.symmetric(horizontal: KSize.margin3x, vertical: KSize.margin4x),
           decoration: BoxDecoration(
-            color: selected ? AppColors.onDarkPanelActive : Colors.transparent,
+            color: selected ? colors.onDarkPanelActive : Colors.transparent,
             borderRadius: BorderRadius.circular(KSize.radiusDefault),
           ),
           child: Row(
@@ -171,8 +216,8 @@ class _LocaleMenuItem extends StatelessWidget {
               Expanded(child: Text(label, style: context.textOnDark.languageMenuItem(selected))),
               AnimatedOpacity(
                 opacity: selected ? 1 : 0,
-                duration: const Duration(milliseconds: 160),
-                child: const Icon(Icons.check_circle_rounded, size: 16, color: AppColors.onDark),
+                duration: KSize.durationShort,
+                child: Icon(Icons.check_circle_rounded, size: KSize.iconS, color: colors.onDark),
               ),
             ],
           ),
