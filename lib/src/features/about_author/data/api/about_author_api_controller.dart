@@ -1,17 +1,16 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:web_art_galery/src/features/about_author/data/models/about_author_firebase_tracker.dart';
-import 'package:web_art_galery/src/features/about_author/data/models/author_photo_firebase_object.dart';
 import 'package:web_art_galery/src/shared/config/firebase/firestore_collections.dart';
 
 /// Thin Firestore wrapper that reads the `AboutAuthor` document and returns
-/// its photo array as a list of [AuthorPhotoFirebaseObject] DTOs.
+/// its photo array as a list of URL strings, ordered by section.
 class AboutAuthorApiController {
   AboutAuthorApiController({FirebaseFirestore? firestore}) : _firestore = firestore;
 
   final FirebaseFirestore? _firestore;
 
-  Future<List<AuthorPhotoFirebaseObject>> fetchPhotos() async {
+  Future<List<String>> fetchPhotos() async {
     if (Firebase.apps.isEmpty) {
       throw StateError('Firebase is not initialized.');
     }
@@ -27,6 +26,6 @@ class AboutAuthorApiController {
         )
         .get();
 
-    return snapshot.data()?.items ?? const <AuthorPhotoFirebaseObject>[];
+    return snapshot.data()?.items ?? const <String>[];
   }
 }

@@ -14,8 +14,6 @@ class FirestoreCollections {
   static const String aboutAuthorDocumentId = 'bFn78tk3r6xzDV6fJKbY';
   // Subcollection reserved for per-document author media (currently unused).
   static const String aboutAuthorItemsCollection = 'AuthorItems';
-  // Array field on the AboutAuthor document holding `{ photo: String }` maps.
+  // Array field on the AboutAuthor document holding photo URL strings.
   static const String aboutAuthorItemsField = 'items';
-  // Per-item map key that stores the photo URL (or ImageKit path).
-  static const String aboutAuthorItemPhotoField = 'photo';
 }

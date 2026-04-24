@@ -1,5 +1,5 @@
 import 'package:web_art_galery/src/features/about_author/data/api/about_author_api_controller.dart';
-import 'package:web_art_galery/src/features/about_author/data/mappers/author_photo_firebase_object_mapper.dart';
+import 'package:web_art_galery/src/features/about_author/domain/entities/author_photo.dart';
 import 'package:web_art_galery/src/features/about_author/domain/repository/about_author_repository.dart';
 
 class AboutAuthorRepositoryFirebase implements AboutAuthorRepository {
@@ -10,10 +10,10 @@ class AboutAuthorRepositoryFirebase implements AboutAuthorRepository {
 
   @override
   Future<AboutAuthorPhotos> fetchPhotos() async {
-    final rawItems = await _apiController.fetchPhotos();
+    final rawUrls = await _apiController.fetchPhotos();
 
     return AboutAuthorPhotos(
-      photos: rawItems.map((item) => item.toDomain()).toList(growable: false),
+      photos: rawUrls.map((url) => AuthorPhoto(url: url)).toList(growable: false),
     );
   }
 }

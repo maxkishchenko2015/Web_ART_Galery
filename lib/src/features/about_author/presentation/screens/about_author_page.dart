@@ -4,11 +4,17 @@ import 'package:go_router/go_router.dart';
 import 'package:web_art_galery/i18n/strings.g.dart';
 import 'package:web_art_galery/src/features/about_author/data/api/about_author_api_controller.dart';
 import 'package:web_art_galery/src/features/about_author/data/repository/about_author_repository_firebase.dart';
-import 'package:web_art_galery/src/features/about_author/domain/entities/author_photo.dart';
 import 'package:web_art_galery/src/features/about_author/presentation/cubits/about_author_cubit.dart';
 import 'package:web_art_galery/src/shared/config/app_context_extensions.dart';
 import 'package:web_art_galery/src/shared/config/ksize.dart';
 import 'package:web_art_galery/src/shared/presentation/widgets/cached_network_image_view.dart';
+import 'package:web_art_galery/src/shared/presentation/widgets/fullscreen_image_viewer.dart';
+
+/// Indices of the Firestore `AboutAuthor.items` array pinned to each section.
+const int _heroPhotoIndex = 0;
+const int _universalRealismPhotoIndex = 1;
+const int _tapestryPhotoIndex = 2;
+const int _chernobylPhotoIndex = 3;
 
 class AboutAuthorPage extends StatelessWidget {
   const AboutAuthorPage({super.key});
@@ -89,7 +95,7 @@ class _HeroSection extends StatelessWidget {
           child: _HeroText(headlineSize: headlineSize, onLearnMore: onLearnMore),
         ),
         const SizedBox(width: KSize.margin12x),
-        Expanded(flex: 3, child: _HeroImagePlaceholder()),
+        const Expanded(flex: 3, child: _HeroImage()),
       ],
     );
   }
@@ -100,7 +106,7 @@ class _HeroSection extends StatelessWidget {
       children: [
         _HeroText(headlineSize: headlineSize, onLearnMore: onLearnMore),
         const SizedBox(height: KSize.margin12x),
-        _HeroImagePlaceholder(),
+        const _HeroImage(),
       ],
     );
   }
@@ -174,31 +180,20 @@ class _HeroButton extends StatelessWidget {
   }
 }
 
-class _HeroImagePlaceholder extends StatelessWidget {
-  const _HeroImagePlaceholder();
+class _HeroImage extends StatelessWidget {
+  const _HeroImage();
 
   @override
   Widget build(BuildContext context) {
     final colors = context.colors;
-
-    return ClipRRect(
-      borderRadius: const BorderRadius.vertical(
-        top: Radius.circular(KSize.radius3XL),
-        bottom: Radius.circular(KSize.radius3XL),
-      ),
-      child: AspectRatio(
-        aspectRatio: 0.75,
-        child: Container(
-          color: colors.onDarkPlaceholder,
-          child: Center(
-            child: Icon(
-              Icons.palette_outlined,
-              size: KSize.iconHeroPlaceholder,
-              color: colors.onDarkPlaceholderIcon,
-            ),
-          ),
-        ),
-      ),
+    return _AuthorPhoto(
+      index: _heroPhotoIndex,
+      aspectRatio: 0.75,
+      borderRadius: BorderRadius.circular(KSize.radius3XL),
+      placeholderBackground: colors.onDarkPlaceholder,
+      placeholderIcon: Icons.palette_outlined,
+      placeholderIconColor: colors.onDarkPlaceholderIcon,
+      placeholderIconSize: KSize.iconHeroPlaceholder,
     );
   }
 }
@@ -338,11 +333,23 @@ class _BiographySection extends StatelessWidget {
           const SizedBox(height: KSize.margin8x),
           Text(bio.intro, style: context.textContent.bioIntro),
           const SizedBox(height: KSize.margin12x),
-          _BioSubSection(title: bio.universalRealism.title, body: bio.universalRealism.body),
+          _BioSectionWithPhoto(
+            isCompact: isCompact,
+            photoIndex: _universalRealismPhotoIndex,
+            child: _BioSubSection(title: bio.universalRealism.title, body: bio.universalRealism.body),
+          ),
           const SizedBox(height: KSize.margin12x),
-          _BioTapestrySection(isCompact: isCompact),
+          _BioSectionWithPhoto(
+            isCompact: isCompact,
+            photoIndex: _tapestryPhotoIndex,
+            child: _TapestryCopy(),
+          ),
           const SizedBox(height: KSize.margin12x),
-          _BioSubSection(title: bio.chernobyl.title, body: bio.chernobyl.body),
+          _BioSectionWithPhoto(
+            isCompact: isCompact,
+            photoIndex: _chernobylPhotoIndex,
+            child: _BioSubSection(title: bio.chernobyl.title, body: bio.chernobyl.body),
+          ),
           const SizedBox(height: KSize.margin12x),
           _BioSubSection(title: bio.mosaic.title, body: bio.mosaic.intro),
           const SizedBox(height: KSize.margin4x),
@@ -359,57 +366,47 @@ class _BiographySection extends StatelessWidget {
   }
 }
 
-// ─── Tapestry section ──────────────────────────────────────────────────────────
+// ─── Adaptive "text + photo" layout used by bio sections ──────────────────────
 //
-// Renders the "Гобелен века" story next to the first author photo fetched by
-// [AboutAuthorCubit]. Adaptive layout: text + photo side-by-side on wide
-// viewports, stacked (photo on top) on compact ones.
+// On wide viewports: text on the left, photo on the right.
+// On compact viewports: photo on top, text below. Photo and text are kept in
+// the reading order so the story still flows naturally on mobile.
+//
+// Bio-section photos open in a fullscreen overlay on tap, with a Hero
+// animation from the thumbnail to the expanded view.
 
-class _BioTapestrySection extends StatelessWidget {
-  const _BioTapestrySection({required this.isCompact});
-
-  final bool isCompact;
-
-  @override
-  Widget build(BuildContext context) {
-    return BlocBuilder<AboutAuthorCubit, AboutAuthorState>(
-      buildWhen: (previous, current) => previous.runtimeType != current.runtimeType,
-      builder: (context, state) {
-        final photo = switch (state) {
-          AboutAuthorLoaded(:final firstPhoto) => firstPhoto,
-          _ => null,
-        };
-        final isLoading = state is AboutAuthorInitial || state is AboutAuthorLoading;
-
-        return _TapestryLayout(isCompact: isCompact, photo: photo, isLoading: isLoading);
-      },
-    );
-  }
-}
-
-class _TapestryLayout extends StatelessWidget {
-  const _TapestryLayout({
+class _BioSectionWithPhoto extends StatelessWidget {
+  const _BioSectionWithPhoto({
     required this.isCompact,
-    required this.photo,
-    required this.isLoading,
+    required this.photoIndex,
+    required this.child,
   });
 
   final bool isCompact;
-  final AuthorPhoto? photo;
-  final bool isLoading;
+  final int photoIndex;
+  final Widget child;
 
   @override
   Widget build(BuildContext context) {
-    final textBlock = _TapestryCopy();
-    final mediaBlock = _TapestryMedia(photo: photo, isLoading: isLoading, isCompact: isCompact);
+    final media = _AuthorPhoto(
+      index: photoIndex,
+      aspectRatio: isCompact ? 4 / 3 : 5 / 4,
+      borderRadius: BorderRadius.circular(KSize.radiusLargeExtra),
+      placeholderBackground: context.colors.bioBg,
+      placeholderIcon: Icons.image_outlined,
+      placeholderIconColor: context.colors.onDarkPlaceholderIcon,
+      placeholderIconSize: KSize.iconHeroPlaceholder,
+      heroTag: 'about-author-photo-$photoIndex',
+      openFullscreenOnTap: true,
+    );
 
     if (isCompact) {
       return Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          mediaBlock,
+          media,
           const SizedBox(height: KSize.margin8x),
-          textBlock,
+          child,
         ],
       );
     }
@@ -417,9 +414,9 @@ class _TapestryLayout extends StatelessWidget {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Expanded(flex: 6, child: textBlock),
+        Expanded(flex: 6, child: child),
         const SizedBox(width: KSize.margin12x),
-        Expanded(flex: 5, child: mediaBlock),
+        Expanded(flex: 5, child: media),
       ],
     );
   }
@@ -445,53 +442,111 @@ class _TapestryCopy extends StatelessWidget {
   }
 }
 
-class _TapestryMedia extends StatelessWidget {
-  const _TapestryMedia({
-    required this.photo,
-    required this.isLoading,
-    required this.isCompact,
+// ─── Shared author-photo widget ──────────────────────────────────────────────
+//
+// Consumes [AboutAuthorCubit] and renders the photo pinned at [index]. When
+// the cubit is still loading it shows a spinner; when the index is missing or
+// the URL is empty it shows a configurable placeholder so each section can
+// match its own color palette.
+
+class _AuthorPhoto extends StatelessWidget {
+  const _AuthorPhoto({
+    required this.index,
+    required this.aspectRatio,
+    required this.borderRadius,
+    required this.placeholderBackground,
+    required this.placeholderIcon,
+    required this.placeholderIconColor,
+    required this.placeholderIconSize,
+    this.heroTag,
+    this.openFullscreenOnTap = false,
   });
 
-  final AuthorPhoto? photo;
-  final bool isLoading;
-  final bool isCompact;
+  final int index;
+  final double aspectRatio;
+  final BorderRadius borderRadius;
+  final Color placeholderBackground;
+  final IconData placeholderIcon;
+  final Color placeholderIconColor;
+  final double placeholderIconSize;
+  final Object? heroTag;
+  final bool openFullscreenOnTap;
 
   @override
   Widget build(BuildContext context) {
-    final borderRadius = BorderRadius.circular(KSize.radiusLargeExtra);
+    return BlocBuilder<AboutAuthorCubit, AboutAuthorState>(
+      buildWhen: (previous, current) => previous.runtimeType != current.runtimeType,
+      builder: (context, state) {
+        final photo = switch (state) {
+          AboutAuthorLoaded(:final photos) =>
+            (index >= 0 && index < photos.length) ? photos[index] : null,
+          _ => null,
+        };
+        final isLoading = state is AboutAuthorInitial || state is AboutAuthorLoading;
+        final hasPhoto = photo != null && !photo.isEmpty;
 
-    final Widget inner;
-    if (photo != null && !photo!.isEmpty) {
-      inner = CachedNetworkImageView(
-        imagePathOrUrl: photo!.url,
-        fit: BoxFit.cover,
-        width: double.infinity,
-        height: double.infinity,
-      );
-    } else if (isLoading) {
-      inner = const _TapestryMediaLoading();
-    } else {
-      inner = _TapestryMediaPlaceholder();
-    }
+        Widget inner;
+        if (hasPhoto) {
+          inner = CachedNetworkImageView(
+            imagePathOrUrl: photo.url,
+            fit: BoxFit.cover,
+            width: double.infinity,
+            height: double.infinity,
+          );
+          if (heroTag != null) {
+            inner = Hero(tag: heroTag!, child: inner);
+          }
+        } else if (isLoading) {
+          inner = const _AuthorPhotoLoading();
+        } else {
+          inner = _AuthorPhotoPlaceholder(
+            icon: placeholderIcon,
+            iconColor: placeholderIconColor,
+            iconSize: placeholderIconSize,
+          );
+        }
 
-    return ClipRRect(
-      borderRadius: borderRadius,
-      child: AspectRatio(
-        aspectRatio: isCompact ? 4 / 3 : 5 / 4,
-        child: DecoratedBox(
-          decoration: BoxDecoration(
-            color: context.colors.bioBg,
-            borderRadius: borderRadius,
+        final frame = ClipRRect(
+          borderRadius: borderRadius,
+          child: AspectRatio(
+            aspectRatio: aspectRatio,
+            child: DecoratedBox(
+              decoration: BoxDecoration(
+                color: placeholderBackground,
+                borderRadius: borderRadius,
+              ),
+              child: inner,
+            ),
           ),
-          child: inner,
-        ),
-      ),
+        );
+
+        if (!hasPhoto || !openFullscreenOnTap) {
+          return frame;
+        }
+
+        return MouseRegion(
+          cursor: SystemMouseCursors.click,
+          child: Semantics(
+            button: true,
+            image: true,
+            child: GestureDetector(
+              behavior: HitTestBehavior.opaque,
+              onTap: () => FullscreenImageViewer.show(
+                context,
+                imagePathOrUrl: photo.url,
+                heroTag: heroTag,
+              ),
+              child: frame,
+            ),
+          ),
+        );
+      },
     );
   }
 }
 
-class _TapestryMediaLoading extends StatelessWidget {
-  const _TapestryMediaLoading();
+class _AuthorPhotoLoading extends StatelessWidget {
+  const _AuthorPhotoLoading();
 
   @override
   Widget build(BuildContext context) {
@@ -508,19 +563,21 @@ class _TapestryMediaLoading extends StatelessWidget {
   }
 }
 
-class _TapestryMediaPlaceholder extends StatelessWidget {
+class _AuthorPhotoPlaceholder extends StatelessWidget {
+  const _AuthorPhotoPlaceholder({
+    required this.icon,
+    required this.iconColor,
+    required this.iconSize,
+  });
+
+  final IconData icon;
+  final Color iconColor;
+  final double iconSize;
+
   @override
   Widget build(BuildContext context) {
-    final colors = context.colors;
-    return Container(
-      color: colors.onDarkPlaceholder,
-      child: Center(
-        child: Icon(
-          Icons.image_outlined,
-          size: KSize.iconHeroPlaceholder,
-          color: colors.onDarkPlaceholderIcon,
-        ),
-      ),
+    return Center(
+      child: Icon(icon, size: iconSize, color: iconColor),
     );
   }
 }
