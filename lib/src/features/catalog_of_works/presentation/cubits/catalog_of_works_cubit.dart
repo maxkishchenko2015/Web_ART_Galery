@@ -61,6 +61,7 @@ class CatalogOfWorksCubit extends Cubit<CatalogOfWorksState> {
   final CatalogOfWorksRepository _repository;
 
   Future<void> loadInitial() async {
+    if (state is CatalogOfWorksLoaded) return;
     emit(const CatalogOfWorksLoading());
     await _fetchPage(page: 1, reset: true);
   }

@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:web_art_galery/i18n/strings.g.dart';
-import 'package:web_art_galery/src/features/about_author/data/api/about_author_api_controller.dart';
-import 'package:web_art_galery/src/features/about_author/data/repository/about_author_repository_firebase.dart';
 import 'package:web_art_galery/src/features/about_author/presentation/cubits/about_author_cubit.dart';
 import 'package:web_art_galery/src/shared/config/app_context_extensions.dart';
 import 'package:web_art_galery/src/shared/config/ksize.dart';
@@ -28,14 +26,7 @@ class AboutAuthorPage extends StatelessWidget {
   const AboutAuthorPage({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return BlocProvider<AboutAuthorCubit>(
-      create: (_) => AboutAuthorCubit(
-        repository: AboutAuthorRepositoryFirebase(apiController: AboutAuthorApiController()),
-      )..loadPhotos(),
-      child: const _AboutAuthorView(),
-    );
-  }
+  Widget build(BuildContext context) => const _AboutAuthorView();
 }
 
 class _AboutAuthorView extends StatefulWidget {

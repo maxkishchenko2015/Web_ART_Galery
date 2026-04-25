@@ -3,15 +3,24 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:web_art_galery/src/shared/config/firebase/firestore_collections.dart';
 import 'package:web_art_galery/src/shared/utils/app_logger.dart';
 
-/// One-shot uploader that bootstraps the `news` Firestore collection with a
+/// One-shot uploader that bootstraps the `News` Firestore collection with a
 /// handful of template documents. Firestore auto-creates the collection on
-/// first write — after this runs once the "news" collection shows up in the
+/// first write — after this runs once the `News` collection shows up in the
 /// Firebase Console and the app can fetch from it.
+///
+/// Document schema mirrors [FirestoreCollections.news]:
+///
+/// - `id`, `publishedAt`, optional `sourceUrl`.
+/// - `imageUrls`: array of image URL strings. The list card uses the first
+///   entry as the cover; the detail screen renders all entries in a
+///   horizontal strip.
+/// - `translations`: map of locale code → `{title, excerpt, body}`; missing
+///   locales fall back to Russian at runtime.
 ///
 /// Intended workflow:
 /// 1. Run `flutter run -t lib/main_news_seed.dart` once.
-/// 2. Open Firebase Console and edit titles / translations on the generated
-///    documents.
+/// 2. Open Firebase Console and edit titles / translations / `imageUrls` on
+///    the generated documents.
 ///
 /// Each invocation appends new auto-id documents, so only re-run the entry
 /// point when you actually want more templates.
@@ -34,8 +43,10 @@ class AdminNewsSeedFlow {
     for (final template in _templates) {
       final docRef = await collectionRef.add(<String, dynamic>{
         FirestoreCollections.newsPublishedAtField: FieldValue.serverTimestamp(),
-        if (template.imageUrls.isNotEmpty)
-          FirestoreCollections.newsImageUrlsField: template.imageUrls,
+        // Always write the array (even when empty) so Console editors see the
+        // full document shape and can drop image URLs in without retyping the
+        // field name.
+        FirestoreCollections.newsImageUrlsField: template.imageUrls,
         if (template.sourceUrl != null) FirestoreCollections.newsSourceUrlField: template.sourceUrl,
         FirestoreCollections.newsTranslationsField: _translationsPayload(template),
       });
@@ -90,10 +101,8 @@ class AdminNewsSeedFlow {
       ruBody:
           'Тело второй статьи — используется как заготовка. Удалите шаблон, когда добавите первую '
           'настоящую новость.',
-      // Sample fields: replace with real URLs in Firebase Console (or leave
-      // empty). They are written so Console editors see the full document
-      // shape.
-      imageUrls: ['https://via.placeholder.com/150', 'https://via.placeholder.com/150'],
+      // `sourceUrl: ''` is written so Console editors see the optional field
+      // next to the `imageUrls` array and can paste in a real URL later.
       sourceUrl: '',
     ),
   ];

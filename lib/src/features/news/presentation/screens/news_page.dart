@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:web_art_galery/i18n/strings.g.dart';
-import 'package:web_art_galery/src/features/news/data/api/news_api_controller.dart';
-import 'package:web_art_galery/src/features/news/data/repository/news_repository_firebase.dart';
 import 'package:web_art_galery/src/features/news/domain/entities/news_article.dart';
 import 'package:web_art_galery/src/features/news/presentation/cubits/news_list_cubit.dart';
 import 'package:web_art_galery/src/features/news/presentation/widgets/news_list_card.dart';
@@ -15,14 +13,7 @@ class NewsPage extends StatelessWidget {
   const NewsPage({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return BlocProvider<NewsListCubit>(
-      create: (_) => NewsListCubit(
-        repository: NewsRepositoryFirebase(apiController: NewsApiController()),
-      )..load(),
-      child: const _NewsPageView(),
-    );
-  }
+  Widget build(BuildContext context) => const _NewsPageView();
 }
 
 class _NewsPageView extends StatelessWidget {

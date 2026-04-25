@@ -33,6 +33,7 @@ dependencies:
   flutter_localizations:
     sdk: flutter
   cached_network_image: ^3.4.1
+  flutter_cache_manager: ^3.4.1
   cloud_firestore: ^5.5.1
   firebase_core: ^3.8.1
   flutter_bloc: ^9.1.1

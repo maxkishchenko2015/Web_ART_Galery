@@ -181,8 +181,17 @@ class _ArticleBody extends StatelessWidget {
   Widget build(BuildContext context) {
     final locale = context.watch<AppLocaleCubit>().state.locale;
     final title = article.titleFor(locale);
-    final body = article.bodyFor(locale);
     final excerpt = article.excerptFor(locale);
+    final paragraphs = _splitParagraphs(article.bodyFor(locale));
+
+    // Interleave layout: the first body paragraph acts as the intro, then the
+    // horizontal image strip (or an empty gap when there are no images per
+    // PRD point 4), then the remaining paragraphs. This keeps the reading
+    // rhythm described in the mock: text → images → text → text → text.
+    final leadingParagraph = paragraphs.isNotEmpty ? paragraphs.first : null;
+    final trailingParagraphs = paragraphs.length > 1
+        ? paragraphs.sublist(1)
+        : const <String>[];
 
     return Center(
       child: ConstrainedBox(
@@ -209,11 +218,16 @@ class _ArticleBody extends StatelessWidget {
                 style: context.textContent.bioIntro,
               ),
             ],
-            const SizedBox(height: KSize.margin8x),
-            _ImageStrip(imageUrls: article.imageUrls),
-            if (body.isNotEmpty) ...[
-              const SizedBox(height: KSize.margin8x),
-              _BodyText(body: body),
+            if (leadingParagraph != null) ...[
+              const SizedBox(height: KSize.margin6x),
+              Text(leadingParagraph, style: context.textContent.bioBody),
+            ],
+            const SizedBox(height: KSize.margin6x),
+            if (article.hasImage)
+              _ImageStrip(imageUrls: article.imageUrls, isCompact: isCompact),
+            if (trailingParagraphs.isNotEmpty) ...[
+              const SizedBox(height: KSize.margin6x),
+              _Paragraphs(paragraphs: trailingParagraphs),
             ],
             if (article.hasSourceUrl) ...[
               const SizedBox(height: KSize.margin10x),
@@ -227,33 +241,40 @@ class _ArticleBody extends StatelessWidget {
   }
 }
 
+/// Splits the article body on blank-line paragraph breaks, trimming and
+/// discarding empty entries. Shared between the intro paragraph (above the
+/// image strip) and the trailing block (below it).
+List<String> _splitParagraphs(String body) {
+  return body
+      .split(RegExp(r'\n\s*\n'))
+      .map((p) => p.trim())
+      .where((p) => p.isNotEmpty)
+      .toList(growable: false);
+}
+
 class _ImageStrip extends StatelessWidget {
-  const _ImageStrip({required this.imageUrls});
+  const _ImageStrip({required this.imageUrls, required this.isCompact});
 
   final List<String> imageUrls;
-
-  static const double _itemHeight = 240;
-  static const double _itemWidth = 320;
-  static const double _itemSpacing = KSize.margin3x;
+  final bool isCompact;
 
   @override
   Widget build(BuildContext context) {
-    if (imageUrls.isEmpty) {
-      return const SizedBox(height: KSize.margin8x);
-    }
+    final tileWidth = isCompact ? 260.0 : 360.0;
+    final tileHeight = tileWidth * 0.68;
 
     return SizedBox(
-      height: _itemHeight,
+      height: tileHeight,
       child: ListView.separated(
         scrollDirection: Axis.horizontal,
         itemCount: imageUrls.length,
-        separatorBuilder: (_, __) => const SizedBox(width: _itemSpacing),
+        separatorBuilder: (_, __) => const SizedBox(width: KSize.margin3x),
         itemBuilder: (context, index) {
           return ClipRRect(
-            borderRadius: BorderRadius.circular(KSize.radiusLarge),
+            borderRadius: BorderRadius.circular(KSize.radiusLargeExtra),
             child: SizedBox(
-              width: _itemWidth,
-              height: _itemHeight,
+              width: tileWidth,
+              height: tileHeight,
               child: CachedNetworkImageView(
                 imagePathOrUrl: imageUrls[index],
                 fit: BoxFit.cover,
@@ -266,26 +287,15 @@ class _ImageStrip extends StatelessWidget {
   }
 }
 
-/// Renders the article body honoring blank-line paragraph breaks that are
-/// hand-authored in the Firebase Console. Each paragraph gets the same
-/// bio body style used on the "About the Author" page.
-class _BodyText extends StatelessWidget {
-  const _BodyText({required this.body});
+/// Stacks the non-leading body paragraphs using the bio body style, matching
+/// the typography used on the "About the Author" page.
+class _Paragraphs extends StatelessWidget {
+  const _Paragraphs({required this.paragraphs});
 
-  final String body;
+  final List<String> paragraphs;
 
   @override
   Widget build(BuildContext context) {
-    final paragraphs = body
-        .split(RegExp(r'\n\s*\n'))
-        .map((p) => p.trim())
-        .where((p) => p.isNotEmpty)
-        .toList(growable: false);
-
-    if (paragraphs.isEmpty) {
-      return const SizedBox.shrink();
-    }
-
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [

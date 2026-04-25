@@ -39,6 +39,7 @@ class NewsListCubit extends Cubit<NewsListState> {
   final NewsRepository _repository;
 
   Future<void> load() async {
+    if (state is NewsListLoaded) return;
     emit(const NewsListLoading());
     try {
       final articles = await _repository.fetchAll();

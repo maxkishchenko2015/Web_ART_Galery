@@ -7,6 +7,15 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:web_art_galery/i18n/strings.g.dart';
+import 'package:web_art_galery/src/features/about_author/data/api/about_author_api_controller.dart';
+import 'package:web_art_galery/src/features/about_author/data/repository/about_author_repository_firebase.dart';
+import 'package:web_art_galery/src/features/about_author/presentation/cubits/about_author_cubit.dart';
+import 'package:web_art_galery/src/features/catalog_of_works/data/api/catalog_of_works_api_controller.dart';
+import 'package:web_art_galery/src/features/catalog_of_works/data/repository/catalog_of_works_repository_firebase.dart';
+import 'package:web_art_galery/src/features/catalog_of_works/presentation/cubits/catalog_of_works_cubit.dart';
+import 'package:web_art_galery/src/features/news/data/api/news_api_controller.dart';
+import 'package:web_art_galery/src/features/news/data/repository/news_repository_firebase.dart';
+import 'package:web_art_galery/src/features/news/presentation/cubits/news_list_cubit.dart';
 import 'package:web_art_galery/src/navigation/presentation/router/app_router.dart';
 import 'package:web_art_galery/src/shared/config/app_theme.dart';
 import 'package:web_art_galery/src/shared/config/firebase/firebase_bootstrap.dart';
@@ -48,7 +57,28 @@ void main() {
       runApp(
         TranslationProvider(
           child: MultiBlocProvider(
-            providers: [BlocProvider<AppLocaleCubit>(create: (_) => AppLocaleCubit())],
+            providers: [
+              BlocProvider<AppLocaleCubit>(create: (_) => AppLocaleCubit()),
+              BlocProvider<NewsListCubit>(
+                create: (_) => NewsListCubit(
+                  repository: NewsRepositoryFirebase(apiController: NewsApiController()),
+                )..load(),
+              ),
+              BlocProvider<AboutAuthorCubit>(
+                create: (_) => AboutAuthorCubit(
+                  repository: AboutAuthorRepositoryFirebase(
+                    apiController: AboutAuthorApiController(),
+                  ),
+                )..loadPhotos(),
+              ),
+              BlocProvider<CatalogOfWorksCubit>(
+                create: (_) => CatalogOfWorksCubit(
+                  repository: CatalogOfWorksRepositoryFirebase(
+                    apiController: CatalogOfWorksApiController(),
+                  ),
+                )..loadInitial(),
+              ),
+            ],
             child: const ArtGalleryApp(),
           ),
         ),

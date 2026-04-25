@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:web_art_galery/i18n/strings.g.dart';
-import 'package:web_art_galery/src/features/catalog_of_works/data/api/catalog_of_works_api_controller.dart';
-import 'package:web_art_galery/src/features/catalog_of_works/data/repository/catalog_of_works_repository_firebase.dart';
 import 'package:web_art_galery/src/features/catalog_of_works/domain/entities/painting.dart';
 import 'package:web_art_galery/src/features/catalog_of_works/presentation/cubits/catalog_of_works_cubit.dart';
 import 'package:web_art_galery/src/features/catalog_of_works/presentation/localization/painting_name_localization.dart';
@@ -14,14 +12,7 @@ class CatalogOfWorksPage extends StatelessWidget {
   const CatalogOfWorksPage({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return BlocProvider<CatalogOfWorksCubit>(
-      create: (_) => CatalogOfWorksCubit(
-        repository: CatalogOfWorksRepositoryFirebase(apiController: CatalogOfWorksApiController()),
-      )..loadInitial(),
-      child: const _CatalogOfWorksContent(),
-    );
-  }
+  Widget build(BuildContext context) => const _CatalogOfWorksContent();
 }
 
 class _CatalogOfWorksContent extends StatelessWidget {

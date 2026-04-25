@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:web_art_galery/src/shared/config/app_environment.dart';
+import 'package:web_art_galery/src/shared/config/cache/app_cache_manager.dart';
 import 'package:web_art_galery/src/shared/utils/url_launcher_utils.dart';
 
 class CachedNetworkImageView extends StatelessWidget {
@@ -28,6 +29,7 @@ class CachedNetworkImageView extends StatelessWidget {
     final imageUrl = _resolveImageUrl(imagePathOrUrl);
     final image = CachedNetworkImage(
       imageUrl: imageUrl,
+      cacheManager: AppCacheManager(),
       width: width,
       height: height,
       fit: fit,

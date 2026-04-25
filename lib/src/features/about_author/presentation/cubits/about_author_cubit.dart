@@ -44,6 +44,7 @@ class AboutAuthorCubit extends Cubit<AboutAuthorState> {
   final AboutAuthorRepository _repository;
 
   Future<void> loadPhotos() async {
+    if (state is AboutAuthorLoaded) return;
     emit(const AboutAuthorLoading());
     try {
       final result = await _repository.fetchPhotos();
