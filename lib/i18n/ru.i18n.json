@@ -203,7 +203,11 @@
     "errorTitle": "Не удалось загрузить новости",
     "retry": "Повторить",
     "back": "К списку новостей",
-    "sourceLabel": "Источник"
+    "sourceLabel": "Источник",
+    "readTimeLabel": "На чтение",
+    "readTimeValue": "${minutes} мин",
+    "viewsLabel": "Просмотров",
+    "publishedLabel": "Опубликовано"
   },
   "bio": {
     "heroTitle": "ИСКУССТВО КОСМИЧЕСКОГО МАСШТАБА",

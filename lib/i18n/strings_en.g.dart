@@ -140,6 +140,10 @@ class _TranslationsNewsFeedEn extends TranslationsNewsFeedRu {
 	@override String get retry => 'Retry';
 	@override String get back => 'Back to news';
 	@override String get sourceLabel => 'Source';
+	@override String get readTimeLabel => 'Read time';
+	@override String readTimeValue({required Object minutes}) => '${minutes} min';
+	@override String get viewsLabel => 'Views';
+	@override String get publishedLabel => 'Published';
 }
 
 // Path: bio
@@ -614,6 +618,10 @@ extension on TranslationsEn {
 			'newsFeed.retry' => 'Retry',
 			'newsFeed.back' => 'Back to news',
 			'newsFeed.sourceLabel' => 'Source',
+			'newsFeed.readTimeLabel' => 'Read time',
+			'newsFeed.readTimeValue' => ({required Object minutes}) => '${minutes} min',
+			'newsFeed.viewsLabel' => 'Views',
+			'newsFeed.publishedLabel' => 'Published',
 			'bio.heroTitle' => 'ART OF COSMIC SCALE',
 			'bio.heroSubtitle' => 'Art that erases boundaries between the earthly and the eternal. People\'s Artist of the Republic of Belarus, creator of the world\'s largest tapestry "The Tapestry of the Century".',
 			'bio.name' => 'Alexander Mikhailovich Kishchanka (1933–1997)',

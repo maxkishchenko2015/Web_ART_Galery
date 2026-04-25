@@ -140,6 +140,10 @@ class _TranslationsNewsFeedDe extends TranslationsNewsFeedRu {
 	@override String get retry => 'Erneut versuchen';
 	@override String get back => 'Zuruck zu den Neuigkeiten';
 	@override String get sourceLabel => 'Quelle';
+	@override String get readTimeLabel => 'Lesezeit';
+	@override String readTimeValue({required Object minutes}) => '${minutes} Min';
+	@override String get viewsLabel => 'Aufrufe';
+	@override String get publishedLabel => 'Veroffentlicht';
 }
 
 // Path: bio
@@ -614,6 +618,10 @@ extension on TranslationsDe {
 			'newsFeed.retry' => 'Erneut versuchen',
 			'newsFeed.back' => 'Zuruck zu den Neuigkeiten',
 			'newsFeed.sourceLabel' => 'Quelle',
+			'newsFeed.readTimeLabel' => 'Lesezeit',
+			'newsFeed.readTimeValue' => ({required Object minutes}) => '${minutes} Min',
+			'newsFeed.viewsLabel' => 'Aufrufe',
+			'newsFeed.publishedLabel' => 'Veroffentlicht',
 			'bio.heroTitle' => 'KUNST VON KOSMISCHEM AUSMAS',
 			'bio.heroSubtitle' => 'Kunst, die Grenzen zwischen dem Irdischen und dem Ewigen verwischt. Volkskünstler der Republik Belarus, Schöpfer des weltgrößten Wandteppichs «Der Wandteppich des Jahrhunderts».',
 			'bio.name' => 'Alexander Michailowitsch Kischanka (1933–1997)',

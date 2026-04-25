@@ -203,7 +203,11 @@
     "errorTitle": "Failed to load news",
     "retry": "Retry",
     "back": "Back to news",
-    "sourceLabel": "Source"
+    "sourceLabel": "Source",
+    "readTimeLabel": "Read time",
+    "readTimeValue": "${minutes} min",
+    "viewsLabel": "Views",
+    "publishedLabel": "Published"
   },
   "bio": {
     "heroTitle": "ART OF COSMIC SCALE",

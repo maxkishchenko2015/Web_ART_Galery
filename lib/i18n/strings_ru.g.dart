@@ -200,6 +200,18 @@ class TranslationsNewsFeedRu {
 
 	/// ru: 'Источник'
 	String get sourceLabel => 'Источник';
+
+	/// ru: 'На чтение'
+	String get readTimeLabel => 'На чтение';
+
+	/// ru: '${minutes} мин'
+	String readTimeValue({required Object minutes}) => '${minutes} мин';
+
+	/// ru: 'Просмотров'
+	String get viewsLabel => 'Просмотров';
+
+	/// ru: 'Опубликовано'
+	String get publishedLabel => 'Опубликовано';
 }
 
 // Path: bio
@@ -1067,6 +1079,10 @@ extension on Translations {
 			'newsFeed.retry' => 'Повторить',
 			'newsFeed.back' => 'К списку новостей',
 			'newsFeed.sourceLabel' => 'Источник',
+			'newsFeed.readTimeLabel' => 'На чтение',
+			'newsFeed.readTimeValue' => ({required Object minutes}) => '${minutes} мин',
+			'newsFeed.viewsLabel' => 'Просмотров',
+			'newsFeed.publishedLabel' => 'Опубликовано',
 			'bio.heroTitle' => 'ИСКУССТВО КОСМИЧЕСКОГО МАСШТАБА',
 			'bio.heroSubtitle' => 'Искусство, стирающее границы между земным и вечным. Народный художник Республики Беларусь, создатель самого большого в мире «Гобелена века»',
 			'bio.name' => 'Александр Михайлович Кищенко (1933–1997)',

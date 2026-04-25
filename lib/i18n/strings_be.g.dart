@@ -140,6 +140,10 @@ class _TranslationsNewsFeedBe extends TranslationsNewsFeedRu {
 	@override String get retry => 'Паўтарыць';
 	@override String get back => 'Да спісу навін';
 	@override String get sourceLabel => 'Крыніца';
+	@override String get readTimeLabel => 'Час чытання';
+	@override String readTimeValue({required Object minutes}) => '${minutes} хв';
+	@override String get viewsLabel => 'Праглядаў';
+	@override String get publishedLabel => 'Апублікавана';
 }
 
 // Path: bio
@@ -614,6 +618,10 @@ extension on TranslationsBe {
 			'newsFeed.retry' => 'Паўтарыць',
 			'newsFeed.back' => 'Да спісу навін',
 			'newsFeed.sourceLabel' => 'Крыніца',
+			'newsFeed.readTimeLabel' => 'Час чытання',
+			'newsFeed.readTimeValue' => ({required Object minutes}) => '${minutes} хв',
+			'newsFeed.viewsLabel' => 'Праглядаў',
+			'newsFeed.publishedLabel' => 'Апублікавана',
 			'bio.heroTitle' => 'МАСТАЦТВА КАСМІЧНАГА МАШТАБУ',
 			'bio.heroSubtitle' => 'Мастацтва, якое сцірае межы паміж зямным і вечным. Народны мастак Рэспублікі Беларусь, стваральнік найбуйнейшага ў свеце «Гобелена стагоддзя»',
 			'bio.name' => 'Аляксандр Міхайлавіч Кішчанка (1933–1997)',

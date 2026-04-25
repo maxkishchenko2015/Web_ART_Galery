@@ -203,7 +203,11 @@
     "errorTitle": "Neuigkeiten konnten nicht geladen werden",
     "retry": "Erneut versuchen",
     "back": "Zuruck zu den Neuigkeiten",
-    "sourceLabel": "Quelle"
+    "sourceLabel": "Quelle",
+    "readTimeLabel": "Lesezeit",
+    "readTimeValue": "${minutes} Min",
+    "viewsLabel": "Aufrufe",
+    "publishedLabel": "Veroffentlicht"
   },
   "bio": {
     "heroTitle": "KUNST VON KOSMISCHEM AUSMAS",

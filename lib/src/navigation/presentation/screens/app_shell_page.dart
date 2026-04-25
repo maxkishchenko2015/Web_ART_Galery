@@ -462,69 +462,41 @@ class _GalleryFooter extends StatelessWidget {
   Widget _buildFull(BuildContext context) {
     return Container(
       color: context.colors.darkOlive,
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
+      padding: const EdgeInsets.symmetric(
+        horizontal: KSize.margin12x,
+        vertical: KSize.margin3x,
+      ),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Padding(
-            padding: const EdgeInsets.symmetric(
-              horizontal: KSize.margin12x,
-              vertical: KSize.margin4x,
-            ),
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
+          const _GalleryLogo(size: 24),
+          const SizedBox(width: KSize.margin3x),
+          Text(
+            context.t.app.title.toUpperCase(),
+            style: context.textOnDark.footerBrand,
+          ),
+          const SizedBox(width: KSize.margin8x),
+          Expanded(
+            child: Wrap(
+              alignment: WrapAlignment.center,
+              spacing: KSize.margin5x,
+              runSpacing: KSize.margin1x,
               children: [
-                Expanded(
-                  flex: 3,
-                  child: Row(
-                    children: [
-                      const _GalleryLogo(size: 28),
-                      const SizedBox(width: KSize.margin3x),
-                      Text(
-                        context.t.app.title.toUpperCase(),
-                        style: context.textOnDark.footerBrand,
-                      ),
-                    ],
+                for (int i = 0; i < items.length; i++)
+                  MouseRegion(
+                    cursor: SystemMouseCursors.click,
+                    child: GestureDetector(
+                      onTap: () => onSelected(i),
+                      child: Text(items[i].label, style: context.textOnDark.footerLink),
+                    ),
                   ),
-                ),
-                const SizedBox(width: KSize.margin12x),
-                Expanded(
-                  flex: 2,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text('SITEMAP', style: context.textOnDark.footerSitemapLabel),
-                      const SizedBox(height: KSize.margin3x),
-                      for (int i = 0; i < items.length; i++)
-                        Padding(
-                          padding: const EdgeInsets.only(bottom: KSize.margin2x),
-                          child: MouseRegion(
-                            cursor: SystemMouseCursors.click,
-                            child: GestureDetector(
-                              onTap: () => onSelected(i),
-                              child: Text(items[i].label, style: context.textOnDark.footerLink),
-                            ),
-                          ),
-                        ),
-                    ],
-                  ),
-                ),
               ],
             ),
           ),
-          Container(
-            color: context.colors.footerOverlay,
-            padding: const EdgeInsets.symmetric(
-              horizontal: KSize.margin12x,
-              vertical: KSize.margin4x,
-            ),
-            child: Row(
-              children: [
-                Text(
-                  '© ${DateTime.now().year} ${context.t.app.title}. All rights reserved.',
-                  style: context.textOnDark.footerCopyright,
-                ),
-              ],
-            ),
+          const SizedBox(width: KSize.margin8x),
+          Text(
+            '© ${DateTime.now().year} ${context.t.app.title}',
+            style: context.textOnDark.footerCopyright,
           ),
         ],
       ),

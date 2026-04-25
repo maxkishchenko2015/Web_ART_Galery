@@ -1,3 +1,4 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -199,20 +200,20 @@ class _ArticleBody extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            if (article.publishedAt != null)
-              Text(
-                MaterialLocalizations.of(context).formatFullDate(article.publishedAt!),
-                style: context.textContent.archiveDate,
-              ),
-            const SizedBox(height: KSize.margin3x),
             Text(
               title,
               style: context.textContent.archiveSectionTitle.copyWith(
                 fontSize: isCompact ? 32 : 40,
               ),
             ),
+            const SizedBox(height: KSize.margin5x),
+            _ArticleStats(
+              article: article,
+              locale: locale,
+              isCompact: isCompact,
+            ),
             if (excerpt.isNotEmpty) ...[
-              const SizedBox(height: KSize.margin4x),
+              const SizedBox(height: KSize.margin6x),
               Text(
                 excerpt,
                 style: context.textContent.bioIntro,
@@ -224,7 +225,7 @@ class _ArticleBody extends StatelessWidget {
             ],
             const SizedBox(height: KSize.margin6x),
             if (article.hasImage)
-              _ImageStrip(imageUrls: article.imageUrls, isCompact: isCompact),
+              _ImageGallery(imageUrls: article.imageUrls, isCompact: isCompact),
             if (trailingParagraphs.isNotEmpty) ...[
               const SizedBox(height: KSize.margin6x),
               _Paragraphs(paragraphs: trailingParagraphs),
@@ -252,36 +253,226 @@ List<String> _splitParagraphs(String body) {
       .toList(growable: false);
 }
 
-class _ImageStrip extends StatelessWidget {
-  const _ImageStrip({required this.imageUrls, required this.isCompact});
+/// Hosts the horizontal thumbnail strip together with an inline expanded
+/// preview panel. Tapping a thumbnail toggles a full-size view of that
+/// image directly below the strip.
+class _ImageGallery extends StatefulWidget {
+  const _ImageGallery({required this.imageUrls, required this.isCompact});
 
   final List<String> imageUrls;
   final bool isCompact;
 
   @override
+  State<_ImageGallery> createState() => _ImageGalleryState();
+}
+
+class _ImageGalleryState extends State<_ImageGallery> {
+  int? _selectedIndex;
+
+  void _onTap(int index) {
+    setState(() {
+      _selectedIndex = _selectedIndex == index ? null : index;
+    });
+  }
+
+  void _close() {
+    setState(() => _selectedIndex = null);
+  }
+
+  @override
   Widget build(BuildContext context) {
-    final tileWidth = isCompact ? 260.0 : 360.0;
+    final selectedIndex = _selectedIndex;
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        _ImageStrip(
+          imageUrls: widget.imageUrls,
+          isCompact: widget.isCompact,
+          selectedIndex: selectedIndex,
+          onTap: _onTap,
+        ),
+        AnimatedSize(
+          duration: KSize.durationMedium,
+          alignment: Alignment.topCenter,
+          curve: Curves.easeInOut,
+          child: selectedIndex == null
+              ? const SizedBox(width: double.infinity)
+              : Padding(
+                  padding: const EdgeInsets.only(top: KSize.margin4x),
+                  child: _ExpandedImagePanel(
+                    imageUrl: widget.imageUrls[selectedIndex],
+                    isCompact: widget.isCompact,
+                    onClose: _close,
+                  ),
+                ),
+        ),
+      ],
+    );
+  }
+}
+
+/// Horizontal thumbnail strip. Owns its own [ScrollController] so the
+/// gallery can wire up mouse-wheel scrolling and a custom [ScrollBehavior]
+/// that enables drag-to-scroll with mouse / trackpad on Flutter web.
+class _ImageStrip extends StatefulWidget {
+  const _ImageStrip({
+    required this.imageUrls,
+    required this.isCompact,
+    required this.selectedIndex,
+    required this.onTap,
+  });
+
+  final List<String> imageUrls;
+  final bool isCompact;
+  final int? selectedIndex;
+  final ValueChanged<int> onTap;
+
+  @override
+  State<_ImageStrip> createState() => _ImageStripState();
+}
+
+class _ImageStripState extends State<_ImageStrip> {
+  final ScrollController _controller = ScrollController();
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  void _handlePointerSignal(PointerSignalEvent event) {
+    if (event is! PointerScrollEvent || !_controller.hasClients) return;
+    final delta = event.scrollDelta.dy != 0 ? event.scrollDelta.dy : event.scrollDelta.dx;
+    if (delta == 0) return;
+    final position = _controller.position;
+    final target = (position.pixels + delta).clamp(
+      position.minScrollExtent,
+      position.maxScrollExtent,
+    );
+    _controller.jumpTo(target);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final tileWidth = widget.isCompact ? 260.0 : 360.0;
     final tileHeight = tileWidth * 0.68;
 
     return SizedBox(
       height: tileHeight,
-      child: ListView.separated(
-        scrollDirection: Axis.horizontal,
-        itemCount: imageUrls.length,
-        separatorBuilder: (_, __) => const SizedBox(width: KSize.margin3x),
-        itemBuilder: (context, index) {
-          return ClipRRect(
-            borderRadius: BorderRadius.circular(KSize.radiusLargeExtra),
-            child: SizedBox(
-              width: tileWidth,
-              height: tileHeight,
-              child: CachedNetworkImageView(
-                imagePathOrUrl: imageUrls[index],
-                fit: BoxFit.cover,
+      child: ScrollConfiguration(
+        behavior: ScrollConfiguration.of(context).copyWith(
+          scrollbars: false,
+          dragDevices: const {
+            PointerDeviceKind.touch,
+            PointerDeviceKind.mouse,
+            PointerDeviceKind.trackpad,
+            PointerDeviceKind.stylus,
+          },
+        ),
+        child: Listener(
+          onPointerSignal: _handlePointerSignal,
+          child: ListView.separated(
+            controller: _controller,
+            scrollDirection: Axis.horizontal,
+            physics: const BouncingScrollPhysics(),
+            itemCount: widget.imageUrls.length,
+            separatorBuilder: (_, _) => const SizedBox(width: KSize.margin3x),
+            itemBuilder: (context, index) {
+              final isSelected = widget.selectedIndex == index;
+              final radius = BorderRadius.circular(KSize.radiusLargeExtra);
+
+              return MouseRegion(
+                cursor: SystemMouseCursors.click,
+                child: GestureDetector(
+                  onTap: () => widget.onTap(index),
+                  child: AnimatedContainer(
+                    duration: KSize.durationFast,
+                    width: tileWidth,
+                    height: tileHeight,
+                    decoration: BoxDecoration(
+                      borderRadius: radius,
+                      border: Border.all(
+                        color: isSelected
+                            ? context.colors.forestGreen
+                            : Colors.transparent,
+                        width: KSize.borderWidthSmall,
+                      ),
+                    ),
+                    child: ClipRRect(
+                      borderRadius: radius,
+                      child: CachedNetworkImageView(
+                        imagePathOrUrl: widget.imageUrls[index],
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                  ),
+                ),
+              );
+            },
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+/// Inline full-size view of the currently selected thumbnail. Scales to
+/// the available width and is constrained vertically so it never blows
+/// past the article column on tall portraits.
+class _ExpandedImagePanel extends StatelessWidget {
+  const _ExpandedImagePanel({
+    required this.imageUrl,
+    required this.isCompact,
+    required this.onClose,
+  });
+
+  final String imageUrl;
+  final bool isCompact;
+  final VoidCallback onClose;
+
+  @override
+  Widget build(BuildContext context) {
+    final maxHeight = isCompact ? 360.0 : 540.0;
+    final radius = BorderRadius.circular(KSize.radiusLargeExtra);
+
+    return ConstrainedBox(
+      constraints: BoxConstraints(maxHeight: maxHeight),
+      child: ClipRRect(
+        borderRadius: radius,
+        child: Stack(
+          children: [
+            Positioned.fill(
+              child: ColoredBox(
+                color: context.colors.bioBg,
+                child: CachedNetworkImageView(
+                  imagePathOrUrl: imageUrl,
+                  fit: BoxFit.contain,
+                ),
               ),
             ),
-          );
-        },
+            Positioned(
+              top: KSize.margin2x,
+              right: KSize.margin2x,
+              child: Material(
+                color: context.colors.darkOlive.withValues(alpha: 0.72),
+                shape: const CircleBorder(),
+                child: InkWell(
+                  customBorder: const CircleBorder(),
+                  onTap: onClose,
+                  child: Padding(
+                    padding: const EdgeInsets.all(KSize.margin1Halfx),
+                    child: Icon(
+                      Icons.close_rounded,
+                      size: KSize.iconSMedium,
+                      color: context.colors.onDark,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -343,6 +534,119 @@ class _SourceLink extends StatelessWidget {
           ],
         ),
       ),
+    );
+  }
+}
+
+/// Reading time / view count / publish-date row rendered beneath the
+/// article body. View count is intentionally hardcoded for now; once a
+/// real analytics hook lands it should be sourced from [NewsArticle].
+class _ArticleStats extends StatelessWidget {
+  const _ArticleStats({
+    required this.article,
+    required this.locale,
+    required this.isCompact,
+  });
+
+  static const int _hardcodedViews = 135;
+  static const int _wordsPerMinute = 200;
+
+  final NewsArticle article;
+  final AppLocale locale;
+  final bool isCompact;
+
+  @override
+  Widget build(BuildContext context) {
+    final feed = context.t.newsFeed;
+    final readMinutes = _estimateReadMinutes(article.bodyFor(locale));
+    final cells = <Widget>[
+      _StatCell(
+        icon: Icons.schedule_outlined,
+        label: feed.readTimeLabel,
+        value: feed.readTimeValue(minutes: readMinutes),
+      ),
+      _StatCell(
+        icon: Icons.visibility_outlined,
+        label: feed.viewsLabel,
+        value: _hardcodedViews.toString(),
+      ),
+      if (article.publishedAt != null)
+        _StatCell(
+          icon: Icons.calendar_today_outlined,
+          label: feed.publishedLabel,
+          value: MaterialLocalizations.of(context).formatCompactDate(article.publishedAt!),
+        ),
+    ];
+
+    if (isCompact) {
+      return Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          for (int i = 0; i < cells.length; i++) ...[
+            cells[i],
+            if (i != cells.length - 1) const SizedBox(height: KSize.margin4x),
+          ],
+        ],
+      );
+    }
+
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        for (int i = 0; i < cells.length; i++) ...[
+          Expanded(child: cells[i]),
+          if (i != cells.length - 1) const SizedBox(width: KSize.margin6x),
+        ],
+      ],
+    );
+  }
+
+  static int _estimateReadMinutes(String body) {
+    final words = body.split(RegExp(r'\s+')).where((w) => w.isNotEmpty).length;
+    if (words == 0) return 1;
+    return (words / _wordsPerMinute).ceil().clamp(1, 99);
+  }
+}
+
+class _StatCell extends StatelessWidget {
+  const _StatCell({
+    required this.icon,
+    required this.label,
+    required this.value,
+  });
+
+  final IconData icon;
+  final String label;
+  final String value;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Icon(icon, size: KSize.iconM, color: context.colors.forestGreen),
+        const SizedBox(width: KSize.margin3x),
+        Flexible(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(
+                label.toUpperCase(),
+                style: context.textContent.archiveMeta,
+              ),
+              const SizedBox(height: KSize.margin1x),
+              Text(
+                value,
+                style: context.textContent.archiveCardTitle.copyWith(
+                  fontWeight: KSize.fontWeightBold,
+                ),
+              ),
+            ],
+          ),
+        ),
+      ],
     );
   }
 }

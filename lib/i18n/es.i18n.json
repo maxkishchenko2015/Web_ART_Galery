@@ -203,7 +203,11 @@
     "errorTitle": "No se pudieron cargar las noticias",
     "retry": "Reintentar",
     "back": "Volver a las noticias",
-    "sourceLabel": "Fuente"
+    "sourceLabel": "Fuente",
+    "readTimeLabel": "Tiempo de lectura",
+    "readTimeValue": "${minutes} min",
+    "viewsLabel": "Vistas",
+    "publishedLabel": "Publicado"
   },
   "bio": {
     "heroTitle": "ARTE DE ESCALA CÓSMICA",

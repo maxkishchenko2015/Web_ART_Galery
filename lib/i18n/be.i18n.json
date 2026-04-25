@@ -203,7 +203,11 @@
     "errorTitle": "Не ўдалося загрузіць навіны",
     "retry": "Паўтарыць",
     "back": "Да спісу навін",
-    "sourceLabel": "Крыніца"
+    "sourceLabel": "Крыніца",
+    "readTimeLabel": "Час чытання",
+    "readTimeValue": "${minutes} хв",
+    "viewsLabel": "Праглядаў",
+    "publishedLabel": "Апублікавана"
   },
   "bio": {
     "heroTitle": "МАСТАЦТВА КАСМІЧНАГА МАШТАБУ",

@@ -203,7 +203,11 @@
     "errorTitle": "Impossible de charger les actualites",
     "retry": "Reessayer",
     "back": "Retour aux actualites",
-    "sourceLabel": "Source"
+    "sourceLabel": "Source",
+    "readTimeLabel": "Temps de lecture",
+    "readTimeValue": "${minutes} min",
+    "viewsLabel": "Vues",
+    "publishedLabel": "Publie"
   },
   "bio": {
     "heroTitle": "ART À L'ÉCHELLE COSMIQUE",

@@ -140,6 +140,10 @@ class _TranslationsNewsFeedFr extends TranslationsNewsFeedRu {
 	@override String get retry => 'Reessayer';
 	@override String get back => 'Retour aux actualites';
 	@override String get sourceLabel => 'Source';
+	@override String get readTimeLabel => 'Temps de lecture';
+	@override String readTimeValue({required Object minutes}) => '${minutes} min';
+	@override String get viewsLabel => 'Vues';
+	@override String get publishedLabel => 'Publie';
 }
 
 // Path: bio
@@ -614,6 +618,10 @@ extension on TranslationsFr {
 			'newsFeed.retry' => 'Reessayer',
 			'newsFeed.back' => 'Retour aux actualites',
 			'newsFeed.sourceLabel' => 'Source',
+			'newsFeed.readTimeLabel' => 'Temps de lecture',
+			'newsFeed.readTimeValue' => ({required Object minutes}) => '${minutes} min',
+			'newsFeed.viewsLabel' => 'Vues',
+			'newsFeed.publishedLabel' => 'Publie',
 			'bio.heroTitle' => 'ART À L\'ÉCHELLE COSMIQUE',
 			'bio.heroSubtitle' => 'Un art qui efface les frontières entre le terrestre et l\'éternel. Artiste du Peuple de la République du Bélarus, créateur de la plus grande tapisserie du monde «La Tapisserie du Siècle».',
 			'bio.name' => 'Alexandre Mikhaïlovitch Kichtchanka (1933–1997)',

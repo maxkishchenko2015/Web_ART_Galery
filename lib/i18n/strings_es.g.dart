@@ -140,6 +140,10 @@ class _TranslationsNewsFeedEs extends TranslationsNewsFeedRu {
 	@override String get retry => 'Reintentar';
 	@override String get back => 'Volver a las noticias';
 	@override String get sourceLabel => 'Fuente';
+	@override String get readTimeLabel => 'Tiempo de lectura';
+	@override String readTimeValue({required Object minutes}) => '${minutes} min';
+	@override String get viewsLabel => 'Vistas';
+	@override String get publishedLabel => 'Publicado';
 }
 
 // Path: bio
@@ -614,6 +618,10 @@ extension on TranslationsEs {
 			'newsFeed.retry' => 'Reintentar',
 			'newsFeed.back' => 'Volver a las noticias',
 			'newsFeed.sourceLabel' => 'Fuente',
+			'newsFeed.readTimeLabel' => 'Tiempo de lectura',
+			'newsFeed.readTimeValue' => ({required Object minutes}) => '${minutes} min',
+			'newsFeed.viewsLabel' => 'Vistas',
+			'newsFeed.publishedLabel' => 'Publicado',
 			'bio.heroTitle' => 'ARTE DE ESCALA CÓSMICA',
 			'bio.heroSubtitle' => 'Un arte que borra las fronteras entre lo terrenal y lo eterno. Artista del Pueblo de la República de Bielorrusia, creador del tapiz más grande del mundo «El Tapiz del Siglo».',
 			'bio.name' => 'Alexander Mikhailovich Kishchanka (1933–1997)',
