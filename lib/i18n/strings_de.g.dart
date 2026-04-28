@@ -450,12 +450,12 @@ class _TranslationsFilmsItemsDe extends TranslationsFilmsItemsRu {
 	// Translations
 	@override late final _TranslationsFilmsItemsIspovedVremeniDe ispovedVremeni = _TranslationsFilmsItemsIspovedVremeniDe._(_root);
 	@override late final _TranslationsFilmsItemsAleksandrKishchenkoDe aleksandrKishchenko = _TranslationsFilmsItemsAleksandrKishchenkoDe._(_root);
-	@override late final _TranslationsFilmsItemsKishchenkoArchive1De kishchenkoArchive1 = _TranslationsFilmsItemsKishchenkoArchive1De._(_root);
-	@override late final _TranslationsFilmsItemsKishchenkoArchive2De kishchenkoArchive2 = _TranslationsFilmsItemsKishchenkoArchive2De._(_root);
-	@override late final _TranslationsFilmsItemsKishchenkoArchive3De kishchenkoArchive3 = _TranslationsFilmsItemsKishchenkoArchive3De._(_root);
-	@override late final _TranslationsFilmsItemsKishchenkoArchive4De kishchenkoArchive4 = _TranslationsFilmsItemsKishchenkoArchive4De._(_root);
-	@override late final _TranslationsFilmsItemsKishchenkoArchive5De kishchenkoArchive5 = _TranslationsFilmsItemsKishchenkoArchive5De._(_root);
-	@override late final _TranslationsFilmsItemsKishchenkoEditedClipDe kishchenkoEditedClip = _TranslationsFilmsItemsKishchenkoEditedClipDe._(_root);
+	@override late final _TranslationsFilmsItemsVoronezhKramskoyExhibitionDe voronezhKramskoyExhibition = _TranslationsFilmsItemsVoronezhKramskoyExhibitionDe._(_root);
+	@override late final _TranslationsFilmsItemsMastersOfSovietArt1988De mastersOfSovietArt1988 = _TranslationsFilmsItemsMastersOfSovietArt1988De._(_root);
+	@override late final _TranslationsFilmsItemsBogucharLectureDe bogucharLecture = _TranslationsFilmsItemsBogucharLectureDe._(_root);
+	@override late final _TranslationsFilmsItemsCulturalCodesTapestriesDe culturalCodesTapestries = _TranslationsFilmsItemsCulturalCodesTapestriesDe._(_root);
+	@override late final _TranslationsFilmsItemsTapestryOfCenturyMinskDe tapestryOfCenturyMinsk = _TranslationsFilmsItemsTapestryOfCenturyMinskDe._(_root);
+	@override late final _TranslationsFilmsItemsChernobylTapestryFactsDe chernobylTapestryFacts = _TranslationsFilmsItemsChernobylTapestryFactsDe._(_root);
 	@override late final _TranslationsFilmsItemsKishchenkoReel1De kishchenkoReel1 = _TranslationsFilmsItemsKishchenkoReel1De._(_root);
 }
 
@@ -629,70 +629,70 @@ class _TranslationsFilmsItemsAleksandrKishchenkoDe extends TranslationsFilmsItem
 	@override String get excerpt => 'Ein Fernsehportrait uber Leben und Werk von Alexander Kischtschenko: die monumentalen Wandbilder in Minsk, der «Wandteppich des Jahrhunderts» und die Philosophie des universellen Realismus.';
 }
 
-// Path: films.items.kishchenkoArchive1
-class _TranslationsFilmsItemsKishchenkoArchive1De extends TranslationsFilmsItemsKishchenkoArchive1Ru {
-	_TranslationsFilmsItemsKishchenkoArchive1De._(TranslationsDe root) : this._root = root, super.internal(root);
+// Path: films.items.voronezhKramskoyExhibition
+class _TranslationsFilmsItemsVoronezhKramskoyExhibitionDe extends TranslationsFilmsItemsVoronezhKramskoyExhibitionRu {
+	_TranslationsFilmsItemsVoronezhKramskoyExhibitionDe._(TranslationsDe root) : this._root = root, super.internal(root);
 
 	final TranslationsDe _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'A. Kischtschenko. Videoarchiv, Teil 1';
-	@override String get excerpt => 'Archivvideo uber Leben und Werk von Alexander Kischtschenko aus offenen Quellen.';
+	@override String get title => 'Ausstellung von A. M. Kischtschenko im I. N. Kramskoi-Kunstmuseum Woronesch';
+	@override String get excerpt => 'Bericht uber die Ausstellung der Werke des bekannten belarussischen Kunstlers Alexander Kischtschenko im Regionalen Kunstmuseum Woronesch I. N. Kramskoi.';
 }
 
-// Path: films.items.kishchenkoArchive2
-class _TranslationsFilmsItemsKishchenkoArchive2De extends TranslationsFilmsItemsKishchenkoArchive2Ru {
-	_TranslationsFilmsItemsKishchenkoArchive2De._(TranslationsDe root) : this._root = root, super.internal(root);
+// Path: films.items.mastersOfSovietArt1988
+class _TranslationsFilmsItemsMastersOfSovietArt1988De extends TranslationsFilmsItemsMastersOfSovietArt1988Ru {
+	_TranslationsFilmsItemsMastersOfSovietArt1988De._(TranslationsDe root) : this._root = root, super.internal(root);
 
 	final TranslationsDe _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'A. Kischtschenko. Videoarchiv, Teil 2';
-	@override String get excerpt => 'Chronik uber die monumentalen Wandbilder und den kunstlerischen Weg des belarussischen Volkskunstlers.';
+	@override String get title => 'A. Kischtschenko. Reihe «Meister der sowjetischen Kunst». Album von 1988';
+	@override String get excerpt => 'Video-Ruckblick auf das Album von 1988 aus der Reihe «Meister der sowjetischen Kunst», gewidmet Alexander Kischtschenkos Malerei und monumentalen Werken.';
 }
 
-// Path: films.items.kishchenkoArchive3
-class _TranslationsFilmsItemsKishchenkoArchive3De extends TranslationsFilmsItemsKishchenkoArchive3Ru {
-	_TranslationsFilmsItemsKishchenkoArchive3De._(TranslationsDe root) : this._root = root, super.internal(root);
+// Path: films.items.bogucharLecture
+class _TranslationsFilmsItemsBogucharLectureDe extends TranslationsFilmsItemsBogucharLectureRu {
+	_TranslationsFilmsItemsBogucharLectureDe._(TranslationsDe root) : this._root = root, super.internal(root);
 
 	final TranslationsDe _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'A. Kischtschenko. Videoarchiv, Teil 3';
-	@override String get excerpt => 'Beitrag uber Ausstellungen zu Ehren von Alexander Kischtschenko und sein kunstlerisches Erbe.';
+	@override String get title => 'Vortrag «Ein Landsmann mit Weltruhm». A. M. Kischtschenko. Bogutschar-Museum';
+	@override String get excerpt => 'Vortrag des Heimatkundemuseums Bogutschar uber Alexander Michailowitsch Kischtschenko — einen Landsmann von Weltruhm, geboren im Bezirk Bogutschar.';
 }
 
-// Path: films.items.kishchenkoArchive4
-class _TranslationsFilmsItemsKishchenkoArchive4De extends TranslationsFilmsItemsKishchenkoArchive4Ru {
-	_TranslationsFilmsItemsKishchenkoArchive4De._(TranslationsDe root) : this._root = root, super.internal(root);
+// Path: films.items.culturalCodesTapestries
+class _TranslationsFilmsItemsCulturalCodesTapestriesDe extends TranslationsFilmsItemsCulturalCodesTapestriesRu {
+	_TranslationsFilmsItemsCulturalCodesTapestriesDe._(TranslationsDe root) : this._root = root, super.internal(root);
 
 	final TranslationsDe _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'A. Kischtschenko. Videoarchiv, Teil 4';
-	@override String get excerpt => 'Erinnerungen von Zeitgenossen und Forschern an den Meister und seine Werke.';
+	@override String get title => 'Kulturelle Codes der Nation: Wo befinden sich die Wandteppiche des Volkskunstlers Kischtschenko heute? Hauptausstrahlung';
+	@override String get excerpt => 'Die Sendung «Hauptausstrahlung» geht in der Rubrik «Kulturelle Codes der Nation» der Frage nach, wo sich die Wandteppiche des belarussischen Volkskunstlers Alexander Kischtschenko heute befinden.';
 }
 
-// Path: films.items.kishchenkoArchive5
-class _TranslationsFilmsItemsKishchenkoArchive5De extends TranslationsFilmsItemsKishchenkoArchive5Ru {
-	_TranslationsFilmsItemsKishchenkoArchive5De._(TranslationsDe root) : this._root = root, super.internal(root);
+// Path: films.items.tapestryOfCenturyMinsk
+class _TranslationsFilmsItemsTapestryOfCenturyMinskDe extends TranslationsFilmsItemsTapestryOfCenturyMinskRu {
+	_TranslationsFilmsItemsTapestryOfCenturyMinskDe._(TranslationsDe root) : this._root = root, super.internal(root);
 
 	final TranslationsDe _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'A. Kischtschenko. Videoarchiv, Teil 5';
-	@override String get excerpt => 'Beitrag uber den «Wandteppich des Jahrhunderts» und weitere monumentale Werke von Alexander Kischtschenko.';
+	@override String get title => 'Wie «Der Wandteppich des Jahrhunderts» in Minsk fur die Ausstellung in der Entwicklungsbank vorbereitet wurde';
+	@override String get excerpt => 'Reportage uber die Vorbereitungen des Wandteppichs «Der Wandteppich des Jahrhunderts» von Alexander Kischtschenko fur seine Ausstellung in der Entwicklungsbank in Minsk.';
 }
 
-// Path: films.items.kishchenkoEditedClip
-class _TranslationsFilmsItemsKishchenkoEditedClipDe extends TranslationsFilmsItemsKishchenkoEditedClipRu {
-	_TranslationsFilmsItemsKishchenkoEditedClipDe._(TranslationsDe root) : this._root = root, super.internal(root);
+// Path: films.items.chernobylTapestryFacts
+class _TranslationsFilmsItemsChernobylTapestryFactsDe extends TranslationsFilmsItemsChernobylTapestryFactsRu {
+	_TranslationsFilmsItemsChernobylTapestryFactsDe._(TranslationsDe root) : this._root = root, super.internal(root);
 
 	final TranslationsDe _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'A. Kischtschenko. Autorenschnitt (8 Minuten)';
-	@override String get excerpt => 'Acht-Minuten-Featurette uber Leben und Werk des Malers. Gehostet auf Google Drive.';
+	@override String get title => 'Die Wandteppiche «Jahrhundert» und «Tschernobyl». Interessante Fakten';
+	@override String get excerpt => 'Video uber die beruhmten Wandteppiche «Der Wandteppich des Jahrhunderts» und «Tschernobyl» von Alexander Kischtschenko: Entstehungsgeschichte, Symbolik und interessante Details.';
 }
 
 // Path: films.items.kishchenkoReel1
@@ -934,18 +934,18 @@ extension on TranslationsDe {
 			'films.items.ispovedVremeni.excerpt' => 'Ein Dokumentarfilm uber Alexander Michailowitsch Kischtschenko (1933–1997), Volkskunstler von Belarus und Schopfer des grossten Wandteppichs der Welt. Regie: V. Koroljow; Kamera und Schnitt: J. Milkowski.',
 			'films.items.aleksandrKishchenko.title' => 'Alexander Kischtschenko',
 			'films.items.aleksandrKishchenko.excerpt' => 'Ein Fernsehportrait uber Leben und Werk von Alexander Kischtschenko: die monumentalen Wandbilder in Minsk, der «Wandteppich des Jahrhunderts» und die Philosophie des universellen Realismus.',
-			'films.items.kishchenkoArchive1.title' => 'A. Kischtschenko. Videoarchiv, Teil 1',
-			'films.items.kishchenkoArchive1.excerpt' => 'Archivvideo uber Leben und Werk von Alexander Kischtschenko aus offenen Quellen.',
-			'films.items.kishchenkoArchive2.title' => 'A. Kischtschenko. Videoarchiv, Teil 2',
-			'films.items.kishchenkoArchive2.excerpt' => 'Chronik uber die monumentalen Wandbilder und den kunstlerischen Weg des belarussischen Volkskunstlers.',
-			'films.items.kishchenkoArchive3.title' => 'A. Kischtschenko. Videoarchiv, Teil 3',
-			'films.items.kishchenkoArchive3.excerpt' => 'Beitrag uber Ausstellungen zu Ehren von Alexander Kischtschenko und sein kunstlerisches Erbe.',
-			'films.items.kishchenkoArchive4.title' => 'A. Kischtschenko. Videoarchiv, Teil 4',
-			'films.items.kishchenkoArchive4.excerpt' => 'Erinnerungen von Zeitgenossen und Forschern an den Meister und seine Werke.',
-			'films.items.kishchenkoArchive5.title' => 'A. Kischtschenko. Videoarchiv, Teil 5',
-			'films.items.kishchenkoArchive5.excerpt' => 'Beitrag uber den «Wandteppich des Jahrhunderts» und weitere monumentale Werke von Alexander Kischtschenko.',
-			'films.items.kishchenkoEditedClip.title' => 'A. Kischtschenko. Autorenschnitt (8 Minuten)',
-			'films.items.kishchenkoEditedClip.excerpt' => 'Acht-Minuten-Featurette uber Leben und Werk des Malers. Gehostet auf Google Drive.',
+			'films.items.voronezhKramskoyExhibition.title' => 'Ausstellung von A. M. Kischtschenko im I. N. Kramskoi-Kunstmuseum Woronesch',
+			'films.items.voronezhKramskoyExhibition.excerpt' => 'Bericht uber die Ausstellung der Werke des bekannten belarussischen Kunstlers Alexander Kischtschenko im Regionalen Kunstmuseum Woronesch I. N. Kramskoi.',
+			'films.items.mastersOfSovietArt1988.title' => 'A. Kischtschenko. Reihe «Meister der sowjetischen Kunst». Album von 1988',
+			'films.items.mastersOfSovietArt1988.excerpt' => 'Video-Ruckblick auf das Album von 1988 aus der Reihe «Meister der sowjetischen Kunst», gewidmet Alexander Kischtschenkos Malerei und monumentalen Werken.',
+			'films.items.bogucharLecture.title' => 'Vortrag «Ein Landsmann mit Weltruhm». A. M. Kischtschenko. Bogutschar-Museum',
+			'films.items.bogucharLecture.excerpt' => 'Vortrag des Heimatkundemuseums Bogutschar uber Alexander Michailowitsch Kischtschenko — einen Landsmann von Weltruhm, geboren im Bezirk Bogutschar.',
+			'films.items.culturalCodesTapestries.title' => 'Kulturelle Codes der Nation: Wo befinden sich die Wandteppiche des Volkskunstlers Kischtschenko heute? Hauptausstrahlung',
+			'films.items.culturalCodesTapestries.excerpt' => 'Die Sendung «Hauptausstrahlung» geht in der Rubrik «Kulturelle Codes der Nation» der Frage nach, wo sich die Wandteppiche des belarussischen Volkskunstlers Alexander Kischtschenko heute befinden.',
+			'films.items.tapestryOfCenturyMinsk.title' => 'Wie «Der Wandteppich des Jahrhunderts» in Minsk fur die Ausstellung in der Entwicklungsbank vorbereitet wurde',
+			'films.items.tapestryOfCenturyMinsk.excerpt' => 'Reportage uber die Vorbereitungen des Wandteppichs «Der Wandteppich des Jahrhunderts» von Alexander Kischtschenko fur seine Ausstellung in der Entwicklungsbank in Minsk.',
+			'films.items.chernobylTapestryFacts.title' => 'Die Wandteppiche «Jahrhundert» und «Tschernobyl». Interessante Fakten',
+			'films.items.chernobylTapestryFacts.excerpt' => 'Video uber die beruhmten Wandteppiche «Der Wandteppich des Jahrhunderts» und «Tschernobyl» von Alexander Kischtschenko: Entstehungsgeschichte, Symbolik und interessante Details.',
 			'films.items.kishchenkoReel1.title' => 'A. Kischtschenko auf Instagram',
 			'films.items.kishchenkoReel1.excerpt' => 'Kurzclip uber die Werke von Alexander Kischtschenko aus den sozialen Medien.',
 			'newsFeed.title' => 'Neuigkeiten',

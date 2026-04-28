@@ -930,12 +930,12 @@ class TranslationsFilmsItemsRu {
 	// Translations
 	late final TranslationsFilmsItemsIspovedVremeniRu ispovedVremeni = TranslationsFilmsItemsIspovedVremeniRu.internal(_root);
 	late final TranslationsFilmsItemsAleksandrKishchenkoRu aleksandrKishchenko = TranslationsFilmsItemsAleksandrKishchenkoRu.internal(_root);
-	late final TranslationsFilmsItemsKishchenkoArchive1Ru kishchenkoArchive1 = TranslationsFilmsItemsKishchenkoArchive1Ru.internal(_root);
-	late final TranslationsFilmsItemsKishchenkoArchive2Ru kishchenkoArchive2 = TranslationsFilmsItemsKishchenkoArchive2Ru.internal(_root);
-	late final TranslationsFilmsItemsKishchenkoArchive3Ru kishchenkoArchive3 = TranslationsFilmsItemsKishchenkoArchive3Ru.internal(_root);
-	late final TranslationsFilmsItemsKishchenkoArchive4Ru kishchenkoArchive4 = TranslationsFilmsItemsKishchenkoArchive4Ru.internal(_root);
-	late final TranslationsFilmsItemsKishchenkoArchive5Ru kishchenkoArchive5 = TranslationsFilmsItemsKishchenkoArchive5Ru.internal(_root);
-	late final TranslationsFilmsItemsKishchenkoEditedClipRu kishchenkoEditedClip = TranslationsFilmsItemsKishchenkoEditedClipRu.internal(_root);
+	late final TranslationsFilmsItemsVoronezhKramskoyExhibitionRu voronezhKramskoyExhibition = TranslationsFilmsItemsVoronezhKramskoyExhibitionRu.internal(_root);
+	late final TranslationsFilmsItemsMastersOfSovietArt1988Ru mastersOfSovietArt1988 = TranslationsFilmsItemsMastersOfSovietArt1988Ru.internal(_root);
+	late final TranslationsFilmsItemsBogucharLectureRu bogucharLecture = TranslationsFilmsItemsBogucharLectureRu.internal(_root);
+	late final TranslationsFilmsItemsCulturalCodesTapestriesRu culturalCodesTapestries = TranslationsFilmsItemsCulturalCodesTapestriesRu.internal(_root);
+	late final TranslationsFilmsItemsTapestryOfCenturyMinskRu tapestryOfCenturyMinsk = TranslationsFilmsItemsTapestryOfCenturyMinskRu.internal(_root);
+	late final TranslationsFilmsItemsChernobylTapestryFactsRu chernobylTapestryFacts = TranslationsFilmsItemsChernobylTapestryFactsRu.internal(_root);
 	late final TranslationsFilmsItemsKishchenkoReel1Ru kishchenkoReel1 = TranslationsFilmsItemsKishchenkoReel1Ru.internal(_root);
 }
 
@@ -1197,94 +1197,94 @@ class TranslationsFilmsItemsAleksandrKishchenkoRu {
 	String get excerpt => 'Телевизионный фильм о жизни и творчестве Александра Кищенко: монументальные росписи Минска, «Гобелен века» и философия универсального реализма мастера.';
 }
 
-// Path: films.items.kishchenkoArchive1
-class TranslationsFilmsItemsKishchenkoArchive1Ru {
-	TranslationsFilmsItemsKishchenkoArchive1Ru.internal(this._root);
+// Path: films.items.voronezhKramskoyExhibition
+class TranslationsFilmsItemsVoronezhKramskoyExhibitionRu {
+	TranslationsFilmsItemsVoronezhKramskoyExhibitionRu.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
 	// Translations
 
-	/// ru: 'А. Кищенко. Видеоархив, часть 1'
-	String get title => 'А. Кищенко. Видеоархив, часть 1';
+	/// ru: 'Выставка А. М. Кищенко в Воронежском художественном музее им. И. Н. Крамского'
+	String get title => 'Выставка А. М. Кищенко в Воронежском художественном музее им. И. Н. Крамского';
 
-	/// ru: 'Архивная видеозапись о жизни и творчестве Александра Кищенко из открытых источников.'
-	String get excerpt => 'Архивная видеозапись о жизни и творчестве Александра Кищенко из открытых источников.';
+	/// ru: 'Сюжет о выставке работ известного белорусского художника Александра Кищенко в Воронежском областном художественном музее имени И. Н. Крамского.'
+	String get excerpt => 'Сюжет о выставке работ известного белорусского художника Александра Кищенко в Воронежском областном художественном музее имени И. Н. Крамского.';
 }
 
-// Path: films.items.kishchenkoArchive2
-class TranslationsFilmsItemsKishchenkoArchive2Ru {
-	TranslationsFilmsItemsKishchenkoArchive2Ru.internal(this._root);
+// Path: films.items.mastersOfSovietArt1988
+class TranslationsFilmsItemsMastersOfSovietArt1988Ru {
+	TranslationsFilmsItemsMastersOfSovietArt1988Ru.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
 	// Translations
 
-	/// ru: 'А. Кищенко. Видеоархив, часть 2'
-	String get title => 'А. Кищенко. Видеоархив, часть 2';
+	/// ru: 'А. Кищенко. Серия «Мастера советского искусства». Альбом 1988 г.'
+	String get title => 'А. Кищенко. Серия «Мастера советского искусства». Альбом 1988 г.';
 
-	/// ru: 'Хроника о монументальных росписях и творческом пути народного художника Беларуси.'
-	String get excerpt => 'Хроника о монументальных росписях и творческом пути народного художника Беларуси.';
+	/// ru: 'Видеообзор альбома 1988 года из серии «Мастера советского искусства», посвящённого живописи и монументальным работам Александра Кищенко.'
+	String get excerpt => 'Видеообзор альбома 1988 года из серии «Мастера советского искусства», посвящённого живописи и монументальным работам Александра Кищенко.';
 }
 
-// Path: films.items.kishchenkoArchive3
-class TranslationsFilmsItemsKishchenkoArchive3Ru {
-	TranslationsFilmsItemsKishchenkoArchive3Ru.internal(this._root);
+// Path: films.items.bogucharLecture
+class TranslationsFilmsItemsBogucharLectureRu {
+	TranslationsFilmsItemsBogucharLectureRu.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
 	// Translations
 
-	/// ru: 'А. Кищенко. Видеоархив, часть 3'
-	String get title => 'А. Кищенко. Видеоархив, часть 3';
+	/// ru: 'Лекция «Земляк с мировым именем». А. М. Кищенко. Богучарский музей'
+	String get title => 'Лекция «Земляк с мировым именем». А. М. Кищенко. Богучарский музей';
 
-	/// ru: 'Сюжет о выставках, посвящённых Александру Кищенко, и его художественном наследии.'
-	String get excerpt => 'Сюжет о выставках, посвящённых Александру Кищенко, и его художественном наследии.';
+	/// ru: 'Лекция Богучарского историко-краеведческого музея об Александре Михайловиче Кищенко — земляке с мировым именем, родом из Богучарского района.'
+	String get excerpt => 'Лекция Богучарского историко-краеведческого музея об Александре Михайловиче Кищенко — земляке с мировым именем, родом из Богучарского района.';
 }
 
-// Path: films.items.kishchenkoArchive4
-class TranslationsFilmsItemsKishchenkoArchive4Ru {
-	TranslationsFilmsItemsKishchenkoArchive4Ru.internal(this._root);
+// Path: films.items.culturalCodesTapestries
+class TranslationsFilmsItemsCulturalCodesTapestriesRu {
+	TranslationsFilmsItemsCulturalCodesTapestriesRu.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
 	// Translations
 
-	/// ru: 'А. Кищенко. Видеоархив, часть 4'
-	String get title => 'А. Кищенко. Видеоархив, часть 4';
+	/// ru: 'Культурные коды нации: Где сейчас гобелены народного художника Кищенко? Главный эфир'
+	String get title => 'Культурные коды нации: Где сейчас гобелены народного художника Кищенко? Главный эфир';
 
-	/// ru: 'Воспоминания современников и исследователей о мастере и его произведениях.'
-	String get excerpt => 'Воспоминания современников и исследователей о мастере и его произведениях.';
+	/// ru: 'Программа «Главный эфир» в рубрике «Культурные коды нации» рассказывает, где сегодня находятся гобелены народного художника Беларуси Александра Кищенко.'
+	String get excerpt => 'Программа «Главный эфир» в рубрике «Культурные коды нации» рассказывает, где сегодня находятся гобелены народного художника Беларуси Александра Кищенко.';
 }
 
-// Path: films.items.kishchenkoArchive5
-class TranslationsFilmsItemsKishchenkoArchive5Ru {
-	TranslationsFilmsItemsKishchenkoArchive5Ru.internal(this._root);
+// Path: films.items.tapestryOfCenturyMinsk
+class TranslationsFilmsItemsTapestryOfCenturyMinskRu {
+	TranslationsFilmsItemsTapestryOfCenturyMinskRu.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
 	// Translations
 
-	/// ru: 'А. Кищенко. Видеоархив, часть 5'
-	String get title => 'А. Кищенко. Видеоархив, часть 5';
+	/// ru: 'Как в Минске готовили к экспозиции «Гобелен века» в Банке развития'
+	String get title => 'Как в Минске готовили к экспозиции «Гобелен века» в Банке развития';
 
-	/// ru: 'Сюжет о «Гобелене века» и других монументальных работах Александра Кищенко.'
-	String get excerpt => 'Сюжет о «Гобелене века» и других монументальных работах Александра Кищенко.';
+	/// ru: 'Репортаж о том, как в Минске готовили к экспозиции работу белорусского художника Александра Кищенко «Гобелен века» в Банке развития.'
+	String get excerpt => 'Репортаж о том, как в Минске готовили к экспозиции работу белорусского художника Александра Кищенко «Гобелен века» в Банке развития.';
 }
 
-// Path: films.items.kishchenkoEditedClip
-class TranslationsFilmsItemsKishchenkoEditedClipRu {
-	TranslationsFilmsItemsKishchenkoEditedClipRu.internal(this._root);
+// Path: films.items.chernobylTapestryFacts
+class TranslationsFilmsItemsChernobylTapestryFactsRu {
+	TranslationsFilmsItemsChernobylTapestryFactsRu.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
 	// Translations
 
-	/// ru: 'А. Кищенко. Авторский монтаж (8 минут)'
-	String get title => 'А. Кищенко. Авторский монтаж (8 минут)';
+	/// ru: 'Гобелены «Века» и «Чернобыль». Интересные факты'
+	String get title => 'Гобелены «Века» и «Чернобыль». Интересные факты';
 
-	/// ru: 'Восьмиминутный видеоматериал о жизни и творчестве художника. Размещено на Google Диске.'
-	String get excerpt => 'Восьмиминутный видеоматериал о жизни и творчестве художника. Размещено на Google Диске.';
+	/// ru: 'Видеоматериал об известных гобеленах Александра Кищенко — «Гобелене века» и «Чернобыле»: история создания, символика и интересные факты.'
+	String get excerpt => 'Видеоматериал об известных гобеленах Александра Кищенко — «Гобелене века» и «Чернобыле»: история создания, символика и интересные факты.';
 }
 
 // Path: films.items.kishchenkoReel1
@@ -1530,18 +1530,18 @@ extension on Translations {
 			'films.items.ispovedVremeni.excerpt' => 'Документальный фильм об Александре Михайловиче Кищенко (1933–1997) — народном художнике Беларуси, авторе самого большого гобелена в мире. Режиссёр В. Королёв; съёмка и монтаж — Е. Милковский.',
 			'films.items.aleksandrKishchenko.title' => 'Александр Кищенко',
 			'films.items.aleksandrKishchenko.excerpt' => 'Телевизионный фильм о жизни и творчестве Александра Кищенко: монументальные росписи Минска, «Гобелен века» и философия универсального реализма мастера.',
-			'films.items.kishchenkoArchive1.title' => 'А. Кищенко. Видеоархив, часть 1',
-			'films.items.kishchenkoArchive1.excerpt' => 'Архивная видеозапись о жизни и творчестве Александра Кищенко из открытых источников.',
-			'films.items.kishchenkoArchive2.title' => 'А. Кищенко. Видеоархив, часть 2',
-			'films.items.kishchenkoArchive2.excerpt' => 'Хроника о монументальных росписях и творческом пути народного художника Беларуси.',
-			'films.items.kishchenkoArchive3.title' => 'А. Кищенко. Видеоархив, часть 3',
-			'films.items.kishchenkoArchive3.excerpt' => 'Сюжет о выставках, посвящённых Александру Кищенко, и его художественном наследии.',
-			'films.items.kishchenkoArchive4.title' => 'А. Кищенко. Видеоархив, часть 4',
-			'films.items.kishchenkoArchive4.excerpt' => 'Воспоминания современников и исследователей о мастере и его произведениях.',
-			'films.items.kishchenkoArchive5.title' => 'А. Кищенко. Видеоархив, часть 5',
-			'films.items.kishchenkoArchive5.excerpt' => 'Сюжет о «Гобелене века» и других монументальных работах Александра Кищенко.',
-			'films.items.kishchenkoEditedClip.title' => 'А. Кищенко. Авторский монтаж (8 минут)',
-			'films.items.kishchenkoEditedClip.excerpt' => 'Восьмиминутный видеоматериал о жизни и творчестве художника. Размещено на Google Диске.',
+			'films.items.voronezhKramskoyExhibition.title' => 'Выставка А. М. Кищенко в Воронежском художественном музее им. И. Н. Крамского',
+			'films.items.voronezhKramskoyExhibition.excerpt' => 'Сюжет о выставке работ известного белорусского художника Александра Кищенко в Воронежском областном художественном музее имени И. Н. Крамского.',
+			'films.items.mastersOfSovietArt1988.title' => 'А. Кищенко. Серия «Мастера советского искусства». Альбом 1988 г.',
+			'films.items.mastersOfSovietArt1988.excerpt' => 'Видеообзор альбома 1988 года из серии «Мастера советского искусства», посвящённого живописи и монументальным работам Александра Кищенко.',
+			'films.items.bogucharLecture.title' => 'Лекция «Земляк с мировым именем». А. М. Кищенко. Богучарский музей',
+			'films.items.bogucharLecture.excerpt' => 'Лекция Богучарского историко-краеведческого музея об Александре Михайловиче Кищенко — земляке с мировым именем, родом из Богучарского района.',
+			'films.items.culturalCodesTapestries.title' => 'Культурные коды нации: Где сейчас гобелены народного художника Кищенко? Главный эфир',
+			'films.items.culturalCodesTapestries.excerpt' => 'Программа «Главный эфир» в рубрике «Культурные коды нации» рассказывает, где сегодня находятся гобелены народного художника Беларуси Александра Кищенко.',
+			'films.items.tapestryOfCenturyMinsk.title' => 'Как в Минске готовили к экспозиции «Гобелен века» в Банке развития',
+			'films.items.tapestryOfCenturyMinsk.excerpt' => 'Репортаж о том, как в Минске готовили к экспозиции работу белорусского художника Александра Кищенко «Гобелен века» в Банке развития.',
+			'films.items.chernobylTapestryFacts.title' => 'Гобелены «Века» и «Чернобыль». Интересные факты',
+			'films.items.chernobylTapestryFacts.excerpt' => 'Видеоматериал об известных гобеленах Александра Кищенко — «Гобелене века» и «Чернобыле»: история создания, символика и интересные факты.',
 			'films.items.kishchenkoReel1.title' => 'А. Кищенко в Instagram',
 			'films.items.kishchenkoReel1.excerpt' => 'Короткое видео о работах Александра Кищенко из социальной сети.',
 			'newsFeed.title' => 'Новости',

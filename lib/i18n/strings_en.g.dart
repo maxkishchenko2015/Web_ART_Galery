@@ -450,12 +450,12 @@ class _TranslationsFilmsItemsEn extends TranslationsFilmsItemsRu {
 	// Translations
 	@override late final _TranslationsFilmsItemsIspovedVremeniEn ispovedVremeni = _TranslationsFilmsItemsIspovedVremeniEn._(_root);
 	@override late final _TranslationsFilmsItemsAleksandrKishchenkoEn aleksandrKishchenko = _TranslationsFilmsItemsAleksandrKishchenkoEn._(_root);
-	@override late final _TranslationsFilmsItemsKishchenkoArchive1En kishchenkoArchive1 = _TranslationsFilmsItemsKishchenkoArchive1En._(_root);
-	@override late final _TranslationsFilmsItemsKishchenkoArchive2En kishchenkoArchive2 = _TranslationsFilmsItemsKishchenkoArchive2En._(_root);
-	@override late final _TranslationsFilmsItemsKishchenkoArchive3En kishchenkoArchive3 = _TranslationsFilmsItemsKishchenkoArchive3En._(_root);
-	@override late final _TranslationsFilmsItemsKishchenkoArchive4En kishchenkoArchive4 = _TranslationsFilmsItemsKishchenkoArchive4En._(_root);
-	@override late final _TranslationsFilmsItemsKishchenkoArchive5En kishchenkoArchive5 = _TranslationsFilmsItemsKishchenkoArchive5En._(_root);
-	@override late final _TranslationsFilmsItemsKishchenkoEditedClipEn kishchenkoEditedClip = _TranslationsFilmsItemsKishchenkoEditedClipEn._(_root);
+	@override late final _TranslationsFilmsItemsVoronezhKramskoyExhibitionEn voronezhKramskoyExhibition = _TranslationsFilmsItemsVoronezhKramskoyExhibitionEn._(_root);
+	@override late final _TranslationsFilmsItemsMastersOfSovietArt1988En mastersOfSovietArt1988 = _TranslationsFilmsItemsMastersOfSovietArt1988En._(_root);
+	@override late final _TranslationsFilmsItemsBogucharLectureEn bogucharLecture = _TranslationsFilmsItemsBogucharLectureEn._(_root);
+	@override late final _TranslationsFilmsItemsCulturalCodesTapestriesEn culturalCodesTapestries = _TranslationsFilmsItemsCulturalCodesTapestriesEn._(_root);
+	@override late final _TranslationsFilmsItemsTapestryOfCenturyMinskEn tapestryOfCenturyMinsk = _TranslationsFilmsItemsTapestryOfCenturyMinskEn._(_root);
+	@override late final _TranslationsFilmsItemsChernobylTapestryFactsEn chernobylTapestryFacts = _TranslationsFilmsItemsChernobylTapestryFactsEn._(_root);
 	@override late final _TranslationsFilmsItemsKishchenkoReel1En kishchenkoReel1 = _TranslationsFilmsItemsKishchenkoReel1En._(_root);
 }
 
@@ -629,70 +629,70 @@ class _TranslationsFilmsItemsAleksandrKishchenkoEn extends TranslationsFilmsItem
 	@override String get excerpt => 'Television feature on the life and work of Alexander Kishchenko, taking the viewer through his monumental panels in Minsk, the «Tapestry of the Century» and the artist\'s quest for Universal Realism.';
 }
 
-// Path: films.items.kishchenkoArchive1
-class _TranslationsFilmsItemsKishchenkoArchive1En extends TranslationsFilmsItemsKishchenkoArchive1Ru {
-	_TranslationsFilmsItemsKishchenkoArchive1En._(TranslationsEn root) : this._root = root, super.internal(root);
+// Path: films.items.voronezhKramskoyExhibition
+class _TranslationsFilmsItemsVoronezhKramskoyExhibitionEn extends TranslationsFilmsItemsVoronezhKramskoyExhibitionRu {
+	_TranslationsFilmsItemsVoronezhKramskoyExhibitionEn._(TranslationsEn root) : this._root = root, super.internal(root);
 
 	final TranslationsEn _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'A. Kishchenko. Video archive, part 1';
-	@override String get excerpt => 'Archival video footage about the life and art of Alexander Kishchenko from open sources.';
+	@override String get title => 'A. M. Kishchanka exhibition at the I. N. Kramskoy Voronezh Art Museum';
+	@override String get excerpt => 'A report on the exhibition of works by the renowned Belarusian artist Alexander Kishchanka at the I. N. Kramskoy Voronezh Regional Art Museum.';
 }
 
-// Path: films.items.kishchenkoArchive2
-class _TranslationsFilmsItemsKishchenkoArchive2En extends TranslationsFilmsItemsKishchenkoArchive2Ru {
-	_TranslationsFilmsItemsKishchenkoArchive2En._(TranslationsEn root) : this._root = root, super.internal(root);
+// Path: films.items.mastersOfSovietArt1988
+class _TranslationsFilmsItemsMastersOfSovietArt1988En extends TranslationsFilmsItemsMastersOfSovietArt1988Ru {
+	_TranslationsFilmsItemsMastersOfSovietArt1988En._(TranslationsEn root) : this._root = root, super.internal(root);
 
 	final TranslationsEn _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'A. Kishchenko. Video archive, part 2';
-	@override String get excerpt => 'Chronicle on the monumental murals and creative path of the People\'s Artist of Belarus.';
+	@override String get title => 'A. Kishchanka. «Masters of Soviet Art» series. 1988 album';
+	@override String get excerpt => 'A video review of the 1988 album from the «Masters of Soviet Art» series, dedicated to Alexander Kishchanka\'s paintings and monumental works.';
 }
 
-// Path: films.items.kishchenkoArchive3
-class _TranslationsFilmsItemsKishchenkoArchive3En extends TranslationsFilmsItemsKishchenkoArchive3Ru {
-	_TranslationsFilmsItemsKishchenkoArchive3En._(TranslationsEn root) : this._root = root, super.internal(root);
+// Path: films.items.bogucharLecture
+class _TranslationsFilmsItemsBogucharLectureEn extends TranslationsFilmsItemsBogucharLectureRu {
+	_TranslationsFilmsItemsBogucharLectureEn._(TranslationsEn root) : this._root = root, super.internal(root);
 
 	final TranslationsEn _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'A. Kishchenko. Video archive, part 3';
-	@override String get excerpt => 'Coverage of exhibitions dedicated to Alexander Kishchenko and his artistic legacy.';
+	@override String get title => 'Lecture «A countryman of world renown». A. M. Kishchanka. Boguchar Museum';
+	@override String get excerpt => 'A lecture from the Boguchar Local History Museum about Alexander Mikhailovich Kishchanka — a countryman of world renown, born in the Boguchar district.';
 }
 
-// Path: films.items.kishchenkoArchive4
-class _TranslationsFilmsItemsKishchenkoArchive4En extends TranslationsFilmsItemsKishchenkoArchive4Ru {
-	_TranslationsFilmsItemsKishchenkoArchive4En._(TranslationsEn root) : this._root = root, super.internal(root);
+// Path: films.items.culturalCodesTapestries
+class _TranslationsFilmsItemsCulturalCodesTapestriesEn extends TranslationsFilmsItemsCulturalCodesTapestriesRu {
+	_TranslationsFilmsItemsCulturalCodesTapestriesEn._(TranslationsEn root) : this._root = root, super.internal(root);
 
 	final TranslationsEn _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'A. Kishchenko. Video archive, part 4';
-	@override String get excerpt => 'Recollections from contemporaries and researchers about the master and his works.';
+	@override String get title => 'Cultural Codes of the Nation: Where are the tapestries of the People\'s Artist Kishchanka now? Main Broadcast';
+	@override String get excerpt => 'The «Main Broadcast» programme, in its «Cultural Codes of the Nation» segment, traces the present whereabouts of the tapestries by Belarus\'s People\'s Artist Alexander Kishchanka.';
 }
 
-// Path: films.items.kishchenkoArchive5
-class _TranslationsFilmsItemsKishchenkoArchive5En extends TranslationsFilmsItemsKishchenkoArchive5Ru {
-	_TranslationsFilmsItemsKishchenkoArchive5En._(TranslationsEn root) : this._root = root, super.internal(root);
+// Path: films.items.tapestryOfCenturyMinsk
+class _TranslationsFilmsItemsTapestryOfCenturyMinskEn extends TranslationsFilmsItemsTapestryOfCenturyMinskRu {
+	_TranslationsFilmsItemsTapestryOfCenturyMinskEn._(TranslationsEn root) : this._root = root, super.internal(root);
 
 	final TranslationsEn _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'A. Kishchenko. Video archive, part 5';
-	@override String get excerpt => 'Feature on the «Tapestry of the Century» and other monumental works by Alexander Kishchenko.';
+	@override String get title => 'Preparing «The Tapestry of the Century» for display at the Development Bank in Minsk';
+	@override String get excerpt => 'A behind-the-scenes report on how Alexander Kishchanka\'s «Tapestry of the Century» was prepared for display at the Development Bank in Minsk.';
 }
 
-// Path: films.items.kishchenkoEditedClip
-class _TranslationsFilmsItemsKishchenkoEditedClipEn extends TranslationsFilmsItemsKishchenkoEditedClipRu {
-	_TranslationsFilmsItemsKishchenkoEditedClipEn._(TranslationsEn root) : this._root = root, super.internal(root);
+// Path: films.items.chernobylTapestryFacts
+class _TranslationsFilmsItemsChernobylTapestryFactsEn extends TranslationsFilmsItemsChernobylTapestryFactsRu {
+	_TranslationsFilmsItemsChernobylTapestryFactsEn._(TranslationsEn root) : this._root = root, super.internal(root);
 
 	final TranslationsEn _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'A. Kishchenko. Edited cut (8 minutes)';
-	@override String get excerpt => 'An eight-minute featurette on the life and art of the painter. Hosted on Google Drive.';
+	@override String get title => 'The «Century» and «Chernobyl» tapestries. Interesting facts';
+	@override String get excerpt => 'A video about Alexander Kishchanka\'s iconic tapestries — «The Tapestry of the Century» and «Chernobyl»: their backstory, symbolism, and curious facts.';
 }
 
 // Path: films.items.kishchenkoReel1
@@ -934,18 +934,18 @@ extension on TranslationsEn {
 			'films.items.ispovedVremeni.excerpt' => 'A documentary about Alexander Mikhailovich Kishchenko (1933–1997), People\'s Artist of Belarus and author of the world\'s largest tapestry. Directed by V. Korolyov; filming and editing by E. Milkovskiy.',
 			'films.items.aleksandrKishchenko.title' => 'Alexander Kishchenko',
 			'films.items.aleksandrKishchenko.excerpt' => 'Television feature on the life and work of Alexander Kishchenko, taking the viewer through his monumental panels in Minsk, the «Tapestry of the Century» and the artist\'s quest for Universal Realism.',
-			'films.items.kishchenkoArchive1.title' => 'A. Kishchenko. Video archive, part 1',
-			'films.items.kishchenkoArchive1.excerpt' => 'Archival video footage about the life and art of Alexander Kishchenko from open sources.',
-			'films.items.kishchenkoArchive2.title' => 'A. Kishchenko. Video archive, part 2',
-			'films.items.kishchenkoArchive2.excerpt' => 'Chronicle on the monumental murals and creative path of the People\'s Artist of Belarus.',
-			'films.items.kishchenkoArchive3.title' => 'A. Kishchenko. Video archive, part 3',
-			'films.items.kishchenkoArchive3.excerpt' => 'Coverage of exhibitions dedicated to Alexander Kishchenko and his artistic legacy.',
-			'films.items.kishchenkoArchive4.title' => 'A. Kishchenko. Video archive, part 4',
-			'films.items.kishchenkoArchive4.excerpt' => 'Recollections from contemporaries and researchers about the master and his works.',
-			'films.items.kishchenkoArchive5.title' => 'A. Kishchenko. Video archive, part 5',
-			'films.items.kishchenkoArchive5.excerpt' => 'Feature on the «Tapestry of the Century» and other monumental works by Alexander Kishchenko.',
-			'films.items.kishchenkoEditedClip.title' => 'A. Kishchenko. Edited cut (8 minutes)',
-			'films.items.kishchenkoEditedClip.excerpt' => 'An eight-minute featurette on the life and art of the painter. Hosted on Google Drive.',
+			'films.items.voronezhKramskoyExhibition.title' => 'A. M. Kishchanka exhibition at the I. N. Kramskoy Voronezh Art Museum',
+			'films.items.voronezhKramskoyExhibition.excerpt' => 'A report on the exhibition of works by the renowned Belarusian artist Alexander Kishchanka at the I. N. Kramskoy Voronezh Regional Art Museum.',
+			'films.items.mastersOfSovietArt1988.title' => 'A. Kishchanka. «Masters of Soviet Art» series. 1988 album',
+			'films.items.mastersOfSovietArt1988.excerpt' => 'A video review of the 1988 album from the «Masters of Soviet Art» series, dedicated to Alexander Kishchanka\'s paintings and monumental works.',
+			'films.items.bogucharLecture.title' => 'Lecture «A countryman of world renown». A. M. Kishchanka. Boguchar Museum',
+			'films.items.bogucharLecture.excerpt' => 'A lecture from the Boguchar Local History Museum about Alexander Mikhailovich Kishchanka — a countryman of world renown, born in the Boguchar district.',
+			'films.items.culturalCodesTapestries.title' => 'Cultural Codes of the Nation: Where are the tapestries of the People\'s Artist Kishchanka now? Main Broadcast',
+			'films.items.culturalCodesTapestries.excerpt' => 'The «Main Broadcast» programme, in its «Cultural Codes of the Nation» segment, traces the present whereabouts of the tapestries by Belarus\'s People\'s Artist Alexander Kishchanka.',
+			'films.items.tapestryOfCenturyMinsk.title' => 'Preparing «The Tapestry of the Century» for display at the Development Bank in Minsk',
+			'films.items.tapestryOfCenturyMinsk.excerpt' => 'A behind-the-scenes report on how Alexander Kishchanka\'s «Tapestry of the Century» was prepared for display at the Development Bank in Minsk.',
+			'films.items.chernobylTapestryFacts.title' => 'The «Century» and «Chernobyl» tapestries. Interesting facts',
+			'films.items.chernobylTapestryFacts.excerpt' => 'A video about Alexander Kishchanka\'s iconic tapestries — «The Tapestry of the Century» and «Chernobyl»: their backstory, symbolism, and curious facts.',
 			'films.items.kishchenkoReel1.title' => 'A. Kishchenko on Instagram',
 			'films.items.kishchenkoReel1.excerpt' => 'A short clip about the works of Alexander Kishchenko from social media.',
 			'newsFeed.title' => 'News',

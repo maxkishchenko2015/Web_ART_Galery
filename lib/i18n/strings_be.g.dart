@@ -450,12 +450,12 @@ class _TranslationsFilmsItemsBe extends TranslationsFilmsItemsRu {
 	// Translations
 	@override late final _TranslationsFilmsItemsIspovedVremeniBe ispovedVremeni = _TranslationsFilmsItemsIspovedVremeniBe._(_root);
 	@override late final _TranslationsFilmsItemsAleksandrKishchenkoBe aleksandrKishchenko = _TranslationsFilmsItemsAleksandrKishchenkoBe._(_root);
-	@override late final _TranslationsFilmsItemsKishchenkoArchive1Be kishchenkoArchive1 = _TranslationsFilmsItemsKishchenkoArchive1Be._(_root);
-	@override late final _TranslationsFilmsItemsKishchenkoArchive2Be kishchenkoArchive2 = _TranslationsFilmsItemsKishchenkoArchive2Be._(_root);
-	@override late final _TranslationsFilmsItemsKishchenkoArchive3Be kishchenkoArchive3 = _TranslationsFilmsItemsKishchenkoArchive3Be._(_root);
-	@override late final _TranslationsFilmsItemsKishchenkoArchive4Be kishchenkoArchive4 = _TranslationsFilmsItemsKishchenkoArchive4Be._(_root);
-	@override late final _TranslationsFilmsItemsKishchenkoArchive5Be kishchenkoArchive5 = _TranslationsFilmsItemsKishchenkoArchive5Be._(_root);
-	@override late final _TranslationsFilmsItemsKishchenkoEditedClipBe kishchenkoEditedClip = _TranslationsFilmsItemsKishchenkoEditedClipBe._(_root);
+	@override late final _TranslationsFilmsItemsVoronezhKramskoyExhibitionBe voronezhKramskoyExhibition = _TranslationsFilmsItemsVoronezhKramskoyExhibitionBe._(_root);
+	@override late final _TranslationsFilmsItemsMastersOfSovietArt1988Be mastersOfSovietArt1988 = _TranslationsFilmsItemsMastersOfSovietArt1988Be._(_root);
+	@override late final _TranslationsFilmsItemsBogucharLectureBe bogucharLecture = _TranslationsFilmsItemsBogucharLectureBe._(_root);
+	@override late final _TranslationsFilmsItemsCulturalCodesTapestriesBe culturalCodesTapestries = _TranslationsFilmsItemsCulturalCodesTapestriesBe._(_root);
+	@override late final _TranslationsFilmsItemsTapestryOfCenturyMinskBe tapestryOfCenturyMinsk = _TranslationsFilmsItemsTapestryOfCenturyMinskBe._(_root);
+	@override late final _TranslationsFilmsItemsChernobylTapestryFactsBe chernobylTapestryFacts = _TranslationsFilmsItemsChernobylTapestryFactsBe._(_root);
 	@override late final _TranslationsFilmsItemsKishchenkoReel1Be kishchenkoReel1 = _TranslationsFilmsItemsKishchenkoReel1Be._(_root);
 }
 
@@ -629,70 +629,70 @@ class _TranslationsFilmsItemsAleksandrKishchenkoBe extends TranslationsFilmsItem
 	@override String get excerpt => 'Тэлевізійны фільм пра жыццё і творчасць Аляксандра Кішчанкі: манументальныя роспісы Мінска, «Габелен стагоддзя» і філасофія ўніверсальнага рэалізму майстра.';
 }
 
-// Path: films.items.kishchenkoArchive1
-class _TranslationsFilmsItemsKishchenkoArchive1Be extends TranslationsFilmsItemsKishchenkoArchive1Ru {
-	_TranslationsFilmsItemsKishchenkoArchive1Be._(TranslationsBe root) : this._root = root, super.internal(root);
+// Path: films.items.voronezhKramskoyExhibition
+class _TranslationsFilmsItemsVoronezhKramskoyExhibitionBe extends TranslationsFilmsItemsVoronezhKramskoyExhibitionRu {
+	_TranslationsFilmsItemsVoronezhKramskoyExhibitionBe._(TranslationsBe root) : this._root = root, super.internal(root);
 
 	final TranslationsBe _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'А. Кішчанка. Відэаархіў, частка 1';
-	@override String get excerpt => 'Архіўны відэазапіс пра жыццё і творчасць Аляксандра Кішчанкі з адкрытых крыніц.';
+	@override String get title => 'Выстава А. М. Кішчанкі ў Варонежскім мастацкім музеі імя І. М. Крамскога';
+	@override String get excerpt => 'Сюжэт пра выставу работ вядомага беларускага мастака Аляксандра Кішчанкі ў Варонежскім абласным мастацкім музеі імя І. М. Крамскога.';
 }
 
-// Path: films.items.kishchenkoArchive2
-class _TranslationsFilmsItemsKishchenkoArchive2Be extends TranslationsFilmsItemsKishchenkoArchive2Ru {
-	_TranslationsFilmsItemsKishchenkoArchive2Be._(TranslationsBe root) : this._root = root, super.internal(root);
+// Path: films.items.mastersOfSovietArt1988
+class _TranslationsFilmsItemsMastersOfSovietArt1988Be extends TranslationsFilmsItemsMastersOfSovietArt1988Ru {
+	_TranslationsFilmsItemsMastersOfSovietArt1988Be._(TranslationsBe root) : this._root = root, super.internal(root);
 
 	final TranslationsBe _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'А. Кішчанка. Відэаархіў, частка 2';
-	@override String get excerpt => 'Хроніка пра манументальныя роспісы і творчы шлях народнага мастака Беларусі.';
+	@override String get title => 'А. Кішчанка. Серыя «Майстры савецкага мастацтва». Альбом 1988 г.';
+	@override String get excerpt => 'Відэаагляд альбома 1988 года з серыі «Майстры савецкага мастацтва», прысвечанага жывапісу і манументальным працам Аляксандра Кішчанкі.';
 }
 
-// Path: films.items.kishchenkoArchive3
-class _TranslationsFilmsItemsKishchenkoArchive3Be extends TranslationsFilmsItemsKishchenkoArchive3Ru {
-	_TranslationsFilmsItemsKishchenkoArchive3Be._(TranslationsBe root) : this._root = root, super.internal(root);
+// Path: films.items.bogucharLecture
+class _TranslationsFilmsItemsBogucharLectureBe extends TranslationsFilmsItemsBogucharLectureRu {
+	_TranslationsFilmsItemsBogucharLectureBe._(TranslationsBe root) : this._root = root, super.internal(root);
 
 	final TranslationsBe _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'А. Кішчанка. Відэаархіў, частка 3';
-	@override String get excerpt => 'Сюжэт пра выставы, прысвечаныя Аляксандру Кішчанку, і яго мастацкую спадчыну.';
+	@override String get title => 'Лекцыя «Зямляк са сусветным імем». А. М. Кішчанка. Багучарскі музей';
+	@override String get excerpt => 'Лекцыя Багучарскага гісторыка-краязнаўчага музея пра Аляксандра Міхайлавіча Кішчанку — земляка са сусветным імем, родам з Багучарскага раёна.';
 }
 
-// Path: films.items.kishchenkoArchive4
-class _TranslationsFilmsItemsKishchenkoArchive4Be extends TranslationsFilmsItemsKishchenkoArchive4Ru {
-	_TranslationsFilmsItemsKishchenkoArchive4Be._(TranslationsBe root) : this._root = root, super.internal(root);
+// Path: films.items.culturalCodesTapestries
+class _TranslationsFilmsItemsCulturalCodesTapestriesBe extends TranslationsFilmsItemsCulturalCodesTapestriesRu {
+	_TranslationsFilmsItemsCulturalCodesTapestriesBe._(TranslationsBe root) : this._root = root, super.internal(root);
 
 	final TranslationsBe _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'А. Кішчанка. Відэаархіў, частка 4';
-	@override String get excerpt => 'Успаміны сучаснікаў і даследчыкаў пра майстра і яго творы.';
+	@override String get title => 'Культурныя коды нацыі: Дзе цяпер габелены народнага мастака Кішчанкі? Галоўны эфір';
+	@override String get excerpt => 'Праграма «Галоўны эфір» у рубрыцы «Культурныя коды нацыі» расказвае, дзе сёння знаходзяцца габелены народнага мастака Беларусі Аляксандра Кішчанкі.';
 }
 
-// Path: films.items.kishchenkoArchive5
-class _TranslationsFilmsItemsKishchenkoArchive5Be extends TranslationsFilmsItemsKishchenkoArchive5Ru {
-	_TranslationsFilmsItemsKishchenkoArchive5Be._(TranslationsBe root) : this._root = root, super.internal(root);
+// Path: films.items.tapestryOfCenturyMinsk
+class _TranslationsFilmsItemsTapestryOfCenturyMinskBe extends TranslationsFilmsItemsTapestryOfCenturyMinskRu {
+	_TranslationsFilmsItemsTapestryOfCenturyMinskBe._(TranslationsBe root) : this._root = root, super.internal(root);
 
 	final TranslationsBe _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'А. Кішчанка. Відэаархіў, частка 5';
-	@override String get excerpt => 'Сюжэт пра «Габелен стагоддзя» і іншыя манументальныя работы Аляксандра Кішчанкі.';
+	@override String get title => 'Як у Мінску рыхтавалі да экспазіцыі «Габелен веку» ў Банку развіцця';
+	@override String get excerpt => 'Рэпартаж пра тое, як у Мінску рыхтавалі да экспазіцыі работу беларускага мастака Аляксандра Кішчанкі «Габелен веку» ў Банку развіцця.';
 }
 
-// Path: films.items.kishchenkoEditedClip
-class _TranslationsFilmsItemsKishchenkoEditedClipBe extends TranslationsFilmsItemsKishchenkoEditedClipRu {
-	_TranslationsFilmsItemsKishchenkoEditedClipBe._(TranslationsBe root) : this._root = root, super.internal(root);
+// Path: films.items.chernobylTapestryFacts
+class _TranslationsFilmsItemsChernobylTapestryFactsBe extends TranslationsFilmsItemsChernobylTapestryFactsRu {
+	_TranslationsFilmsItemsChernobylTapestryFactsBe._(TranslationsBe root) : this._root = root, super.internal(root);
 
 	final TranslationsBe _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'А. Кішчанка. Аўтарскі мантаж (8 хвілін)';
-	@override String get excerpt => 'Васьміхвілінны відэаматэрыял пра жыццё і творчасць мастака. Размешчаны на Google Дыску.';
+	@override String get title => 'Габелены «Веку» і «Чарнобыль». Цікавыя факты';
+	@override String get excerpt => 'Відэаматэрыял пра знакамітыя габелены Аляксандра Кішчанкі — «Габелен веку» і «Чарнобыль»: гісторыя стварэння, сімволіка і цікавыя факты.';
 }
 
 // Path: films.items.kishchenkoReel1
@@ -934,18 +934,18 @@ extension on TranslationsBe {
 			'films.items.ispovedVremeni.excerpt' => 'Дакументальны фільм пра Аляксандра Міхайлавіча Кішчанку (1933–1997) — народнага мастака Беларусі, аўтара самага вялікага габелена ў свеце. Рэжысёр В. Каралёў; здымка і мантаж — Я. Мілкоўскі.',
 			'films.items.aleksandrKishchenko.title' => 'Аляксандр Кішчанка',
 			'films.items.aleksandrKishchenko.excerpt' => 'Тэлевізійны фільм пра жыццё і творчасць Аляксандра Кішчанкі: манументальныя роспісы Мінска, «Габелен стагоддзя» і філасофія ўніверсальнага рэалізму майстра.',
-			'films.items.kishchenkoArchive1.title' => 'А. Кішчанка. Відэаархіў, частка 1',
-			'films.items.kishchenkoArchive1.excerpt' => 'Архіўны відэазапіс пра жыццё і творчасць Аляксандра Кішчанкі з адкрытых крыніц.',
-			'films.items.kishchenkoArchive2.title' => 'А. Кішчанка. Відэаархіў, частка 2',
-			'films.items.kishchenkoArchive2.excerpt' => 'Хроніка пра манументальныя роспісы і творчы шлях народнага мастака Беларусі.',
-			'films.items.kishchenkoArchive3.title' => 'А. Кішчанка. Відэаархіў, частка 3',
-			'films.items.kishchenkoArchive3.excerpt' => 'Сюжэт пра выставы, прысвечаныя Аляксандру Кішчанку, і яго мастацкую спадчыну.',
-			'films.items.kishchenkoArchive4.title' => 'А. Кішчанка. Відэаархіў, частка 4',
-			'films.items.kishchenkoArchive4.excerpt' => 'Успаміны сучаснікаў і даследчыкаў пра майстра і яго творы.',
-			'films.items.kishchenkoArchive5.title' => 'А. Кішчанка. Відэаархіў, частка 5',
-			'films.items.kishchenkoArchive5.excerpt' => 'Сюжэт пра «Габелен стагоддзя» і іншыя манументальныя работы Аляксандра Кішчанкі.',
-			'films.items.kishchenkoEditedClip.title' => 'А. Кішчанка. Аўтарскі мантаж (8 хвілін)',
-			'films.items.kishchenkoEditedClip.excerpt' => 'Васьміхвілінны відэаматэрыял пра жыццё і творчасць мастака. Размешчаны на Google Дыску.',
+			'films.items.voronezhKramskoyExhibition.title' => 'Выстава А. М. Кішчанкі ў Варонежскім мастацкім музеі імя І. М. Крамскога',
+			'films.items.voronezhKramskoyExhibition.excerpt' => 'Сюжэт пра выставу работ вядомага беларускага мастака Аляксандра Кішчанкі ў Варонежскім абласным мастацкім музеі імя І. М. Крамскога.',
+			'films.items.mastersOfSovietArt1988.title' => 'А. Кішчанка. Серыя «Майстры савецкага мастацтва». Альбом 1988 г.',
+			'films.items.mastersOfSovietArt1988.excerpt' => 'Відэаагляд альбома 1988 года з серыі «Майстры савецкага мастацтва», прысвечанага жывапісу і манументальным працам Аляксандра Кішчанкі.',
+			'films.items.bogucharLecture.title' => 'Лекцыя «Зямляк са сусветным імем». А. М. Кішчанка. Багучарскі музей',
+			'films.items.bogucharLecture.excerpt' => 'Лекцыя Багучарскага гісторыка-краязнаўчага музея пра Аляксандра Міхайлавіча Кішчанку — земляка са сусветным імем, родам з Багучарскага раёна.',
+			'films.items.culturalCodesTapestries.title' => 'Культурныя коды нацыі: Дзе цяпер габелены народнага мастака Кішчанкі? Галоўны эфір',
+			'films.items.culturalCodesTapestries.excerpt' => 'Праграма «Галоўны эфір» у рубрыцы «Культурныя коды нацыі» расказвае, дзе сёння знаходзяцца габелены народнага мастака Беларусі Аляксандра Кішчанкі.',
+			'films.items.tapestryOfCenturyMinsk.title' => 'Як у Мінску рыхтавалі да экспазіцыі «Габелен веку» ў Банку развіцця',
+			'films.items.tapestryOfCenturyMinsk.excerpt' => 'Рэпартаж пра тое, як у Мінску рыхтавалі да экспазіцыі работу беларускага мастака Аляксандра Кішчанкі «Габелен веку» ў Банку развіцця.',
+			'films.items.chernobylTapestryFacts.title' => 'Габелены «Веку» і «Чарнобыль». Цікавыя факты',
+			'films.items.chernobylTapestryFacts.excerpt' => 'Відэаматэрыял пра знакамітыя габелены Аляксандра Кішчанкі — «Габелен веку» і «Чарнобыль»: гісторыя стварэння, сімволіка і цікавыя факты.',
 			'films.items.kishchenkoReel1.title' => 'А. Кішчанка ў Instagram',
 			'films.items.kishchenkoReel1.excerpt' => 'Кароткае відэа пра работы Аляксандра Кішчанкі з сацыяльнай сеткі.',
 			'newsFeed.title' => 'Навіны',

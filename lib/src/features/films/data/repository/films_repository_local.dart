@@ -27,34 +27,34 @@ class FilmsRepositoryLocal implements FilmsRepository {
       videoId: 'tL2_OLETMLk',
     ),
     Film(
-      key: 'kishchenkoArchive1',
-      source: FilmSource.youtube,
-      videoId: 'fm5g10z3rL0',
-    ),
-    Film(
-      key: 'kishchenkoArchive2',
+      key: 'voronezhKramskoyExhibition',
       source: FilmSource.youtube,
       videoId: 'ZwFoDh2XYqg',
     ),
     Film(
-      key: 'kishchenkoArchive3',
+      key: 'mastersOfSovietArt1988',
+      source: FilmSource.youtube,
+      videoId: 'fm5g10z3rL0',
+    ),
+    Film(
+      key: 'bogucharLecture',
       source: FilmSource.youtube,
       videoId: 'Trkry-fhvWk',
     ),
     Film(
-      key: 'kishchenkoArchive4',
+      key: 'culturalCodesTapestries',
       source: FilmSource.youtube,
       videoId: 'KthgrqVuqIw',
     ),
     Film(
-      key: 'kishchenkoArchive5',
+      key: 'tapestryOfCenturyMinsk',
       source: FilmSource.youtube,
       videoId: '7qbdVeWVxOw',
     ),
     Film(
-      key: 'kishchenkoEditedClip',
+      key: 'chernobylTapestryFacts',
       source: FilmSource.googleDrive,
-      videoId: '1zEnO28XXW5TEE2CT_qCoBUEsfPDRLr0y',
+      videoId: '1B2OOOGb0UHPft88zGsvM3aChKdAlGHVX',
     ),
   ];
 

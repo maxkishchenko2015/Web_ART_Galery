@@ -450,12 +450,12 @@ class _TranslationsFilmsItemsFr extends TranslationsFilmsItemsRu {
 	// Translations
 	@override late final _TranslationsFilmsItemsIspovedVremeniFr ispovedVremeni = _TranslationsFilmsItemsIspovedVremeniFr._(_root);
 	@override late final _TranslationsFilmsItemsAleksandrKishchenkoFr aleksandrKishchenko = _TranslationsFilmsItemsAleksandrKishchenkoFr._(_root);
-	@override late final _TranslationsFilmsItemsKishchenkoArchive1Fr kishchenkoArchive1 = _TranslationsFilmsItemsKishchenkoArchive1Fr._(_root);
-	@override late final _TranslationsFilmsItemsKishchenkoArchive2Fr kishchenkoArchive2 = _TranslationsFilmsItemsKishchenkoArchive2Fr._(_root);
-	@override late final _TranslationsFilmsItemsKishchenkoArchive3Fr kishchenkoArchive3 = _TranslationsFilmsItemsKishchenkoArchive3Fr._(_root);
-	@override late final _TranslationsFilmsItemsKishchenkoArchive4Fr kishchenkoArchive4 = _TranslationsFilmsItemsKishchenkoArchive4Fr._(_root);
-	@override late final _TranslationsFilmsItemsKishchenkoArchive5Fr kishchenkoArchive5 = _TranslationsFilmsItemsKishchenkoArchive5Fr._(_root);
-	@override late final _TranslationsFilmsItemsKishchenkoEditedClipFr kishchenkoEditedClip = _TranslationsFilmsItemsKishchenkoEditedClipFr._(_root);
+	@override late final _TranslationsFilmsItemsVoronezhKramskoyExhibitionFr voronezhKramskoyExhibition = _TranslationsFilmsItemsVoronezhKramskoyExhibitionFr._(_root);
+	@override late final _TranslationsFilmsItemsMastersOfSovietArt1988Fr mastersOfSovietArt1988 = _TranslationsFilmsItemsMastersOfSovietArt1988Fr._(_root);
+	@override late final _TranslationsFilmsItemsBogucharLectureFr bogucharLecture = _TranslationsFilmsItemsBogucharLectureFr._(_root);
+	@override late final _TranslationsFilmsItemsCulturalCodesTapestriesFr culturalCodesTapestries = _TranslationsFilmsItemsCulturalCodesTapestriesFr._(_root);
+	@override late final _TranslationsFilmsItemsTapestryOfCenturyMinskFr tapestryOfCenturyMinsk = _TranslationsFilmsItemsTapestryOfCenturyMinskFr._(_root);
+	@override late final _TranslationsFilmsItemsChernobylTapestryFactsFr chernobylTapestryFacts = _TranslationsFilmsItemsChernobylTapestryFactsFr._(_root);
 	@override late final _TranslationsFilmsItemsKishchenkoReel1Fr kishchenkoReel1 = _TranslationsFilmsItemsKishchenkoReel1Fr._(_root);
 }
 
@@ -629,70 +629,70 @@ class _TranslationsFilmsItemsAleksandrKishchenkoFr extends TranslationsFilmsItem
 	@override String get excerpt => 'Portrait televise consacre a la vie et a l\'oeuvre d\'Alexandre Kichtchenko : les fresques monumentales de Minsk, la «Tapisserie du Siecle» et la philosophie du realisme universel du maitre.';
 }
 
-// Path: films.items.kishchenkoArchive1
-class _TranslationsFilmsItemsKishchenkoArchive1Fr extends TranslationsFilmsItemsKishchenkoArchive1Ru {
-	_TranslationsFilmsItemsKishchenkoArchive1Fr._(TranslationsFr root) : this._root = root, super.internal(root);
+// Path: films.items.voronezhKramskoyExhibition
+class _TranslationsFilmsItemsVoronezhKramskoyExhibitionFr extends TranslationsFilmsItemsVoronezhKramskoyExhibitionRu {
+	_TranslationsFilmsItemsVoronezhKramskoyExhibitionFr._(TranslationsFr root) : this._root = root, super.internal(root);
 
 	final TranslationsFr _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'A. Kichtchenko. Videotheque d\'archives, partie 1';
-	@override String get excerpt => 'Sequence d\'archives sur la vie et l\'oeuvre d\'Alexandre Kichtchenko, issue de sources ouvertes.';
+	@override String get title => 'Exposition d\'A. M. Kichtchenko au Musee des beaux-arts I. N. Kramskoi de Voronej';
+	@override String get excerpt => 'Reportage sur l\'exposition des oeuvres du celebre artiste bielorusse Alexandre Kichtchenko au Musee regional des beaux-arts I. N. Kramskoi de Voronej.';
 }
 
-// Path: films.items.kishchenkoArchive2
-class _TranslationsFilmsItemsKishchenkoArchive2Fr extends TranslationsFilmsItemsKishchenkoArchive2Ru {
-	_TranslationsFilmsItemsKishchenkoArchive2Fr._(TranslationsFr root) : this._root = root, super.internal(root);
+// Path: films.items.mastersOfSovietArt1988
+class _TranslationsFilmsItemsMastersOfSovietArt1988Fr extends TranslationsFilmsItemsMastersOfSovietArt1988Ru {
+	_TranslationsFilmsItemsMastersOfSovietArt1988Fr._(TranslationsFr root) : this._root = root, super.internal(root);
 
 	final TranslationsFr _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'A. Kichtchenko. Videotheque d\'archives, partie 2';
-	@override String get excerpt => 'Chronique consacree aux fresques monumentales et au parcours artistique de l\'Artiste du Peuple du Belarus.';
+	@override String get title => 'A. Kichtchenko. Serie «Maitres de l\'art sovietique». Album de 1988';
+	@override String get excerpt => 'Apercu video de l\'album de 1988 de la serie «Maitres de l\'art sovietique», consacre a la peinture et aux oeuvres monumentales d\'Alexandre Kichtchenko.';
 }
 
-// Path: films.items.kishchenkoArchive3
-class _TranslationsFilmsItemsKishchenkoArchive3Fr extends TranslationsFilmsItemsKishchenkoArchive3Ru {
-	_TranslationsFilmsItemsKishchenkoArchive3Fr._(TranslationsFr root) : this._root = root, super.internal(root);
+// Path: films.items.bogucharLecture
+class _TranslationsFilmsItemsBogucharLectureFr extends TranslationsFilmsItemsBogucharLectureRu {
+	_TranslationsFilmsItemsBogucharLectureFr._(TranslationsFr root) : this._root = root, super.internal(root);
 
 	final TranslationsFr _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'A. Kichtchenko. Videotheque d\'archives, partie 3';
-	@override String get excerpt => 'Reportage sur les expositions dediees a Alexandre Kichtchenko et son heritage artistique.';
+	@override String get title => 'Conference «Un compatriote de renommee mondiale». A. M. Kichtchenko. Musee de Boutchar';
+	@override String get excerpt => 'Conference du musee d\'histoire locale de Boutchar consacree a Alexandre Mikhailovitch Kichtchenko, compatriote de renommee mondiale originaire du district de Boutchar.';
 }
 
-// Path: films.items.kishchenkoArchive4
-class _TranslationsFilmsItemsKishchenkoArchive4Fr extends TranslationsFilmsItemsKishchenkoArchive4Ru {
-	_TranslationsFilmsItemsKishchenkoArchive4Fr._(TranslationsFr root) : this._root = root, super.internal(root);
+// Path: films.items.culturalCodesTapestries
+class _TranslationsFilmsItemsCulturalCodesTapestriesFr extends TranslationsFilmsItemsCulturalCodesTapestriesRu {
+	_TranslationsFilmsItemsCulturalCodesTapestriesFr._(TranslationsFr root) : this._root = root, super.internal(root);
 
 	final TranslationsFr _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'A. Kichtchenko. Videotheque d\'archives, partie 4';
-	@override String get excerpt => 'Souvenirs de contemporains et de chercheurs sur le maitre et ses oeuvres.';
+	@override String get title => 'Codes culturels de la nation : Ou se trouvent aujourd\'hui les tapisseries de l\'Artiste du Peuple Kichtchenko ? Emission principale';
+	@override String get excerpt => 'L\'emission «Emission principale», dans sa rubrique «Codes culturels de la nation», retrace l\'emplacement actuel des tapisseries de l\'Artiste du Peuple bielorusse Alexandre Kichtchenko.';
 }
 
-// Path: films.items.kishchenkoArchive5
-class _TranslationsFilmsItemsKishchenkoArchive5Fr extends TranslationsFilmsItemsKishchenkoArchive5Ru {
-	_TranslationsFilmsItemsKishchenkoArchive5Fr._(TranslationsFr root) : this._root = root, super.internal(root);
+// Path: films.items.tapestryOfCenturyMinsk
+class _TranslationsFilmsItemsTapestryOfCenturyMinskFr extends TranslationsFilmsItemsTapestryOfCenturyMinskRu {
+	_TranslationsFilmsItemsTapestryOfCenturyMinskFr._(TranslationsFr root) : this._root = root, super.internal(root);
 
 	final TranslationsFr _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'A. Kichtchenko. Videotheque d\'archives, partie 5';
-	@override String get excerpt => 'Reportage sur la «Tapisserie du Siecle» et d\'autres oeuvres monumentales d\'Alexandre Kichtchenko.';
+	@override String get title => 'Preparation de «La Tapisserie du Siecle» pour l\'exposition a la Banque de developpement a Minsk';
+	@override String get excerpt => 'Reportage en coulisses sur la preparation de l\'oeuvre «La Tapisserie du Siecle» d\'Alexandre Kichtchenko pour son exposition a la Banque de developpement a Minsk.';
 }
 
-// Path: films.items.kishchenkoEditedClip
-class _TranslationsFilmsItemsKishchenkoEditedClipFr extends TranslationsFilmsItemsKishchenkoEditedClipRu {
-	_TranslationsFilmsItemsKishchenkoEditedClipFr._(TranslationsFr root) : this._root = root, super.internal(root);
+// Path: films.items.chernobylTapestryFacts
+class _TranslationsFilmsItemsChernobylTapestryFactsFr extends TranslationsFilmsItemsChernobylTapestryFactsRu {
+	_TranslationsFilmsItemsChernobylTapestryFactsFr._(TranslationsFr root) : this._root = root, super.internal(root);
 
 	final TranslationsFr _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'A. Kichtchenko. Montage d\'auteur (8 minutes)';
-	@override String get excerpt => 'Sujet de huit minutes sur la vie et l\'art du peintre. Heberge sur Google Drive.';
+	@override String get title => 'Les tapisseries «Siecle» et «Tchernobyl». Faits interessants';
+	@override String get excerpt => 'Video consacree aux tapisseries emblematiques d\'Alexandre Kichtchenko — «La Tapisserie du Siecle» et «Tchernobyl» : leur genese, leur symbolique et des anecdotes etonnantes.';
 }
 
 // Path: films.items.kishchenkoReel1
@@ -934,18 +934,18 @@ extension on TranslationsFr {
 			'films.items.ispovedVremeni.excerpt' => 'Documentaire sur Alexandre Mikhailovitch Kichtchenko (1933–1997), Artiste du Peuple du Belarus et auteur de la plus grande tapisserie du monde. Realisation : V. Korolev ; prise de vues et montage : E. Milkovski.',
 			'films.items.aleksandrKishchenko.title' => 'Alexandre Kichtchenko',
 			'films.items.aleksandrKishchenko.excerpt' => 'Portrait televise consacre a la vie et a l\'oeuvre d\'Alexandre Kichtchenko : les fresques monumentales de Minsk, la «Tapisserie du Siecle» et la philosophie du realisme universel du maitre.',
-			'films.items.kishchenkoArchive1.title' => 'A. Kichtchenko. Videotheque d\'archives, partie 1',
-			'films.items.kishchenkoArchive1.excerpt' => 'Sequence d\'archives sur la vie et l\'oeuvre d\'Alexandre Kichtchenko, issue de sources ouvertes.',
-			'films.items.kishchenkoArchive2.title' => 'A. Kichtchenko. Videotheque d\'archives, partie 2',
-			'films.items.kishchenkoArchive2.excerpt' => 'Chronique consacree aux fresques monumentales et au parcours artistique de l\'Artiste du Peuple du Belarus.',
-			'films.items.kishchenkoArchive3.title' => 'A. Kichtchenko. Videotheque d\'archives, partie 3',
-			'films.items.kishchenkoArchive3.excerpt' => 'Reportage sur les expositions dediees a Alexandre Kichtchenko et son heritage artistique.',
-			'films.items.kishchenkoArchive4.title' => 'A. Kichtchenko. Videotheque d\'archives, partie 4',
-			'films.items.kishchenkoArchive4.excerpt' => 'Souvenirs de contemporains et de chercheurs sur le maitre et ses oeuvres.',
-			'films.items.kishchenkoArchive5.title' => 'A. Kichtchenko. Videotheque d\'archives, partie 5',
-			'films.items.kishchenkoArchive5.excerpt' => 'Reportage sur la «Tapisserie du Siecle» et d\'autres oeuvres monumentales d\'Alexandre Kichtchenko.',
-			'films.items.kishchenkoEditedClip.title' => 'A. Kichtchenko. Montage d\'auteur (8 minutes)',
-			'films.items.kishchenkoEditedClip.excerpt' => 'Sujet de huit minutes sur la vie et l\'art du peintre. Heberge sur Google Drive.',
+			'films.items.voronezhKramskoyExhibition.title' => 'Exposition d\'A. M. Kichtchenko au Musee des beaux-arts I. N. Kramskoi de Voronej',
+			'films.items.voronezhKramskoyExhibition.excerpt' => 'Reportage sur l\'exposition des oeuvres du celebre artiste bielorusse Alexandre Kichtchenko au Musee regional des beaux-arts I. N. Kramskoi de Voronej.',
+			'films.items.mastersOfSovietArt1988.title' => 'A. Kichtchenko. Serie «Maitres de l\'art sovietique». Album de 1988',
+			'films.items.mastersOfSovietArt1988.excerpt' => 'Apercu video de l\'album de 1988 de la serie «Maitres de l\'art sovietique», consacre a la peinture et aux oeuvres monumentales d\'Alexandre Kichtchenko.',
+			'films.items.bogucharLecture.title' => 'Conference «Un compatriote de renommee mondiale». A. M. Kichtchenko. Musee de Boutchar',
+			'films.items.bogucharLecture.excerpt' => 'Conference du musee d\'histoire locale de Boutchar consacree a Alexandre Mikhailovitch Kichtchenko, compatriote de renommee mondiale originaire du district de Boutchar.',
+			'films.items.culturalCodesTapestries.title' => 'Codes culturels de la nation : Ou se trouvent aujourd\'hui les tapisseries de l\'Artiste du Peuple Kichtchenko ? Emission principale',
+			'films.items.culturalCodesTapestries.excerpt' => 'L\'emission «Emission principale», dans sa rubrique «Codes culturels de la nation», retrace l\'emplacement actuel des tapisseries de l\'Artiste du Peuple bielorusse Alexandre Kichtchenko.',
+			'films.items.tapestryOfCenturyMinsk.title' => 'Preparation de «La Tapisserie du Siecle» pour l\'exposition a la Banque de developpement a Minsk',
+			'films.items.tapestryOfCenturyMinsk.excerpt' => 'Reportage en coulisses sur la preparation de l\'oeuvre «La Tapisserie du Siecle» d\'Alexandre Kichtchenko pour son exposition a la Banque de developpement a Minsk.',
+			'films.items.chernobylTapestryFacts.title' => 'Les tapisseries «Siecle» et «Tchernobyl». Faits interessants',
+			'films.items.chernobylTapestryFacts.excerpt' => 'Video consacree aux tapisseries emblematiques d\'Alexandre Kichtchenko — «La Tapisserie du Siecle» et «Tchernobyl» : leur genese, leur symbolique et des anecdotes etonnantes.',
 			'films.items.kishchenkoReel1.title' => 'A. Kichtchenko sur Instagram',
 			'films.items.kishchenkoReel1.excerpt' => 'Court extrait sur les oeuvres d\'Alexandre Kichtchenko issu des reseaux sociaux.',
 			'newsFeed.title' => 'Actualites',

@@ -450,12 +450,12 @@ class _TranslationsFilmsItemsEs extends TranslationsFilmsItemsRu {
 	// Translations
 	@override late final _TranslationsFilmsItemsIspovedVremeniEs ispovedVremeni = _TranslationsFilmsItemsIspovedVremeniEs._(_root);
 	@override late final _TranslationsFilmsItemsAleksandrKishchenkoEs aleksandrKishchenko = _TranslationsFilmsItemsAleksandrKishchenkoEs._(_root);
-	@override late final _TranslationsFilmsItemsKishchenkoArchive1Es kishchenkoArchive1 = _TranslationsFilmsItemsKishchenkoArchive1Es._(_root);
-	@override late final _TranslationsFilmsItemsKishchenkoArchive2Es kishchenkoArchive2 = _TranslationsFilmsItemsKishchenkoArchive2Es._(_root);
-	@override late final _TranslationsFilmsItemsKishchenkoArchive3Es kishchenkoArchive3 = _TranslationsFilmsItemsKishchenkoArchive3Es._(_root);
-	@override late final _TranslationsFilmsItemsKishchenkoArchive4Es kishchenkoArchive4 = _TranslationsFilmsItemsKishchenkoArchive4Es._(_root);
-	@override late final _TranslationsFilmsItemsKishchenkoArchive5Es kishchenkoArchive5 = _TranslationsFilmsItemsKishchenkoArchive5Es._(_root);
-	@override late final _TranslationsFilmsItemsKishchenkoEditedClipEs kishchenkoEditedClip = _TranslationsFilmsItemsKishchenkoEditedClipEs._(_root);
+	@override late final _TranslationsFilmsItemsVoronezhKramskoyExhibitionEs voronezhKramskoyExhibition = _TranslationsFilmsItemsVoronezhKramskoyExhibitionEs._(_root);
+	@override late final _TranslationsFilmsItemsMastersOfSovietArt1988Es mastersOfSovietArt1988 = _TranslationsFilmsItemsMastersOfSovietArt1988Es._(_root);
+	@override late final _TranslationsFilmsItemsBogucharLectureEs bogucharLecture = _TranslationsFilmsItemsBogucharLectureEs._(_root);
+	@override late final _TranslationsFilmsItemsCulturalCodesTapestriesEs culturalCodesTapestries = _TranslationsFilmsItemsCulturalCodesTapestriesEs._(_root);
+	@override late final _TranslationsFilmsItemsTapestryOfCenturyMinskEs tapestryOfCenturyMinsk = _TranslationsFilmsItemsTapestryOfCenturyMinskEs._(_root);
+	@override late final _TranslationsFilmsItemsChernobylTapestryFactsEs chernobylTapestryFacts = _TranslationsFilmsItemsChernobylTapestryFactsEs._(_root);
 	@override late final _TranslationsFilmsItemsKishchenkoReel1Es kishchenkoReel1 = _TranslationsFilmsItemsKishchenkoReel1Es._(_root);
 }
 
@@ -629,70 +629,70 @@ class _TranslationsFilmsItemsAleksandrKishchenkoEs extends TranslationsFilmsItem
 	@override String get excerpt => 'Reportaje televisivo sobre la vida y obra de Alexander Kishchenko: los murales monumentales de Minsk, el «Tapiz del Siglo» y la filosofia del realismo universal del maestro.';
 }
 
-// Path: films.items.kishchenkoArchive1
-class _TranslationsFilmsItemsKishchenkoArchive1Es extends TranslationsFilmsItemsKishchenkoArchive1Ru {
-	_TranslationsFilmsItemsKishchenkoArchive1Es._(TranslationsEs root) : this._root = root, super.internal(root);
+// Path: films.items.voronezhKramskoyExhibition
+class _TranslationsFilmsItemsVoronezhKramskoyExhibitionEs extends TranslationsFilmsItemsVoronezhKramskoyExhibitionRu {
+	_TranslationsFilmsItemsVoronezhKramskoyExhibitionEs._(TranslationsEs root) : this._root = root, super.internal(root);
 
 	final TranslationsEs _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'A. Kishchenko. Videoarchivo, parte 1';
-	@override String get excerpt => 'Grabacion de archivo sobre la vida y obra de Alexander Kishchenko procedente de fuentes abiertas.';
+	@override String get title => 'Exposicion de A. M. Kishchenko en el Museo de Bellas Artes I. N. Kramskoy de Voronezh';
+	@override String get excerpt => 'Reportaje sobre la exposicion de obras del reconocido artista bielorruso Alexander Kishchenko en el Museo Regional de Bellas Artes I. N. Kramskoy de Voronezh.';
 }
 
-// Path: films.items.kishchenkoArchive2
-class _TranslationsFilmsItemsKishchenkoArchive2Es extends TranslationsFilmsItemsKishchenkoArchive2Ru {
-	_TranslationsFilmsItemsKishchenkoArchive2Es._(TranslationsEs root) : this._root = root, super.internal(root);
+// Path: films.items.mastersOfSovietArt1988
+class _TranslationsFilmsItemsMastersOfSovietArt1988Es extends TranslationsFilmsItemsMastersOfSovietArt1988Ru {
+	_TranslationsFilmsItemsMastersOfSovietArt1988Es._(TranslationsEs root) : this._root = root, super.internal(root);
 
 	final TranslationsEs _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'A. Kishchenko. Videoarchivo, parte 2';
-	@override String get excerpt => 'Cronica sobre los murales monumentales y la trayectoria del Artista del Pueblo de Belarus.';
+	@override String get title => 'A. Kishchenko. Serie «Maestros del arte sovietico». Album de 1988';
+	@override String get excerpt => 'Resena en video del album de 1988 de la serie «Maestros del arte sovietico», dedicado a la pintura y obras monumentales de Alexander Kishchenko.';
 }
 
-// Path: films.items.kishchenkoArchive3
-class _TranslationsFilmsItemsKishchenkoArchive3Es extends TranslationsFilmsItemsKishchenkoArchive3Ru {
-	_TranslationsFilmsItemsKishchenkoArchive3Es._(TranslationsEs root) : this._root = root, super.internal(root);
+// Path: films.items.bogucharLecture
+class _TranslationsFilmsItemsBogucharLectureEs extends TranslationsFilmsItemsBogucharLectureRu {
+	_TranslationsFilmsItemsBogucharLectureEs._(TranslationsEs root) : this._root = root, super.internal(root);
 
 	final TranslationsEs _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'A. Kishchenko. Videoarchivo, parte 3';
-	@override String get excerpt => 'Reportaje sobre las exposiciones dedicadas a Alexander Kishchenko y su legado artistico.';
+	@override String get title => 'Conferencia «Un paisano de renombre mundial». A. M. Kishchenko. Museo de Boguchar';
+	@override String get excerpt => 'Conferencia del Museo de Historia Local de Boguchar sobre Alexander Mijailovich Kishchenko — un paisano de renombre mundial, oriundo del distrito de Boguchar.';
 }
 
-// Path: films.items.kishchenkoArchive4
-class _TranslationsFilmsItemsKishchenkoArchive4Es extends TranslationsFilmsItemsKishchenkoArchive4Ru {
-	_TranslationsFilmsItemsKishchenkoArchive4Es._(TranslationsEs root) : this._root = root, super.internal(root);
+// Path: films.items.culturalCodesTapestries
+class _TranslationsFilmsItemsCulturalCodesTapestriesEs extends TranslationsFilmsItemsCulturalCodesTapestriesRu {
+	_TranslationsFilmsItemsCulturalCodesTapestriesEs._(TranslationsEs root) : this._root = root, super.internal(root);
 
 	final TranslationsEs _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'A. Kishchenko. Videoarchivo, parte 4';
-	@override String get excerpt => 'Recuerdos de contemporaneos e investigadores sobre el maestro y sus obras.';
+	@override String get title => 'Codigos culturales de la nacion: Donde estan ahora los tapices del Artista del Pueblo Kishchenko? Emision principal';
+	@override String get excerpt => 'El programa «Emision principal», en su seccion «Codigos culturales de la nacion», investiga donde se encuentran actualmente los tapices del Artista del Pueblo de Belarus Alexander Kishchenko.';
 }
 
-// Path: films.items.kishchenkoArchive5
-class _TranslationsFilmsItemsKishchenkoArchive5Es extends TranslationsFilmsItemsKishchenkoArchive5Ru {
-	_TranslationsFilmsItemsKishchenkoArchive5Es._(TranslationsEs root) : this._root = root, super.internal(root);
+// Path: films.items.tapestryOfCenturyMinsk
+class _TranslationsFilmsItemsTapestryOfCenturyMinskEs extends TranslationsFilmsItemsTapestryOfCenturyMinskRu {
+	_TranslationsFilmsItemsTapestryOfCenturyMinskEs._(TranslationsEs root) : this._root = root, super.internal(root);
 
 	final TranslationsEs _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'A. Kishchenko. Videoarchivo, parte 5';
-	@override String get excerpt => 'Reportaje sobre el «Tapiz del Siglo» y otras obras monumentales de Alexander Kishchenko.';
+	@override String get title => 'Como se preparo «El Tapiz del Siglo» para su exposicion en el Banco de Desarrollo de Minsk';
+	@override String get excerpt => 'Reportaje sobre la preparacion de la obra «El Tapiz del Siglo» del artista bielorruso Alexander Kishchenko para su exposicion en el Banco de Desarrollo de Minsk.';
 }
 
-// Path: films.items.kishchenkoEditedClip
-class _TranslationsFilmsItemsKishchenkoEditedClipEs extends TranslationsFilmsItemsKishchenkoEditedClipRu {
-	_TranslationsFilmsItemsKishchenkoEditedClipEs._(TranslationsEs root) : this._root = root, super.internal(root);
+// Path: films.items.chernobylTapestryFacts
+class _TranslationsFilmsItemsChernobylTapestryFactsEs extends TranslationsFilmsItemsChernobylTapestryFactsRu {
+	_TranslationsFilmsItemsChernobylTapestryFactsEs._(TranslationsEs root) : this._root = root, super.internal(root);
 
 	final TranslationsEs _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'A. Kishchenko. Montaje del autor (8 minutos)';
-	@override String get excerpt => 'Reportaje de ocho minutos sobre la vida y la obra del pintor. Alojado en Google Drive.';
+	@override String get title => 'Los tapices «Siglo» y «Chernobil». Datos interesantes';
+	@override String get excerpt => 'Video sobre los iconicos tapices de Alexander Kishchenko — «El Tapiz del Siglo» y «Chernobil»: su historia, simbolismo y datos curiosos.';
 }
 
 // Path: films.items.kishchenkoReel1
@@ -934,18 +934,18 @@ extension on TranslationsEs {
 			'films.items.ispovedVremeni.excerpt' => 'Documental sobre Alexander Mijailovich Kishchenko (1933–1997), Artista del Pueblo de Belarus y autor del tapiz mas grande del mundo. Direccion: V. Korolyov; rodaje y montaje: E. Milkovskiy.',
 			'films.items.aleksandrKishchenko.title' => 'Alexander Kishchenko',
 			'films.items.aleksandrKishchenko.excerpt' => 'Reportaje televisivo sobre la vida y obra de Alexander Kishchenko: los murales monumentales de Minsk, el «Tapiz del Siglo» y la filosofia del realismo universal del maestro.',
-			'films.items.kishchenkoArchive1.title' => 'A. Kishchenko. Videoarchivo, parte 1',
-			'films.items.kishchenkoArchive1.excerpt' => 'Grabacion de archivo sobre la vida y obra de Alexander Kishchenko procedente de fuentes abiertas.',
-			'films.items.kishchenkoArchive2.title' => 'A. Kishchenko. Videoarchivo, parte 2',
-			'films.items.kishchenkoArchive2.excerpt' => 'Cronica sobre los murales monumentales y la trayectoria del Artista del Pueblo de Belarus.',
-			'films.items.kishchenkoArchive3.title' => 'A. Kishchenko. Videoarchivo, parte 3',
-			'films.items.kishchenkoArchive3.excerpt' => 'Reportaje sobre las exposiciones dedicadas a Alexander Kishchenko y su legado artistico.',
-			'films.items.kishchenkoArchive4.title' => 'A. Kishchenko. Videoarchivo, parte 4',
-			'films.items.kishchenkoArchive4.excerpt' => 'Recuerdos de contemporaneos e investigadores sobre el maestro y sus obras.',
-			'films.items.kishchenkoArchive5.title' => 'A. Kishchenko. Videoarchivo, parte 5',
-			'films.items.kishchenkoArchive5.excerpt' => 'Reportaje sobre el «Tapiz del Siglo» y otras obras monumentales de Alexander Kishchenko.',
-			'films.items.kishchenkoEditedClip.title' => 'A. Kishchenko. Montaje del autor (8 minutos)',
-			'films.items.kishchenkoEditedClip.excerpt' => 'Reportaje de ocho minutos sobre la vida y la obra del pintor. Alojado en Google Drive.',
+			'films.items.voronezhKramskoyExhibition.title' => 'Exposicion de A. M. Kishchenko en el Museo de Bellas Artes I. N. Kramskoy de Voronezh',
+			'films.items.voronezhKramskoyExhibition.excerpt' => 'Reportaje sobre la exposicion de obras del reconocido artista bielorruso Alexander Kishchenko en el Museo Regional de Bellas Artes I. N. Kramskoy de Voronezh.',
+			'films.items.mastersOfSovietArt1988.title' => 'A. Kishchenko. Serie «Maestros del arte sovietico». Album de 1988',
+			'films.items.mastersOfSovietArt1988.excerpt' => 'Resena en video del album de 1988 de la serie «Maestros del arte sovietico», dedicado a la pintura y obras monumentales de Alexander Kishchenko.',
+			'films.items.bogucharLecture.title' => 'Conferencia «Un paisano de renombre mundial». A. M. Kishchenko. Museo de Boguchar',
+			'films.items.bogucharLecture.excerpt' => 'Conferencia del Museo de Historia Local de Boguchar sobre Alexander Mijailovich Kishchenko — un paisano de renombre mundial, oriundo del distrito de Boguchar.',
+			'films.items.culturalCodesTapestries.title' => 'Codigos culturales de la nacion: Donde estan ahora los tapices del Artista del Pueblo Kishchenko? Emision principal',
+			'films.items.culturalCodesTapestries.excerpt' => 'El programa «Emision principal», en su seccion «Codigos culturales de la nacion», investiga donde se encuentran actualmente los tapices del Artista del Pueblo de Belarus Alexander Kishchenko.',
+			'films.items.tapestryOfCenturyMinsk.title' => 'Como se preparo «El Tapiz del Siglo» para su exposicion en el Banco de Desarrollo de Minsk',
+			'films.items.tapestryOfCenturyMinsk.excerpt' => 'Reportaje sobre la preparacion de la obra «El Tapiz del Siglo» del artista bielorruso Alexander Kishchenko para su exposicion en el Banco de Desarrollo de Minsk.',
+			'films.items.chernobylTapestryFacts.title' => 'Los tapices «Siglo» y «Chernobil». Datos interesantes',
+			'films.items.chernobylTapestryFacts.excerpt' => 'Video sobre los iconicos tapices de Alexander Kishchenko — «El Tapiz del Siglo» y «Chernobil»: su historia, simbolismo y datos curiosos.',
 			'films.items.kishchenkoReel1.title' => 'A. Kishchenko en Instagram',
 			'films.items.kishchenkoReel1.excerpt' => 'Clip breve sobre las obras de Alexander Kishchenko desde redes sociales.',
 			'newsFeed.title' => 'Noticias',
