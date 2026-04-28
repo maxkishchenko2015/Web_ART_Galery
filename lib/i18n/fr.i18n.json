@@ -256,6 +256,22 @@
       "body": "Alexandre Kichtchanka a laissé derrière lui non seulement des toiles conservées à la Galerie Tretiakov et dans des collections privées de dirigeants mondiaux (B. Clinton, F. Mitterrand), mais aussi toute une école de tapisserie monumentale biélorusse. Le Combinat des arts décoratifs et appliqués de Borisov, où furent créées ses grandes tapisseries, porte aujourd'hui son nom."
     },
     "quote": "L'art est un phénomène divin. Lui seul a le pouvoir d'arrêter le temps. L'art peut percer le mystère de l'avenir et restaurer aussi le passé perdu.",
-    "quoteAuthor": "— Alexandre Kichtchanka"
+    "quoteAuthor": "— Alexandre Kichtchanka",
+    "wikipediaLinkLabel": "LIRE SUR WIKIPÉDIA"
+  },
+  "contacts": {
+    "title": "Contacts",
+    "tagline": "Contactez l'atelier.",
+    "phoneSectionLabel": "Téléphone",
+    "phoneHint": "MTS",
+    "instagramSectionLabel": "Instagram",
+    "instagramHandle": "@kishchenko.art",
+    "vkSectionLabel": "VK",
+    "vkHandle": "aleksandrkishchenko",
+    "vkScanQrHint": "Scannez le QR pour ouvrir VK",
+    "studioSectionTitle": "Atelier de l'auteur",
+    "studioAddress": "Minsk, 44 rue Sourganov — 7ᵉ étage",
+    "openInOsm": "OUVRIR DANS OPENSTREETMAP",
+    "mapAttribution": "© Contributeurs OpenStreetMap"
   }
 }

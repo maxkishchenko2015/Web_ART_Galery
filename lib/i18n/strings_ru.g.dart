@@ -48,6 +48,7 @@ class Translations with BaseTranslations<AppLocale, Translations> {
 	late final TranslationsArchiveFeedRu archiveFeed = TranslationsArchiveFeedRu.internal(_root);
 	late final TranslationsNewsFeedRu newsFeed = TranslationsNewsFeedRu.internal(_root);
 	late final TranslationsBioRu bio = TranslationsBioRu.internal(_root);
+	late final TranslationsContactsRu contacts = TranslationsContactsRu.internal(_root);
 }
 
 // Path: app
@@ -249,6 +250,57 @@ class TranslationsBioRu {
 
 	/// ru: '— Александр Кищенко'
 	String get quoteAuthor => '— Александр Кищенко';
+
+	/// ru: 'ЧИТАТЬ В ВИКИПЕДИИ'
+	String get wikipediaLinkLabel => 'ЧИТАТЬ В ВИКИПЕДИИ';
+}
+
+// Path: contacts
+class TranslationsContactsRu {
+	TranslationsContactsRu.internal(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// ru: 'Контакты'
+	String get title => 'Контакты';
+
+	/// ru: 'Свяжитесь со студией.'
+	String get tagline => 'Свяжитесь со студией.';
+
+	/// ru: 'Телефон'
+	String get phoneSectionLabel => 'Телефон';
+
+	/// ru: 'МТС'
+	String get phoneHint => 'МТС';
+
+	/// ru: 'Instagram'
+	String get instagramSectionLabel => 'Instagram';
+
+	/// ru: '@kishchenko.art'
+	String get instagramHandle => '@kishchenko.art';
+
+	/// ru: 'ВКонтакте'
+	String get vkSectionLabel => 'ВКонтакте';
+
+	/// ru: 'aleksandrkishchenko'
+	String get vkHandle => 'aleksandrkishchenko';
+
+	/// ru: 'Отсканируйте QR, чтобы открыть страницу ВКонтакте'
+	String get vkScanQrHint => 'Отсканируйте QR, чтобы открыть страницу ВКонтакте';
+
+	/// ru: 'Мастерская автора'
+	String get studioSectionTitle => 'Мастерская автора';
+
+	/// ru: 'Минск, ул. Сурганова, 44 — 7 этаж'
+	String get studioAddress => 'Минск, ул. Сурганова, 44 — 7 этаж';
+
+	/// ru: 'ОТКРЫТЬ В OPENSTREETMAP'
+	String get openInOsm => 'ОТКРЫТЬ В OPENSTREETMAP';
+
+	/// ru: '© OpenStreetMap contributors'
+	String get mapAttribution => '© OpenStreetMap contributors';
 }
 
 // Path: catalog.paintingNames
@@ -1118,6 +1170,20 @@ extension on Translations {
 			'bio.legacy.body' => 'Александр Кищенко оставил после себя не только полотна, хранящиеся в Третьяковской галерее и частных коллекциях мировых лидеров (Б. Клинтона, Ф. Миттерана), но и целую школу белорусского монументального гобелена. Его имя носит Борисовский комбинат декоративно-прикладного искусства, где создавались его великие шпалеры.',
 			'bio.quote' => 'Искусство – это божественное явление. Только ему дано остановить время. Искусство может разгадать Тайну будущего, А также восстановить Потерянное прошлое.',
 			'bio.quoteAuthor' => '— Александр Кищенко',
+			'bio.wikipediaLinkLabel' => 'ЧИТАТЬ В ВИКИПЕДИИ',
+			'contacts.title' => 'Контакты',
+			'contacts.tagline' => 'Свяжитесь со студией.',
+			'contacts.phoneSectionLabel' => 'Телефон',
+			'contacts.phoneHint' => 'МТС',
+			'contacts.instagramSectionLabel' => 'Instagram',
+			'contacts.instagramHandle' => '@kishchenko.art',
+			'contacts.vkSectionLabel' => 'ВКонтакте',
+			'contacts.vkHandle' => 'aleksandrkishchenko',
+			'contacts.vkScanQrHint' => 'Отсканируйте QR, чтобы открыть страницу ВКонтакте',
+			'contacts.studioSectionTitle' => 'Мастерская автора',
+			'contacts.studioAddress' => 'Минск, ул. Сурганова, 44 — 7 этаж',
+			'contacts.openInOsm' => 'ОТКРЫТЬ В OPENSTREETMAP',
+			'contacts.mapAttribution' => '© OpenStreetMap contributors',
 			_ => null,
 		};
 	}

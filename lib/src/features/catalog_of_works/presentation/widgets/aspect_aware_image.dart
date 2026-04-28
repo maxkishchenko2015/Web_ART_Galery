@@ -30,6 +30,7 @@ class AspectAwareImage extends StatefulWidget {
     this.placeholderAspectRatio = 4 / 3,
     this.maxImageHeight = 720,
     this.minImageHeight = 200,
+    this.maxImageWidth = 960,
   });
 
   final String imageUrl;
@@ -37,6 +38,11 @@ class AspectAwareImage extends StatefulWidget {
   final double placeholderAspectRatio;
   final double maxImageHeight;
   final double minImageHeight;
+
+  /// Width budget used only when the parent provides unbounded width
+  /// (e.g. an unflexed `Row` parent). Inside the masonry grid the parent
+  /// always provides a finite `constraints.maxWidth` and this is ignored.
+  final double maxImageWidth;
 
   @override
   State<AspectAwareImage> createState() => _AspectAwareImageState();
@@ -126,7 +132,7 @@ class _AspectAwareImageState extends State<AspectAwareImage> {
       builder: (context, constraints) {
         final cardWidth = constraints.maxWidth.isFinite
             ? constraints.maxWidth
-            : widget.maxImageHeight;
+            : widget.maxImageWidth;
         final size = _resolvedSize;
 
         final aspectRatio = size == null || size.height == 0

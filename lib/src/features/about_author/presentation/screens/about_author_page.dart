@@ -21,6 +21,8 @@ const int _mosaicPhotoIndex = 4;
 const String _tapestryExternalUrl = 'https://robbielafleur.com/2016/01/16/tapestry-of-the-century/';
 const String _chernobylExternalUrl = 'https://www.un.org/ungifts/chernobyl';
 const String _mosaicExternalUrl = 'https://streetartcities.com/artists/alexander-kishchenko';
+const String _wikipediaUrl =
+    'https://ru.wikipedia.org/wiki/%D0%9A%D0%B8%D1%89%D0%B5%D0%BD%D0%BA%D0%BE,_%D0%90%D0%BB%D0%B5%D0%BA%D1%81%D0%B0%D0%BD%D0%B4%D1%80_%D0%9C%D0%B8%D1%85%D0%B0%D0%B9%D0%BB%D0%BE%D0%B2%D0%B8%D1%87';
 
 class AboutAuthorPage extends StatelessWidget {
   const AboutAuthorPage({super.key});
@@ -331,6 +333,8 @@ class _BiographySection extends StatelessWidget {
           Text(bio.tagline, style: context.textContent.bioTagline),
           const SizedBox(height: KSize.margin8x),
           Text(bio.intro, style: context.textContent.bioIntro),
+          const SizedBox(height: KSize.margin5x),
+          _BioExternalLinkButton(url: _wikipediaUrl, label: bio.wikipediaLinkLabel),
           const SizedBox(height: KSize.margin12x),
           _BioSectionWithPhoto(
             isCompact: isCompact,
@@ -687,13 +691,17 @@ class _BioHighlightRow extends StatelessWidget {
 /// [AppColors.forestGreen]. The URL opens in a new tab/window on web and in
 /// the system browser on native platforms.
 class _BioExternalLinkButton extends StatelessWidget {
-  const _BioExternalLinkButton({required this.url});
+  const _BioExternalLinkButton({required this.url, this.label});
 
   final String url;
 
+  /// Optional override; defaults to the shared `common.learnMore` string when
+  /// null, preserving the original "Learn more" behaviour for legacy call sites.
+  final String? label;
+
   @override
   Widget build(BuildContext context) {
-    final label = context.t.common.learnMore;
+    final label = this.label ?? context.t.common.learnMore;
 
     return MouseRegion(
       cursor: SystemMouseCursors.click,

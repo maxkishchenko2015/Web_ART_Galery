@@ -47,6 +47,7 @@ class TranslationsBe extends Translations with BaseTranslations<AppLocale, Trans
 	@override late final _TranslationsArchiveFeedBe archiveFeed = _TranslationsArchiveFeedBe._(_root);
 	@override late final _TranslationsNewsFeedBe newsFeed = _TranslationsNewsFeedBe._(_root);
 	@override late final _TranslationsBioBe bio = _TranslationsBioBe._(_root);
+	@override late final _TranslationsContactsBe contacts = _TranslationsContactsBe._(_root);
 }
 
 // Path: app
@@ -166,6 +167,29 @@ class _TranslationsBioBe extends TranslationsBioRu {
 	@override late final _TranslationsBioLegacyBe legacy = _TranslationsBioLegacyBe._(_root);
 	@override String get quote => 'Мастацтва — гэта боская з\'ява. Толькі яно можа спыніць час. Мастацтва здольнае разгадаць таямніцу будучыні, а таксама аднавіць страчанае мінулае.';
 	@override String get quoteAuthor => '— Аляксандр Кішчанка';
+	@override String get wikipediaLinkLabel => 'ЧЫТАЦЬ У ВІКІПЕДЫІ';
+}
+
+// Path: contacts
+class _TranslationsContactsBe extends TranslationsContactsRu {
+	_TranslationsContactsBe._(TranslationsBe root) : this._root = root, super.internal(root);
+
+	final TranslationsBe _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Кантакты';
+	@override String get tagline => 'Звяжыцеся са студыяй.';
+	@override String get phoneSectionLabel => 'Тэлефон';
+	@override String get phoneHint => 'МТС';
+	@override String get instagramSectionLabel => 'Instagram';
+	@override String get instagramHandle => '@kishchenko.art';
+	@override String get vkSectionLabel => 'УКантакце';
+	@override String get vkHandle => 'aleksandrkishchenko';
+	@override String get vkScanQrHint => 'Адсканіруйце QR, каб адкрыць старонку УКантакце';
+	@override String get studioSectionTitle => 'Майстэрня аўтара';
+	@override String get studioAddress => 'Мінск, вул. Сурганава, 44 — 7 паверх';
+	@override String get openInOsm => 'АДКРЫЦЬ У OPENSTREETMAP';
+	@override String get mapAttribution => '© OpenStreetMap contributors';
 }
 
 // Path: catalog.paintingNames
@@ -657,6 +681,20 @@ extension on TranslationsBe {
 			'bio.legacy.body' => 'Аляксандр Кішчанка пакінуў пасля сябе не толькі палотны, якія захоўваюцца ў Траццякоўскай галерэі і прыватных калекцыях сусветных лідараў (Б. Клінтана, Ф. Мітэрана), але і цэлую школу беларускага манументальнага гобелена. Яго імя носіць Барысаўскі камбінат дэкаратыўна-прыкладнога мастацтва, дзе стваралісяя яго вялікія шпалеры.',
 			'bio.quote' => 'Мастацтва — гэта боская з\'ява. Толькі яно можа спыніць час. Мастацтва здольнае разгадаць таямніцу будучыні, а таксама аднавіць страчанае мінулае.',
 			'bio.quoteAuthor' => '— Аляксандр Кішчанка',
+			'bio.wikipediaLinkLabel' => 'ЧЫТАЦЬ У ВІКІПЕДЫІ',
+			'contacts.title' => 'Кантакты',
+			'contacts.tagline' => 'Звяжыцеся са студыяй.',
+			'contacts.phoneSectionLabel' => 'Тэлефон',
+			'contacts.phoneHint' => 'МТС',
+			'contacts.instagramSectionLabel' => 'Instagram',
+			'contacts.instagramHandle' => '@kishchenko.art',
+			'contacts.vkSectionLabel' => 'УКантакце',
+			'contacts.vkHandle' => 'aleksandrkishchenko',
+			'contacts.vkScanQrHint' => 'Адсканіруйце QR, каб адкрыць старонку УКантакце',
+			'contacts.studioSectionTitle' => 'Майстэрня аўтара',
+			'contacts.studioAddress' => 'Мінск, вул. Сурганава, 44 — 7 паверх',
+			'contacts.openInOsm' => 'АДКРЫЦЬ У OPENSTREETMAP',
+			'contacts.mapAttribution' => '© OpenStreetMap contributors',
 			_ => null,
 		};
 	}

@@ -47,6 +47,7 @@ class TranslationsFr extends Translations with BaseTranslations<AppLocale, Trans
 	@override late final _TranslationsArchiveFeedFr archiveFeed = _TranslationsArchiveFeedFr._(_root);
 	@override late final _TranslationsNewsFeedFr newsFeed = _TranslationsNewsFeedFr._(_root);
 	@override late final _TranslationsBioFr bio = _TranslationsBioFr._(_root);
+	@override late final _TranslationsContactsFr contacts = _TranslationsContactsFr._(_root);
 }
 
 // Path: app
@@ -166,6 +167,29 @@ class _TranslationsBioFr extends TranslationsBioRu {
 	@override late final _TranslationsBioLegacyFr legacy = _TranslationsBioLegacyFr._(_root);
 	@override String get quote => 'L\'art est un phénomène divin. Lui seul a le pouvoir d\'arrêter le temps. L\'art peut percer le mystère de l\'avenir et restaurer aussi le passé perdu.';
 	@override String get quoteAuthor => '— Alexandre Kichtchanka';
+	@override String get wikipediaLinkLabel => 'LIRE SUR WIKIPÉDIA';
+}
+
+// Path: contacts
+class _TranslationsContactsFr extends TranslationsContactsRu {
+	_TranslationsContactsFr._(TranslationsFr root) : this._root = root, super.internal(root);
+
+	final TranslationsFr _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Contacts';
+	@override String get tagline => 'Contactez l\'atelier.';
+	@override String get phoneSectionLabel => 'Téléphone';
+	@override String get phoneHint => 'MTS';
+	@override String get instagramSectionLabel => 'Instagram';
+	@override String get instagramHandle => '@kishchenko.art';
+	@override String get vkSectionLabel => 'VK';
+	@override String get vkHandle => 'aleksandrkishchenko';
+	@override String get vkScanQrHint => 'Scannez le QR pour ouvrir VK';
+	@override String get studioSectionTitle => 'Atelier de l\'auteur';
+	@override String get studioAddress => 'Minsk, 44 rue Sourganov — 7ᵉ étage';
+	@override String get openInOsm => 'OUVRIR DANS OPENSTREETMAP';
+	@override String get mapAttribution => '© Contributeurs OpenStreetMap';
 }
 
 // Path: catalog.paintingNames
@@ -657,6 +681,20 @@ extension on TranslationsFr {
 			'bio.legacy.body' => 'Alexandre Kichtchanka a laissé derrière lui non seulement des toiles conservées à la Galerie Tretiakov et dans des collections privées de dirigeants mondiaux (B. Clinton, F. Mitterrand), mais aussi toute une école de tapisserie monumentale biélorusse. Le Combinat des arts décoratifs et appliqués de Borisov, où furent créées ses grandes tapisseries, porte aujourd\'hui son nom.',
 			'bio.quote' => 'L\'art est un phénomène divin. Lui seul a le pouvoir d\'arrêter le temps. L\'art peut percer le mystère de l\'avenir et restaurer aussi le passé perdu.',
 			'bio.quoteAuthor' => '— Alexandre Kichtchanka',
+			'bio.wikipediaLinkLabel' => 'LIRE SUR WIKIPÉDIA',
+			'contacts.title' => 'Contacts',
+			'contacts.tagline' => 'Contactez l\'atelier.',
+			'contacts.phoneSectionLabel' => 'Téléphone',
+			'contacts.phoneHint' => 'MTS',
+			'contacts.instagramSectionLabel' => 'Instagram',
+			'contacts.instagramHandle' => '@kishchenko.art',
+			'contacts.vkSectionLabel' => 'VK',
+			'contacts.vkHandle' => 'aleksandrkishchenko',
+			'contacts.vkScanQrHint' => 'Scannez le QR pour ouvrir VK',
+			'contacts.studioSectionTitle' => 'Atelier de l\'auteur',
+			'contacts.studioAddress' => 'Minsk, 44 rue Sourganov — 7ᵉ étage',
+			'contacts.openInOsm' => 'OUVRIR DANS OPENSTREETMAP',
+			'contacts.mapAttribution' => '© Contributeurs OpenStreetMap',
 			_ => null,
 		};
 	}

@@ -47,6 +47,7 @@ class TranslationsDe extends Translations with BaseTranslations<AppLocale, Trans
 	@override late final _TranslationsArchiveFeedDe archiveFeed = _TranslationsArchiveFeedDe._(_root);
 	@override late final _TranslationsNewsFeedDe newsFeed = _TranslationsNewsFeedDe._(_root);
 	@override late final _TranslationsBioDe bio = _TranslationsBioDe._(_root);
+	@override late final _TranslationsContactsDe contacts = _TranslationsContactsDe._(_root);
 }
 
 // Path: app
@@ -166,6 +167,29 @@ class _TranslationsBioDe extends TranslationsBioRu {
 	@override late final _TranslationsBioLegacyDe legacy = _TranslationsBioLegacyDe._(_root);
 	@override String get quote => 'Die Kunst ist ein göttliches Phänomen. Nur ihr ist es gegeben, die Zeit anzuhalten. Kunst kann das Geheimnis der Zukunft entschlüsseln und auch die verlorene Vergangenheit wiederherstellen.';
 	@override String get quoteAuthor => '— Alexander Kischanka';
+	@override String get wikipediaLinkLabel => 'AUF WIKIPEDIA LESEN';
+}
+
+// Path: contacts
+class _TranslationsContactsDe extends TranslationsContactsRu {
+	_TranslationsContactsDe._(TranslationsDe root) : this._root = root, super.internal(root);
+
+	final TranslationsDe _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Kontakte';
+	@override String get tagline => 'Nehmen Sie Kontakt mit dem Atelier auf.';
+	@override String get phoneSectionLabel => 'Telefon';
+	@override String get phoneHint => 'MTS';
+	@override String get instagramSectionLabel => 'Instagram';
+	@override String get instagramHandle => '@kishchenko.art';
+	@override String get vkSectionLabel => 'VK';
+	@override String get vkHandle => 'aleksandrkishchenko';
+	@override String get vkScanQrHint => 'QR scannen, um VK zu öffnen';
+	@override String get studioSectionTitle => 'Atelier des Autors';
+	@override String get studioAddress => 'Minsk, Surhanawa-Straße 44 — 7. Etage';
+	@override String get openInOsm => 'IN OPENSTREETMAP ÖFFNEN';
+	@override String get mapAttribution => '© OpenStreetMap-Mitwirkende';
 }
 
 // Path: catalog.paintingNames
@@ -657,6 +681,20 @@ extension on TranslationsDe {
 			'bio.legacy.body' => 'Alexander Kischanka hinterließ nicht nur Leinwände, die sich in der Tretjakow-Galerie und Privatsammlungen von Weltführern (B. Clinton, F. Mitterrand) befinden, sondern auch eine ganze Schule des belarussischen Monumentalwandteppichs. Das Borissower Kombinat für dekorativ-angewandte Kunst, wo seine großen Wandteppiche entstanden, trägt heute seinen Namen.',
 			'bio.quote' => 'Die Kunst ist ein göttliches Phänomen. Nur ihr ist es gegeben, die Zeit anzuhalten. Kunst kann das Geheimnis der Zukunft entschlüsseln und auch die verlorene Vergangenheit wiederherstellen.',
 			'bio.quoteAuthor' => '— Alexander Kischanka',
+			'bio.wikipediaLinkLabel' => 'AUF WIKIPEDIA LESEN',
+			'contacts.title' => 'Kontakte',
+			'contacts.tagline' => 'Nehmen Sie Kontakt mit dem Atelier auf.',
+			'contacts.phoneSectionLabel' => 'Telefon',
+			'contacts.phoneHint' => 'MTS',
+			'contacts.instagramSectionLabel' => 'Instagram',
+			'contacts.instagramHandle' => '@kishchenko.art',
+			'contacts.vkSectionLabel' => 'VK',
+			'contacts.vkHandle' => 'aleksandrkishchenko',
+			'contacts.vkScanQrHint' => 'QR scannen, um VK zu öffnen',
+			'contacts.studioSectionTitle' => 'Atelier des Autors',
+			'contacts.studioAddress' => 'Minsk, Surhanawa-Straße 44 — 7. Etage',
+			'contacts.openInOsm' => 'IN OPENSTREETMAP ÖFFNEN',
+			'contacts.mapAttribution' => '© OpenStreetMap-Mitwirkende',
 			_ => null,
 		};
 	}

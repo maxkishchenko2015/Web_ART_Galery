@@ -256,6 +256,22 @@
       "body": "Alexander Kishchanka left behind not only canvases housed in the Tretyakov Gallery and private collections of world leaders (B. Clinton, F. Mitterrand), but an entire school of Belarusian monumental tapestry. The Borisov Decorative and Applied Arts Combine, where his great tapestries were created, now bears his name."
     },
     "quote": "Art is a divine phenomenon. Only it is given the power to stop time. Art can unravel the mystery of the future and also restore the lost past.",
-    "quoteAuthor": "— Alexander Kishchanka"
+    "quoteAuthor": "— Alexander Kishchanka",
+    "wikipediaLinkLabel": "READ ON WIKIPEDIA"
+  },
+  "contacts": {
+    "title": "Contacts",
+    "tagline": "Get in touch with the studio.",
+    "phoneSectionLabel": "Phone",
+    "phoneHint": "MTS",
+    "instagramSectionLabel": "Instagram",
+    "instagramHandle": "@kishchenko.art",
+    "vkSectionLabel": "VK",
+    "vkHandle": "aleksandrkishchenko",
+    "vkScanQrHint": "Scan the QR to open VK",
+    "studioSectionTitle": "Author's studio",
+    "studioAddress": "Minsk, 44 Surganova St., 7th floor",
+    "openInOsm": "OPEN IN OPENSTREETMAP",
+    "mapAttribution": "© OpenStreetMap contributors"
   }
 }

@@ -256,6 +256,22 @@
       "body": "Alexander Kishchanka dejó tras de sí no sólo lienzos conservados en la Galería Tretiakov y colecciones privadas de líderes mundiales (B. Clinton, F. Mitterrand), sino toda una escuela del tapiz monumental bielorruso. El Combinado de Artes Decorativas y Aplicadas de Borisov, donde se crearon sus grandes tapices, lleva hoy su nombre."
     },
     "quote": "El arte es un fenómeno divino. Sólo a él le es dado detener el tiempo. El arte puede descifrar el misterio del futuro y también restaurar el pasado perdido.",
-    "quoteAuthor": "— Alexander Kishchanka"
+    "quoteAuthor": "— Alexander Kishchanka",
+    "wikipediaLinkLabel": "LEER EN WIKIPEDIA"
+  },
+  "contacts": {
+    "title": "Contactos",
+    "tagline": "Póngase en contacto con el estudio.",
+    "phoneSectionLabel": "Teléfono",
+    "phoneHint": "MTS",
+    "instagramSectionLabel": "Instagram",
+    "instagramHandle": "@kishchenko.art",
+    "vkSectionLabel": "VK",
+    "vkHandle": "aleksandrkishchenko",
+    "vkScanQrHint": "Escanee el QR para abrir VK",
+    "studioSectionTitle": "Taller del autor",
+    "studioAddress": "Minsk, calle Surganova 44 — 7.ª planta",
+    "openInOsm": "ABRIR EN OPENSTREETMAP",
+    "mapAttribution": "© Colaboradores de OpenStreetMap"
   }
 }

@@ -256,6 +256,22 @@
       "body": "Alexander Kischanka hinterließ nicht nur Leinwände, die sich in der Tretjakow-Galerie und Privatsammlungen von Weltführern (B. Clinton, F. Mitterrand) befinden, sondern auch eine ganze Schule des belarussischen Monumentalwandteppichs. Das Borissower Kombinat für dekorativ-angewandte Kunst, wo seine großen Wandteppiche entstanden, trägt heute seinen Namen."
     },
     "quote": "Die Kunst ist ein göttliches Phänomen. Nur ihr ist es gegeben, die Zeit anzuhalten. Kunst kann das Geheimnis der Zukunft entschlüsseln und auch die verlorene Vergangenheit wiederherstellen.",
-    "quoteAuthor": "— Alexander Kischanka"
+    "quoteAuthor": "— Alexander Kischanka",
+    "wikipediaLinkLabel": "AUF WIKIPEDIA LESEN"
+  },
+  "contacts": {
+    "title": "Kontakte",
+    "tagline": "Nehmen Sie Kontakt mit dem Atelier auf.",
+    "phoneSectionLabel": "Telefon",
+    "phoneHint": "MTS",
+    "instagramSectionLabel": "Instagram",
+    "instagramHandle": "@kishchenko.art",
+    "vkSectionLabel": "VK",
+    "vkHandle": "aleksandrkishchenko",
+    "vkScanQrHint": "QR scannen, um VK zu öffnen",
+    "studioSectionTitle": "Atelier des Autors",
+    "studioAddress": "Minsk, Surhanawa-Straße 44 — 7. Etage",
+    "openInOsm": "IN OPENSTREETMAP ÖFFNEN",
+    "mapAttribution": "© OpenStreetMap-Mitwirkende"
   }
 }
