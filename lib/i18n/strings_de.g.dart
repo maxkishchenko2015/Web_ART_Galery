@@ -45,6 +45,7 @@ class TranslationsDe extends Translations with BaseTranslations<AppLocale, Trans
 	@override late final _TranslationsCommonDe common = _TranslationsCommonDe._(_root);
 	@override late final _TranslationsLanguageDe language = _TranslationsLanguageDe._(_root);
 	@override late final _TranslationsArchiveFeedDe archiveFeed = _TranslationsArchiveFeedDe._(_root);
+	@override late final _TranslationsFilmsDe films = _TranslationsFilmsDe._(_root);
 	@override late final _TranslationsNewsFeedDe newsFeed = _TranslationsNewsFeedDe._(_root);
 	@override late final _TranslationsBioDe bio = _TranslationsBioDe._(_root);
 	@override late final _TranslationsContactsDe contacts = _TranslationsContactsDe._(_root);
@@ -70,6 +71,7 @@ class _TranslationsNavigationDe extends TranslationsNavigationRu {
 	@override String get aboutAuthor => 'Uber den Autor';
 	@override String get news => 'Neuigkeiten';
 	@override String get catalogOfWorks => 'Werkkatalog';
+	@override String get films => 'Filme';
 	@override String get archive => 'Archiv';
 	@override String get contacts => 'Kontakte';
 }
@@ -128,6 +130,23 @@ class _TranslationsArchiveFeedDe extends TranslationsArchiveFeedRu {
 	@override String get sourceLabel => 'Quelle';
 	@override String yearLabel({required Object year}) => '${year}';
 	@override late final _TranslationsArchiveFeedItemsDe items = _TranslationsArchiveFeedItemsDe._(_root);
+}
+
+// Path: films
+class _TranslationsFilmsDe extends TranslationsFilmsRu {
+	_TranslationsFilmsDe._(TranslationsDe root) : this._root = root, super.internal(root);
+
+	final TranslationsDe _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Filme & Dokumentationen';
+	@override String get subtitle => 'Videoarchiv uber A. Kischtschenko';
+	@override String get latestLabel => 'Aktueller Film';
+	@override String get sourceLabel => 'Quelle';
+	@override String get instagramTitle => 'Instagram';
+	@override String get instagramSubtitle => 'Kurzvideos und Stories';
+	@override late final _TranslationsFilmsWatchOnDe watchOn = _TranslationsFilmsWatchOnDe._(_root);
+	@override late final _TranslationsFilmsItemsDe items = _TranslationsFilmsItemsDe._(_root);
 }
 
 // Path: newsFeed
@@ -393,6 +412,36 @@ class _TranslationsArchiveFeedItemsDe extends TranslationsArchiveFeedItemsRu {
 	@override late final _TranslationsArchiveFeedItemsNebaZiamljaDe nebaZiamlja = _TranslationsArchiveFeedItemsNebaZiamljaDe._(_root);
 }
 
+// Path: films.watchOn
+class _TranslationsFilmsWatchOnDe extends TranslationsFilmsWatchOnRu {
+	_TranslationsFilmsWatchOnDe._(TranslationsDe root) : this._root = root, super.internal(root);
+
+	final TranslationsDe _root; // ignore: unused_field
+
+	// Translations
+	@override String get youtube => 'Auf YouTube ansehen';
+	@override String get googleDrive => 'Auf Google Drive ansehen';
+	@override String get instagram => 'Auf Instagram offnen';
+}
+
+// Path: films.items
+class _TranslationsFilmsItemsDe extends TranslationsFilmsItemsRu {
+	_TranslationsFilmsItemsDe._(TranslationsDe root) : this._root = root, super.internal(root);
+
+	final TranslationsDe _root; // ignore: unused_field
+
+	// Translations
+	@override late final _TranslationsFilmsItemsIspovedVremeniDe ispovedVremeni = _TranslationsFilmsItemsIspovedVremeniDe._(_root);
+	@override late final _TranslationsFilmsItemsAleksandrKishchenkoDe aleksandrKishchenko = _TranslationsFilmsItemsAleksandrKishchenkoDe._(_root);
+	@override late final _TranslationsFilmsItemsKishchenkoArchive1De kishchenkoArchive1 = _TranslationsFilmsItemsKishchenkoArchive1De._(_root);
+	@override late final _TranslationsFilmsItemsKishchenkoArchive2De kishchenkoArchive2 = _TranslationsFilmsItemsKishchenkoArchive2De._(_root);
+	@override late final _TranslationsFilmsItemsKishchenkoArchive3De kishchenkoArchive3 = _TranslationsFilmsItemsKishchenkoArchive3De._(_root);
+	@override late final _TranslationsFilmsItemsKishchenkoArchive4De kishchenkoArchive4 = _TranslationsFilmsItemsKishchenkoArchive4De._(_root);
+	@override late final _TranslationsFilmsItemsKishchenkoArchive5De kishchenkoArchive5 = _TranslationsFilmsItemsKishchenkoArchive5De._(_root);
+	@override late final _TranslationsFilmsItemsKishchenkoEditedClipDe kishchenkoEditedClip = _TranslationsFilmsItemsKishchenkoEditedClipDe._(_root);
+	@override late final _TranslationsFilmsItemsKishchenkoReel1De kishchenkoReel1 = _TranslationsFilmsItemsKishchenkoReel1De._(_root);
+}
+
 // Path: bio.feature
 class _TranslationsBioFeatureDe extends TranslationsBioFeatureRu {
 	_TranslationsBioFeatureDe._(TranslationsDe root) : this._root = root, super.internal(root);
@@ -541,6 +590,105 @@ class _TranslationsArchiveFeedItemsNebaZiamljaDe extends TranslationsArchiveFeed
 	@override String get excerpt => 'Am 6. Mai 2023 eroffnet das Nationale Kunstmuseum der Republik Belarus die Ausstellung «Himmel und Erde von Alexander Kischtschenko», die der Tragweite seines kunstlerischen Denkens und der Bedeutung des Erbes des Meisters gewidmet ist.';
 }
 
+// Path: films.items.ispovedVremeni
+class _TranslationsFilmsItemsIspovedVremeniDe extends TranslationsFilmsItemsIspovedVremeniRu {
+	_TranslationsFilmsItemsIspovedVremeniDe._(TranslationsDe root) : this._root = root, super.internal(root);
+
+	final TranslationsDe _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'A. Kischtschenko. Beichte der Zeit';
+	@override String get excerpt => 'Ein Dokumentarfilm uber Alexander Michailowitsch Kischtschenko (1933–1997), Volkskunstler von Belarus und Schopfer des grossten Wandteppichs der Welt. Regie: V. Koroljow; Kamera und Schnitt: J. Milkowski.';
+}
+
+// Path: films.items.aleksandrKishchenko
+class _TranslationsFilmsItemsAleksandrKishchenkoDe extends TranslationsFilmsItemsAleksandrKishchenkoRu {
+	_TranslationsFilmsItemsAleksandrKishchenkoDe._(TranslationsDe root) : this._root = root, super.internal(root);
+
+	final TranslationsDe _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Alexander Kischtschenko';
+	@override String get excerpt => 'Ein Fernsehportrait uber Leben und Werk von Alexander Kischtschenko: die monumentalen Wandbilder in Minsk, der «Wandteppich des Jahrhunderts» und die Philosophie des universellen Realismus.';
+}
+
+// Path: films.items.kishchenkoArchive1
+class _TranslationsFilmsItemsKishchenkoArchive1De extends TranslationsFilmsItemsKishchenkoArchive1Ru {
+	_TranslationsFilmsItemsKishchenkoArchive1De._(TranslationsDe root) : this._root = root, super.internal(root);
+
+	final TranslationsDe _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'A. Kischtschenko. Videoarchiv, Teil 1';
+	@override String get excerpt => 'Archivvideo uber Leben und Werk von Alexander Kischtschenko aus offenen Quellen.';
+}
+
+// Path: films.items.kishchenkoArchive2
+class _TranslationsFilmsItemsKishchenkoArchive2De extends TranslationsFilmsItemsKishchenkoArchive2Ru {
+	_TranslationsFilmsItemsKishchenkoArchive2De._(TranslationsDe root) : this._root = root, super.internal(root);
+
+	final TranslationsDe _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'A. Kischtschenko. Videoarchiv, Teil 2';
+	@override String get excerpt => 'Chronik uber die monumentalen Wandbilder und den kunstlerischen Weg des belarussischen Volkskunstlers.';
+}
+
+// Path: films.items.kishchenkoArchive3
+class _TranslationsFilmsItemsKishchenkoArchive3De extends TranslationsFilmsItemsKishchenkoArchive3Ru {
+	_TranslationsFilmsItemsKishchenkoArchive3De._(TranslationsDe root) : this._root = root, super.internal(root);
+
+	final TranslationsDe _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'A. Kischtschenko. Videoarchiv, Teil 3';
+	@override String get excerpt => 'Beitrag uber Ausstellungen zu Ehren von Alexander Kischtschenko und sein kunstlerisches Erbe.';
+}
+
+// Path: films.items.kishchenkoArchive4
+class _TranslationsFilmsItemsKishchenkoArchive4De extends TranslationsFilmsItemsKishchenkoArchive4Ru {
+	_TranslationsFilmsItemsKishchenkoArchive4De._(TranslationsDe root) : this._root = root, super.internal(root);
+
+	final TranslationsDe _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'A. Kischtschenko. Videoarchiv, Teil 4';
+	@override String get excerpt => 'Erinnerungen von Zeitgenossen und Forschern an den Meister und seine Werke.';
+}
+
+// Path: films.items.kishchenkoArchive5
+class _TranslationsFilmsItemsKishchenkoArchive5De extends TranslationsFilmsItemsKishchenkoArchive5Ru {
+	_TranslationsFilmsItemsKishchenkoArchive5De._(TranslationsDe root) : this._root = root, super.internal(root);
+
+	final TranslationsDe _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'A. Kischtschenko. Videoarchiv, Teil 5';
+	@override String get excerpt => 'Beitrag uber den «Wandteppich des Jahrhunderts» und weitere monumentale Werke von Alexander Kischtschenko.';
+}
+
+// Path: films.items.kishchenkoEditedClip
+class _TranslationsFilmsItemsKishchenkoEditedClipDe extends TranslationsFilmsItemsKishchenkoEditedClipRu {
+	_TranslationsFilmsItemsKishchenkoEditedClipDe._(TranslationsDe root) : this._root = root, super.internal(root);
+
+	final TranslationsDe _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'A. Kischtschenko. Autorenschnitt (8 Minuten)';
+	@override String get excerpt => 'Acht-Minuten-Featurette uber Leben und Werk des Malers. Gehostet auf Google Drive.';
+}
+
+// Path: films.items.kishchenkoReel1
+class _TranslationsFilmsItemsKishchenkoReel1De extends TranslationsFilmsItemsKishchenkoReel1Ru {
+	_TranslationsFilmsItemsKishchenkoReel1De._(TranslationsDe root) : this._root = root, super.internal(root);
+
+	final TranslationsDe _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'A. Kischtschenko auf Instagram';
+	@override String get excerpt => 'Kurzclip uber die Werke von Alexander Kischtschenko aus den sozialen Medien.';
+}
+
 /// The flat map containing all translations for locale <de>.
 /// Only for edge cases! For simple maps, use the map function of this library.
 ///
@@ -553,6 +701,7 @@ extension on TranslationsDe {
 			'navigation.aboutAuthor' => 'Uber den Autor',
 			'navigation.news' => 'Neuigkeiten',
 			'navigation.catalogOfWorks' => 'Werkkatalog',
+			'navigation.films' => 'Filme',
 			'navigation.archive' => 'Archiv',
 			'navigation.contacts' => 'Kontakte',
 			'catalog.workPrefix' => 'Werk',
@@ -749,6 +898,33 @@ extension on TranslationsDe {
 			'archiveFeed.items.belgazprombankKraskiPobedy.excerpt' => '28. Juni 2024. Am Vorabend des 80. Jahrestages der Befreiung von Belarus von den deutsch-faschistischen Besatzern wurde im Foyer der Hauptniederlassung der Belgazprombank feierlich die thematische Ausstellung «Farben des Großen Sieges» eroffnet. Sie vereint Werke belarussischer Kunstler, die die Schrecken des Krieges aus eigener Erfahrung kannten — A. Kischtschenko, W. Protaseni, I. Stassewitsch, N. Tschurabo, I. Rej, P. Daneliya und andere.',
 			'archiveFeed.items.nebaZiamlja.title' => 'Himmel und Erde von Alexander Kischtschenko',
 			'archiveFeed.items.nebaZiamlja.excerpt' => 'Am 6. Mai 2023 eroffnet das Nationale Kunstmuseum der Republik Belarus die Ausstellung «Himmel und Erde von Alexander Kischtschenko», die der Tragweite seines kunstlerischen Denkens und der Bedeutung des Erbes des Meisters gewidmet ist.',
+			'films.title' => 'Filme & Dokumentationen',
+			'films.subtitle' => 'Videoarchiv uber A. Kischtschenko',
+			'films.latestLabel' => 'Aktueller Film',
+			'films.sourceLabel' => 'Quelle',
+			'films.instagramTitle' => 'Instagram',
+			'films.instagramSubtitle' => 'Kurzvideos und Stories',
+			'films.watchOn.youtube' => 'Auf YouTube ansehen',
+			'films.watchOn.googleDrive' => 'Auf Google Drive ansehen',
+			'films.watchOn.instagram' => 'Auf Instagram offnen',
+			'films.items.ispovedVremeni.title' => 'A. Kischtschenko. Beichte der Zeit',
+			'films.items.ispovedVremeni.excerpt' => 'Ein Dokumentarfilm uber Alexander Michailowitsch Kischtschenko (1933–1997), Volkskunstler von Belarus und Schopfer des grossten Wandteppichs der Welt. Regie: V. Koroljow; Kamera und Schnitt: J. Milkowski.',
+			'films.items.aleksandrKishchenko.title' => 'Alexander Kischtschenko',
+			'films.items.aleksandrKishchenko.excerpt' => 'Ein Fernsehportrait uber Leben und Werk von Alexander Kischtschenko: die monumentalen Wandbilder in Minsk, der «Wandteppich des Jahrhunderts» und die Philosophie des universellen Realismus.',
+			'films.items.kishchenkoArchive1.title' => 'A. Kischtschenko. Videoarchiv, Teil 1',
+			'films.items.kishchenkoArchive1.excerpt' => 'Archivvideo uber Leben und Werk von Alexander Kischtschenko aus offenen Quellen.',
+			'films.items.kishchenkoArchive2.title' => 'A. Kischtschenko. Videoarchiv, Teil 2',
+			'films.items.kishchenkoArchive2.excerpt' => 'Chronik uber die monumentalen Wandbilder und den kunstlerischen Weg des belarussischen Volkskunstlers.',
+			'films.items.kishchenkoArchive3.title' => 'A. Kischtschenko. Videoarchiv, Teil 3',
+			'films.items.kishchenkoArchive3.excerpt' => 'Beitrag uber Ausstellungen zu Ehren von Alexander Kischtschenko und sein kunstlerisches Erbe.',
+			'films.items.kishchenkoArchive4.title' => 'A. Kischtschenko. Videoarchiv, Teil 4',
+			'films.items.kishchenkoArchive4.excerpt' => 'Erinnerungen von Zeitgenossen und Forschern an den Meister und seine Werke.',
+			'films.items.kishchenkoArchive5.title' => 'A. Kischtschenko. Videoarchiv, Teil 5',
+			'films.items.kishchenkoArchive5.excerpt' => 'Beitrag uber den «Wandteppich des Jahrhunderts» und weitere monumentale Werke von Alexander Kischtschenko.',
+			'films.items.kishchenkoEditedClip.title' => 'A. Kischtschenko. Autorenschnitt (8 Minuten)',
+			'films.items.kishchenkoEditedClip.excerpt' => 'Acht-Minuten-Featurette uber Leben und Werk des Malers. Gehostet auf Google Drive.',
+			'films.items.kishchenkoReel1.title' => 'A. Kischtschenko auf Instagram',
+			'films.items.kishchenkoReel1.excerpt' => 'Kurzclip uber die Werke von Alexander Kischtschenko aus den sozialen Medien.',
 			'newsFeed.title' => 'Neuigkeiten',
 			'newsFeed.subtitle' => 'Veroffentlichungen, Ausstellungen und Ereignisse',
 			'newsFeed.emptyState' => 'Noch keine Neuigkeiten. Schauen Sie bald wieder vorbei.',

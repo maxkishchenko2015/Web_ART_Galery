@@ -86,7 +86,7 @@ class CatalogOfWorksCubit extends Cubit<CatalogOfWorksState> {
 
       emit(
         CatalogOfWorksLoaded(
-          paintings: <Painting>[...existing, ...result.items],
+          paintings: <Painting>[...existing, ..._filterDisplayable(result.items)],
           page: result.page,
           hasReachedMax: result.hasReachedMax,
           isLoadingMore: false,
@@ -100,5 +100,12 @@ class CatalogOfWorksCubit extends Cubit<CatalogOfWorksState> {
       }
       emit(CatalogOfWorksError(error.toString()));
     }
+  }
+
+  /// Drops paintings that have no usable image URL. Rendering an empty card
+  /// for such records is a worse UX than simply omitting them, so the state
+  /// only ever exposes entries the catalog grid can actually display.
+  Iterable<Painting> _filterDisplayable(Iterable<Painting> items) {
+    return items.where((p) => p.imageUrl.trim().isNotEmpty);
   }
 }

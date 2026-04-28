@@ -40,6 +40,11 @@ class AppShellPage extends StatelessWidget {
       icon: Icons.collections_bookmark_outlined,
     ),
     _NavItem(
+      label: context.t.navigation.films,
+      location: '/films',
+      icon: Icons.movie_outlined,
+    ),
+    _NavItem(
       label: context.t.navigation.archive,
       location: '/archive',
       icon: Icons.archive_outlined,

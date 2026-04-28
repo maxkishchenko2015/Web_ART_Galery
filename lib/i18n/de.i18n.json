@@ -6,6 +6,7 @@
     "aboutAuthor": "Uber den Autor",
     "news": "Neuigkeiten",
     "catalogOfWorks": "Werkkatalog",
+    "films": "Filme",
     "archive": "Archiv",
     "contacts": "Kontakte"
   },
@@ -226,6 +227,57 @@
       "nebaZiamlja": {
         "title": "Himmel und Erde von Alexander Kischtschenko",
         "excerpt": "Am 6. Mai 2023 eroffnet das Nationale Kunstmuseum der Republik Belarus die Ausstellung «Himmel und Erde von Alexander Kischtschenko», die der Tragweite seines kunstlerischen Denkens und der Bedeutung des Erbes des Meisters gewidmet ist."
+      }
+    }
+  },
+  "films": {
+    "title": "Filme & Dokumentationen",
+    "subtitle": "Videoarchiv uber A. Kischtschenko",
+    "latestLabel": "Aktueller Film",
+    "sourceLabel": "Quelle",
+    "instagramTitle": "Instagram",
+    "instagramSubtitle": "Kurzvideos und Stories",
+    "watchOn": {
+      "youtube": "Auf YouTube ansehen",
+      "googleDrive": "Auf Google Drive ansehen",
+      "instagram": "Auf Instagram offnen"
+    },
+    "items": {
+      "ispovedVremeni": {
+        "title": "A. Kischtschenko. Beichte der Zeit",
+        "excerpt": "Ein Dokumentarfilm uber Alexander Michailowitsch Kischtschenko (1933–1997), Volkskunstler von Belarus und Schopfer des grossten Wandteppichs der Welt. Regie: V. Koroljow; Kamera und Schnitt: J. Milkowski."
+      },
+      "aleksandrKishchenko": {
+        "title": "Alexander Kischtschenko",
+        "excerpt": "Ein Fernsehportrait uber Leben und Werk von Alexander Kischtschenko: die monumentalen Wandbilder in Minsk, der «Wandteppich des Jahrhunderts» und die Philosophie des universellen Realismus."
+      },
+      "kishchenkoArchive1": {
+        "title": "A. Kischtschenko. Videoarchiv, Teil 1",
+        "excerpt": "Archivvideo uber Leben und Werk von Alexander Kischtschenko aus offenen Quellen."
+      },
+      "kishchenkoArchive2": {
+        "title": "A. Kischtschenko. Videoarchiv, Teil 2",
+        "excerpt": "Chronik uber die monumentalen Wandbilder und den kunstlerischen Weg des belarussischen Volkskunstlers."
+      },
+      "kishchenkoArchive3": {
+        "title": "A. Kischtschenko. Videoarchiv, Teil 3",
+        "excerpt": "Beitrag uber Ausstellungen zu Ehren von Alexander Kischtschenko und sein kunstlerisches Erbe."
+      },
+      "kishchenkoArchive4": {
+        "title": "A. Kischtschenko. Videoarchiv, Teil 4",
+        "excerpt": "Erinnerungen von Zeitgenossen und Forschern an den Meister und seine Werke."
+      },
+      "kishchenkoArchive5": {
+        "title": "A. Kischtschenko. Videoarchiv, Teil 5",
+        "excerpt": "Beitrag uber den «Wandteppich des Jahrhunderts» und weitere monumentale Werke von Alexander Kischtschenko."
+      },
+      "kishchenkoEditedClip": {
+        "title": "A. Kischtschenko. Autorenschnitt (8 Minuten)",
+        "excerpt": "Acht-Minuten-Featurette uber Leben und Werk des Malers. Gehostet auf Google Drive."
+      },
+      "kishchenkoReel1": {
+        "title": "A. Kischtschenko auf Instagram",
+        "excerpt": "Kurzclip uber die Werke von Alexander Kischtschenko aus den sozialen Medien."
       }
     }
   },

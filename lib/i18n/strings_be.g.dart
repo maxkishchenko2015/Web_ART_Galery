@@ -45,6 +45,7 @@ class TranslationsBe extends Translations with BaseTranslations<AppLocale, Trans
 	@override late final _TranslationsCommonBe common = _TranslationsCommonBe._(_root);
 	@override late final _TranslationsLanguageBe language = _TranslationsLanguageBe._(_root);
 	@override late final _TranslationsArchiveFeedBe archiveFeed = _TranslationsArchiveFeedBe._(_root);
+	@override late final _TranslationsFilmsBe films = _TranslationsFilmsBe._(_root);
 	@override late final _TranslationsNewsFeedBe newsFeed = _TranslationsNewsFeedBe._(_root);
 	@override late final _TranslationsBioBe bio = _TranslationsBioBe._(_root);
 	@override late final _TranslationsContactsBe contacts = _TranslationsContactsBe._(_root);
@@ -70,6 +71,7 @@ class _TranslationsNavigationBe extends TranslationsNavigationRu {
 	@override String get aboutAuthor => 'Пра аўтара';
 	@override String get news => 'Навіны';
 	@override String get catalogOfWorks => 'Каталог прац';
+	@override String get films => 'Фільмы';
 	@override String get archive => 'Архіў';
 	@override String get contacts => 'Кантакты';
 }
@@ -128,6 +130,23 @@ class _TranslationsArchiveFeedBe extends TranslationsArchiveFeedRu {
 	@override String get sourceLabel => 'Крыніца';
 	@override String yearLabel({required Object year}) => '${year} год';
 	@override late final _TranslationsArchiveFeedItemsBe items = _TranslationsArchiveFeedItemsBe._(_root);
+}
+
+// Path: films
+class _TranslationsFilmsBe extends TranslationsFilmsRu {
+	_TranslationsFilmsBe._(TranslationsBe root) : this._root = root, super.internal(root);
+
+	final TranslationsBe _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Фільмы і дакументальныя стужкі';
+	@override String get subtitle => 'Відэаархіў пра А. Кішчанку';
+	@override String get latestLabel => 'Галоўны фільм';
+	@override String get sourceLabel => 'Крыніца';
+	@override String get instagramTitle => 'Instagram';
+	@override String get instagramSubtitle => 'Кароткія відэа і гісторыі';
+	@override late final _TranslationsFilmsWatchOnBe watchOn = _TranslationsFilmsWatchOnBe._(_root);
+	@override late final _TranslationsFilmsItemsBe items = _TranslationsFilmsItemsBe._(_root);
 }
 
 // Path: newsFeed
@@ -393,6 +412,36 @@ class _TranslationsArchiveFeedItemsBe extends TranslationsArchiveFeedItemsRu {
 	@override late final _TranslationsArchiveFeedItemsNebaZiamljaBe nebaZiamlja = _TranslationsArchiveFeedItemsNebaZiamljaBe._(_root);
 }
 
+// Path: films.watchOn
+class _TranslationsFilmsWatchOnBe extends TranslationsFilmsWatchOnRu {
+	_TranslationsFilmsWatchOnBe._(TranslationsBe root) : this._root = root, super.internal(root);
+
+	final TranslationsBe _root; // ignore: unused_field
+
+	// Translations
+	@override String get youtube => 'Глядзець на YouTube';
+	@override String get googleDrive => 'Глядзець на Google Дыску';
+	@override String get instagram => 'Адкрыць у Instagram';
+}
+
+// Path: films.items
+class _TranslationsFilmsItemsBe extends TranslationsFilmsItemsRu {
+	_TranslationsFilmsItemsBe._(TranslationsBe root) : this._root = root, super.internal(root);
+
+	final TranslationsBe _root; // ignore: unused_field
+
+	// Translations
+	@override late final _TranslationsFilmsItemsIspovedVremeniBe ispovedVremeni = _TranslationsFilmsItemsIspovedVremeniBe._(_root);
+	@override late final _TranslationsFilmsItemsAleksandrKishchenkoBe aleksandrKishchenko = _TranslationsFilmsItemsAleksandrKishchenkoBe._(_root);
+	@override late final _TranslationsFilmsItemsKishchenkoArchive1Be kishchenkoArchive1 = _TranslationsFilmsItemsKishchenkoArchive1Be._(_root);
+	@override late final _TranslationsFilmsItemsKishchenkoArchive2Be kishchenkoArchive2 = _TranslationsFilmsItemsKishchenkoArchive2Be._(_root);
+	@override late final _TranslationsFilmsItemsKishchenkoArchive3Be kishchenkoArchive3 = _TranslationsFilmsItemsKishchenkoArchive3Be._(_root);
+	@override late final _TranslationsFilmsItemsKishchenkoArchive4Be kishchenkoArchive4 = _TranslationsFilmsItemsKishchenkoArchive4Be._(_root);
+	@override late final _TranslationsFilmsItemsKishchenkoArchive5Be kishchenkoArchive5 = _TranslationsFilmsItemsKishchenkoArchive5Be._(_root);
+	@override late final _TranslationsFilmsItemsKishchenkoEditedClipBe kishchenkoEditedClip = _TranslationsFilmsItemsKishchenkoEditedClipBe._(_root);
+	@override late final _TranslationsFilmsItemsKishchenkoReel1Be kishchenkoReel1 = _TranslationsFilmsItemsKishchenkoReel1Be._(_root);
+}
+
 // Path: bio.feature
 class _TranslationsBioFeatureBe extends TranslationsBioFeatureRu {
 	_TranslationsBioFeatureBe._(TranslationsBe root) : this._root = root, super.internal(root);
@@ -541,6 +590,105 @@ class _TranslationsArchiveFeedItemsNebaZiamljaBe extends TranslationsArchiveFeed
 	@override String get excerpt => '6 мая 2023 года ў Нацыянальным мастацкім музеі Рэспублікі Беларусь пачынае працаваць выстава «Неба і зямля Аляксандра Кішчанкі», прысвечаная маштабу яго мастацкага мыслення і значнасці спадчыны майстра.';
 }
 
+// Path: films.items.ispovedVremeni
+class _TranslationsFilmsItemsIspovedVremeniBe extends TranslationsFilmsItemsIspovedVremeniRu {
+	_TranslationsFilmsItemsIspovedVremeniBe._(TranslationsBe root) : this._root = root, super.internal(root);
+
+	final TranslationsBe _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'А. Кішчанка. Споведзь Часу';
+	@override String get excerpt => 'Дакументальны фільм пра Аляксандра Міхайлавіча Кішчанку (1933–1997) — народнага мастака Беларусі, аўтара самага вялікага габелена ў свеце. Рэжысёр В. Каралёў; здымка і мантаж — Я. Мілкоўскі.';
+}
+
+// Path: films.items.aleksandrKishchenko
+class _TranslationsFilmsItemsAleksandrKishchenkoBe extends TranslationsFilmsItemsAleksandrKishchenkoRu {
+	_TranslationsFilmsItemsAleksandrKishchenkoBe._(TranslationsBe root) : this._root = root, super.internal(root);
+
+	final TranslationsBe _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Аляксандр Кішчанка';
+	@override String get excerpt => 'Тэлевізійны фільм пра жыццё і творчасць Аляксандра Кішчанкі: манументальныя роспісы Мінска, «Габелен стагоддзя» і філасофія ўніверсальнага рэалізму майстра.';
+}
+
+// Path: films.items.kishchenkoArchive1
+class _TranslationsFilmsItemsKishchenkoArchive1Be extends TranslationsFilmsItemsKishchenkoArchive1Ru {
+	_TranslationsFilmsItemsKishchenkoArchive1Be._(TranslationsBe root) : this._root = root, super.internal(root);
+
+	final TranslationsBe _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'А. Кішчанка. Відэаархіў, частка 1';
+	@override String get excerpt => 'Архіўны відэазапіс пра жыццё і творчасць Аляксандра Кішчанкі з адкрытых крыніц.';
+}
+
+// Path: films.items.kishchenkoArchive2
+class _TranslationsFilmsItemsKishchenkoArchive2Be extends TranslationsFilmsItemsKishchenkoArchive2Ru {
+	_TranslationsFilmsItemsKishchenkoArchive2Be._(TranslationsBe root) : this._root = root, super.internal(root);
+
+	final TranslationsBe _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'А. Кішчанка. Відэаархіў, частка 2';
+	@override String get excerpt => 'Хроніка пра манументальныя роспісы і творчы шлях народнага мастака Беларусі.';
+}
+
+// Path: films.items.kishchenkoArchive3
+class _TranslationsFilmsItemsKishchenkoArchive3Be extends TranslationsFilmsItemsKishchenkoArchive3Ru {
+	_TranslationsFilmsItemsKishchenkoArchive3Be._(TranslationsBe root) : this._root = root, super.internal(root);
+
+	final TranslationsBe _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'А. Кішчанка. Відэаархіў, частка 3';
+	@override String get excerpt => 'Сюжэт пра выставы, прысвечаныя Аляксандру Кішчанку, і яго мастацкую спадчыну.';
+}
+
+// Path: films.items.kishchenkoArchive4
+class _TranslationsFilmsItemsKishchenkoArchive4Be extends TranslationsFilmsItemsKishchenkoArchive4Ru {
+	_TranslationsFilmsItemsKishchenkoArchive4Be._(TranslationsBe root) : this._root = root, super.internal(root);
+
+	final TranslationsBe _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'А. Кішчанка. Відэаархіў, частка 4';
+	@override String get excerpt => 'Успаміны сучаснікаў і даследчыкаў пра майстра і яго творы.';
+}
+
+// Path: films.items.kishchenkoArchive5
+class _TranslationsFilmsItemsKishchenkoArchive5Be extends TranslationsFilmsItemsKishchenkoArchive5Ru {
+	_TranslationsFilmsItemsKishchenkoArchive5Be._(TranslationsBe root) : this._root = root, super.internal(root);
+
+	final TranslationsBe _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'А. Кішчанка. Відэаархіў, частка 5';
+	@override String get excerpt => 'Сюжэт пра «Габелен стагоддзя» і іншыя манументальныя работы Аляксандра Кішчанкі.';
+}
+
+// Path: films.items.kishchenkoEditedClip
+class _TranslationsFilmsItemsKishchenkoEditedClipBe extends TranslationsFilmsItemsKishchenkoEditedClipRu {
+	_TranslationsFilmsItemsKishchenkoEditedClipBe._(TranslationsBe root) : this._root = root, super.internal(root);
+
+	final TranslationsBe _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'А. Кішчанка. Аўтарскі мантаж (8 хвілін)';
+	@override String get excerpt => 'Васьміхвілінны відэаматэрыял пра жыццё і творчасць мастака. Размешчаны на Google Дыску.';
+}
+
+// Path: films.items.kishchenkoReel1
+class _TranslationsFilmsItemsKishchenkoReel1Be extends TranslationsFilmsItemsKishchenkoReel1Ru {
+	_TranslationsFilmsItemsKishchenkoReel1Be._(TranslationsBe root) : this._root = root, super.internal(root);
+
+	final TranslationsBe _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'А. Кішчанка ў Instagram';
+	@override String get excerpt => 'Кароткае відэа пра работы Аляксандра Кішчанкі з сацыяльнай сеткі.';
+}
+
 /// The flat map containing all translations for locale <be>.
 /// Only for edge cases! For simple maps, use the map function of this library.
 ///
@@ -553,6 +701,7 @@ extension on TranslationsBe {
 			'navigation.aboutAuthor' => 'Пра аўтара',
 			'navigation.news' => 'Навіны',
 			'navigation.catalogOfWorks' => 'Каталог прац',
+			'navigation.films' => 'Фільмы',
 			'navigation.archive' => 'Архіў',
 			'navigation.contacts' => 'Кантакты',
 			'catalog.workPrefix' => 'Праца',
@@ -749,6 +898,33 @@ extension on TranslationsBe {
 			'archiveFeed.items.belgazprombankKraskiPobedy.excerpt' => '28 чэрвеня 2024 года. Напярэдадні 80-й гадавіны вызвалення Беларусі ад нямецка-фашысцкіх захопнікаў у фае галоўнага офіса Белгазпрамбанка ўрачыста адкрылася тэматычная выстава «Фарбы Вялікай Перамогі». Яна аб\'яднала работы беларускіх аўтараў, якія не з чутак ведалі жахі вайны, — А. Кішчанка, В. Пратасені, І. Стасевіча, М. Чураба, І. Рэя, П. Данэліі і іншых.',
 			'archiveFeed.items.nebaZiamlja.title' => 'Неба і зямля Аляксандра Кішчанкі',
 			'archiveFeed.items.nebaZiamlja.excerpt' => '6 мая 2023 года ў Нацыянальным мастацкім музеі Рэспублікі Беларусь пачынае працаваць выстава «Неба і зямля Аляксандра Кішчанкі», прысвечаная маштабу яго мастацкага мыслення і значнасці спадчыны майстра.',
+			'films.title' => 'Фільмы і дакументальныя стужкі',
+			'films.subtitle' => 'Відэаархіў пра А. Кішчанку',
+			'films.latestLabel' => 'Галоўны фільм',
+			'films.sourceLabel' => 'Крыніца',
+			'films.instagramTitle' => 'Instagram',
+			'films.instagramSubtitle' => 'Кароткія відэа і гісторыі',
+			'films.watchOn.youtube' => 'Глядзець на YouTube',
+			'films.watchOn.googleDrive' => 'Глядзець на Google Дыску',
+			'films.watchOn.instagram' => 'Адкрыць у Instagram',
+			'films.items.ispovedVremeni.title' => 'А. Кішчанка. Споведзь Часу',
+			'films.items.ispovedVremeni.excerpt' => 'Дакументальны фільм пра Аляксандра Міхайлавіча Кішчанку (1933–1997) — народнага мастака Беларусі, аўтара самага вялікага габелена ў свеце. Рэжысёр В. Каралёў; здымка і мантаж — Я. Мілкоўскі.',
+			'films.items.aleksandrKishchenko.title' => 'Аляксандр Кішчанка',
+			'films.items.aleksandrKishchenko.excerpt' => 'Тэлевізійны фільм пра жыццё і творчасць Аляксандра Кішчанкі: манументальныя роспісы Мінска, «Габелен стагоддзя» і філасофія ўніверсальнага рэалізму майстра.',
+			'films.items.kishchenkoArchive1.title' => 'А. Кішчанка. Відэаархіў, частка 1',
+			'films.items.kishchenkoArchive1.excerpt' => 'Архіўны відэазапіс пра жыццё і творчасць Аляксандра Кішчанкі з адкрытых крыніц.',
+			'films.items.kishchenkoArchive2.title' => 'А. Кішчанка. Відэаархіў, частка 2',
+			'films.items.kishchenkoArchive2.excerpt' => 'Хроніка пра манументальныя роспісы і творчы шлях народнага мастака Беларусі.',
+			'films.items.kishchenkoArchive3.title' => 'А. Кішчанка. Відэаархіў, частка 3',
+			'films.items.kishchenkoArchive3.excerpt' => 'Сюжэт пра выставы, прысвечаныя Аляксандру Кішчанку, і яго мастацкую спадчыну.',
+			'films.items.kishchenkoArchive4.title' => 'А. Кішчанка. Відэаархіў, частка 4',
+			'films.items.kishchenkoArchive4.excerpt' => 'Успаміны сучаснікаў і даследчыкаў пра майстра і яго творы.',
+			'films.items.kishchenkoArchive5.title' => 'А. Кішчанка. Відэаархіў, частка 5',
+			'films.items.kishchenkoArchive5.excerpt' => 'Сюжэт пра «Габелен стагоддзя» і іншыя манументальныя работы Аляксандра Кішчанкі.',
+			'films.items.kishchenkoEditedClip.title' => 'А. Кішчанка. Аўтарскі мантаж (8 хвілін)',
+			'films.items.kishchenkoEditedClip.excerpt' => 'Васьміхвілінны відэаматэрыял пра жыццё і творчасць мастака. Размешчаны на Google Дыску.',
+			'films.items.kishchenkoReel1.title' => 'А. Кішчанка ў Instagram',
+			'films.items.kishchenkoReel1.excerpt' => 'Кароткае відэа пра работы Аляксандра Кішчанкі з сацыяльнай сеткі.',
 			'newsFeed.title' => 'Навіны',
 			'newsFeed.subtitle' => 'Публікацыі, выставы і падзеі',
 			'newsFeed.emptyState' => 'Навін пакуль няма. Зазірніце пазней.',

@@ -6,6 +6,7 @@
     "aboutAuthor": "A propos de l'auteur",
     "news": "Actualites",
     "catalogOfWorks": "Catalogue des oeuvres",
+    "films": "Films",
     "archive": "Archive",
     "contacts": "Contacts"
   },
@@ -226,6 +227,57 @@
       "nebaZiamlja": {
         "title": "Le ciel et la terre d'Alexandre Kichtchenko",
         "excerpt": "Le 6 mai 2023, le Musee national d'art de la Republique du Belarus inaugure l'exposition «Le ciel et la terre d'Alexandre Kichtchenko», consacree a l'ampleur de sa pensee artistique et a l'importance de l'heritage du maitre."
+      }
+    }
+  },
+  "films": {
+    "title": "Films & documentaires",
+    "subtitle": "Archives video sur A. Kichtchenko",
+    "latestLabel": "Film en vedette",
+    "sourceLabel": "Source",
+    "instagramTitle": "Instagram",
+    "instagramSubtitle": "Videos courtes et stories",
+    "watchOn": {
+      "youtube": "Voir sur YouTube",
+      "googleDrive": "Voir sur Google Drive",
+      "instagram": "Ouvrir sur Instagram"
+    },
+    "items": {
+      "ispovedVremeni": {
+        "title": "A. Kichtchenko. Confession du Temps",
+        "excerpt": "Documentaire sur Alexandre Mikhailovitch Kichtchenko (1933–1997), Artiste du Peuple du Belarus et auteur de la plus grande tapisserie du monde. Realisation : V. Korolev ; prise de vues et montage : E. Milkovski."
+      },
+      "aleksandrKishchenko": {
+        "title": "Alexandre Kichtchenko",
+        "excerpt": "Portrait televise consacre a la vie et a l'oeuvre d'Alexandre Kichtchenko : les fresques monumentales de Minsk, la «Tapisserie du Siecle» et la philosophie du realisme universel du maitre."
+      },
+      "kishchenkoArchive1": {
+        "title": "A. Kichtchenko. Videotheque d'archives, partie 1",
+        "excerpt": "Sequence d'archives sur la vie et l'oeuvre d'Alexandre Kichtchenko, issue de sources ouvertes."
+      },
+      "kishchenkoArchive2": {
+        "title": "A. Kichtchenko. Videotheque d'archives, partie 2",
+        "excerpt": "Chronique consacree aux fresques monumentales et au parcours artistique de l'Artiste du Peuple du Belarus."
+      },
+      "kishchenkoArchive3": {
+        "title": "A. Kichtchenko. Videotheque d'archives, partie 3",
+        "excerpt": "Reportage sur les expositions dediees a Alexandre Kichtchenko et son heritage artistique."
+      },
+      "kishchenkoArchive4": {
+        "title": "A. Kichtchenko. Videotheque d'archives, partie 4",
+        "excerpt": "Souvenirs de contemporains et de chercheurs sur le maitre et ses oeuvres."
+      },
+      "kishchenkoArchive5": {
+        "title": "A. Kichtchenko. Videotheque d'archives, partie 5",
+        "excerpt": "Reportage sur la «Tapisserie du Siecle» et d'autres oeuvres monumentales d'Alexandre Kichtchenko."
+      },
+      "kishchenkoEditedClip": {
+        "title": "A. Kichtchenko. Montage d'auteur (8 minutes)",
+        "excerpt": "Sujet de huit minutes sur la vie et l'art du peintre. Heberge sur Google Drive."
+      },
+      "kishchenkoReel1": {
+        "title": "A. Kichtchenko sur Instagram",
+        "excerpt": "Court extrait sur les oeuvres d'Alexandre Kichtchenko issu des reseaux sociaux."
       }
     }
   },

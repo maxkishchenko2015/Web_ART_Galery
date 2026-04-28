@@ -45,6 +45,7 @@ class TranslationsFr extends Translations with BaseTranslations<AppLocale, Trans
 	@override late final _TranslationsCommonFr common = _TranslationsCommonFr._(_root);
 	@override late final _TranslationsLanguageFr language = _TranslationsLanguageFr._(_root);
 	@override late final _TranslationsArchiveFeedFr archiveFeed = _TranslationsArchiveFeedFr._(_root);
+	@override late final _TranslationsFilmsFr films = _TranslationsFilmsFr._(_root);
 	@override late final _TranslationsNewsFeedFr newsFeed = _TranslationsNewsFeedFr._(_root);
 	@override late final _TranslationsBioFr bio = _TranslationsBioFr._(_root);
 	@override late final _TranslationsContactsFr contacts = _TranslationsContactsFr._(_root);
@@ -70,6 +71,7 @@ class _TranslationsNavigationFr extends TranslationsNavigationRu {
 	@override String get aboutAuthor => 'A propos de l\'auteur';
 	@override String get news => 'Actualites';
 	@override String get catalogOfWorks => 'Catalogue des oeuvres';
+	@override String get films => 'Films';
 	@override String get archive => 'Archive';
 	@override String get contacts => 'Contacts';
 }
@@ -128,6 +130,23 @@ class _TranslationsArchiveFeedFr extends TranslationsArchiveFeedRu {
 	@override String get sourceLabel => 'Source';
 	@override String yearLabel({required Object year}) => '${year}';
 	@override late final _TranslationsArchiveFeedItemsFr items = _TranslationsArchiveFeedItemsFr._(_root);
+}
+
+// Path: films
+class _TranslationsFilmsFr extends TranslationsFilmsRu {
+	_TranslationsFilmsFr._(TranslationsFr root) : this._root = root, super.internal(root);
+
+	final TranslationsFr _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Films & documentaires';
+	@override String get subtitle => 'Archives video sur A. Kichtchenko';
+	@override String get latestLabel => 'Film en vedette';
+	@override String get sourceLabel => 'Source';
+	@override String get instagramTitle => 'Instagram';
+	@override String get instagramSubtitle => 'Videos courtes et stories';
+	@override late final _TranslationsFilmsWatchOnFr watchOn = _TranslationsFilmsWatchOnFr._(_root);
+	@override late final _TranslationsFilmsItemsFr items = _TranslationsFilmsItemsFr._(_root);
 }
 
 // Path: newsFeed
@@ -393,6 +412,36 @@ class _TranslationsArchiveFeedItemsFr extends TranslationsArchiveFeedItemsRu {
 	@override late final _TranslationsArchiveFeedItemsNebaZiamljaFr nebaZiamlja = _TranslationsArchiveFeedItemsNebaZiamljaFr._(_root);
 }
 
+// Path: films.watchOn
+class _TranslationsFilmsWatchOnFr extends TranslationsFilmsWatchOnRu {
+	_TranslationsFilmsWatchOnFr._(TranslationsFr root) : this._root = root, super.internal(root);
+
+	final TranslationsFr _root; // ignore: unused_field
+
+	// Translations
+	@override String get youtube => 'Voir sur YouTube';
+	@override String get googleDrive => 'Voir sur Google Drive';
+	@override String get instagram => 'Ouvrir sur Instagram';
+}
+
+// Path: films.items
+class _TranslationsFilmsItemsFr extends TranslationsFilmsItemsRu {
+	_TranslationsFilmsItemsFr._(TranslationsFr root) : this._root = root, super.internal(root);
+
+	final TranslationsFr _root; // ignore: unused_field
+
+	// Translations
+	@override late final _TranslationsFilmsItemsIspovedVremeniFr ispovedVremeni = _TranslationsFilmsItemsIspovedVremeniFr._(_root);
+	@override late final _TranslationsFilmsItemsAleksandrKishchenkoFr aleksandrKishchenko = _TranslationsFilmsItemsAleksandrKishchenkoFr._(_root);
+	@override late final _TranslationsFilmsItemsKishchenkoArchive1Fr kishchenkoArchive1 = _TranslationsFilmsItemsKishchenkoArchive1Fr._(_root);
+	@override late final _TranslationsFilmsItemsKishchenkoArchive2Fr kishchenkoArchive2 = _TranslationsFilmsItemsKishchenkoArchive2Fr._(_root);
+	@override late final _TranslationsFilmsItemsKishchenkoArchive3Fr kishchenkoArchive3 = _TranslationsFilmsItemsKishchenkoArchive3Fr._(_root);
+	@override late final _TranslationsFilmsItemsKishchenkoArchive4Fr kishchenkoArchive4 = _TranslationsFilmsItemsKishchenkoArchive4Fr._(_root);
+	@override late final _TranslationsFilmsItemsKishchenkoArchive5Fr kishchenkoArchive5 = _TranslationsFilmsItemsKishchenkoArchive5Fr._(_root);
+	@override late final _TranslationsFilmsItemsKishchenkoEditedClipFr kishchenkoEditedClip = _TranslationsFilmsItemsKishchenkoEditedClipFr._(_root);
+	@override late final _TranslationsFilmsItemsKishchenkoReel1Fr kishchenkoReel1 = _TranslationsFilmsItemsKishchenkoReel1Fr._(_root);
+}
+
 // Path: bio.feature
 class _TranslationsBioFeatureFr extends TranslationsBioFeatureRu {
 	_TranslationsBioFeatureFr._(TranslationsFr root) : this._root = root, super.internal(root);
@@ -541,6 +590,105 @@ class _TranslationsArchiveFeedItemsNebaZiamljaFr extends TranslationsArchiveFeed
 	@override String get excerpt => 'Le 6 mai 2023, le Musee national d\'art de la Republique du Belarus inaugure l\'exposition «Le ciel et la terre d\'Alexandre Kichtchenko», consacree a l\'ampleur de sa pensee artistique et a l\'importance de l\'heritage du maitre.';
 }
 
+// Path: films.items.ispovedVremeni
+class _TranslationsFilmsItemsIspovedVremeniFr extends TranslationsFilmsItemsIspovedVremeniRu {
+	_TranslationsFilmsItemsIspovedVremeniFr._(TranslationsFr root) : this._root = root, super.internal(root);
+
+	final TranslationsFr _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'A. Kichtchenko. Confession du Temps';
+	@override String get excerpt => 'Documentaire sur Alexandre Mikhailovitch Kichtchenko (1933–1997), Artiste du Peuple du Belarus et auteur de la plus grande tapisserie du monde. Realisation : V. Korolev ; prise de vues et montage : E. Milkovski.';
+}
+
+// Path: films.items.aleksandrKishchenko
+class _TranslationsFilmsItemsAleksandrKishchenkoFr extends TranslationsFilmsItemsAleksandrKishchenkoRu {
+	_TranslationsFilmsItemsAleksandrKishchenkoFr._(TranslationsFr root) : this._root = root, super.internal(root);
+
+	final TranslationsFr _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Alexandre Kichtchenko';
+	@override String get excerpt => 'Portrait televise consacre a la vie et a l\'oeuvre d\'Alexandre Kichtchenko : les fresques monumentales de Minsk, la «Tapisserie du Siecle» et la philosophie du realisme universel du maitre.';
+}
+
+// Path: films.items.kishchenkoArchive1
+class _TranslationsFilmsItemsKishchenkoArchive1Fr extends TranslationsFilmsItemsKishchenkoArchive1Ru {
+	_TranslationsFilmsItemsKishchenkoArchive1Fr._(TranslationsFr root) : this._root = root, super.internal(root);
+
+	final TranslationsFr _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'A. Kichtchenko. Videotheque d\'archives, partie 1';
+	@override String get excerpt => 'Sequence d\'archives sur la vie et l\'oeuvre d\'Alexandre Kichtchenko, issue de sources ouvertes.';
+}
+
+// Path: films.items.kishchenkoArchive2
+class _TranslationsFilmsItemsKishchenkoArchive2Fr extends TranslationsFilmsItemsKishchenkoArchive2Ru {
+	_TranslationsFilmsItemsKishchenkoArchive2Fr._(TranslationsFr root) : this._root = root, super.internal(root);
+
+	final TranslationsFr _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'A. Kichtchenko. Videotheque d\'archives, partie 2';
+	@override String get excerpt => 'Chronique consacree aux fresques monumentales et au parcours artistique de l\'Artiste du Peuple du Belarus.';
+}
+
+// Path: films.items.kishchenkoArchive3
+class _TranslationsFilmsItemsKishchenkoArchive3Fr extends TranslationsFilmsItemsKishchenkoArchive3Ru {
+	_TranslationsFilmsItemsKishchenkoArchive3Fr._(TranslationsFr root) : this._root = root, super.internal(root);
+
+	final TranslationsFr _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'A. Kichtchenko. Videotheque d\'archives, partie 3';
+	@override String get excerpt => 'Reportage sur les expositions dediees a Alexandre Kichtchenko et son heritage artistique.';
+}
+
+// Path: films.items.kishchenkoArchive4
+class _TranslationsFilmsItemsKishchenkoArchive4Fr extends TranslationsFilmsItemsKishchenkoArchive4Ru {
+	_TranslationsFilmsItemsKishchenkoArchive4Fr._(TranslationsFr root) : this._root = root, super.internal(root);
+
+	final TranslationsFr _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'A. Kichtchenko. Videotheque d\'archives, partie 4';
+	@override String get excerpt => 'Souvenirs de contemporains et de chercheurs sur le maitre et ses oeuvres.';
+}
+
+// Path: films.items.kishchenkoArchive5
+class _TranslationsFilmsItemsKishchenkoArchive5Fr extends TranslationsFilmsItemsKishchenkoArchive5Ru {
+	_TranslationsFilmsItemsKishchenkoArchive5Fr._(TranslationsFr root) : this._root = root, super.internal(root);
+
+	final TranslationsFr _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'A. Kichtchenko. Videotheque d\'archives, partie 5';
+	@override String get excerpt => 'Reportage sur la «Tapisserie du Siecle» et d\'autres oeuvres monumentales d\'Alexandre Kichtchenko.';
+}
+
+// Path: films.items.kishchenkoEditedClip
+class _TranslationsFilmsItemsKishchenkoEditedClipFr extends TranslationsFilmsItemsKishchenkoEditedClipRu {
+	_TranslationsFilmsItemsKishchenkoEditedClipFr._(TranslationsFr root) : this._root = root, super.internal(root);
+
+	final TranslationsFr _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'A. Kichtchenko. Montage d\'auteur (8 minutes)';
+	@override String get excerpt => 'Sujet de huit minutes sur la vie et l\'art du peintre. Heberge sur Google Drive.';
+}
+
+// Path: films.items.kishchenkoReel1
+class _TranslationsFilmsItemsKishchenkoReel1Fr extends TranslationsFilmsItemsKishchenkoReel1Ru {
+	_TranslationsFilmsItemsKishchenkoReel1Fr._(TranslationsFr root) : this._root = root, super.internal(root);
+
+	final TranslationsFr _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'A. Kichtchenko sur Instagram';
+	@override String get excerpt => 'Court extrait sur les oeuvres d\'Alexandre Kichtchenko issu des reseaux sociaux.';
+}
+
 /// The flat map containing all translations for locale <fr>.
 /// Only for edge cases! For simple maps, use the map function of this library.
 ///
@@ -553,6 +701,7 @@ extension on TranslationsFr {
 			'navigation.aboutAuthor' => 'A propos de l\'auteur',
 			'navigation.news' => 'Actualites',
 			'navigation.catalogOfWorks' => 'Catalogue des oeuvres',
+			'navigation.films' => 'Films',
 			'navigation.archive' => 'Archive',
 			'navigation.contacts' => 'Contacts',
 			'catalog.workPrefix' => 'Oeuvre',
@@ -749,6 +898,33 @@ extension on TranslationsFr {
 			'archiveFeed.items.belgazprombankKraskiPobedy.excerpt' => '28 juin 2024. A la veille du 80e anniversaire de la liberation du Belarus de l\'occupation nazie allemande, le hall du siege de la Belgazprombank a accueilli solennellement l\'exposition thematique «Les couleurs de la Grande Victoire». Elle reunit des oeuvres d\'artistes bielorusses qui ont connu les horreurs de la guerre de premiere main — A. Kichtchenko, V. Protaseni, I. Stassevitch, N. Tchourabo, I. Rey, P. Daneliya et d\'autres.',
 			'archiveFeed.items.nebaZiamlja.title' => 'Le ciel et la terre d\'Alexandre Kichtchenko',
 			'archiveFeed.items.nebaZiamlja.excerpt' => 'Le 6 mai 2023, le Musee national d\'art de la Republique du Belarus inaugure l\'exposition «Le ciel et la terre d\'Alexandre Kichtchenko», consacree a l\'ampleur de sa pensee artistique et a l\'importance de l\'heritage du maitre.',
+			'films.title' => 'Films & documentaires',
+			'films.subtitle' => 'Archives video sur A. Kichtchenko',
+			'films.latestLabel' => 'Film en vedette',
+			'films.sourceLabel' => 'Source',
+			'films.instagramTitle' => 'Instagram',
+			'films.instagramSubtitle' => 'Videos courtes et stories',
+			'films.watchOn.youtube' => 'Voir sur YouTube',
+			'films.watchOn.googleDrive' => 'Voir sur Google Drive',
+			'films.watchOn.instagram' => 'Ouvrir sur Instagram',
+			'films.items.ispovedVremeni.title' => 'A. Kichtchenko. Confession du Temps',
+			'films.items.ispovedVremeni.excerpt' => 'Documentaire sur Alexandre Mikhailovitch Kichtchenko (1933–1997), Artiste du Peuple du Belarus et auteur de la plus grande tapisserie du monde. Realisation : V. Korolev ; prise de vues et montage : E. Milkovski.',
+			'films.items.aleksandrKishchenko.title' => 'Alexandre Kichtchenko',
+			'films.items.aleksandrKishchenko.excerpt' => 'Portrait televise consacre a la vie et a l\'oeuvre d\'Alexandre Kichtchenko : les fresques monumentales de Minsk, la «Tapisserie du Siecle» et la philosophie du realisme universel du maitre.',
+			'films.items.kishchenkoArchive1.title' => 'A. Kichtchenko. Videotheque d\'archives, partie 1',
+			'films.items.kishchenkoArchive1.excerpt' => 'Sequence d\'archives sur la vie et l\'oeuvre d\'Alexandre Kichtchenko, issue de sources ouvertes.',
+			'films.items.kishchenkoArchive2.title' => 'A. Kichtchenko. Videotheque d\'archives, partie 2',
+			'films.items.kishchenkoArchive2.excerpt' => 'Chronique consacree aux fresques monumentales et au parcours artistique de l\'Artiste du Peuple du Belarus.',
+			'films.items.kishchenkoArchive3.title' => 'A. Kichtchenko. Videotheque d\'archives, partie 3',
+			'films.items.kishchenkoArchive3.excerpt' => 'Reportage sur les expositions dediees a Alexandre Kichtchenko et son heritage artistique.',
+			'films.items.kishchenkoArchive4.title' => 'A. Kichtchenko. Videotheque d\'archives, partie 4',
+			'films.items.kishchenkoArchive4.excerpt' => 'Souvenirs de contemporains et de chercheurs sur le maitre et ses oeuvres.',
+			'films.items.kishchenkoArchive5.title' => 'A. Kichtchenko. Videotheque d\'archives, partie 5',
+			'films.items.kishchenkoArchive5.excerpt' => 'Reportage sur la «Tapisserie du Siecle» et d\'autres oeuvres monumentales d\'Alexandre Kichtchenko.',
+			'films.items.kishchenkoEditedClip.title' => 'A. Kichtchenko. Montage d\'auteur (8 minutes)',
+			'films.items.kishchenkoEditedClip.excerpt' => 'Sujet de huit minutes sur la vie et l\'art du peintre. Heberge sur Google Drive.',
+			'films.items.kishchenkoReel1.title' => 'A. Kichtchenko sur Instagram',
+			'films.items.kishchenkoReel1.excerpt' => 'Court extrait sur les oeuvres d\'Alexandre Kichtchenko issu des reseaux sociaux.',
 			'newsFeed.title' => 'Actualites',
 			'newsFeed.subtitle' => 'Publications, expositions et evenements',
 			'newsFeed.emptyState' => 'Pas encore d\'actualites. Revenez bientot.',

@@ -13,6 +13,7 @@ import 'package:web_art_galery/src/features/about_author/presentation/cubits/abo
 import 'package:web_art_galery/src/features/catalog_of_works/data/api/catalog_of_works_api_controller.dart';
 import 'package:web_art_galery/src/features/catalog_of_works/data/repository/catalog_of_works_repository_firebase.dart';
 import 'package:web_art_galery/src/features/catalog_of_works/presentation/cubits/catalog_of_works_cubit.dart';
+import 'package:web_art_galery/src/features/films/presentation/cubits/films_cubit.dart';
 import 'package:web_art_galery/src/features/news/data/api/news_api_controller.dart';
 import 'package:web_art_galery/src/features/news/data/repository/news_repository_firebase.dart';
 import 'package:web_art_galery/src/features/news/presentation/cubits/news_list_cubit.dart';
@@ -97,6 +98,7 @@ void main() {
                   ),
                 )..loadInitial(),
               ),
+              BlocProvider<FilmsCubit>(create: (_) => FilmsCubit()..load()),
             ],
             child: const ArtGalleryApp(),
           ),

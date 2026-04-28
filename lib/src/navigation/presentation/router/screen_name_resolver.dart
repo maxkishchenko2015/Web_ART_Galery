@@ -19,6 +19,8 @@ class ScreenNameResolver {
         return segments.length > 1 ? 'news_detail' : 'news';
       case 'catalog':
         return segments.length > 1 ? 'catalog_detail' : 'catalog';
+      case 'films':
+        return 'films';
       case 'archive':
         return 'archive';
       case 'contacts':

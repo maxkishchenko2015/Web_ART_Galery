@@ -6,6 +6,7 @@
     "aboutAuthor": "About author",
     "news": "News",
     "catalogOfWorks": "Catalog of works",
+    "films": "Films",
     "archive": "Archive",
     "contacts": "Contacts"
   },
@@ -226,6 +227,57 @@
       "nebaZiamlja": {
         "title": "The Sky and the Earth of Alexander Kishchenko",
         "excerpt": "On 6 May 2023 the National Art Museum of the Republic of Belarus opens the exhibition «The Sky and the Earth of Alexander Kishchenko», dedicated to the scale of his artistic thinking and the significance of the master's legacy."
+      }
+    }
+  },
+  "films": {
+    "title": "Films & Documentaries",
+    "subtitle": "Video archive about A. Kishchenko",
+    "latestLabel": "Latest film",
+    "sourceLabel": "Source",
+    "instagramTitle": "Instagram",
+    "instagramSubtitle": "Short videos and stories",
+    "watchOn": {
+      "youtube": "Watch on YouTube",
+      "googleDrive": "Watch on Google Drive",
+      "instagram": "Open on Instagram"
+    },
+    "items": {
+      "ispovedVremeni": {
+        "title": "A. Kishchenko. Confession of Time",
+        "excerpt": "A documentary about Alexander Mikhailovich Kishchenko (1933–1997), People's Artist of Belarus and author of the world's largest tapestry. Directed by V. Korolyov; filming and editing by E. Milkovskiy."
+      },
+      "aleksandrKishchenko": {
+        "title": "Alexander Kishchenko",
+        "excerpt": "Television feature on the life and work of Alexander Kishchenko, taking the viewer through his monumental panels in Minsk, the «Tapestry of the Century» and the artist's quest for Universal Realism."
+      },
+      "kishchenkoArchive1": {
+        "title": "A. Kishchenko. Video archive, part 1",
+        "excerpt": "Archival video footage about the life and art of Alexander Kishchenko from open sources."
+      },
+      "kishchenkoArchive2": {
+        "title": "A. Kishchenko. Video archive, part 2",
+        "excerpt": "Chronicle on the monumental murals and creative path of the People's Artist of Belarus."
+      },
+      "kishchenkoArchive3": {
+        "title": "A. Kishchenko. Video archive, part 3",
+        "excerpt": "Coverage of exhibitions dedicated to Alexander Kishchenko and his artistic legacy."
+      },
+      "kishchenkoArchive4": {
+        "title": "A. Kishchenko. Video archive, part 4",
+        "excerpt": "Recollections from contemporaries and researchers about the master and his works."
+      },
+      "kishchenkoArchive5": {
+        "title": "A. Kishchenko. Video archive, part 5",
+        "excerpt": "Feature on the «Tapestry of the Century» and other monumental works by Alexander Kishchenko."
+      },
+      "kishchenkoEditedClip": {
+        "title": "A. Kishchenko. Edited cut (8 minutes)",
+        "excerpt": "An eight-minute featurette on the life and art of the painter. Hosted on Google Drive."
+      },
+      "kishchenkoReel1": {
+        "title": "A. Kishchenko on Instagram",
+        "excerpt": "A short clip about the works of Alexander Kishchenko from social media."
       }
     }
   },

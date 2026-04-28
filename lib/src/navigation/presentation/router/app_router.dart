@@ -5,6 +5,7 @@ import 'package:web_art_galery/src/features/archive/presentation/screens/archive
 import 'package:web_art_galery/src/features/catalog_of_works/presentation/screens/catalog_of_works_page.dart';
 import 'package:web_art_galery/src/features/catalog_of_works/presentation/screens/catalog_work_detail_page.dart';
 import 'package:web_art_galery/src/features/contacts/presentation/screens/contacts_page.dart';
+import 'package:web_art_galery/src/features/films/presentation/screens/films_page.dart';
 import 'package:web_art_galery/src/features/news/presentation/screens/news_detail_page.dart';
 import 'package:web_art_galery/src/features/news/presentation/screens/news_page.dart';
 import 'package:web_art_galery/src/navigation/presentation/router/screen_name_resolver.dart';
@@ -63,6 +64,7 @@ final List<RouteBase> _routes = [
           ),
         ],
       ),
+      GoRoute(path: '/films', builder: (context, state) => const FilmsPage()),
       GoRoute(path: '/archive', builder: (context, state) => const ArchivePage()),
       GoRoute(path: '/contacts', builder: (context, state) => const ContactsPage()),
     ],

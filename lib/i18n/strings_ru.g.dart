@@ -46,6 +46,7 @@ class Translations with BaseTranslations<AppLocale, Translations> {
 	late final TranslationsCommonRu common = TranslationsCommonRu.internal(_root);
 	late final TranslationsLanguageRu language = TranslationsLanguageRu.internal(_root);
 	late final TranslationsArchiveFeedRu archiveFeed = TranslationsArchiveFeedRu.internal(_root);
+	late final TranslationsFilmsRu films = TranslationsFilmsRu.internal(_root);
 	late final TranslationsNewsFeedRu newsFeed = TranslationsNewsFeedRu.internal(_root);
 	late final TranslationsBioRu bio = TranslationsBioRu.internal(_root);
 	late final TranslationsContactsRu contacts = TranslationsContactsRu.internal(_root);
@@ -79,6 +80,9 @@ class TranslationsNavigationRu {
 
 	/// ru: 'Каталог работ'
 	String get catalogOfWorks => 'Каталог работ';
+
+	/// ru: 'Фильмы'
+	String get films => 'Фильмы';
 
 	/// ru: 'Архив'
 	String get archive => 'Архив';
@@ -177,6 +181,36 @@ class TranslationsArchiveFeedRu {
 	String yearLabel({required Object year}) => '${year} год';
 
 	late final TranslationsArchiveFeedItemsRu items = TranslationsArchiveFeedItemsRu.internal(_root);
+}
+
+// Path: films
+class TranslationsFilmsRu {
+	TranslationsFilmsRu.internal(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// ru: 'Фильмы и документальные ленты'
+	String get title => 'Фильмы и документальные ленты';
+
+	/// ru: 'Видеоархив об А. Кищенко'
+	String get subtitle => 'Видеоархив об А. Кищенко';
+
+	/// ru: 'Главный фильм'
+	String get latestLabel => 'Главный фильм';
+
+	/// ru: 'Источник'
+	String get sourceLabel => 'Источник';
+
+	/// ru: 'Instagram'
+	String get instagramTitle => 'Instagram';
+
+	/// ru: 'Короткие видео и истории'
+	String get instagramSubtitle => 'Короткие видео и истории';
+
+	late final TranslationsFilmsWatchOnRu watchOn = TranslationsFilmsWatchOnRu.internal(_root);
+	late final TranslationsFilmsItemsRu items = TranslationsFilmsItemsRu.internal(_root);
 }
 
 // Path: newsFeed
@@ -837,6 +871,42 @@ class TranslationsArchiveFeedItemsRu {
 	late final TranslationsArchiveFeedItemsNebaZiamljaRu nebaZiamlja = TranslationsArchiveFeedItemsNebaZiamljaRu.internal(_root);
 }
 
+// Path: films.watchOn
+class TranslationsFilmsWatchOnRu {
+	TranslationsFilmsWatchOnRu.internal(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// ru: 'Смотреть на YouTube'
+	String get youtube => 'Смотреть на YouTube';
+
+	/// ru: 'Смотреть на Google Диске'
+	String get googleDrive => 'Смотреть на Google Диске';
+
+	/// ru: 'Открыть в Instagram'
+	String get instagram => 'Открыть в Instagram';
+}
+
+// Path: films.items
+class TranslationsFilmsItemsRu {
+	TranslationsFilmsItemsRu.internal(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+	late final TranslationsFilmsItemsIspovedVremeniRu ispovedVremeni = TranslationsFilmsItemsIspovedVremeniRu.internal(_root);
+	late final TranslationsFilmsItemsAleksandrKishchenkoRu aleksandrKishchenko = TranslationsFilmsItemsAleksandrKishchenkoRu.internal(_root);
+	late final TranslationsFilmsItemsKishchenkoArchive1Ru kishchenkoArchive1 = TranslationsFilmsItemsKishchenkoArchive1Ru.internal(_root);
+	late final TranslationsFilmsItemsKishchenkoArchive2Ru kishchenkoArchive2 = TranslationsFilmsItemsKishchenkoArchive2Ru.internal(_root);
+	late final TranslationsFilmsItemsKishchenkoArchive3Ru kishchenkoArchive3 = TranslationsFilmsItemsKishchenkoArchive3Ru.internal(_root);
+	late final TranslationsFilmsItemsKishchenkoArchive4Ru kishchenkoArchive4 = TranslationsFilmsItemsKishchenkoArchive4Ru.internal(_root);
+	late final TranslationsFilmsItemsKishchenkoArchive5Ru kishchenkoArchive5 = TranslationsFilmsItemsKishchenkoArchive5Ru.internal(_root);
+	late final TranslationsFilmsItemsKishchenkoEditedClipRu kishchenkoEditedClip = TranslationsFilmsItemsKishchenkoEditedClipRu.internal(_root);
+	late final TranslationsFilmsItemsKishchenkoReel1Ru kishchenkoReel1 = TranslationsFilmsItemsKishchenkoReel1Ru.internal(_root);
+}
+
 // Path: bio.feature
 class TranslationsBioFeatureRu {
 	TranslationsBioFeatureRu.internal(this._root);
@@ -1065,6 +1135,141 @@ class TranslationsArchiveFeedItemsNebaZiamljaRu {
 	String get excerpt => '6 мая 2023 года в Национальном художественном музее Республики Беларусь начинает работать выставка «Небо и земля Александра Кищенко», посвященная масштабу его художественного мышления и значению наследия мастера.';
 }
 
+// Path: films.items.ispovedVremeni
+class TranslationsFilmsItemsIspovedVremeniRu {
+	TranslationsFilmsItemsIspovedVremeniRu.internal(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// ru: 'А. Кищенко. Исповедь Времени'
+	String get title => 'А. Кищенко. Исповедь Времени';
+
+	/// ru: 'Документальный фильм об Александре Михайловиче Кищенко (1933–1997) — народном художнике Беларуси, авторе самого большого гобелена в мире. Режиссёр В. Королёв; съёмка и монтаж — Е. Милковский.'
+	String get excerpt => 'Документальный фильм об Александре Михайловиче Кищенко (1933–1997) — народном художнике Беларуси, авторе самого большого гобелена в мире. Режиссёр В. Королёв; съёмка и монтаж — Е. Милковский.';
+}
+
+// Path: films.items.aleksandrKishchenko
+class TranslationsFilmsItemsAleksandrKishchenkoRu {
+	TranslationsFilmsItemsAleksandrKishchenkoRu.internal(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// ru: 'Александр Кищенко'
+	String get title => 'Александр Кищенко';
+
+	/// ru: 'Телевизионный фильм о жизни и творчестве Александра Кищенко: монументальные росписи Минска, «Гобелен века» и философия универсального реализма мастера.'
+	String get excerpt => 'Телевизионный фильм о жизни и творчестве Александра Кищенко: монументальные росписи Минска, «Гобелен века» и философия универсального реализма мастера.';
+}
+
+// Path: films.items.kishchenkoArchive1
+class TranslationsFilmsItemsKishchenkoArchive1Ru {
+	TranslationsFilmsItemsKishchenkoArchive1Ru.internal(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// ru: 'А. Кищенко. Видеоархив, часть 1'
+	String get title => 'А. Кищенко. Видеоархив, часть 1';
+
+	/// ru: 'Архивная видеозапись о жизни и творчестве Александра Кищенко из открытых источников.'
+	String get excerpt => 'Архивная видеозапись о жизни и творчестве Александра Кищенко из открытых источников.';
+}
+
+// Path: films.items.kishchenkoArchive2
+class TranslationsFilmsItemsKishchenkoArchive2Ru {
+	TranslationsFilmsItemsKishchenkoArchive2Ru.internal(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// ru: 'А. Кищенко. Видеоархив, часть 2'
+	String get title => 'А. Кищенко. Видеоархив, часть 2';
+
+	/// ru: 'Хроника о монументальных росписях и творческом пути народного художника Беларуси.'
+	String get excerpt => 'Хроника о монументальных росписях и творческом пути народного художника Беларуси.';
+}
+
+// Path: films.items.kishchenkoArchive3
+class TranslationsFilmsItemsKishchenkoArchive3Ru {
+	TranslationsFilmsItemsKishchenkoArchive3Ru.internal(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// ru: 'А. Кищенко. Видеоархив, часть 3'
+	String get title => 'А. Кищенко. Видеоархив, часть 3';
+
+	/// ru: 'Сюжет о выставках, посвящённых Александру Кищенко, и его художественном наследии.'
+	String get excerpt => 'Сюжет о выставках, посвящённых Александру Кищенко, и его художественном наследии.';
+}
+
+// Path: films.items.kishchenkoArchive4
+class TranslationsFilmsItemsKishchenkoArchive4Ru {
+	TranslationsFilmsItemsKishchenkoArchive4Ru.internal(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// ru: 'А. Кищенко. Видеоархив, часть 4'
+	String get title => 'А. Кищенко. Видеоархив, часть 4';
+
+	/// ru: 'Воспоминания современников и исследователей о мастере и его произведениях.'
+	String get excerpt => 'Воспоминания современников и исследователей о мастере и его произведениях.';
+}
+
+// Path: films.items.kishchenkoArchive5
+class TranslationsFilmsItemsKishchenkoArchive5Ru {
+	TranslationsFilmsItemsKishchenkoArchive5Ru.internal(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// ru: 'А. Кищенко. Видеоархив, часть 5'
+	String get title => 'А. Кищенко. Видеоархив, часть 5';
+
+	/// ru: 'Сюжет о «Гобелене века» и других монументальных работах Александра Кищенко.'
+	String get excerpt => 'Сюжет о «Гобелене века» и других монументальных работах Александра Кищенко.';
+}
+
+// Path: films.items.kishchenkoEditedClip
+class TranslationsFilmsItemsKishchenkoEditedClipRu {
+	TranslationsFilmsItemsKishchenkoEditedClipRu.internal(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// ru: 'А. Кищенко. Авторский монтаж (8 минут)'
+	String get title => 'А. Кищенко. Авторский монтаж (8 минут)';
+
+	/// ru: 'Восьмиминутный видеоматериал о жизни и творчестве художника. Размещено на Google Диске.'
+	String get excerpt => 'Восьмиминутный видеоматериал о жизни и творчестве художника. Размещено на Google Диске.';
+}
+
+// Path: films.items.kishchenkoReel1
+class TranslationsFilmsItemsKishchenkoReel1Ru {
+	TranslationsFilmsItemsKishchenkoReel1Ru.internal(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// ru: 'А. Кищенко в Instagram'
+	String get title => 'А. Кищенко в Instagram';
+
+	/// ru: 'Короткое видео о работах Александра Кищенко из социальной сети.'
+	String get excerpt => 'Короткое видео о работах Александра Кищенко из социальной сети.';
+}
+
 /// The flat map containing all translations for locale <ru>.
 /// Only for edge cases! For simple maps, use the map function of this library.
 ///
@@ -1077,6 +1282,7 @@ extension on Translations {
 			'navigation.aboutAuthor' => 'Об авторе',
 			'navigation.news' => 'Новости',
 			'navigation.catalogOfWorks' => 'Каталог работ',
+			'navigation.films' => 'Фильмы',
 			'navigation.archive' => 'Архив',
 			'navigation.contacts' => 'Контакты',
 			'catalog.workPrefix' => 'Работа',
@@ -1273,6 +1479,33 @@ extension on Translations {
 			'archiveFeed.items.belgazprombankKraskiPobedy.excerpt' => '28 июня 2024 года. В преддверии 80-й годовщины освобождения Беларуси от немецко-фашистских захватчиков в фойе головного офиса Белгазпромбанка торжественно открылась тематическая выставка «Краски Великой Победы». Она объединила работы белорусских авторов, не понаслышке знакомых с ужасами войны, — А. Кищенко, В. Протасени, И. Стасевича, Н. Чурабо, И. Рэя, П. Данелия и других.',
 			'archiveFeed.items.nebaZiamlja.title' => 'Небо и земля Александра Кищенко',
 			'archiveFeed.items.nebaZiamlja.excerpt' => '6 мая 2023 года в Национальном художественном музее Республики Беларусь начинает работать выставка «Небо и земля Александра Кищенко», посвященная масштабу его художественного мышления и значению наследия мастера.',
+			'films.title' => 'Фильмы и документальные ленты',
+			'films.subtitle' => 'Видеоархив об А. Кищенко',
+			'films.latestLabel' => 'Главный фильм',
+			'films.sourceLabel' => 'Источник',
+			'films.instagramTitle' => 'Instagram',
+			'films.instagramSubtitle' => 'Короткие видео и истории',
+			'films.watchOn.youtube' => 'Смотреть на YouTube',
+			'films.watchOn.googleDrive' => 'Смотреть на Google Диске',
+			'films.watchOn.instagram' => 'Открыть в Instagram',
+			'films.items.ispovedVremeni.title' => 'А. Кищенко. Исповедь Времени',
+			'films.items.ispovedVremeni.excerpt' => 'Документальный фильм об Александре Михайловиче Кищенко (1933–1997) — народном художнике Беларуси, авторе самого большого гобелена в мире. Режиссёр В. Королёв; съёмка и монтаж — Е. Милковский.',
+			'films.items.aleksandrKishchenko.title' => 'Александр Кищенко',
+			'films.items.aleksandrKishchenko.excerpt' => 'Телевизионный фильм о жизни и творчестве Александра Кищенко: монументальные росписи Минска, «Гобелен века» и философия универсального реализма мастера.',
+			'films.items.kishchenkoArchive1.title' => 'А. Кищенко. Видеоархив, часть 1',
+			'films.items.kishchenkoArchive1.excerpt' => 'Архивная видеозапись о жизни и творчестве Александра Кищенко из открытых источников.',
+			'films.items.kishchenkoArchive2.title' => 'А. Кищенко. Видеоархив, часть 2',
+			'films.items.kishchenkoArchive2.excerpt' => 'Хроника о монументальных росписях и творческом пути народного художника Беларуси.',
+			'films.items.kishchenkoArchive3.title' => 'А. Кищенко. Видеоархив, часть 3',
+			'films.items.kishchenkoArchive3.excerpt' => 'Сюжет о выставках, посвящённых Александру Кищенко, и его художественном наследии.',
+			'films.items.kishchenkoArchive4.title' => 'А. Кищенко. Видеоархив, часть 4',
+			'films.items.kishchenkoArchive4.excerpt' => 'Воспоминания современников и исследователей о мастере и его произведениях.',
+			'films.items.kishchenkoArchive5.title' => 'А. Кищенко. Видеоархив, часть 5',
+			'films.items.kishchenkoArchive5.excerpt' => 'Сюжет о «Гобелене века» и других монументальных работах Александра Кищенко.',
+			'films.items.kishchenkoEditedClip.title' => 'А. Кищенко. Авторский монтаж (8 минут)',
+			'films.items.kishchenkoEditedClip.excerpt' => 'Восьмиминутный видеоматериал о жизни и творчестве художника. Размещено на Google Диске.',
+			'films.items.kishchenkoReel1.title' => 'А. Кищенко в Instagram',
+			'films.items.kishchenkoReel1.excerpt' => 'Короткое видео о работах Александра Кищенко из социальной сети.',
 			'newsFeed.title' => 'Новости',
 			'newsFeed.subtitle' => 'Публикации, выставки и события',
 			'newsFeed.emptyState' => 'Новостей пока нет. Загляните позже.',

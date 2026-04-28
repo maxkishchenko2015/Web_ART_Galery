@@ -6,6 +6,7 @@
     "aboutAuthor": "Sobre el autor",
     "news": "Noticias",
     "catalogOfWorks": "Catalogo de obras",
+    "films": "Peliculas",
     "archive": "Archivo",
     "contacts": "Contactos"
   },
@@ -226,6 +227,57 @@
       "nebaZiamlja": {
         "title": "El cielo y la tierra de Alexander Kishchenko",
         "excerpt": "El 6 de mayo de 2023 el Museo Nacional de Arte de la Republica de Belarus abre la exposicion «El cielo y la tierra de Alexander Kishchenko», dedicada a la magnitud de su pensamiento artistico y a la importancia del legado del maestro."
+      }
+    }
+  },
+  "films": {
+    "title": "Peliculas y documentales",
+    "subtitle": "Archivo audiovisual sobre A. Kishchenko",
+    "latestLabel": "Pelicula destacada",
+    "sourceLabel": "Fuente",
+    "instagramTitle": "Instagram",
+    "instagramSubtitle": "Videos cortos e historias",
+    "watchOn": {
+      "youtube": "Ver en YouTube",
+      "googleDrive": "Ver en Google Drive",
+      "instagram": "Abrir en Instagram"
+    },
+    "items": {
+      "ispovedVremeni": {
+        "title": "A. Kishchenko. Confesion del Tiempo",
+        "excerpt": "Documental sobre Alexander Mijailovich Kishchenko (1933–1997), Artista del Pueblo de Belarus y autor del tapiz mas grande del mundo. Direccion: V. Korolyov; rodaje y montaje: E. Milkovskiy."
+      },
+      "aleksandrKishchenko": {
+        "title": "Alexander Kishchenko",
+        "excerpt": "Reportaje televisivo sobre la vida y obra de Alexander Kishchenko: los murales monumentales de Minsk, el «Tapiz del Siglo» y la filosofia del realismo universal del maestro."
+      },
+      "kishchenkoArchive1": {
+        "title": "A. Kishchenko. Videoarchivo, parte 1",
+        "excerpt": "Grabacion de archivo sobre la vida y obra de Alexander Kishchenko procedente de fuentes abiertas."
+      },
+      "kishchenkoArchive2": {
+        "title": "A. Kishchenko. Videoarchivo, parte 2",
+        "excerpt": "Cronica sobre los murales monumentales y la trayectoria del Artista del Pueblo de Belarus."
+      },
+      "kishchenkoArchive3": {
+        "title": "A. Kishchenko. Videoarchivo, parte 3",
+        "excerpt": "Reportaje sobre las exposiciones dedicadas a Alexander Kishchenko y su legado artistico."
+      },
+      "kishchenkoArchive4": {
+        "title": "A. Kishchenko. Videoarchivo, parte 4",
+        "excerpt": "Recuerdos de contemporaneos e investigadores sobre el maestro y sus obras."
+      },
+      "kishchenkoArchive5": {
+        "title": "A. Kishchenko. Videoarchivo, parte 5",
+        "excerpt": "Reportaje sobre el «Tapiz del Siglo» y otras obras monumentales de Alexander Kishchenko."
+      },
+      "kishchenkoEditedClip": {
+        "title": "A. Kishchenko. Montaje del autor (8 minutos)",
+        "excerpt": "Reportaje de ocho minutos sobre la vida y la obra del pintor. Alojado en Google Drive."
+      },
+      "kishchenkoReel1": {
+        "title": "A. Kishchenko en Instagram",
+        "excerpt": "Clip breve sobre las obras de Alexander Kishchenko desde redes sociales."
       }
     }
   },

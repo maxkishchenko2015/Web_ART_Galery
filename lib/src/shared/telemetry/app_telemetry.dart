@@ -31,11 +31,7 @@ class AppTelemetry {
       await _analytics!.setAnalyticsCollectionEnabled(true);
       _enabled = true;
     } catch (error, stackTrace) {
-      AppLogger.instance.e(
-        'AppTelemetry initialize failed',
-        error: error,
-        stackTrace: stackTrace,
-      );
+      AppLogger.instance.e('AppTelemetry initialize failed', error: error, stackTrace: stackTrace);
     }
   }
 
@@ -121,8 +117,7 @@ class AppTelemetry {
       return true;
     }
     final message = error.toString();
-    if (message.contains('Failed to fetch') ||
-        message.contains('tile.openstreetmap.org')) {
+    if (message.contains('Failed to fetch') || message.contains('tile.openstreetmap.org')) {
       return true;
     }
     return false;
