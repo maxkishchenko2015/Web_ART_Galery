@@ -4,6 +4,7 @@ import 'package:visibility_detector/visibility_detector.dart';
 import 'package:web_art_galery/i18n/strings.g.dart';
 import 'package:web_art_galery/src/features/catalog_of_works/domain/entities/painting.dart';
 import 'package:web_art_galery/src/features/catalog_of_works/presentation/cubits/catalog_of_works_cubit.dart';
+import 'package:web_art_galery/src/features/catalog_of_works/presentation/localization/painting_medium_localization.dart';
 import 'package:web_art_galery/src/features/catalog_of_works/presentation/localization/painting_name_localization.dart';
 import 'package:web_art_galery/src/features/catalog_of_works/presentation/widgets/aspect_aware_image.dart';
 import 'package:web_art_galery/src/features/catalog_of_works/presentation/widgets/catalog_lazy_masonry_view.dart';
@@ -205,7 +206,10 @@ class _PaintingCard extends StatelessWidget {
                   ),
                   const SizedBox(height: KSize.margin1x),
                   Text(
-                    painting.paintedOnAndHow,
+                    PaintingMediumLocalization.resolve(
+                      context.t,
+                      painting.paintedOnAndHow,
+                    ),
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
                     style: Theme.of(context).textTheme.bodyMedium,

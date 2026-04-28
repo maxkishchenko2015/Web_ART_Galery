@@ -173,6 +173,12 @@
       "idunknown_3": "Espinas azules",
       "idunknown_4": "Nina",
       "idunknown_5": "Nina"
+    },
+    "paintingMediums": {
+      "canvasOil": "Lienzo, óleo",
+      "hardboardOil": "Tablero DM, óleo",
+      "cardboard": "Cartón",
+      "woolLinenWeaving": "Lana, lino, tejido"
     }
   },
   "common": {
@@ -194,7 +200,34 @@
     "latestLabel": "Publicacion mas reciente",
     "moreLabel": "Noticias y referencias",
     "openArticle": "Abrir articulo",
-    "sourceLabel": "Fuente"
+    "sourceLabel": "Fuente",
+    "yearLabel": "${year}",
+    "items": {
+      "boguchar2026": {
+        "title": "Visita guiada «La historia de vida de M. A. Kishchenko»",
+        "excerpt": "El 19 de febrero de 2026 el Museo de Boguchar acogio una visita guiada para los alumnos de la escuela de la aldea Diachenkovo (movimiento «Pervyh») dedicada a conocer la vida y la obra del destacado artista Alexander Mijailovich Kishchenko."
+      },
+      "priorbankChtobyChuvstvovat": {
+        "title": "Exposicion «Para sentir» — la coleccion de Priorbank",
+        "excerpt": "Priorbank presenta por primera vez al publico su coleccion corporativa de pintura bielorrusa de los anos 1960 a 2000, reunida durante mas de 30 anos. La exposicion «Para sentir», en el palacio de los Rumiantsev y los Paskevich, podra visitarse del 10 de abril al 7 de junio y reune mas de 70 obras unicas, entre ellas tres pinturas de Alexander Kishchenko."
+      },
+      "nitiSudby": {
+        "title": "Alexander Kishchenko. Hilos del destino",
+        "excerpt": "En el museo tuvo lugar la inauguracion solemne de la exposicion «Alexander Kishchenko. Hilos del destino» (12+), dedicada a la obra del destacado artista bielorruso, originario del distrito de Boguchar en la region de Voronezh. La exposicion se organiza con motivo del 300 aniversario de la gobernacion de Voronezh y forma parte del intercambio cultural de la region con la Republica de Belarus."
+      },
+      "boguchar2024": {
+        "title": "Visita guiada «La historia de vida de A. M. Kishchenko»",
+        "excerpt": "Alexander Mijailovich Kishchenko fue una de las personalidades mas talentosas de la region de Boguchar: artista popular de la Republica de Belarus y ciudadano de honor del distrito de Boguchar. Miembro de la Union de Artistas de la URSS y galardonado con el Premio Estatal, dejo una huella vivida en la historia del arte."
+      },
+      "belgazprombankKraskiPobedy": {
+        "title": "Belgazprombank invita a la exposicion «Los colores de la Gran Victoria»",
+        "excerpt": "28 de junio de 2024. En visperas del 80 aniversario de la liberacion de Belarus de los invasores nazi-alemanes, en el vestibulo de la sede central de Belgazprombank se inauguro solemnemente la exposicion tematica «Los colores de la Gran Victoria». Reune obras de artistas bielorrusos que conocieron de primera mano los horrores de la guerra: A. Kishchenko, V. Protaseni, I. Stasevich, N. Churabo, I. Rey, P. Daneliya y otros."
+      },
+      "nebaZiamlja": {
+        "title": "El cielo y la tierra de Alexander Kishchenko",
+        "excerpt": "El 6 de mayo de 2023 el Museo Nacional de Arte de la Republica de Belarus abre la exposicion «El cielo y la tierra de Alexander Kishchenko», dedicada a la magnitud de su pensamiento artistico y a la importancia del legado del maestro."
+      }
+    }
   },
   "newsFeed": {
     "title": "Noticias",

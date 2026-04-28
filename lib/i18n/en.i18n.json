@@ -173,6 +173,12 @@
       "idunknown_3": "Blue Thorns",
       "idunknown_4": "Nina",
       "idunknown_5": "Nina"
+    },
+    "paintingMediums": {
+      "canvasOil": "Canvas, oil",
+      "hardboardOil": "Hardboard, oil",
+      "cardboard": "Cardboard",
+      "woolLinenWeaving": "Wool, linen, weaving"
     }
   },
   "common": {
@@ -194,7 +200,34 @@
     "latestLabel": "Latest publication",
     "moreLabel": "News and references",
     "openArticle": "Open article",
-    "sourceLabel": "Source"
+    "sourceLabel": "Source",
+    "yearLabel": "${year}",
+    "items": {
+      "boguchar2026": {
+        "title": "Guided tour «The Life Story of M. A. Kishchenko»",
+        "excerpt": "On 19 February 2026 the Boguchar Museum hosted a guided tour for pupils of the Dyachenkovo village school («Pervyh» movement), introducing them to the life and work of the renowned artist Alexander Mikhailovich Kishchenko."
+      },
+      "priorbankChtobyChuvstvovat": {
+        "title": "Exhibition «To Feel» — the Priorbank collection",
+        "excerpt": "Priorbank presents its corporate collection of Belarusian painting from the 1960s to the 2000s to the public for the first time, assembled over more than 30 years. The exhibition «To Feel» at the Rumyantsev and Paskevich Palace runs from 10 April to 7 June and features over 70 unique canvases, including three works by Alexander Kishchenko."
+      },
+      "nitiSudby": {
+        "title": "Alexander Kishchenko. Threads of Fate",
+        "excerpt": "The museum hosted the grand opening of the exhibition «Alexander Kishchenko. Threads of Fate» (12+), dedicated to the work of the outstanding Belarusian artist, a native of the Boguchar district of the Voronezh region. The exhibition is organised to mark the 300th anniversary of the Voronezh Governorate and is part of the region's cultural exchange with the Republic of Belarus."
+      },
+      "boguchar2024": {
+        "title": "Guided tour «The Life Story of A. M. Kishchenko»",
+        "excerpt": "Alexander Mikhailovich Kishchenko was one of the most gifted figures of the Boguchar region — a People's Artist of the Republic of Belarus and an honorary citizen of the Boguchar district. A member of the USSR Union of Artists and laureate of the State Prize, he left a vivid mark on the history of art."
+      },
+      "belgazprombankKraskiPobedy": {
+        "title": "Belgazprombank invites you to the exhibition «Colours of the Great Victory»",
+        "excerpt": "28 June 2024. On the eve of the 80th anniversary of Belarus's liberation from the Nazi-German invaders, the themed exhibition «Colours of the Great Victory» was solemnly opened in the lobby of the Belgazprombank headquarters. It brings together works by Belarusian artists who knew the horrors of war first-hand — A. Kishchenko, V. Protaseni, I. Stasevich, N. Churabo, I. Rey, P. Daneliya and others."
+      },
+      "nebaZiamlja": {
+        "title": "The Sky and the Earth of Alexander Kishchenko",
+        "excerpt": "On 6 May 2023 the National Art Museum of the Republic of Belarus opens the exhibition «The Sky and the Earth of Alexander Kishchenko», dedicated to the scale of his artistic thinking and the significance of the master's legacy."
+      }
+    }
   },
   "newsFeed": {
     "title": "News",

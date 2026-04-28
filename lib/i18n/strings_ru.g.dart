@@ -99,6 +99,7 @@ class TranslationsCatalogRu {
 	String get workPrefix => 'Работа';
 
 	late final TranslationsCatalogPaintingNamesRu paintingNames = TranslationsCatalogPaintingNamesRu.internal(_root);
+	late final TranslationsCatalogPaintingMediumsRu paintingMediums = TranslationsCatalogPaintingMediumsRu.internal(_root);
 }
 
 // Path: common
@@ -171,6 +172,11 @@ class TranslationsArchiveFeedRu {
 
 	/// ru: 'Источник'
 	String get sourceLabel => 'Источник';
+
+	/// ru: '${year} год'
+	String yearLabel({required Object year}) => '${year} год';
+
+	late final TranslationsArchiveFeedItemsRu items = TranslationsArchiveFeedItemsRu.internal(_root);
 }
 
 // Path: newsFeed
@@ -795,6 +801,42 @@ class TranslationsCatalogPaintingNamesRu {
 	String get idunknown_5 => 'Нина';
 }
 
+// Path: catalog.paintingMediums
+class TranslationsCatalogPaintingMediumsRu {
+	TranslationsCatalogPaintingMediumsRu.internal(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// ru: 'Холст, масло'
+	String get canvasOil => 'Холст, масло';
+
+	/// ru: 'ДВП, масло'
+	String get hardboardOil => 'ДВП, масло';
+
+	/// ru: 'Картон'
+	String get cardboard => 'Картон';
+
+	/// ru: 'Шерсть, лён, ткачество'
+	String get woolLinenWeaving => 'Шерсть, лён, ткачество';
+}
+
+// Path: archiveFeed.items
+class TranslationsArchiveFeedItemsRu {
+	TranslationsArchiveFeedItemsRu.internal(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+	late final TranslationsArchiveFeedItemsBoguchar2026Ru boguchar2026 = TranslationsArchiveFeedItemsBoguchar2026Ru.internal(_root);
+	late final TranslationsArchiveFeedItemsPriorbankChtobyChuvstvovatRu priorbankChtobyChuvstvovat = TranslationsArchiveFeedItemsPriorbankChtobyChuvstvovatRu.internal(_root);
+	late final TranslationsArchiveFeedItemsNitiSudbyRu nitiSudby = TranslationsArchiveFeedItemsNitiSudbyRu.internal(_root);
+	late final TranslationsArchiveFeedItemsBoguchar2024Ru boguchar2024 = TranslationsArchiveFeedItemsBoguchar2024Ru.internal(_root);
+	late final TranslationsArchiveFeedItemsBelgazprombankKraskiPobedyRu belgazprombankKraskiPobedy = TranslationsArchiveFeedItemsBelgazprombankKraskiPobedyRu.internal(_root);
+	late final TranslationsArchiveFeedItemsNebaZiamljaRu nebaZiamlja = TranslationsArchiveFeedItemsNebaZiamljaRu.internal(_root);
+}
+
 // Path: bio.feature
 class TranslationsBioFeatureRu {
 	TranslationsBioFeatureRu.internal(this._root);
@@ -931,6 +973,96 @@ class TranslationsBioLegacyRu {
 
 	/// ru: 'Александр Кищенко оставил после себя не только полотна, хранящиеся в Третьяковской галерее и частных коллекциях мировых лидеров (Б. Клинтона, Ф. Миттерана), но и целую школу белорусского монументального гобелена. Его имя носит Борисовский комбинат декоративно-прикладного искусства, где создавались его великие шпалеры.'
 	String get body => 'Александр Кищенко оставил после себя не только полотна, хранящиеся в Третьяковской галерее и частных коллекциях мировых лидеров (Б. Клинтона, Ф. Миттерана), но и целую школу белорусского монументального гобелена. Его имя носит Борисовский комбинат декоративно-прикладного искусства, где создавались его великие шпалеры.';
+}
+
+// Path: archiveFeed.items.boguchar2026
+class TranslationsArchiveFeedItemsBoguchar2026Ru {
+	TranslationsArchiveFeedItemsBoguchar2026Ru.internal(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// ru: 'Экскурсия «История жизни М. А. Кищенко»'
+	String get title => 'Экскурсия «История жизни М. А. Кищенко»';
+
+	/// ru: '19 февраля 2026 года в стенах Богучарского музея состоялась экскурсия для учащихся школы села Дьяченково («Движение первых»), посвящённая знакомству с жизнью и творчеством известного художника Александра Михайловича Кищенко.'
+	String get excerpt => '19 февраля 2026 года в стенах Богучарского музея состоялась экскурсия для учащихся школы села Дьяченково («Движение первых»), посвящённая знакомству с жизнью и творчеством известного художника Александра Михайловича Кищенко.';
+}
+
+// Path: archiveFeed.items.priorbankChtobyChuvstvovat
+class TranslationsArchiveFeedItemsPriorbankChtobyChuvstvovatRu {
+	TranslationsArchiveFeedItemsPriorbankChtobyChuvstvovatRu.internal(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// ru: 'Выставка «Чтобы чувствовать» — коллекция Приорбанка'
+	String get title => 'Выставка «Чтобы чувствовать» — коллекция Приорбанка';
+
+	/// ru: 'Приорбанк впервые представляет публике свою корпоративную коллекцию белорусской живописи 1960–2000-х годов, формировавшуюся более 30 лет. На выставке «Чтобы чувствовать» во дворце Румянцевых и Паскевичей с 10 апреля по 7 июня показаны более 70 уникальных полотен, среди которых три работы Александра Кищенко.'
+	String get excerpt => 'Приорбанк впервые представляет публике свою корпоративную коллекцию белорусской живописи 1960–2000-х годов, формировавшуюся более 30 лет. На выставке «Чтобы чувствовать» во дворце Румянцевых и Паскевичей с 10 апреля по 7 июня показаны более 70 уникальных полотен, среди которых три работы Александра Кищенко.';
+}
+
+// Path: archiveFeed.items.nitiSudby
+class TranslationsArchiveFeedItemsNitiSudbyRu {
+	TranslationsArchiveFeedItemsNitiSudbyRu.internal(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// ru: 'Александр Кищенко. Нити судьбы'
+	String get title => 'Александр Кищенко. Нити судьбы';
+
+	/// ru: 'В музее состоялось торжественное открытие выставки «Александр Кищенко. Нити судьбы» (12+), посвященной творчеству выдающегося белорусского художника, уроженца Богучарского района Воронежской области. Выставка организована в честь 300-летия Воронежской губернии, став частью культурного взаимодействия региона с Республикой Беларусь.'
+	String get excerpt => 'В музее состоялось торжественное открытие выставки «Александр Кищенко. Нити судьбы» (12+), посвященной творчеству выдающегося белорусского художника, уроженца Богучарского района Воронежской области. Выставка организована в честь 300-летия Воронежской губернии, став частью культурного взаимодействия региона с Республикой Беларусь.';
+}
+
+// Path: archiveFeed.items.boguchar2024
+class TranslationsArchiveFeedItemsBoguchar2024Ru {
+	TranslationsArchiveFeedItemsBoguchar2024Ru.internal(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// ru: 'Экскурсия «История жизни А. М. Кищенко»'
+	String get title => 'Экскурсия «История жизни А. М. Кищенко»';
+
+	/// ru: 'Одним из самых талантливых людей Богучарского края был Александр Михайлович Кищенко — народный художник Республики Беларусь и почётный гражданин Богучарского района. Член Союза художников СССР и лауреат Государственной премии, он оставил яркий след в истории искусства.'
+	String get excerpt => 'Одним из самых талантливых людей Богучарского края был Александр Михайлович Кищенко — народный художник Республики Беларусь и почётный гражданин Богучарского района. Член Союза художников СССР и лауреат Государственной премии, он оставил яркий след в истории искусства.';
+}
+
+// Path: archiveFeed.items.belgazprombankKraskiPobedy
+class TranslationsArchiveFeedItemsBelgazprombankKraskiPobedyRu {
+	TranslationsArchiveFeedItemsBelgazprombankKraskiPobedyRu.internal(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// ru: 'Белгазпромбанк приглашает на выставку «Краски Великой Победы»'
+	String get title => 'Белгазпромбанк приглашает на выставку «Краски Великой Победы»';
+
+	/// ru: '28 июня 2024 года. В преддверии 80-й годовщины освобождения Беларуси от немецко-фашистских захватчиков в фойе головного офиса Белгазпромбанка торжественно открылась тематическая выставка «Краски Великой Победы». Она объединила работы белорусских авторов, не понаслышке знакомых с ужасами войны, — А. Кищенко, В. Протасени, И. Стасевича, Н. Чурабо, И. Рэя, П. Данелия и других.'
+	String get excerpt => '28 июня 2024 года. В преддверии 80-й годовщины освобождения Беларуси от немецко-фашистских захватчиков в фойе головного офиса Белгазпромбанка торжественно открылась тематическая выставка «Краски Великой Победы». Она объединила работы белорусских авторов, не понаслышке знакомых с ужасами войны, — А. Кищенко, В. Протасени, И. Стасевича, Н. Чурабо, И. Рэя, П. Данелия и других.';
+}
+
+// Path: archiveFeed.items.nebaZiamlja
+class TranslationsArchiveFeedItemsNebaZiamljaRu {
+	TranslationsArchiveFeedItemsNebaZiamljaRu.internal(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// ru: 'Небо и земля Александра Кищенко'
+	String get title => 'Небо и земля Александра Кищенко';
+
+	/// ru: '6 мая 2023 года в Национальном художественном музее Республики Беларусь начинает работать выставка «Небо и земля Александра Кищенко», посвященная масштабу его художественного мышления и значению наследия мастера.'
+	String get excerpt => '6 мая 2023 года в Национальном художественном музее Республики Беларусь начинает работать выставка «Небо и земля Александра Кищенко», посвященная масштабу его художественного мышления и значению наследия мастера.';
 }
 
 /// The flat map containing all translations for locale <ru>.
@@ -1109,6 +1241,10 @@ extension on Translations {
 			'catalog.paintingNames.idunknown_3' => 'Голубые колючки',
 			'catalog.paintingNames.idunknown_4' => 'Нина',
 			'catalog.paintingNames.idunknown_5' => 'Нина',
+			'catalog.paintingMediums.canvasOil' => 'Холст, масло',
+			'catalog.paintingMediums.hardboardOil' => 'ДВП, масло',
+			'catalog.paintingMediums.cardboard' => 'Картон',
+			'catalog.paintingMediums.woolLinenWeaving' => 'Шерсть, лён, ткачество',
 			'common.pageNotFound' => 'Страница не найдена',
 			'common.viewCatalog' => 'СМОТРЕТЬ КАТАЛОГ',
 			'common.learnMore' => 'ПОДРОБНЕЕ',
@@ -1124,6 +1260,19 @@ extension on Translations {
 			'archiveFeed.moreLabel' => 'Материалы и новости',
 			'archiveFeed.openArticle' => 'Открыть статью',
 			'archiveFeed.sourceLabel' => 'Источник',
+			'archiveFeed.yearLabel' => ({required Object year}) => '${year} год',
+			'archiveFeed.items.boguchar2026.title' => 'Экскурсия «История жизни М. А. Кищенко»',
+			'archiveFeed.items.boguchar2026.excerpt' => '19 февраля 2026 года в стенах Богучарского музея состоялась экскурсия для учащихся школы села Дьяченково («Движение первых»), посвящённая знакомству с жизнью и творчеством известного художника Александра Михайловича Кищенко.',
+			'archiveFeed.items.priorbankChtobyChuvstvovat.title' => 'Выставка «Чтобы чувствовать» — коллекция Приорбанка',
+			'archiveFeed.items.priorbankChtobyChuvstvovat.excerpt' => 'Приорбанк впервые представляет публике свою корпоративную коллекцию белорусской живописи 1960–2000-х годов, формировавшуюся более 30 лет. На выставке «Чтобы чувствовать» во дворце Румянцевых и Паскевичей с 10 апреля по 7 июня показаны более 70 уникальных полотен, среди которых три работы Александра Кищенко.',
+			'archiveFeed.items.nitiSudby.title' => 'Александр Кищенко. Нити судьбы',
+			'archiveFeed.items.nitiSudby.excerpt' => 'В музее состоялось торжественное открытие выставки «Александр Кищенко. Нити судьбы» (12+), посвященной творчеству выдающегося белорусского художника, уроженца Богучарского района Воронежской области. Выставка организована в честь 300-летия Воронежской губернии, став частью культурного взаимодействия региона с Республикой Беларусь.',
+			'archiveFeed.items.boguchar2024.title' => 'Экскурсия «История жизни А. М. Кищенко»',
+			'archiveFeed.items.boguchar2024.excerpt' => 'Одним из самых талантливых людей Богучарского края был Александр Михайлович Кищенко — народный художник Республики Беларусь и почётный гражданин Богучарского района. Член Союза художников СССР и лауреат Государственной премии, он оставил яркий след в истории искусства.',
+			'archiveFeed.items.belgazprombankKraskiPobedy.title' => 'Белгазпромбанк приглашает на выставку «Краски Великой Победы»',
+			'archiveFeed.items.belgazprombankKraskiPobedy.excerpt' => '28 июня 2024 года. В преддверии 80-й годовщины освобождения Беларуси от немецко-фашистских захватчиков в фойе головного офиса Белгазпромбанка торжественно открылась тематическая выставка «Краски Великой Победы». Она объединила работы белорусских авторов, не понаслышке знакомых с ужасами войны, — А. Кищенко, В. Протасени, И. Стасевича, Н. Чурабо, И. Рэя, П. Данелия и других.',
+			'archiveFeed.items.nebaZiamlja.title' => 'Небо и земля Александра Кищенко',
+			'archiveFeed.items.nebaZiamlja.excerpt' => '6 мая 2023 года в Национальном художественном музее Республики Беларусь начинает работать выставка «Небо и земля Александра Кищенко», посвященная масштабу его художественного мышления и значению наследия мастера.',
 			'newsFeed.title' => 'Новости',
 			'newsFeed.subtitle' => 'Публикации, выставки и события',
 			'newsFeed.emptyState' => 'Новостей пока нет. Загляните позже.',

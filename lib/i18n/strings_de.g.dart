@@ -83,6 +83,7 @@ class _TranslationsCatalogDe extends TranslationsCatalogRu {
 	// Translations
 	@override String get workPrefix => 'Werk';
 	@override late final _TranslationsCatalogPaintingNamesDe paintingNames = _TranslationsCatalogPaintingNamesDe._(_root);
+	@override late final _TranslationsCatalogPaintingMediumsDe paintingMediums = _TranslationsCatalogPaintingMediumsDe._(_root);
 }
 
 // Path: common
@@ -125,6 +126,8 @@ class _TranslationsArchiveFeedDe extends TranslationsArchiveFeedRu {
 	@override String get moreLabel => 'Nachrichten und Hinweise';
 	@override String get openArticle => 'Artikel offnen';
 	@override String get sourceLabel => 'Quelle';
+	@override String yearLabel({required Object year}) => '${year}';
+	@override late final _TranslationsArchiveFeedItemsDe items = _TranslationsArchiveFeedItemsDe._(_root);
 }
 
 // Path: newsFeed
@@ -362,6 +365,34 @@ class _TranslationsCatalogPaintingNamesDe extends TranslationsCatalogPaintingNam
 	@override String get idunknown_5 => 'Nina';
 }
 
+// Path: catalog.paintingMediums
+class _TranslationsCatalogPaintingMediumsDe extends TranslationsCatalogPaintingMediumsRu {
+	_TranslationsCatalogPaintingMediumsDe._(TranslationsDe root) : this._root = root, super.internal(root);
+
+	final TranslationsDe _root; // ignore: unused_field
+
+	// Translations
+	@override String get canvasOil => 'Leinwand, Öl';
+	@override String get hardboardOil => 'Hartfaserplatte, Öl';
+	@override String get cardboard => 'Karton';
+	@override String get woolLinenWeaving => 'Wolle, Leinen, Weberei';
+}
+
+// Path: archiveFeed.items
+class _TranslationsArchiveFeedItemsDe extends TranslationsArchiveFeedItemsRu {
+	_TranslationsArchiveFeedItemsDe._(TranslationsDe root) : this._root = root, super.internal(root);
+
+	final TranslationsDe _root; // ignore: unused_field
+
+	// Translations
+	@override late final _TranslationsArchiveFeedItemsBoguchar2026De boguchar2026 = _TranslationsArchiveFeedItemsBoguchar2026De._(_root);
+	@override late final _TranslationsArchiveFeedItemsPriorbankChtobyChuvstvovatDe priorbankChtobyChuvstvovat = _TranslationsArchiveFeedItemsPriorbankChtobyChuvstvovatDe._(_root);
+	@override late final _TranslationsArchiveFeedItemsNitiSudbyDe nitiSudby = _TranslationsArchiveFeedItemsNitiSudbyDe._(_root);
+	@override late final _TranslationsArchiveFeedItemsBoguchar2024De boguchar2024 = _TranslationsArchiveFeedItemsBoguchar2024De._(_root);
+	@override late final _TranslationsArchiveFeedItemsBelgazprombankKraskiPobedyDe belgazprombankKraskiPobedy = _TranslationsArchiveFeedItemsBelgazprombankKraskiPobedyDe._(_root);
+	@override late final _TranslationsArchiveFeedItemsNebaZiamljaDe nebaZiamlja = _TranslationsArchiveFeedItemsNebaZiamljaDe._(_root);
+}
+
 // Path: bio.feature
 class _TranslationsBioFeatureDe extends TranslationsBioFeatureRu {
 	_TranslationsBioFeatureDe._(TranslationsDe root) : this._root = root, super.internal(root);
@@ -442,6 +473,72 @@ class _TranslationsBioLegacyDe extends TranslationsBioLegacyRu {
 	// Translations
 	@override String get title => 'Erbe';
 	@override String get body => 'Alexander Kischanka hinterließ nicht nur Leinwände, die sich in der Tretjakow-Galerie und Privatsammlungen von Weltführern (B. Clinton, F. Mitterrand) befinden, sondern auch eine ganze Schule des belarussischen Monumentalwandteppichs. Das Borissower Kombinat für dekorativ-angewandte Kunst, wo seine großen Wandteppiche entstanden, trägt heute seinen Namen.';
+}
+
+// Path: archiveFeed.items.boguchar2026
+class _TranslationsArchiveFeedItemsBoguchar2026De extends TranslationsArchiveFeedItemsBoguchar2026Ru {
+	_TranslationsArchiveFeedItemsBoguchar2026De._(TranslationsDe root) : this._root = root, super.internal(root);
+
+	final TranslationsDe _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Fuhrung «Die Lebensgeschichte M. A. Kischtschenkos»';
+	@override String get excerpt => 'Am 19. Februar 2026 fand im Boguchar-Museum eine Fuhrung fur Schulerinnen und Schuler der Schule des Dorfes Djatschenkowo (Bewegung «Pervyh») statt, die dem Leben und Schaffen des bekannten Kunstlers Alexander Michailowitsch Kischtschenko gewidmet war.';
+}
+
+// Path: archiveFeed.items.priorbankChtobyChuvstvovat
+class _TranslationsArchiveFeedItemsPriorbankChtobyChuvstvovatDe extends TranslationsArchiveFeedItemsPriorbankChtobyChuvstvovatRu {
+	_TranslationsArchiveFeedItemsPriorbankChtobyChuvstvovatDe._(TranslationsDe root) : this._root = root, super.internal(root);
+
+	final TranslationsDe _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Ausstellung «Um zu fuhlen» — die Sammlung der Priorbank';
+	@override String get excerpt => 'Die Priorbank stellt erstmals ihre uber mehr als 30 Jahre aufgebaute Unternehmenssammlung belarussischer Malerei der 1960er bis 2000er Jahre offentlich aus. Die Ausstellung «Um zu fuhlen» im Palast der Rumjanzews und Paskewitschs lauft vom 10. April bis zum 7. Juni und zeigt uber 70 einzigartige Werke, darunter drei Arbeiten von Alexander Kischtschenko.';
+}
+
+// Path: archiveFeed.items.nitiSudby
+class _TranslationsArchiveFeedItemsNitiSudbyDe extends TranslationsArchiveFeedItemsNitiSudbyRu {
+	_TranslationsArchiveFeedItemsNitiSudbyDe._(TranslationsDe root) : this._root = root, super.internal(root);
+
+	final TranslationsDe _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Alexander Kischtschenko. Faden des Schicksals';
+	@override String get excerpt => 'Im Museum fand die feierliche Eroffnung der Ausstellung «Alexander Kischtschenko. Faden des Schicksals» (12+) statt, die dem Werk des herausragenden belarussischen Kunstlers gewidmet ist, eines gebürtigen Bewohners des Bezirks Boguchar im Gebiet Woronesch. Die Ausstellung wurde anlasslich des 300-jahrigen Bestehens des Gouvernements Woronesch organisiert und ist Teil des kulturellen Austauschs der Region mit der Republik Belarus.';
+}
+
+// Path: archiveFeed.items.boguchar2024
+class _TranslationsArchiveFeedItemsBoguchar2024De extends TranslationsArchiveFeedItemsBoguchar2024Ru {
+	_TranslationsArchiveFeedItemsBoguchar2024De._(TranslationsDe root) : this._root = root, super.internal(root);
+
+	final TranslationsDe _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Fuhrung «Die Lebensgeschichte A. M. Kischtschenkos»';
+	@override String get excerpt => 'Alexander Michailowitsch Kischtschenko zahlte zu den begabtesten Personlichkeiten der Region Boguchar — Volkskunstler der Republik Belarus und Ehrenburger des Bezirks Boguchar. Als Mitglied des Kunstlerverbandes der UdSSR und Trager des Staatspreises hinterließ er deutliche Spuren in der Kunstgeschichte.';
+}
+
+// Path: archiveFeed.items.belgazprombankKraskiPobedy
+class _TranslationsArchiveFeedItemsBelgazprombankKraskiPobedyDe extends TranslationsArchiveFeedItemsBelgazprombankKraskiPobedyRu {
+	_TranslationsArchiveFeedItemsBelgazprombankKraskiPobedyDe._(TranslationsDe root) : this._root = root, super.internal(root);
+
+	final TranslationsDe _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Die Belgazprombank ladt zur Ausstellung «Farben des Großen Sieges» ein';
+	@override String get excerpt => '28. Juni 2024. Am Vorabend des 80. Jahrestages der Befreiung von Belarus von den deutsch-faschistischen Besatzern wurde im Foyer der Hauptniederlassung der Belgazprombank feierlich die thematische Ausstellung «Farben des Großen Sieges» eroffnet. Sie vereint Werke belarussischer Kunstler, die die Schrecken des Krieges aus eigener Erfahrung kannten — A. Kischtschenko, W. Protaseni, I. Stassewitsch, N. Tschurabo, I. Rej, P. Daneliya und andere.';
+}
+
+// Path: archiveFeed.items.nebaZiamlja
+class _TranslationsArchiveFeedItemsNebaZiamljaDe extends TranslationsArchiveFeedItemsNebaZiamljaRu {
+	_TranslationsArchiveFeedItemsNebaZiamljaDe._(TranslationsDe root) : this._root = root, super.internal(root);
+
+	final TranslationsDe _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Himmel und Erde von Alexander Kischtschenko';
+	@override String get excerpt => 'Am 6. Mai 2023 eroffnet das Nationale Kunstmuseum der Republik Belarus die Ausstellung «Himmel und Erde von Alexander Kischtschenko», die der Tragweite seines kunstlerischen Denkens und der Bedeutung des Erbes des Meisters gewidmet ist.';
 }
 
 /// The flat map containing all translations for locale <de>.
@@ -620,6 +717,10 @@ extension on TranslationsDe {
 			'catalog.paintingNames.idunknown_3' => 'Blaue Dornen',
 			'catalog.paintingNames.idunknown_4' => 'Nina',
 			'catalog.paintingNames.idunknown_5' => 'Nina',
+			'catalog.paintingMediums.canvasOil' => 'Leinwand, Öl',
+			'catalog.paintingMediums.hardboardOil' => 'Hartfaserplatte, Öl',
+			'catalog.paintingMediums.cardboard' => 'Karton',
+			'catalog.paintingMediums.woolLinenWeaving' => 'Wolle, Leinen, Weberei',
 			'common.pageNotFound' => 'Seite nicht gefunden',
 			'common.viewCatalog' => 'KATALOG ANSEHEN',
 			'common.learnMore' => 'MEHR ERFAHREN',
@@ -635,6 +736,19 @@ extension on TranslationsDe {
 			'archiveFeed.moreLabel' => 'Nachrichten und Hinweise',
 			'archiveFeed.openArticle' => 'Artikel offnen',
 			'archiveFeed.sourceLabel' => 'Quelle',
+			'archiveFeed.yearLabel' => ({required Object year}) => '${year}',
+			'archiveFeed.items.boguchar2026.title' => 'Fuhrung «Die Lebensgeschichte M. A. Kischtschenkos»',
+			'archiveFeed.items.boguchar2026.excerpt' => 'Am 19. Februar 2026 fand im Boguchar-Museum eine Fuhrung fur Schulerinnen und Schuler der Schule des Dorfes Djatschenkowo (Bewegung «Pervyh») statt, die dem Leben und Schaffen des bekannten Kunstlers Alexander Michailowitsch Kischtschenko gewidmet war.',
+			'archiveFeed.items.priorbankChtobyChuvstvovat.title' => 'Ausstellung «Um zu fuhlen» — die Sammlung der Priorbank',
+			'archiveFeed.items.priorbankChtobyChuvstvovat.excerpt' => 'Die Priorbank stellt erstmals ihre uber mehr als 30 Jahre aufgebaute Unternehmenssammlung belarussischer Malerei der 1960er bis 2000er Jahre offentlich aus. Die Ausstellung «Um zu fuhlen» im Palast der Rumjanzews und Paskewitschs lauft vom 10. April bis zum 7. Juni und zeigt uber 70 einzigartige Werke, darunter drei Arbeiten von Alexander Kischtschenko.',
+			'archiveFeed.items.nitiSudby.title' => 'Alexander Kischtschenko. Faden des Schicksals',
+			'archiveFeed.items.nitiSudby.excerpt' => 'Im Museum fand die feierliche Eroffnung der Ausstellung «Alexander Kischtschenko. Faden des Schicksals» (12+) statt, die dem Werk des herausragenden belarussischen Kunstlers gewidmet ist, eines gebürtigen Bewohners des Bezirks Boguchar im Gebiet Woronesch. Die Ausstellung wurde anlasslich des 300-jahrigen Bestehens des Gouvernements Woronesch organisiert und ist Teil des kulturellen Austauschs der Region mit der Republik Belarus.',
+			'archiveFeed.items.boguchar2024.title' => 'Fuhrung «Die Lebensgeschichte A. M. Kischtschenkos»',
+			'archiveFeed.items.boguchar2024.excerpt' => 'Alexander Michailowitsch Kischtschenko zahlte zu den begabtesten Personlichkeiten der Region Boguchar — Volkskunstler der Republik Belarus und Ehrenburger des Bezirks Boguchar. Als Mitglied des Kunstlerverbandes der UdSSR und Trager des Staatspreises hinterließ er deutliche Spuren in der Kunstgeschichte.',
+			'archiveFeed.items.belgazprombankKraskiPobedy.title' => 'Die Belgazprombank ladt zur Ausstellung «Farben des Großen Sieges» ein',
+			'archiveFeed.items.belgazprombankKraskiPobedy.excerpt' => '28. Juni 2024. Am Vorabend des 80. Jahrestages der Befreiung von Belarus von den deutsch-faschistischen Besatzern wurde im Foyer der Hauptniederlassung der Belgazprombank feierlich die thematische Ausstellung «Farben des Großen Sieges» eroffnet. Sie vereint Werke belarussischer Kunstler, die die Schrecken des Krieges aus eigener Erfahrung kannten — A. Kischtschenko, W. Protaseni, I. Stassewitsch, N. Tschurabo, I. Rej, P. Daneliya und andere.',
+			'archiveFeed.items.nebaZiamlja.title' => 'Himmel und Erde von Alexander Kischtschenko',
+			'archiveFeed.items.nebaZiamlja.excerpt' => 'Am 6. Mai 2023 eroffnet das Nationale Kunstmuseum der Republik Belarus die Ausstellung «Himmel und Erde von Alexander Kischtschenko», die der Tragweite seines kunstlerischen Denkens und der Bedeutung des Erbes des Meisters gewidmet ist.',
 			'newsFeed.title' => 'Neuigkeiten',
 			'newsFeed.subtitle' => 'Veroffentlichungen, Ausstellungen und Ereignisse',
 			'newsFeed.emptyState' => 'Noch keine Neuigkeiten. Schauen Sie bald wieder vorbei.',

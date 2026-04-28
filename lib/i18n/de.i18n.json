@@ -173,6 +173,12 @@
       "idunknown_3": "Blaue Dornen",
       "idunknown_4": "Nina",
       "idunknown_5": "Nina"
+    },
+    "paintingMediums": {
+      "canvasOil": "Leinwand, Öl",
+      "hardboardOil": "Hartfaserplatte, Öl",
+      "cardboard": "Karton",
+      "woolLinenWeaving": "Wolle, Leinen, Weberei"
     }
   },
   "common": {
@@ -194,7 +200,34 @@
     "latestLabel": "Neueste Veroffentlichung",
     "moreLabel": "Nachrichten und Hinweise",
     "openArticle": "Artikel offnen",
-    "sourceLabel": "Quelle"
+    "sourceLabel": "Quelle",
+    "yearLabel": "${year}",
+    "items": {
+      "boguchar2026": {
+        "title": "Fuhrung «Die Lebensgeschichte M. A. Kischtschenkos»",
+        "excerpt": "Am 19. Februar 2026 fand im Boguchar-Museum eine Fuhrung fur Schulerinnen und Schuler der Schule des Dorfes Djatschenkowo (Bewegung «Pervyh») statt, die dem Leben und Schaffen des bekannten Kunstlers Alexander Michailowitsch Kischtschenko gewidmet war."
+      },
+      "priorbankChtobyChuvstvovat": {
+        "title": "Ausstellung «Um zu fuhlen» — die Sammlung der Priorbank",
+        "excerpt": "Die Priorbank stellt erstmals ihre uber mehr als 30 Jahre aufgebaute Unternehmenssammlung belarussischer Malerei der 1960er bis 2000er Jahre offentlich aus. Die Ausstellung «Um zu fuhlen» im Palast der Rumjanzews und Paskewitschs lauft vom 10. April bis zum 7. Juni und zeigt uber 70 einzigartige Werke, darunter drei Arbeiten von Alexander Kischtschenko."
+      },
+      "nitiSudby": {
+        "title": "Alexander Kischtschenko. Faden des Schicksals",
+        "excerpt": "Im Museum fand die feierliche Eroffnung der Ausstellung «Alexander Kischtschenko. Faden des Schicksals» (12+) statt, die dem Werk des herausragenden belarussischen Kunstlers gewidmet ist, eines gebürtigen Bewohners des Bezirks Boguchar im Gebiet Woronesch. Die Ausstellung wurde anlasslich des 300-jahrigen Bestehens des Gouvernements Woronesch organisiert und ist Teil des kulturellen Austauschs der Region mit der Republik Belarus."
+      },
+      "boguchar2024": {
+        "title": "Fuhrung «Die Lebensgeschichte A. M. Kischtschenkos»",
+        "excerpt": "Alexander Michailowitsch Kischtschenko zahlte zu den begabtesten Personlichkeiten der Region Boguchar — Volkskunstler der Republik Belarus und Ehrenburger des Bezirks Boguchar. Als Mitglied des Kunstlerverbandes der UdSSR und Trager des Staatspreises hinterließ er deutliche Spuren in der Kunstgeschichte."
+      },
+      "belgazprombankKraskiPobedy": {
+        "title": "Die Belgazprombank ladt zur Ausstellung «Farben des Großen Sieges» ein",
+        "excerpt": "28. Juni 2024. Am Vorabend des 80. Jahrestages der Befreiung von Belarus von den deutsch-faschistischen Besatzern wurde im Foyer der Hauptniederlassung der Belgazprombank feierlich die thematische Ausstellung «Farben des Großen Sieges» eroffnet. Sie vereint Werke belarussischer Kunstler, die die Schrecken des Krieges aus eigener Erfahrung kannten — A. Kischtschenko, W. Protaseni, I. Stassewitsch, N. Tschurabo, I. Rej, P. Daneliya und andere."
+      },
+      "nebaZiamlja": {
+        "title": "Himmel und Erde von Alexander Kischtschenko",
+        "excerpt": "Am 6. Mai 2023 eroffnet das Nationale Kunstmuseum der Republik Belarus die Ausstellung «Himmel und Erde von Alexander Kischtschenko», die der Tragweite seines kunstlerischen Denkens und der Bedeutung des Erbes des Meisters gewidmet ist."
+      }
+    }
   },
   "newsFeed": {
     "title": "Neuigkeiten",

@@ -83,6 +83,7 @@ class _TranslationsCatalogFr extends TranslationsCatalogRu {
 	// Translations
 	@override String get workPrefix => 'Oeuvre';
 	@override late final _TranslationsCatalogPaintingNamesFr paintingNames = _TranslationsCatalogPaintingNamesFr._(_root);
+	@override late final _TranslationsCatalogPaintingMediumsFr paintingMediums = _TranslationsCatalogPaintingMediumsFr._(_root);
 }
 
 // Path: common
@@ -125,6 +126,8 @@ class _TranslationsArchiveFeedFr extends TranslationsArchiveFeedRu {
 	@override String get moreLabel => 'Actualites et references';
 	@override String get openArticle => 'Ouvrir l\'article';
 	@override String get sourceLabel => 'Source';
+	@override String yearLabel({required Object year}) => '${year}';
+	@override late final _TranslationsArchiveFeedItemsFr items = _TranslationsArchiveFeedItemsFr._(_root);
 }
 
 // Path: newsFeed
@@ -362,6 +365,34 @@ class _TranslationsCatalogPaintingNamesFr extends TranslationsCatalogPaintingNam
 	@override String get idunknown_5 => 'Nina';
 }
 
+// Path: catalog.paintingMediums
+class _TranslationsCatalogPaintingMediumsFr extends TranslationsCatalogPaintingMediumsRu {
+	_TranslationsCatalogPaintingMediumsFr._(TranslationsFr root) : this._root = root, super.internal(root);
+
+	final TranslationsFr _root; // ignore: unused_field
+
+	// Translations
+	@override String get canvasOil => 'Toile, huile';
+	@override String get hardboardOil => 'Isorel, huile';
+	@override String get cardboard => 'Carton';
+	@override String get woolLinenWeaving => 'Laine, lin, tissage';
+}
+
+// Path: archiveFeed.items
+class _TranslationsArchiveFeedItemsFr extends TranslationsArchiveFeedItemsRu {
+	_TranslationsArchiveFeedItemsFr._(TranslationsFr root) : this._root = root, super.internal(root);
+
+	final TranslationsFr _root; // ignore: unused_field
+
+	// Translations
+	@override late final _TranslationsArchiveFeedItemsBoguchar2026Fr boguchar2026 = _TranslationsArchiveFeedItemsBoguchar2026Fr._(_root);
+	@override late final _TranslationsArchiveFeedItemsPriorbankChtobyChuvstvovatFr priorbankChtobyChuvstvovat = _TranslationsArchiveFeedItemsPriorbankChtobyChuvstvovatFr._(_root);
+	@override late final _TranslationsArchiveFeedItemsNitiSudbyFr nitiSudby = _TranslationsArchiveFeedItemsNitiSudbyFr._(_root);
+	@override late final _TranslationsArchiveFeedItemsBoguchar2024Fr boguchar2024 = _TranslationsArchiveFeedItemsBoguchar2024Fr._(_root);
+	@override late final _TranslationsArchiveFeedItemsBelgazprombankKraskiPobedyFr belgazprombankKraskiPobedy = _TranslationsArchiveFeedItemsBelgazprombankKraskiPobedyFr._(_root);
+	@override late final _TranslationsArchiveFeedItemsNebaZiamljaFr nebaZiamlja = _TranslationsArchiveFeedItemsNebaZiamljaFr._(_root);
+}
+
 // Path: bio.feature
 class _TranslationsBioFeatureFr extends TranslationsBioFeatureRu {
 	_TranslationsBioFeatureFr._(TranslationsFr root) : this._root = root, super.internal(root);
@@ -442,6 +473,72 @@ class _TranslationsBioLegacyFr extends TranslationsBioLegacyRu {
 	// Translations
 	@override String get title => 'Héritage';
 	@override String get body => 'Alexandre Kichtchanka a laissé derrière lui non seulement des toiles conservées à la Galerie Tretiakov et dans des collections privées de dirigeants mondiaux (B. Clinton, F. Mitterrand), mais aussi toute une école de tapisserie monumentale biélorusse. Le Combinat des arts décoratifs et appliqués de Borisov, où furent créées ses grandes tapisseries, porte aujourd\'hui son nom.';
+}
+
+// Path: archiveFeed.items.boguchar2026
+class _TranslationsArchiveFeedItemsBoguchar2026Fr extends TranslationsArchiveFeedItemsBoguchar2026Ru {
+	_TranslationsArchiveFeedItemsBoguchar2026Fr._(TranslationsFr root) : this._root = root, super.internal(root);
+
+	final TranslationsFr _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Visite guidee «L\'histoire de la vie de M. A. Kichtchenko»';
+	@override String get excerpt => 'Le 19 fevrier 2026, le musee de Boguchar a accueilli une visite guidee destinee aux eleves de l\'ecole du village de Diatchenkovo (mouvement «Pervyh»), dediee a la decouverte de la vie et de l\'oeuvre du celebre artiste Alexandre Mikhailovitch Kichtchenko.';
+}
+
+// Path: archiveFeed.items.priorbankChtobyChuvstvovat
+class _TranslationsArchiveFeedItemsPriorbankChtobyChuvstvovatFr extends TranslationsArchiveFeedItemsPriorbankChtobyChuvstvovatRu {
+	_TranslationsArchiveFeedItemsPriorbankChtobyChuvstvovatFr._(TranslationsFr root) : this._root = root, super.internal(root);
+
+	final TranslationsFr _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Exposition «Pour ressentir» — la collection de la Priorbank';
+	@override String get excerpt => 'La Priorbank presente pour la premiere fois au public sa collection d\'entreprise de peinture bielorusse des annees 1960 a 2000, constituee depuis plus de 30 ans. L\'exposition «Pour ressentir», au palais Roumiantsev-Paskevitch, se tient du 10 avril au 7 juin et reunit plus de 70 oeuvres uniques, parmi lesquelles trois tableaux d\'Alexandre Kichtchenko.';
+}
+
+// Path: archiveFeed.items.nitiSudby
+class _TranslationsArchiveFeedItemsNitiSudbyFr extends TranslationsArchiveFeedItemsNitiSudbyRu {
+	_TranslationsArchiveFeedItemsNitiSudbyFr._(TranslationsFr root) : this._root = root, super.internal(root);
+
+	final TranslationsFr _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Alexandre Kichtchenko. Les fils du destin';
+	@override String get excerpt => 'Le musee a accueilli l\'inauguration solennelle de l\'exposition «Alexandre Kichtchenko. Les fils du destin» (12+), consacree a l\'oeuvre de l\'eminent artiste bielorusse, originaire du district de Boguchar dans la region de Voronej. L\'exposition est organisee a l\'occasion du 300e anniversaire du gouvernorat de Voronej et s\'inscrit dans le cadre des echanges culturels de la region avec la Republique du Belarus.';
+}
+
+// Path: archiveFeed.items.boguchar2024
+class _TranslationsArchiveFeedItemsBoguchar2024Fr extends TranslationsArchiveFeedItemsBoguchar2024Ru {
+	_TranslationsArchiveFeedItemsBoguchar2024Fr._(TranslationsFr root) : this._root = root, super.internal(root);
+
+	final TranslationsFr _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Visite guidee «L\'histoire de la vie de A. M. Kichtchenko»';
+	@override String get excerpt => 'Alexandre Mikhailovitch Kichtchenko fut l\'une des figures les plus talentueuses de la region de Boguchar — artiste du peuple de la Republique du Belarus et citoyen d\'honneur du district de Boguchar. Membre de l\'Union des artistes de l\'URSS et laureat du Prix d\'Etat, il a laisse une empreinte marquante dans l\'histoire de l\'art.';
+}
+
+// Path: archiveFeed.items.belgazprombankKraskiPobedy
+class _TranslationsArchiveFeedItemsBelgazprombankKraskiPobedyFr extends TranslationsArchiveFeedItemsBelgazprombankKraskiPobedyRu {
+	_TranslationsArchiveFeedItemsBelgazprombankKraskiPobedyFr._(TranslationsFr root) : this._root = root, super.internal(root);
+
+	final TranslationsFr _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'La Belgazprombank invite a l\'exposition «Les couleurs de la Grande Victoire»';
+	@override String get excerpt => '28 juin 2024. A la veille du 80e anniversaire de la liberation du Belarus de l\'occupation nazie allemande, le hall du siege de la Belgazprombank a accueilli solennellement l\'exposition thematique «Les couleurs de la Grande Victoire». Elle reunit des oeuvres d\'artistes bielorusses qui ont connu les horreurs de la guerre de premiere main — A. Kichtchenko, V. Protaseni, I. Stassevitch, N. Tchourabo, I. Rey, P. Daneliya et d\'autres.';
+}
+
+// Path: archiveFeed.items.nebaZiamlja
+class _TranslationsArchiveFeedItemsNebaZiamljaFr extends TranslationsArchiveFeedItemsNebaZiamljaRu {
+	_TranslationsArchiveFeedItemsNebaZiamljaFr._(TranslationsFr root) : this._root = root, super.internal(root);
+
+	final TranslationsFr _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Le ciel et la terre d\'Alexandre Kichtchenko';
+	@override String get excerpt => 'Le 6 mai 2023, le Musee national d\'art de la Republique du Belarus inaugure l\'exposition «Le ciel et la terre d\'Alexandre Kichtchenko», consacree a l\'ampleur de sa pensee artistique et a l\'importance de l\'heritage du maitre.';
 }
 
 /// The flat map containing all translations for locale <fr>.
@@ -620,6 +717,10 @@ extension on TranslationsFr {
 			'catalog.paintingNames.idunknown_3' => 'Épines bleues',
 			'catalog.paintingNames.idunknown_4' => 'Nina',
 			'catalog.paintingNames.idunknown_5' => 'Nina',
+			'catalog.paintingMediums.canvasOil' => 'Toile, huile',
+			'catalog.paintingMediums.hardboardOil' => 'Isorel, huile',
+			'catalog.paintingMediums.cardboard' => 'Carton',
+			'catalog.paintingMediums.woolLinenWeaving' => 'Laine, lin, tissage',
 			'common.pageNotFound' => 'Page introuvable',
 			'common.viewCatalog' => 'VOIR LE CATALOGUE',
 			'common.learnMore' => 'EN SAVOIR PLUS',
@@ -635,6 +736,19 @@ extension on TranslationsFr {
 			'archiveFeed.moreLabel' => 'Actualites et references',
 			'archiveFeed.openArticle' => 'Ouvrir l\'article',
 			'archiveFeed.sourceLabel' => 'Source',
+			'archiveFeed.yearLabel' => ({required Object year}) => '${year}',
+			'archiveFeed.items.boguchar2026.title' => 'Visite guidee «L\'histoire de la vie de M. A. Kichtchenko»',
+			'archiveFeed.items.boguchar2026.excerpt' => 'Le 19 fevrier 2026, le musee de Boguchar a accueilli une visite guidee destinee aux eleves de l\'ecole du village de Diatchenkovo (mouvement «Pervyh»), dediee a la decouverte de la vie et de l\'oeuvre du celebre artiste Alexandre Mikhailovitch Kichtchenko.',
+			'archiveFeed.items.priorbankChtobyChuvstvovat.title' => 'Exposition «Pour ressentir» — la collection de la Priorbank',
+			'archiveFeed.items.priorbankChtobyChuvstvovat.excerpt' => 'La Priorbank presente pour la premiere fois au public sa collection d\'entreprise de peinture bielorusse des annees 1960 a 2000, constituee depuis plus de 30 ans. L\'exposition «Pour ressentir», au palais Roumiantsev-Paskevitch, se tient du 10 avril au 7 juin et reunit plus de 70 oeuvres uniques, parmi lesquelles trois tableaux d\'Alexandre Kichtchenko.',
+			'archiveFeed.items.nitiSudby.title' => 'Alexandre Kichtchenko. Les fils du destin',
+			'archiveFeed.items.nitiSudby.excerpt' => 'Le musee a accueilli l\'inauguration solennelle de l\'exposition «Alexandre Kichtchenko. Les fils du destin» (12+), consacree a l\'oeuvre de l\'eminent artiste bielorusse, originaire du district de Boguchar dans la region de Voronej. L\'exposition est organisee a l\'occasion du 300e anniversaire du gouvernorat de Voronej et s\'inscrit dans le cadre des echanges culturels de la region avec la Republique du Belarus.',
+			'archiveFeed.items.boguchar2024.title' => 'Visite guidee «L\'histoire de la vie de A. M. Kichtchenko»',
+			'archiveFeed.items.boguchar2024.excerpt' => 'Alexandre Mikhailovitch Kichtchenko fut l\'une des figures les plus talentueuses de la region de Boguchar — artiste du peuple de la Republique du Belarus et citoyen d\'honneur du district de Boguchar. Membre de l\'Union des artistes de l\'URSS et laureat du Prix d\'Etat, il a laisse une empreinte marquante dans l\'histoire de l\'art.',
+			'archiveFeed.items.belgazprombankKraskiPobedy.title' => 'La Belgazprombank invite a l\'exposition «Les couleurs de la Grande Victoire»',
+			'archiveFeed.items.belgazprombankKraskiPobedy.excerpt' => '28 juin 2024. A la veille du 80e anniversaire de la liberation du Belarus de l\'occupation nazie allemande, le hall du siege de la Belgazprombank a accueilli solennellement l\'exposition thematique «Les couleurs de la Grande Victoire». Elle reunit des oeuvres d\'artistes bielorusses qui ont connu les horreurs de la guerre de premiere main — A. Kichtchenko, V. Protaseni, I. Stassevitch, N. Tchourabo, I. Rey, P. Daneliya et d\'autres.',
+			'archiveFeed.items.nebaZiamlja.title' => 'Le ciel et la terre d\'Alexandre Kichtchenko',
+			'archiveFeed.items.nebaZiamlja.excerpt' => 'Le 6 mai 2023, le Musee national d\'art de la Republique du Belarus inaugure l\'exposition «Le ciel et la terre d\'Alexandre Kichtchenko», consacree a l\'ampleur de sa pensee artistique et a l\'importance de l\'heritage du maitre.',
 			'newsFeed.title' => 'Actualites',
 			'newsFeed.subtitle' => 'Publications, expositions et evenements',
 			'newsFeed.emptyState' => 'Pas encore d\'actualites. Revenez bientot.',

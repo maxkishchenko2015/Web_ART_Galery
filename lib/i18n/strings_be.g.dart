@@ -83,6 +83,7 @@ class _TranslationsCatalogBe extends TranslationsCatalogRu {
 	// Translations
 	@override String get workPrefix => 'Праца';
 	@override late final _TranslationsCatalogPaintingNamesBe paintingNames = _TranslationsCatalogPaintingNamesBe._(_root);
+	@override late final _TranslationsCatalogPaintingMediumsBe paintingMediums = _TranslationsCatalogPaintingMediumsBe._(_root);
 }
 
 // Path: common
@@ -125,6 +126,8 @@ class _TranslationsArchiveFeedBe extends TranslationsArchiveFeedRu {
 	@override String get moreLabel => 'Навіны і матэрыялы';
 	@override String get openArticle => 'Адкрыць артыкул';
 	@override String get sourceLabel => 'Крыніца';
+	@override String yearLabel({required Object year}) => '${year} год';
+	@override late final _TranslationsArchiveFeedItemsBe items = _TranslationsArchiveFeedItemsBe._(_root);
 }
 
 // Path: newsFeed
@@ -362,6 +365,34 @@ class _TranslationsCatalogPaintingNamesBe extends TranslationsCatalogPaintingNam
 	@override String get idunknown_5 => 'Ніна';
 }
 
+// Path: catalog.paintingMediums
+class _TranslationsCatalogPaintingMediumsBe extends TranslationsCatalogPaintingMediumsRu {
+	_TranslationsCatalogPaintingMediumsBe._(TranslationsBe root) : this._root = root, super.internal(root);
+
+	final TranslationsBe _root; // ignore: unused_field
+
+	// Translations
+	@override String get canvasOil => 'Палатно, алей';
+	@override String get hardboardOil => 'ДВП, алей';
+	@override String get cardboard => 'Кардон';
+	@override String get woolLinenWeaving => 'Воўна, лён, ткацтва';
+}
+
+// Path: archiveFeed.items
+class _TranslationsArchiveFeedItemsBe extends TranslationsArchiveFeedItemsRu {
+	_TranslationsArchiveFeedItemsBe._(TranslationsBe root) : this._root = root, super.internal(root);
+
+	final TranslationsBe _root; // ignore: unused_field
+
+	// Translations
+	@override late final _TranslationsArchiveFeedItemsBoguchar2026Be boguchar2026 = _TranslationsArchiveFeedItemsBoguchar2026Be._(_root);
+	@override late final _TranslationsArchiveFeedItemsPriorbankChtobyChuvstvovatBe priorbankChtobyChuvstvovat = _TranslationsArchiveFeedItemsPriorbankChtobyChuvstvovatBe._(_root);
+	@override late final _TranslationsArchiveFeedItemsNitiSudbyBe nitiSudby = _TranslationsArchiveFeedItemsNitiSudbyBe._(_root);
+	@override late final _TranslationsArchiveFeedItemsBoguchar2024Be boguchar2024 = _TranslationsArchiveFeedItemsBoguchar2024Be._(_root);
+	@override late final _TranslationsArchiveFeedItemsBelgazprombankKraskiPobedyBe belgazprombankKraskiPobedy = _TranslationsArchiveFeedItemsBelgazprombankKraskiPobedyBe._(_root);
+	@override late final _TranslationsArchiveFeedItemsNebaZiamljaBe nebaZiamlja = _TranslationsArchiveFeedItemsNebaZiamljaBe._(_root);
+}
+
 // Path: bio.feature
 class _TranslationsBioFeatureBe extends TranslationsBioFeatureRu {
 	_TranslationsBioFeatureBe._(TranslationsBe root) : this._root = root, super.internal(root);
@@ -442,6 +473,72 @@ class _TranslationsBioLegacyBe extends TranslationsBioLegacyRu {
 	// Translations
 	@override String get title => 'Спадчына';
 	@override String get body => 'Аляксандр Кішчанка пакінуў пасля сябе не толькі палотны, якія захоўваюцца ў Траццякоўскай галерэі і прыватных калекцыях сусветных лідараў (Б. Клінтана, Ф. Мітэрана), але і цэлую школу беларускага манументальнага гобелена. Яго імя носіць Барысаўскі камбінат дэкаратыўна-прыкладнога мастацтва, дзе стваралісяя яго вялікія шпалеры.';
+}
+
+// Path: archiveFeed.items.boguchar2026
+class _TranslationsArchiveFeedItemsBoguchar2026Be extends TranslationsArchiveFeedItemsBoguchar2026Ru {
+	_TranslationsArchiveFeedItemsBoguchar2026Be._(TranslationsBe root) : this._root = root, super.internal(root);
+
+	final TranslationsBe _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Экскурсія «Гісторыя жыцця М. А. Кішчанкі»';
+	@override String get excerpt => '19 лютага 2026 года ў сценах Багучарскага музея адбылася экскурсія для вучняў школы вёскі Дзячанкава («Рух першых»), прысвечаная знаёмству з жыццём і творчасцю выдатнага мастака Аляксандра Міхайлавіча Кішчанкі.';
+}
+
+// Path: archiveFeed.items.priorbankChtobyChuvstvovat
+class _TranslationsArchiveFeedItemsPriorbankChtobyChuvstvovatBe extends TranslationsArchiveFeedItemsPriorbankChtobyChuvstvovatRu {
+	_TranslationsArchiveFeedItemsPriorbankChtobyChuvstvovatBe._(TranslationsBe root) : this._root = root, super.internal(root);
+
+	final TranslationsBe _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Выстава «Каб адчуваць» — калекцыя Прыёрбанка';
+	@override String get excerpt => 'Прыёрбанк упершыню паказвае публіцы сваю карпаратыўную калекцыю беларускага жывапісу 1960–2000-х гадоў, якая фарміравалася больш за 30 гадоў. На выставе «Каб адчуваць» у палацы Румянцавых і Паскевічаў з 10 красавіка па 7 чэрвеня прадстаўлены больш за 70 унікальных палотнаў, сярод якіх тры работы Аляксандра Кішчанкі.';
+}
+
+// Path: archiveFeed.items.nitiSudby
+class _TranslationsArchiveFeedItemsNitiSudbyBe extends TranslationsArchiveFeedItemsNitiSudbyRu {
+	_TranslationsArchiveFeedItemsNitiSudbyBe._(TranslationsBe root) : this._root = root, super.internal(root);
+
+	final TranslationsBe _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Аляксандр Кішчанка. Ніці лёсу';
+	@override String get excerpt => 'У музеі адбылося ўрачыстае адкрыццё выставы «Аляксандр Кішчанка. Ніці лёсу» (12+), прысвечанай творчасці выдатнага беларускага мастака, ураджэнца Багучарскага раёна Варонежскай вобласці. Выстава арганізавана ў гонар 300-годдзя Варонежскай губерні і стала часткай культурнага ўзаемадзеяння рэгіёна з Рэспублікай Беларусь.';
+}
+
+// Path: archiveFeed.items.boguchar2024
+class _TranslationsArchiveFeedItemsBoguchar2024Be extends TranslationsArchiveFeedItemsBoguchar2024Ru {
+	_TranslationsArchiveFeedItemsBoguchar2024Be._(TranslationsBe root) : this._root = root, super.internal(root);
+
+	final TranslationsBe _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Экскурсія «Гісторыя жыцця А. М. Кішчанкі»';
+	@override String get excerpt => 'Адным з самых таленавітых людзей Багучарскага краю быў Аляксандр Міхайлавіч Кішчанка — народны мастак Рэспублікі Беларусь і ганаровы грамадзянін Багучарскага раёна. Член Саюза мастакоў СССР і лаўрэат Дзяржаўнай прэміі, ён пакінуў яскравы след у гісторыі мастацтва.';
+}
+
+// Path: archiveFeed.items.belgazprombankKraskiPobedy
+class _TranslationsArchiveFeedItemsBelgazprombankKraskiPobedyBe extends TranslationsArchiveFeedItemsBelgazprombankKraskiPobedyRu {
+	_TranslationsArchiveFeedItemsBelgazprombankKraskiPobedyBe._(TranslationsBe root) : this._root = root, super.internal(root);
+
+	final TranslationsBe _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Белгазпрамбанк запрашае на выставу «Фарбы Вялікай Перамогі»';
+	@override String get excerpt => '28 чэрвеня 2024 года. Напярэдадні 80-й гадавіны вызвалення Беларусі ад нямецка-фашысцкіх захопнікаў у фае галоўнага офіса Белгазпрамбанка ўрачыста адкрылася тэматычная выстава «Фарбы Вялікай Перамогі». Яна аб\'яднала работы беларускіх аўтараў, якія не з чутак ведалі жахі вайны, — А. Кішчанка, В. Пратасені, І. Стасевіча, М. Чураба, І. Рэя, П. Данэліі і іншых.';
+}
+
+// Path: archiveFeed.items.nebaZiamlja
+class _TranslationsArchiveFeedItemsNebaZiamljaBe extends TranslationsArchiveFeedItemsNebaZiamljaRu {
+	_TranslationsArchiveFeedItemsNebaZiamljaBe._(TranslationsBe root) : this._root = root, super.internal(root);
+
+	final TranslationsBe _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Неба і зямля Аляксандра Кішчанкі';
+	@override String get excerpt => '6 мая 2023 года ў Нацыянальным мастацкім музеі Рэспублікі Беларусь пачынае працаваць выстава «Неба і зямля Аляксандра Кішчанкі», прысвечаная маштабу яго мастацкага мыслення і значнасці спадчыны майстра.';
 }
 
 /// The flat map containing all translations for locale <be>.
@@ -620,6 +717,10 @@ extension on TranslationsBe {
 			'catalog.paintingNames.idunknown_3' => 'Блакітныя калючкі',
 			'catalog.paintingNames.idunknown_4' => 'Ніна',
 			'catalog.paintingNames.idunknown_5' => 'Ніна',
+			'catalog.paintingMediums.canvasOil' => 'Палатно, алей',
+			'catalog.paintingMediums.hardboardOil' => 'ДВП, алей',
+			'catalog.paintingMediums.cardboard' => 'Кардон',
+			'catalog.paintingMediums.woolLinenWeaving' => 'Воўна, лён, ткацтва',
 			'common.pageNotFound' => 'Старонка не знойдзена',
 			'common.viewCatalog' => 'ПАГЛЯДЗЕЦЬ КАТАЛОГ',
 			'common.learnMore' => 'ПАДРАБЯЗНЕЙ',
@@ -635,6 +736,19 @@ extension on TranslationsBe {
 			'archiveFeed.moreLabel' => 'Навіны і матэрыялы',
 			'archiveFeed.openArticle' => 'Адкрыць артыкул',
 			'archiveFeed.sourceLabel' => 'Крыніца',
+			'archiveFeed.yearLabel' => ({required Object year}) => '${year} год',
+			'archiveFeed.items.boguchar2026.title' => 'Экскурсія «Гісторыя жыцця М. А. Кішчанкі»',
+			'archiveFeed.items.boguchar2026.excerpt' => '19 лютага 2026 года ў сценах Багучарскага музея адбылася экскурсія для вучняў школы вёскі Дзячанкава («Рух першых»), прысвечаная знаёмству з жыццём і творчасцю выдатнага мастака Аляксандра Міхайлавіча Кішчанкі.',
+			'archiveFeed.items.priorbankChtobyChuvstvovat.title' => 'Выстава «Каб адчуваць» — калекцыя Прыёрбанка',
+			'archiveFeed.items.priorbankChtobyChuvstvovat.excerpt' => 'Прыёрбанк упершыню паказвае публіцы сваю карпаратыўную калекцыю беларускага жывапісу 1960–2000-х гадоў, якая фарміравалася больш за 30 гадоў. На выставе «Каб адчуваць» у палацы Румянцавых і Паскевічаў з 10 красавіка па 7 чэрвеня прадстаўлены больш за 70 унікальных палотнаў, сярод якіх тры работы Аляксандра Кішчанкі.',
+			'archiveFeed.items.nitiSudby.title' => 'Аляксандр Кішчанка. Ніці лёсу',
+			'archiveFeed.items.nitiSudby.excerpt' => 'У музеі адбылося ўрачыстае адкрыццё выставы «Аляксандр Кішчанка. Ніці лёсу» (12+), прысвечанай творчасці выдатнага беларускага мастака, ураджэнца Багучарскага раёна Варонежскай вобласці. Выстава арганізавана ў гонар 300-годдзя Варонежскай губерні і стала часткай культурнага ўзаемадзеяння рэгіёна з Рэспублікай Беларусь.',
+			'archiveFeed.items.boguchar2024.title' => 'Экскурсія «Гісторыя жыцця А. М. Кішчанкі»',
+			'archiveFeed.items.boguchar2024.excerpt' => 'Адным з самых таленавітых людзей Багучарскага краю быў Аляксандр Міхайлавіч Кішчанка — народны мастак Рэспублікі Беларусь і ганаровы грамадзянін Багучарскага раёна. Член Саюза мастакоў СССР і лаўрэат Дзяржаўнай прэміі, ён пакінуў яскравы след у гісторыі мастацтва.',
+			'archiveFeed.items.belgazprombankKraskiPobedy.title' => 'Белгазпрамбанк запрашае на выставу «Фарбы Вялікай Перамогі»',
+			'archiveFeed.items.belgazprombankKraskiPobedy.excerpt' => '28 чэрвеня 2024 года. Напярэдадні 80-й гадавіны вызвалення Беларусі ад нямецка-фашысцкіх захопнікаў у фае галоўнага офіса Белгазпрамбанка ўрачыста адкрылася тэматычная выстава «Фарбы Вялікай Перамогі». Яна аб\'яднала работы беларускіх аўтараў, якія не з чутак ведалі жахі вайны, — А. Кішчанка, В. Пратасені, І. Стасевіча, М. Чураба, І. Рэя, П. Данэліі і іншых.',
+			'archiveFeed.items.nebaZiamlja.title' => 'Неба і зямля Аляксандра Кішчанкі',
+			'archiveFeed.items.nebaZiamlja.excerpt' => '6 мая 2023 года ў Нацыянальным мастацкім музеі Рэспублікі Беларусь пачынае працаваць выстава «Неба і зямля Аляксандра Кішчанкі», прысвечаная маштабу яго мастацкага мыслення і значнасці спадчыны майстра.',
 			'newsFeed.title' => 'Навіны',
 			'newsFeed.subtitle' => 'Публікацыі, выставы і падзеі',
 			'newsFeed.emptyState' => 'Навін пакуль няма. Зазірніце пазней.',

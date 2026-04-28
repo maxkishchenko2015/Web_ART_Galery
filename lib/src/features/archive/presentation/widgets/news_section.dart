@@ -18,6 +18,7 @@ class NewsSection extends StatelessWidget {
     final items = _newsItems()..sort((a, b) => b.date.compareTo(a.date));
     final featured = items.first;
     final secondary = items.skip(1).toList();
+    final groupedByYear = _groupByYear(secondary);
     final archiveFeed = context.t.archiveFeed;
 
     return Container(
@@ -52,13 +53,11 @@ class NewsSection extends StatelessWidget {
           const SizedBox(height: KSize.margin10x),
           if (!useTwoColumnLayout)
             Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 _FeaturedNewsCard(item: featured),
-                if (secondary.isNotEmpty) const SizedBox(height: KSize.margin8x),
-                for (int index = 0; index < secondary.length; index++) ...[
-                  _NewsListCard(item: secondary[index]),
-                  if (index != secondary.length - 1) const SizedBox(height: KSize.margin6x),
-                ],
+                if (groupedByYear.isNotEmpty) const SizedBox(height: KSize.margin10x),
+                ..._buildYearGroups(context, groupedByYear),
               ],
             )
           else
@@ -70,16 +69,8 @@ class NewsSection extends StatelessWidget {
                 Expanded(
                   flex: 5,
                   child: Column(
-                    children: [
-                      for (int index = 0; index < secondary.length; index++) ...[
-                        _NewsListCard(item: secondary[index]),
-                        if (index != secondary.length - 1)
-                          Padding(
-                            padding: const EdgeInsets.symmetric(vertical: KSize.margin5x),
-                            child: Divider(color: Theme.of(context).dividerColor, height: 1),
-                          ),
-                      ],
-                    ],
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: _buildYearGroups(context, groupedByYear),
                   ),
                 ),
               ],
@@ -89,11 +80,58 @@ class NewsSection extends StatelessWidget {
     );
   }
 
+  static List<MapEntry<int, List<_NewsItem>>> _groupByYear(List<_NewsItem> items) {
+    final byYear = <int, List<_NewsItem>>{};
+    for (final item in items) {
+      byYear.putIfAbsent(item.date.year, () => <_NewsItem>[]).add(item);
+    }
+    final entries = byYear.entries.toList()
+      ..sort((a, b) => b.key.compareTo(a.key));
+    return entries;
+  }
+
+  List<Widget> _buildYearGroups(
+    BuildContext context,
+    List<MapEntry<int, List<_NewsItem>>> groups,
+  ) {
+    final widgets = <Widget>[];
+    for (var groupIndex = 0; groupIndex < groups.length; groupIndex++) {
+      final entry = groups[groupIndex];
+      if (groupIndex > 0) {
+        widgets.add(const SizedBox(height: KSize.margin10x));
+      }
+      widgets.add(_YearHeading(year: entry.key));
+      widgets.add(const SizedBox(height: KSize.margin5x));
+      final yearItems = entry.value;
+      for (var i = 0; i < yearItems.length; i++) {
+        widgets.add(_NewsListCard(item: yearItems[i]));
+        if (i != yearItems.length - 1) {
+          widgets.add(const SizedBox(height: KSize.margin6x));
+        }
+      }
+    }
+    return widgets;
+  }
+
   List<_NewsItem> _newsItems() => [
     _NewsItem(
-      title: 'Александр Кищенко. Нити судьбы',
-      excerpt:
-          'В музее состоялось торжественное открытие выставки «Александр Кищенко. Нити судьбы» (12+), посвященной творчеству выдающегося белорусского художника, уроженца Богучарского района Воронежской области. Выставка организована в честь 300-летия Воронежской губернии, став частью культурного взаимодействия региона с Республикой Беларусь.',
+      key: 'priorbankChtobyChuvstvovat',
+      url: 'https://www.priorbank.by/priorbank-main/art',
+      date: DateTime(2026, 4, 10),
+      host: 'priorbank.by',
+      accent: Color(0xFF7C95C7),
+      accentSecondary: Color(0xFF394F87),
+    ),
+    _NewsItem(
+      key: 'boguchar2026',
+      url: 'https://boguchar.bezformata.com/listnews/ekskursiya-istoriya/156791600/',
+      date: DateTime(2026, 2, 19),
+      host: 'bezformata.com',
+      accent: Color(0xFFB55A4F),
+      accentSecondary: Color(0xFF7A4536),
+    ),
+    _NewsItem(
+      key: 'nitiSudby',
       url: 'https://mkram.ru/ru/2025/07/14/aleksandr-kishhenko-2/',
       date: DateTime(2025, 7, 19),
       host: 'mkram.ru',
@@ -101,9 +139,25 @@ class NewsSection extends StatelessWidget {
       accentSecondary: Color(0xFF6B8A63),
     ),
     _NewsItem(
-      title: 'Небо и земля Александра Кищенко',
-      excerpt:
-          '6 мая 2023 года в Национальном художественном музее Республики Беларусь начинает работать выставка «Небо и земля Александра Кищенко», посвященная масштабу его художественного мышления и значению наследия мастера.',
+      key: 'belgazprombankKraskiPobedy',
+      url:
+          'https://belgazprombank.by/about/press_centr/novosti_banka/2024/belgazprombank-priglashaet-na-vystavku-kraski-velikoy-pobedy/',
+      date: DateTime(2024, 6, 28),
+      host: 'belgazprombank.by',
+      accent: Color(0xFFC04A4A),
+      accentSecondary: Color(0xFF5C2B2B),
+    ),
+    _NewsItem(
+      key: 'boguchar2024',
+      url:
+          'https://boguchar.bezformata.com/listnews/ekskursiya-istoriya-zhizni-a-m-kishenko/131561835/',
+      date: DateTime(2024, 9, 1),
+      host: 'bezformata.com',
+      accent: Color(0xFFD3A24C),
+      accentSecondary: Color(0xFF8E6831),
+    ),
+    _NewsItem(
+      key: 'nebaZiamlja',
       url: 'https://artmuseum.by/ru/events-news/neba-i-ziamlia-aliaksandra-kishchanki',
       date: DateTime(2023, 5, 6),
       host: 'artmuseum.by',
@@ -113,6 +167,36 @@ class NewsSection extends StatelessWidget {
   ];
 }
 
+class _YearHeading extends StatelessWidget {
+  const _YearHeading({required this.year});
+
+  final int year;
+
+  @override
+  Widget build(BuildContext context) {
+    final yearLabel = context.t.archiveFeed.yearLabel(year: year.toString());
+    return Padding(
+      padding: const EdgeInsets.only(bottom: KSize.margin1x),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Text(
+            yearLabel.toUpperCase(),
+            style: context.textContent.archiveSectionLabel,
+          ),
+          const SizedBox(width: KSize.margin3x),
+          Expanded(
+            child: Container(
+              height: KSize.borderWidthSmallHalf,
+              color: Theme.of(context).dividerColor,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
 class _FeaturedNewsCard extends StatelessWidget {
   const _FeaturedNewsCard({required this.item});
 
@@ -120,7 +204,8 @@ class _FeaturedNewsCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final archiveFeed = context.t.archiveFeed;
+    final t = context.t;
+    final archiveFeed = t.archiveFeed;
 
     return InkWell(
       borderRadius: BorderRadius.circular(KSize.radiusLargeExtra),
@@ -135,9 +220,9 @@ class _FeaturedNewsCard extends StatelessWidget {
             style: context.textContent.archiveSectionLabel,
           ),
           const SizedBox(height: KSize.margin2x),
-          Text(item.title, style: context.textContent.archiveFeaturedTitle),
+          Text(item.localizedTitle(t), style: context.textContent.archiveFeaturedTitle),
           const SizedBox(height: KSize.margin3x),
-          Text(item.excerpt, style: context.textContent.archiveExcerpt),
+          Text(item.localizedExcerpt(t), style: context.textContent.archiveExcerpt),
           const SizedBox(height: KSize.margin4x),
           _NewsMetaRow(item: item),
         ],
@@ -153,7 +238,10 @@ class _NewsListCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final t = context.t;
     final isCompact = MediaQuery.sizeOf(context).width < KSize.adaptiveExpandedBreakpoint;
+    final title = item.localizedTitle(t);
+    final excerpt = item.localizedExcerpt(t);
 
     return InkWell(
       borderRadius: BorderRadius.circular(KSize.radiusLarge),
@@ -164,10 +252,10 @@ class _NewsListCard extends StatelessWidget {
               children: [
                 _NewsArtwork(item: item, featured: false),
                 const SizedBox(height: KSize.margin4x),
-                Text(item.title, style: context.textContent.archiveCardTitle),
+                Text(title, style: context.textContent.archiveCardTitle),
                 const SizedBox(height: KSize.margin2x),
                 Text(
-                  item.excerpt,
+                  excerpt,
                   style: context.textContent.archiveExcerpt,
                   maxLines: 4,
                   overflow: TextOverflow.ellipsis,
@@ -190,10 +278,10 @@ class _NewsListCard extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(item.title, style: context.textContent.archiveCardTitle),
+                        Text(title, style: context.textContent.archiveCardTitle),
                         const SizedBox(height: KSize.margin2x),
                         Text(
-                          item.excerpt,
+                          excerpt,
                           style: context.textContent.archiveExcerpt,
                           maxLines: 4,
                           overflow: TextOverflow.ellipsis,
@@ -352,8 +440,7 @@ Future<void> _openUrl(String rawUrl) async {
 
 class _NewsItem {
   const _NewsItem({
-    required this.title,
-    required this.excerpt,
+    required this.key,
     required this.url,
     required this.date,
     required this.host,
@@ -361,11 +448,28 @@ class _NewsItem {
     required this.accentSecondary,
   });
 
-  final String title;
-  final String excerpt;
+  final String key;
   final String url;
   final DateTime date;
   final String host;
   final Color accent;
   final Color accentSecondary;
+
+  String localizedTitle(Translations t) {
+    final path = 'archiveFeed.items.$key.title';
+    final value = t[path];
+    if (value is String && value != path) {
+      return value;
+    }
+    return key;
+  }
+
+  String localizedExcerpt(Translations t) {
+    final path = 'archiveFeed.items.$key.excerpt';
+    final value = t[path];
+    if (value is String && value != path) {
+      return value;
+    }
+    return '';
+  }
 }

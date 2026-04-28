@@ -83,6 +83,7 @@ class _TranslationsCatalogEn extends TranslationsCatalogRu {
 	// Translations
 	@override String get workPrefix => 'Work';
 	@override late final _TranslationsCatalogPaintingNamesEn paintingNames = _TranslationsCatalogPaintingNamesEn._(_root);
+	@override late final _TranslationsCatalogPaintingMediumsEn paintingMediums = _TranslationsCatalogPaintingMediumsEn._(_root);
 }
 
 // Path: common
@@ -125,6 +126,8 @@ class _TranslationsArchiveFeedEn extends TranslationsArchiveFeedRu {
 	@override String get moreLabel => 'News and references';
 	@override String get openArticle => 'Open article';
 	@override String get sourceLabel => 'Source';
+	@override String yearLabel({required Object year}) => '${year}';
+	@override late final _TranslationsArchiveFeedItemsEn items = _TranslationsArchiveFeedItemsEn._(_root);
 }
 
 // Path: newsFeed
@@ -362,6 +365,34 @@ class _TranslationsCatalogPaintingNamesEn extends TranslationsCatalogPaintingNam
 	@override String get idunknown_5 => 'Nina';
 }
 
+// Path: catalog.paintingMediums
+class _TranslationsCatalogPaintingMediumsEn extends TranslationsCatalogPaintingMediumsRu {
+	_TranslationsCatalogPaintingMediumsEn._(TranslationsEn root) : this._root = root, super.internal(root);
+
+	final TranslationsEn _root; // ignore: unused_field
+
+	// Translations
+	@override String get canvasOil => 'Canvas, oil';
+	@override String get hardboardOil => 'Hardboard, oil';
+	@override String get cardboard => 'Cardboard';
+	@override String get woolLinenWeaving => 'Wool, linen, weaving';
+}
+
+// Path: archiveFeed.items
+class _TranslationsArchiveFeedItemsEn extends TranslationsArchiveFeedItemsRu {
+	_TranslationsArchiveFeedItemsEn._(TranslationsEn root) : this._root = root, super.internal(root);
+
+	final TranslationsEn _root; // ignore: unused_field
+
+	// Translations
+	@override late final _TranslationsArchiveFeedItemsBoguchar2026En boguchar2026 = _TranslationsArchiveFeedItemsBoguchar2026En._(_root);
+	@override late final _TranslationsArchiveFeedItemsPriorbankChtobyChuvstvovatEn priorbankChtobyChuvstvovat = _TranslationsArchiveFeedItemsPriorbankChtobyChuvstvovatEn._(_root);
+	@override late final _TranslationsArchiveFeedItemsNitiSudbyEn nitiSudby = _TranslationsArchiveFeedItemsNitiSudbyEn._(_root);
+	@override late final _TranslationsArchiveFeedItemsBoguchar2024En boguchar2024 = _TranslationsArchiveFeedItemsBoguchar2024En._(_root);
+	@override late final _TranslationsArchiveFeedItemsBelgazprombankKraskiPobedyEn belgazprombankKraskiPobedy = _TranslationsArchiveFeedItemsBelgazprombankKraskiPobedyEn._(_root);
+	@override late final _TranslationsArchiveFeedItemsNebaZiamljaEn nebaZiamlja = _TranslationsArchiveFeedItemsNebaZiamljaEn._(_root);
+}
+
 // Path: bio.feature
 class _TranslationsBioFeatureEn extends TranslationsBioFeatureRu {
 	_TranslationsBioFeatureEn._(TranslationsEn root) : this._root = root, super.internal(root);
@@ -442,6 +473,72 @@ class _TranslationsBioLegacyEn extends TranslationsBioLegacyRu {
 	// Translations
 	@override String get title => 'Legacy';
 	@override String get body => 'Alexander Kishchanka left behind not only canvases housed in the Tretyakov Gallery and private collections of world leaders (B. Clinton, F. Mitterrand), but an entire school of Belarusian monumental tapestry. The Borisov Decorative and Applied Arts Combine, where his great tapestries were created, now bears his name.';
+}
+
+// Path: archiveFeed.items.boguchar2026
+class _TranslationsArchiveFeedItemsBoguchar2026En extends TranslationsArchiveFeedItemsBoguchar2026Ru {
+	_TranslationsArchiveFeedItemsBoguchar2026En._(TranslationsEn root) : this._root = root, super.internal(root);
+
+	final TranslationsEn _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Guided tour «The Life Story of M. A. Kishchenko»';
+	@override String get excerpt => 'On 19 February 2026 the Boguchar Museum hosted a guided tour for pupils of the Dyachenkovo village school («Pervyh» movement), introducing them to the life and work of the renowned artist Alexander Mikhailovich Kishchenko.';
+}
+
+// Path: archiveFeed.items.priorbankChtobyChuvstvovat
+class _TranslationsArchiveFeedItemsPriorbankChtobyChuvstvovatEn extends TranslationsArchiveFeedItemsPriorbankChtobyChuvstvovatRu {
+	_TranslationsArchiveFeedItemsPriorbankChtobyChuvstvovatEn._(TranslationsEn root) : this._root = root, super.internal(root);
+
+	final TranslationsEn _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Exhibition «To Feel» — the Priorbank collection';
+	@override String get excerpt => 'Priorbank presents its corporate collection of Belarusian painting from the 1960s to the 2000s to the public for the first time, assembled over more than 30 years. The exhibition «To Feel» at the Rumyantsev and Paskevich Palace runs from 10 April to 7 June and features over 70 unique canvases, including three works by Alexander Kishchenko.';
+}
+
+// Path: archiveFeed.items.nitiSudby
+class _TranslationsArchiveFeedItemsNitiSudbyEn extends TranslationsArchiveFeedItemsNitiSudbyRu {
+	_TranslationsArchiveFeedItemsNitiSudbyEn._(TranslationsEn root) : this._root = root, super.internal(root);
+
+	final TranslationsEn _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Alexander Kishchenko. Threads of Fate';
+	@override String get excerpt => 'The museum hosted the grand opening of the exhibition «Alexander Kishchenko. Threads of Fate» (12+), dedicated to the work of the outstanding Belarusian artist, a native of the Boguchar district of the Voronezh region. The exhibition is organised to mark the 300th anniversary of the Voronezh Governorate and is part of the region\'s cultural exchange with the Republic of Belarus.';
+}
+
+// Path: archiveFeed.items.boguchar2024
+class _TranslationsArchiveFeedItemsBoguchar2024En extends TranslationsArchiveFeedItemsBoguchar2024Ru {
+	_TranslationsArchiveFeedItemsBoguchar2024En._(TranslationsEn root) : this._root = root, super.internal(root);
+
+	final TranslationsEn _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Guided tour «The Life Story of A. M. Kishchenko»';
+	@override String get excerpt => 'Alexander Mikhailovich Kishchenko was one of the most gifted figures of the Boguchar region — a People\'s Artist of the Republic of Belarus and an honorary citizen of the Boguchar district. A member of the USSR Union of Artists and laureate of the State Prize, he left a vivid mark on the history of art.';
+}
+
+// Path: archiveFeed.items.belgazprombankKraskiPobedy
+class _TranslationsArchiveFeedItemsBelgazprombankKraskiPobedyEn extends TranslationsArchiveFeedItemsBelgazprombankKraskiPobedyRu {
+	_TranslationsArchiveFeedItemsBelgazprombankKraskiPobedyEn._(TranslationsEn root) : this._root = root, super.internal(root);
+
+	final TranslationsEn _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Belgazprombank invites you to the exhibition «Colours of the Great Victory»';
+	@override String get excerpt => '28 June 2024. On the eve of the 80th anniversary of Belarus\'s liberation from the Nazi-German invaders, the themed exhibition «Colours of the Great Victory» was solemnly opened in the lobby of the Belgazprombank headquarters. It brings together works by Belarusian artists who knew the horrors of war first-hand — A. Kishchenko, V. Protaseni, I. Stasevich, N. Churabo, I. Rey, P. Daneliya and others.';
+}
+
+// Path: archiveFeed.items.nebaZiamlja
+class _TranslationsArchiveFeedItemsNebaZiamljaEn extends TranslationsArchiveFeedItemsNebaZiamljaRu {
+	_TranslationsArchiveFeedItemsNebaZiamljaEn._(TranslationsEn root) : this._root = root, super.internal(root);
+
+	final TranslationsEn _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'The Sky and the Earth of Alexander Kishchenko';
+	@override String get excerpt => 'On 6 May 2023 the National Art Museum of the Republic of Belarus opens the exhibition «The Sky and the Earth of Alexander Kishchenko», dedicated to the scale of his artistic thinking and the significance of the master\'s legacy.';
 }
 
 /// The flat map containing all translations for locale <en>.
@@ -620,6 +717,10 @@ extension on TranslationsEn {
 			'catalog.paintingNames.idunknown_3' => 'Blue Thorns',
 			'catalog.paintingNames.idunknown_4' => 'Nina',
 			'catalog.paintingNames.idunknown_5' => 'Nina',
+			'catalog.paintingMediums.canvasOil' => 'Canvas, oil',
+			'catalog.paintingMediums.hardboardOil' => 'Hardboard, oil',
+			'catalog.paintingMediums.cardboard' => 'Cardboard',
+			'catalog.paintingMediums.woolLinenWeaving' => 'Wool, linen, weaving',
 			'common.pageNotFound' => 'Page not found',
 			'common.viewCatalog' => 'VIEW CATALOG',
 			'common.learnMore' => 'LEARN MORE',
@@ -635,6 +736,19 @@ extension on TranslationsEn {
 			'archiveFeed.moreLabel' => 'News and references',
 			'archiveFeed.openArticle' => 'Open article',
 			'archiveFeed.sourceLabel' => 'Source',
+			'archiveFeed.yearLabel' => ({required Object year}) => '${year}',
+			'archiveFeed.items.boguchar2026.title' => 'Guided tour «The Life Story of M. A. Kishchenko»',
+			'archiveFeed.items.boguchar2026.excerpt' => 'On 19 February 2026 the Boguchar Museum hosted a guided tour for pupils of the Dyachenkovo village school («Pervyh» movement), introducing them to the life and work of the renowned artist Alexander Mikhailovich Kishchenko.',
+			'archiveFeed.items.priorbankChtobyChuvstvovat.title' => 'Exhibition «To Feel» — the Priorbank collection',
+			'archiveFeed.items.priorbankChtobyChuvstvovat.excerpt' => 'Priorbank presents its corporate collection of Belarusian painting from the 1960s to the 2000s to the public for the first time, assembled over more than 30 years. The exhibition «To Feel» at the Rumyantsev and Paskevich Palace runs from 10 April to 7 June and features over 70 unique canvases, including three works by Alexander Kishchenko.',
+			'archiveFeed.items.nitiSudby.title' => 'Alexander Kishchenko. Threads of Fate',
+			'archiveFeed.items.nitiSudby.excerpt' => 'The museum hosted the grand opening of the exhibition «Alexander Kishchenko. Threads of Fate» (12+), dedicated to the work of the outstanding Belarusian artist, a native of the Boguchar district of the Voronezh region. The exhibition is organised to mark the 300th anniversary of the Voronezh Governorate and is part of the region\'s cultural exchange with the Republic of Belarus.',
+			'archiveFeed.items.boguchar2024.title' => 'Guided tour «The Life Story of A. M. Kishchenko»',
+			'archiveFeed.items.boguchar2024.excerpt' => 'Alexander Mikhailovich Kishchenko was one of the most gifted figures of the Boguchar region — a People\'s Artist of the Republic of Belarus and an honorary citizen of the Boguchar district. A member of the USSR Union of Artists and laureate of the State Prize, he left a vivid mark on the history of art.',
+			'archiveFeed.items.belgazprombankKraskiPobedy.title' => 'Belgazprombank invites you to the exhibition «Colours of the Great Victory»',
+			'archiveFeed.items.belgazprombankKraskiPobedy.excerpt' => '28 June 2024. On the eve of the 80th anniversary of Belarus\'s liberation from the Nazi-German invaders, the themed exhibition «Colours of the Great Victory» was solemnly opened in the lobby of the Belgazprombank headquarters. It brings together works by Belarusian artists who knew the horrors of war first-hand — A. Kishchenko, V. Protaseni, I. Stasevich, N. Churabo, I. Rey, P. Daneliya and others.',
+			'archiveFeed.items.nebaZiamlja.title' => 'The Sky and the Earth of Alexander Kishchenko',
+			'archiveFeed.items.nebaZiamlja.excerpt' => 'On 6 May 2023 the National Art Museum of the Republic of Belarus opens the exhibition «The Sky and the Earth of Alexander Kishchenko», dedicated to the scale of his artistic thinking and the significance of the master\'s legacy.',
 			'newsFeed.title' => 'News',
 			'newsFeed.subtitle' => 'Publications, exhibitions, and events',
 			'newsFeed.emptyState' => 'No news yet. Check back soon.',

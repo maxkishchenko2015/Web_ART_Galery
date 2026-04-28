@@ -173,6 +173,12 @@
       "idunknown_3": "Épines bleues",
       "idunknown_4": "Nina",
       "idunknown_5": "Nina"
+    },
+    "paintingMediums": {
+      "canvasOil": "Toile, huile",
+      "hardboardOil": "Isorel, huile",
+      "cardboard": "Carton",
+      "woolLinenWeaving": "Laine, lin, tissage"
     }
   },
   "common": {
@@ -194,7 +200,34 @@
     "latestLabel": "Derniere publication",
     "moreLabel": "Actualites et references",
     "openArticle": "Ouvrir l'article",
-    "sourceLabel": "Source"
+    "sourceLabel": "Source",
+    "yearLabel": "${year}",
+    "items": {
+      "boguchar2026": {
+        "title": "Visite guidee «L'histoire de la vie de M. A. Kichtchenko»",
+        "excerpt": "Le 19 fevrier 2026, le musee de Boguchar a accueilli une visite guidee destinee aux eleves de l'ecole du village de Diatchenkovo (mouvement «Pervyh»), dediee a la decouverte de la vie et de l'oeuvre du celebre artiste Alexandre Mikhailovitch Kichtchenko."
+      },
+      "priorbankChtobyChuvstvovat": {
+        "title": "Exposition «Pour ressentir» — la collection de la Priorbank",
+        "excerpt": "La Priorbank presente pour la premiere fois au public sa collection d'entreprise de peinture bielorusse des annees 1960 a 2000, constituee depuis plus de 30 ans. L'exposition «Pour ressentir», au palais Roumiantsev-Paskevitch, se tient du 10 avril au 7 juin et reunit plus de 70 oeuvres uniques, parmi lesquelles trois tableaux d'Alexandre Kichtchenko."
+      },
+      "nitiSudby": {
+        "title": "Alexandre Kichtchenko. Les fils du destin",
+        "excerpt": "Le musee a accueilli l'inauguration solennelle de l'exposition «Alexandre Kichtchenko. Les fils du destin» (12+), consacree a l'oeuvre de l'eminent artiste bielorusse, originaire du district de Boguchar dans la region de Voronej. L'exposition est organisee a l'occasion du 300e anniversaire du gouvernorat de Voronej et s'inscrit dans le cadre des echanges culturels de la region avec la Republique du Belarus."
+      },
+      "boguchar2024": {
+        "title": "Visite guidee «L'histoire de la vie de A. M. Kichtchenko»",
+        "excerpt": "Alexandre Mikhailovitch Kichtchenko fut l'une des figures les plus talentueuses de la region de Boguchar — artiste du peuple de la Republique du Belarus et citoyen d'honneur du district de Boguchar. Membre de l'Union des artistes de l'URSS et laureat du Prix d'Etat, il a laisse une empreinte marquante dans l'histoire de l'art."
+      },
+      "belgazprombankKraskiPobedy": {
+        "title": "La Belgazprombank invite a l'exposition «Les couleurs de la Grande Victoire»",
+        "excerpt": "28 juin 2024. A la veille du 80e anniversaire de la liberation du Belarus de l'occupation nazie allemande, le hall du siege de la Belgazprombank a accueilli solennellement l'exposition thematique «Les couleurs de la Grande Victoire». Elle reunit des oeuvres d'artistes bielorusses qui ont connu les horreurs de la guerre de premiere main — A. Kichtchenko, V. Protaseni, I. Stassevitch, N. Tchourabo, I. Rey, P. Daneliya et d'autres."
+      },
+      "nebaZiamlja": {
+        "title": "Le ciel et la terre d'Alexandre Kichtchenko",
+        "excerpt": "Le 6 mai 2023, le Musee national d'art de la Republique du Belarus inaugure l'exposition «Le ciel et la terre d'Alexandre Kichtchenko», consacree a l'ampleur de sa pensee artistique et a l'importance de l'heritage du maitre."
+      }
+    }
   },
   "newsFeed": {
     "title": "Actualites",
