@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:web_art_galery/i18n/strings.g.dart';
+import 'package:web_art_galery/src/navigation/presentation/router/screen_name_resolver.dart';
 import 'package:web_art_galery/src/shared/config/app_context_extensions.dart';
 import 'package:web_art_galery/src/shared/config/ksize.dart';
 import 'package:web_art_galery/src/shared/presentation/widgets/language_switcher.dart';
+import 'package:web_art_galery/src/shared/telemetry/scroll_depth_tracker.dart';
 
 class AppShellPage extends StatelessWidget {
   const AppShellPage({super.key, required this.child});
@@ -16,11 +18,13 @@ class AppShellPage extends StatelessWidget {
     final currentPath = GoRouterState.of(context).uri.path;
     final items = _buildNavItems(context);
     final selectedIndex = _selectedIndex(items, currentPath);
+    final screenName = ScreenNameResolver.fromPath(currentPath);
+    final trackedChild = ScrollDepthTracker(screenName: screenName, child: child);
 
     if (width < KSize.adaptiveCompactBreakpoint) {
-      return _MobileShell(items: items, selectedIndex: selectedIndex, child: child);
+      return _MobileShell(items: items, selectedIndex: selectedIndex, child: trackedChild);
     }
-    return _DesktopShell(items: items, selectedIndex: selectedIndex, child: child);
+    return _DesktopShell(items: items, selectedIndex: selectedIndex, child: trackedChild);
   }
 
   List<_NavItem> _buildNavItems(BuildContext context) => [

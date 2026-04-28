@@ -19,8 +19,10 @@ import 'package:web_art_galery/src/features/news/presentation/cubits/news_list_c
 import 'package:web_art_galery/src/navigation/presentation/router/app_router.dart';
 import 'package:web_art_galery/src/shared/config/app_theme.dart';
 import 'package:web_art_galery/src/shared/config/firebase/firebase_bootstrap.dart';
+import 'package:web_art_galery/src/shared/config/ksize.dart';
 import 'package:web_art_galery/src/shared/platform/page_title/page_title.dart';
 import 'package:web_art_galery/src/shared/presentation/cubits/app_locale_cubit.dart';
+import 'package:web_art_galery/src/shared/telemetry/app_telemetry.dart';
 import 'package:web_art_galery/src/shared/utils/app_logger.dart';
 
 void main() {
@@ -40,10 +42,27 @@ void main() {
           error: details.exception,
           stackTrace: details.stack,
         );
+        AppTelemetry.instance.logFatal(
+          details.exception,
+          details.stack,
+          reason: 'flutter_error',
+        );
         Zone.current.handleUncaughtError(details.exception, details.stack ?? StackTrace.current);
       };
 
+      PlatformDispatcher.instance.onError = (error, stack) {
+        AppLogger.instance.f(
+          'Platform dispatcher error',
+          error: error,
+          stackTrace: stack,
+        );
+        AppTelemetry.instance.logFatal(error, stack, reason: 'platform_dispatcher');
+        return true;
+      };
+
       await FirebaseBootstrap.tryInitialize();
+      await AppTelemetry.instance.initialize();
+      _setDeviceFormFactorUserProperties();
 
       LocaleSettings.setLocaleSync(AppLocale.ru);
 
@@ -86,6 +105,7 @@ void main() {
     },
     (error, stackTrace) {
       AppLogger.instance.f('Uncaught bootstrap zone error', error: error, stackTrace: stackTrace);
+      AppTelemetry.instance.logFatal(error, stackTrace, reason: 'zone_uncaught');
       FlutterError.reportError(
         FlutterErrorDetails(
           exception: error,
@@ -96,6 +116,31 @@ void main() {
       );
     },
   );
+}
+
+void _setDeviceFormFactorUserProperties() {
+  WidgetsBinding.instance.addPostFrameCallback((_) {
+    AppTelemetry.instance.setUserProperty('is_web', kIsWeb ? 'true' : 'false');
+    final view = WidgetsBinding.instance.platformDispatcher.views.isNotEmpty
+        ? WidgetsBinding.instance.platformDispatcher.views.first
+        : null;
+    if (view == null) {
+      return;
+    }
+    final logicalWidth = view.physicalSize.width / view.devicePixelRatio;
+    final formFactor = _classifyFormFactor(logicalWidth);
+    AppTelemetry.instance.setUserProperty('device_form_factor', formFactor);
+  });
+}
+
+String _classifyFormFactor(double logicalWidth) {
+  if (logicalWidth < KSize.adaptiveCompactBreakpoint) {
+    return kIsWeb ? 'mobile_web' : 'mobile';
+  }
+  if (logicalWidth < KSize.adaptiveExpandedBreakpoint) {
+    return kIsWeb ? 'tablet_web' : 'tablet';
+  }
+  return kIsWeb ? 'desktop_web' : 'desktop';
 }
 
 class ArtGalleryApp extends StatelessWidget {

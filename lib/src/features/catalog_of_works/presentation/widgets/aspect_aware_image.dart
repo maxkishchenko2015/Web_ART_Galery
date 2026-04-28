@@ -30,7 +30,6 @@ class AspectAwareImage extends StatefulWidget {
     this.placeholderAspectRatio = 4 / 3,
     this.maxImageHeight = 720,
     this.minImageHeight = 200,
-    this.maxImageWidth = 960,
   });
 
   final String imageUrl;
@@ -39,13 +38,18 @@ class AspectAwareImage extends StatefulWidget {
   final double maxImageHeight;
   final double minImageHeight;
 
-  /// Width budget used only when the parent provides unbounded width
-  /// (e.g. an unflexed `Row` parent). Inside the masonry grid the parent
-  /// always provides a finite `constraints.maxWidth` and this is ignored.
-  final double maxImageWidth;
-
   @override
   State<AspectAwareImage> createState() => _AspectAwareImageState();
+
+  /// Public mirror of the internal URL resolver so callers (overlay/full-screen
+  /// viewer, telemetry, etc.) can route through the same ImageKit endpoint
+  /// resolution.
+  static String resolveUrl(String raw, {bool useImageKitEndpoint = true}) {
+    final uri = Uri.tryParse(raw);
+    final isAbsolute = uri != null && uri.hasScheme && uri.host.isNotEmpty;
+    if (isAbsolute || !useImageKitEndpoint) return raw;
+    return AppEnvironment.imagekitImageUrl(raw);
+  }
 }
 
 class _AspectAwareImageState extends State<AspectAwareImage> {
@@ -119,12 +123,8 @@ class _AspectAwareImageState extends State<AspectAwareImage> {
     });
   }
 
-  String _resolveImageUrl(String raw) {
-    final uri = Uri.tryParse(raw);
-    final isAbsolute = uri != null && uri.hasScheme && uri.host.isNotEmpty;
-    if (isAbsolute || !widget.useImageKitEndpoint) return raw;
-    return AppEnvironment.imagekitImageUrl(raw);
-  }
+  String _resolveImageUrl(String raw) =>
+      AspectAwareImage.resolveUrl(raw, useImageKitEndpoint: widget.useImageKitEndpoint);
 
   @override
   Widget build(BuildContext context) {
@@ -132,7 +132,7 @@ class _AspectAwareImageState extends State<AspectAwareImage> {
       builder: (context, constraints) {
         final cardWidth = constraints.maxWidth.isFinite
             ? constraints.maxWidth
-            : widget.maxImageWidth;
+            : widget.maxImageHeight;
         final size = _resolvedSize;
 
         final aspectRatio = size == null || size.height == 0
