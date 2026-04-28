@@ -1,28 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:latlong2/latlong.dart';
 import 'package:web_art_galery/i18n/strings.g.dart';
+import 'package:web_art_galery/src/features/contacts/presentation/screens/contacts_page_constants.dart';
 import 'package:web_art_galery/src/shared/config/app_context_extensions.dart';
 import 'package:web_art_galery/src/shared/config/ksize.dart';
 import 'package:web_art_galery/src/shared/utils/url_launcher_utils.dart';
-
-const String _instagramUrl = 'https://www.instagram.com/kishchenko.art';
-const String _vkUrl = 'https://vk.ru/aleksandrkishchenko';
-const String _osmUrl =
-    'https://www.openstreetmap.org/?mlat=53.927989&mlon=27.589894#map=18/53.927989/27.589894';
-
-const String _phone1Display = '+375 29 502 02 46';
-const String _phone1Tel = 'tel:+375295020246';
-const String _phone2Display = '+375 29 277 57 13';
-const String _phone2Tel = 'tel:+375292775713';
-
-const LatLng _studioLatLng = LatLng(53.927989, 27.589894);
-const String _userAgentPackageName = 'by.kishchanka.web_art_galery';
-
-const String _instagramSvgAsset = 'assets/icons/instagram.svg';
-const String _vkSvgAsset = 'assets/icons/vk.svg';
-const String _vkQrAsset = 'assets/images/vk_qr.png';
 
 class ContactsPage extends StatelessWidget {
   const ContactsPage({super.key});
@@ -55,7 +38,7 @@ class _ContactsHero extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final hPad = isCompact ? KSize.margin6x : KSize.margin12x * 2;
-    final headlineSize = isCompact ? 36.0 : 56.0;
+    final headlineSize = isCompact ? KSize.heroHeadlineCompact : KSize.heroHeadlineWide;
     final colors = context.colors;
 
     return Container(
@@ -66,7 +49,10 @@ class _ContactsHero extends StatelessWidget {
           colors: [colors.forestGreen, colors.darkOlive],
         ),
       ),
-      padding: EdgeInsets.symmetric(horizontal: hPad, vertical: isCompact ? 48 : 80),
+      padding: EdgeInsets.symmetric(
+        horizontal: hPad,
+        vertical: isCompact ? KSize.heroVerticalPaddingCompact : KSize.heroVerticalPaddingWide,
+      ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -81,7 +67,7 @@ class _ContactsHero extends StatelessWidget {
           ),
           const SizedBox(height: KSize.margin3x),
           Container(
-            width: 56,
+            width: KSize.heroDividerWidth,
             height: KSize.borderWidthSmallHalf,
             color: colors.onDarkBody,
           ),
@@ -113,7 +99,10 @@ class _ContactsCardsSection extends StatelessWidget {
           colors: [colors.white, colors.bioBg],
         ),
       ),
-      padding: EdgeInsets.symmetric(horizontal: hPad, vertical: isCompact ? 48 : 80),
+      padding: EdgeInsets.symmetric(
+        horizontal: hPad,
+        vertical: isCompact ? KSize.heroVerticalPaddingCompact : KSize.heroVerticalPaddingWide,
+      ),
       child: Wrap(
         spacing: KSize.margin5x,
         runSpacing: KSize.margin5x,
@@ -249,9 +238,15 @@ class _PhoneCard extends StatelessWidget {
       subtitle: context.t.contacts.phoneSectionHint,
       icon: Icon(Icons.phone_outlined, size: KSize.iconM, color: colors.forestGreen),
       children: const [
-        _TappablePhone(display: _phone1Display, telUrl: _phone1Tel),
+        _TappablePhone(
+          display: ContactsPageConstants.phone1Display,
+          telUrl: ContactsPageConstants.phone1Tel,
+        ),
         SizedBox(height: KSize.margin3x),
-        _TappablePhone(display: _phone2Display, telUrl: _phone2Tel),
+        _TappablePhone(
+          display: ContactsPageConstants.phone2Display,
+          telUrl: ContactsPageConstants.phone2Tel,
+        ),
       ],
     );
   }
@@ -267,25 +262,20 @@ class _TappablePhone extends StatelessWidget {
   Widget build(BuildContext context) {
     return MouseRegion(
       cursor: SystemMouseCursors.click,
-      child: Semantics(
-        button: true,
-        link: true,
-        label: display,
-        child: GestureDetector(
-          behavior: HitTestBehavior.opaque,
-          onTap: () => UrlLauncherUtils.launchUrlIfPossible(url: telUrl),
-          child: Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Text(display, style: context.textContent.bioBody),
-              const SizedBox(width: KSize.margin2x),
-              Icon(
-                Icons.arrow_outward_rounded,
-                size: KSize.iconSPlus,
-                color: context.colors.forestGreen,
-              ),
-            ],
-          ),
+      child: GestureDetector(
+        behavior: HitTestBehavior.opaque,
+        onTap: () => UrlLauncherUtils.launchUrlIfPossible(url: telUrl),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text(display, style: context.textContent.bioBody),
+            const SizedBox(width: KSize.margin2x),
+            Icon(
+              Icons.arrow_outward_rounded,
+              size: KSize.iconSPlus,
+              color: context.colors.forestGreen,
+            ),
+          ],
         ),
       ),
     );
@@ -301,7 +291,7 @@ class _InstagramCard extends StatelessWidget {
     return _ContactCard(
       label: context.t.contacts.instagramSectionLabel,
       icon: SvgPicture.asset(
-        _instagramSvgAsset,
+        ContactsPageConstants.instagramSvgAsset,
         width: KSize.iconM,
         height: KSize.iconM,
         colorFilter: ColorFilter.mode(colors.forestGreen, BlendMode.srcIn),
@@ -309,7 +299,7 @@ class _InstagramCard extends StatelessWidget {
       children: [
         _ExternalLinkRow(
           label: context.t.contacts.instagramHandle,
-          url: _instagramUrl,
+          url: ContactsPageConstants.instagramUrl,
         ),
       ],
     );
@@ -325,13 +315,16 @@ class _VkCard extends StatelessWidget {
     return _ContactCard(
       label: context.t.contacts.vkSectionLabel,
       icon: SvgPicture.asset(
-        _vkSvgAsset,
+        ContactsPageConstants.vkSvgAsset,
         width: KSize.iconM,
         height: KSize.iconM,
         colorFilter: ColorFilter.mode(colors.forestGreen, BlendMode.srcIn),
       ),
       children: [
-        _ExternalLinkRow(label: context.t.contacts.vkHandle, url: _vkUrl),
+        _ExternalLinkRow(
+          label: context.t.contacts.vkHandle,
+          url: ContactsPageConstants.vkUrl,
+        ),
         const SizedBox(height: KSize.margin4x),
         Text(context.t.contacts.vkScanQrHint, style: context.textContent.bioDetail),
         const SizedBox(height: KSize.margin3x),
@@ -341,7 +334,7 @@ class _VkCard extends StatelessWidget {
             child: ClipRRect(
               borderRadius: BorderRadius.circular(KSize.radiusMedium),
               child: Image.asset(
-                _vkQrAsset,
+                ContactsPageConstants.vkQrAsset,
                 fit: BoxFit.contain,
                 semanticLabel: context.t.contacts.vkScanQrHint,
               ),
@@ -363,31 +356,26 @@ class _ExternalLinkRow extends StatelessWidget {
   Widget build(BuildContext context) {
     return MouseRegion(
       cursor: SystemMouseCursors.click,
-      child: Semantics(
-        button: true,
-        link: true,
-        label: label,
-        child: GestureDetector(
-          behavior: HitTestBehavior.opaque,
-          onTap: () => UrlLauncherUtils.launchUrlIfPossible(url: url),
-          child: Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Flexible(
-                child: Text(
-                  label,
-                  style: context.textContent.bioBody,
-                  overflow: TextOverflow.ellipsis,
-                ),
+      child: GestureDetector(
+        behavior: HitTestBehavior.opaque,
+        onTap: () => UrlLauncherUtils.launchUrlIfPossible(url: url),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Flexible(
+              child: Text(
+                label,
+                style: context.textContent.bioBody,
+                overflow: TextOverflow.ellipsis,
               ),
-              const SizedBox(width: KSize.margin1Halfx),
-              Icon(
-                Icons.arrow_outward_rounded,
-                size: KSize.iconSPlus,
-                color: context.colors.forestGreen,
-              ),
-            ],
-          ),
+            ),
+            const SizedBox(width: KSize.margin1Halfx),
+            Icon(
+              Icons.arrow_outward_rounded,
+              size: KSize.iconSPlus,
+              color: context.colors.forestGreen,
+            ),
+          ],
         ),
       ),
     );
@@ -414,7 +402,10 @@ class _StudioSection extends StatelessWidget {
           colors: [colors.bioBg, colors.cream],
         ),
       ),
-      padding: EdgeInsets.symmetric(horizontal: hPad, vertical: isCompact ? 48 : 80),
+      padding: EdgeInsets.symmetric(
+        horizontal: hPad,
+        vertical: isCompact ? KSize.heroVerticalPaddingCompact : KSize.heroVerticalPaddingWide,
+      ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -423,7 +414,9 @@ class _StudioSection extends StatelessWidget {
             children: [
               Text(
                 context.t.contacts.studioSectionTitle,
-                style: context.textContent.bioName(isCompact ? 24.0 : 34.0),
+                style: context.textContent.bioName(
+                  isCompact ? KSize.bioNameCompact : KSize.bioNameWide,
+                ),
               ),
               const SizedBox(width: KSize.margin5x),
               Expanded(
@@ -541,25 +534,20 @@ class _OpenInOsmLink extends StatelessWidget {
 
     return MouseRegion(
       cursor: SystemMouseCursors.click,
-      child: Semantics(
-        button: true,
-        link: true,
-        label: label,
-        child: GestureDetector(
-          behavior: HitTestBehavior.opaque,
-          onTap: () => UrlLauncherUtils.launchUrlIfPossible(url: _osmUrl),
-          child: Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Text(label, style: context.textContent.archiveLink),
-              const SizedBox(width: KSize.margin1Halfx),
-              Icon(
-                Icons.arrow_outward_rounded,
-                size: KSize.iconSPlus,
-                color: context.colors.forestGreen,
-              ),
-            ],
-          ),
+      child: GestureDetector(
+        behavior: HitTestBehavior.opaque,
+        onTap: () => UrlLauncherUtils.launchUrlIfPossible(url: ContactsPageConstants.osmUrl),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text(label, style: context.textContent.archiveLink),
+            const SizedBox(width: KSize.margin1Halfx),
+            Icon(
+              Icons.arrow_outward_rounded,
+              size: KSize.iconSPlus,
+              color: context.colors.forestGreen,
+            ),
+          ],
         ),
       ),
     );
@@ -600,21 +588,21 @@ class _StudioMap extends StatelessWidget {
             child: IgnorePointer(
               child: FlutterMap(
                 options: const MapOptions(
-                  initialCenter: _studioLatLng,
+                  initialCenter: ContactsPageConstants.studioLatLng,
                   initialZoom: 16,
                   interactionOptions: InteractionOptions(flags: InteractiveFlag.none),
                 ),
                 children: [
                   TileLayer(
                     urlTemplate: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
-                    userAgentPackageName: _userAgentPackageName,
+                    userAgentPackageName: ContactsPageConstants.userAgentPackageName,
                     maxZoom: 19,
                     errorTileCallback: (_, _, _) {},
                   ),
                   MarkerLayer(
                     markers: [
                       Marker(
-                        point: _studioLatLng,
+                        point: ContactsPageConstants.studioLatLng,
                         width: 36,
                         height: 36,
                         alignment: Alignment.topCenter,

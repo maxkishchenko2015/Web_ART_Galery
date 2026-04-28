@@ -170,13 +170,11 @@ class _ArticleList extends StatelessWidget {
 
   final List<NewsArticle> articles;
 
-  static const double _wideTwoColumnBreakpoint = 1080;
-
   @override
   Widget build(BuildContext context) {
     final locale = context.watch<AppLocaleCubit>().state.locale;
     final width = MediaQuery.sizeOf(context).width;
-    final useTwoColumnLayout = width >= _wideTwoColumnBreakpoint;
+    final useTwoColumnLayout = width >= KSize.adaptiveTwoColumnBreakpoint;
 
     if (!useTwoColumnLayout) {
       return Column(
@@ -187,7 +185,7 @@ class _ArticleList extends StatelessWidget {
               locale: locale,
               onTap: () => _openDetail(context, articles[i]),
             ),
-            if (i != articles.length - 1) const SizedBox(height: KSize.margin6x),
+            if (!_isLastArticle(i)) const SizedBox(height: KSize.margin6x),
           ],
         ],
       );
@@ -209,6 +207,8 @@ class _ArticleList extends StatelessWidget {
       ],
     );
   }
+
+  bool _isLastArticle(int index) => index == articles.length - 1;
 
   void _openDetail(BuildContext context, NewsArticle article) {
     context.push('/news/${article.id}');

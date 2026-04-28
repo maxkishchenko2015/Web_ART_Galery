@@ -59,6 +59,8 @@ class _TranslationsAppFr extends TranslationsAppRu {
 
 	// Translations
 	@override String get title => 'KISHCHANKA.ART';
+	@override String get brandTagline => 'Collection des Beaux-Arts';
+	@override String get logoMark => 'KA';
 }
 
 // Path: navigation
@@ -84,6 +86,8 @@ class _TranslationsCatalogFr extends TranslationsCatalogRu {
 
 	// Translations
 	@override String get workPrefix => 'Oeuvre';
+	@override String get errorTitle => 'Echec du chargement des peintures';
+	@override String errorWithDetails({required Object message}) => 'Echec du chargement des peintures. ${message}';
 	@override late final _TranslationsCatalogPaintingNamesFr paintingNames = _TranslationsCatalogPaintingNamesFr._(_root);
 	@override late final _TranslationsCatalogPaintingMediumsFr paintingMediums = _TranslationsCatalogPaintingMediumsFr._(_root);
 }
@@ -98,6 +102,7 @@ class _TranslationsCommonFr extends TranslationsCommonRu {
 	@override String get pageNotFound => 'Page introuvable';
 	@override String get viewCatalog => 'VOIR LE CATALOGUE';
 	@override String get learnMore => 'EN SAVOIR PLUS';
+	@override late final _TranslationsCommonVideoFr video = _TranslationsCommonVideoFr._(_root);
 }
 
 // Path: language
@@ -178,6 +183,7 @@ class _TranslationsBioFr extends TranslationsBioRu {
 	// Translations
 	@override String get heroTitle => 'ART À L\'ÉCHELLE COSMIQUE';
 	@override String get heroSubtitle => 'Un art qui efface les frontières entre le terrestre et l\'éternel. Artiste du Peuple de la République du Bélarus, créateur de la plus grande tapisserie du monde «La Tapisserie du Siècle».';
+	@override String get heroBrandName => 'Alexandre Mikhaïlovitch Kichtchanka';
 	@override String get name => 'Alexandre Mikhaïlovitch Kichtchanka (1933–1997)';
 	@override String get tagline => 'Peintre. Philosophe. Monumentaliste. Fondateur du Réalisme Universel.';
 	@override String get intro => 'Alexandre Kichtchanka est une figure de dimension renaissante dans l\'art du XXe siècle. Un homme qui réussit à transformer le fil souple de la tapisserie en une déclaration architecturale puissante, et les murs des villes en livres ouverts de significations philosophiques. Son oeuvre est un pont entre l\'archaïque et le cosmos, entre la douleur de la terre et la lumière de galaxies lointaines.';
@@ -397,6 +403,17 @@ class _TranslationsCatalogPaintingMediumsFr extends TranslationsCatalogPaintingM
 	@override String get woolLinenWeaving => 'Laine, lin, tissage';
 }
 
+// Path: common.video
+class _TranslationsCommonVideoFr extends TranslationsCommonVideoRu {
+	_TranslationsCommonVideoFr._(TranslationsFr root) : this._root = root, super.internal(root);
+
+	final TranslationsFr _root; // ignore: unused_field
+
+	// Translations
+	@override String get loadError => 'Echec du chargement du flux vidéo';
+	@override String get openExternally => 'Ouvrir en externe';
+}
+
 // Path: archiveFeed.items
 class _TranslationsArchiveFeedItemsFr extends TranslationsArchiveFeedItemsRu {
 	_TranslationsArchiveFeedItemsFr._(TranslationsFr root) : this._root = root, super.internal(root);
@@ -452,8 +469,8 @@ class _TranslationsBioFeatureFr extends TranslationsBioFeatureRu {
 	@override String get title => 'HÉRITAGE D\'ENVERGURE MONDIALE';
 	@override String get body => 'Cette collection réunit les oeuvres d\'un maître exceptionnel dont l\'art a changé à jamais la perception de la peinture monumentale et de la tapisserie. Des mosaïques grandioses devenues le code visuel de Minsk jusqu\'à la célèbre Tapisserie du Siècle et à l\'oeuvre Tchernobyl qui orne le siège des Nations Unies à New York. Chaque oeuvre de Kichtchanka est un traité philosophique sur le lien des époques, le cosmos et l\'esprit humain indestructible.';
 	@override String get cta => 'EXPLORER LA COLLECTION';
-	@override String get worksValue => '200+';
-	@override String get worksLabel => 'Oeuvres d\'art';
+	@override String get worksValue => '500+';
+	@override String get worksLabel => 'Oeuvres d\'art à travers le monde';
 	@override String get panelsValue => '6+';
 	@override String get panelsLabel => 'Panneaux monumentaux à Minsk';
 	@override String get guinnessValue => '1';
@@ -698,6 +715,8 @@ extension on TranslationsFr {
 	dynamic _flatMapFunction(String path) {
 		return switch (path) {
 			'app.title' => 'KISHCHANKA.ART',
+			'app.brandTagline' => 'Collection des Beaux-Arts',
+			'app.logoMark' => 'KA',
 			'navigation.aboutAuthor' => 'A propos de l\'auteur',
 			'navigation.news' => 'Actualites',
 			'navigation.catalogOfWorks' => 'Catalogue des oeuvres',
@@ -705,6 +724,8 @@ extension on TranslationsFr {
 			'navigation.archive' => 'Archive',
 			'navigation.contacts' => 'Contacts',
 			'catalog.workPrefix' => 'Oeuvre',
+			'catalog.errorTitle' => 'Echec du chargement des peintures',
+			'catalog.errorWithDetails' => ({required Object message}) => 'Echec du chargement des peintures. ${message}',
 			'catalog.paintingNames.id1958_1' => 'Périphérie. Vieux moulin',
 			'catalog.paintingNames.id1958_2' => 'Angelina',
 			'catalog.paintingNames.id1958_3' => 'La Toilette',
@@ -873,6 +894,8 @@ extension on TranslationsFr {
 			'common.pageNotFound' => 'Page introuvable',
 			'common.viewCatalog' => 'VOIR LE CATALOGUE',
 			'common.learnMore' => 'EN SAVOIR PLUS',
+			'common.video.loadError' => 'Echec du chargement du flux vidéo',
+			'common.video.openExternally' => 'Ouvrir en externe',
 			'language.label' => 'Langue',
 			'language.russian' => 'Russe',
 			'language.english' => 'Anglais',
@@ -938,14 +961,15 @@ extension on TranslationsFr {
 			'newsFeed.publishedLabel' => 'Publie',
 			'bio.heroTitle' => 'ART À L\'ÉCHELLE COSMIQUE',
 			'bio.heroSubtitle' => 'Un art qui efface les frontières entre le terrestre et l\'éternel. Artiste du Peuple de la République du Bélarus, créateur de la plus grande tapisserie du monde «La Tapisserie du Siècle».',
+			'bio.heroBrandName' => 'Alexandre Mikhaïlovitch Kichtchanka',
 			'bio.name' => 'Alexandre Mikhaïlovitch Kichtchanka (1933–1997)',
 			'bio.tagline' => 'Peintre. Philosophe. Monumentaliste. Fondateur du Réalisme Universel.',
 			'bio.intro' => 'Alexandre Kichtchanka est une figure de dimension renaissante dans l\'art du XXe siècle. Un homme qui réussit à transformer le fil souple de la tapisserie en une déclaration architecturale puissante, et les murs des villes en livres ouverts de significations philosophiques. Son oeuvre est un pont entre l\'archaïque et le cosmos, entre la douleur de la terre et la lumière de galaxies lointaines.',
 			'bio.feature.title' => 'HÉRITAGE D\'ENVERGURE MONDIALE',
 			'bio.feature.body' => 'Cette collection réunit les oeuvres d\'un maître exceptionnel dont l\'art a changé à jamais la perception de la peinture monumentale et de la tapisserie. Des mosaïques grandioses devenues le code visuel de Minsk jusqu\'à la célèbre Tapisserie du Siècle et à l\'oeuvre Tchernobyl qui orne le siège des Nations Unies à New York. Chaque oeuvre de Kichtchanka est un traité philosophique sur le lien des époques, le cosmos et l\'esprit humain indestructible.',
 			'bio.feature.cta' => 'EXPLORER LA COLLECTION',
-			'bio.feature.worksValue' => '200+',
-			'bio.feature.worksLabel' => 'Oeuvres d\'art',
+			'bio.feature.worksValue' => '500+',
+			'bio.feature.worksLabel' => 'Oeuvres d\'art à travers le monde',
 			'bio.feature.panelsValue' => '6+',
 			'bio.feature.panelsLabel' => 'Panneaux monumentaux à Minsk',
 			'bio.feature.guinnessValue' => '1',

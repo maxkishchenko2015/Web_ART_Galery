@@ -3,26 +3,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:web_art_galery/i18n/strings.g.dart';
 import 'package:web_art_galery/src/features/about_author/presentation/cubits/about_author_cubit.dart';
+import 'package:web_art_galery/src/features/about_author/presentation/screens/about_author_page_constants.dart';
+import 'package:web_art_galery/src/navigation/presentation/router/app_routes.dart';
 import 'package:web_art_galery/src/shared/config/app_context_extensions.dart';
 import 'package:web_art_galery/src/shared/config/ksize.dart';
 import 'package:web_art_galery/src/shared/presentation/widgets/cached_network_image_view.dart';
 import 'package:web_art_galery/src/shared/presentation/widgets/fullscreen_image_viewer.dart';
 import 'package:web_art_galery/src/shared/utils/url_launcher_utils.dart';
-
-/// Indices of the Firestore `AboutAuthor.items` array pinned to each section.
-const int _heroPhotoIndex = 0;
-const int _universalRealismPhotoIndex = 1;
-const int _tapestryPhotoIndex = 2;
-const int _chernobylPhotoIndex = 3;
-const int _mosaicPhotoIndex = 4;
-
-/// External references shown as "Open article"-style text buttons next to the
-/// matching biography sections.
-const String _tapestryExternalUrl = 'https://robbielafleur.com/2016/01/16/tapestry-of-the-century/';
-const String _chernobylExternalUrl = 'https://www.un.org/ungifts/chernobyl';
-const String _mosaicExternalUrl = 'https://streetartcities.com/artists/alexander-kishchenko';
-const String _wikipediaUrl =
-    'https://ru.wikipedia.org/wiki/%D0%9A%D0%B8%D1%89%D0%B5%D0%BD%D0%BA%D0%BE,_%D0%90%D0%BB%D0%B5%D0%BA%D1%81%D0%B0%D0%BD%D0%B4%D1%80_%D0%9C%D0%B8%D1%85%D0%B0%D0%B9%D0%BB%D0%BE%D0%B2%D0%B8%D1%87';
 
 class AboutAuthorPage extends StatelessWidget {
   const AboutAuthorPage({super.key});
@@ -76,11 +63,14 @@ class _HeroSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final hPad = isCompact ? KSize.margin6x : KSize.margin12x * 2;
-    final headlineSize = isCompact ? 36.0 : 56.0;
+    final headlineSize = isCompact ? KSize.heroHeadlineCompact : KSize.heroHeadlineWide;
 
     return Container(
       color: context.colors.forestGreen,
-      padding: EdgeInsets.symmetric(horizontal: hPad, vertical: isCompact ? 48 : 80),
+      padding: EdgeInsets.symmetric(
+        horizontal: hPad,
+        vertical: isCompact ? KSize.heroVerticalPaddingCompact : KSize.heroVerticalPaddingWide,
+      ),
       child: isCompact
           ? _buildCompactHero(context, headlineSize)
           : _buildWideHero(context, headlineSize),
@@ -129,7 +119,7 @@ class _HeroText extends StatelessWidget {
           style: context.textOnDark.heroSectionLabel,
         ),
         const SizedBox(height: KSize.margin4x),
-        Text(context.t.app.title, style: context.textOnDark.heroHeadline(headlineSize)),
+        Text(context.t.bio.heroBrandName, style: context.textOnDark.heroHeadline(headlineSize)),
         const SizedBox(height: KSize.margin3x),
         Text(context.t.bio.heroTitle, style: context.textOnDark.heroSubtitle),
         const SizedBox(height: KSize.margin4x),
@@ -142,7 +132,7 @@ class _HeroText extends StatelessWidget {
             _HeroButton(
               label: context.t.common.viewCatalog,
               filled: true,
-              onTap: () => context.go('/catalog'),
+              onTap: () => context.go(AppRoutes.catalog),
             ),
             _HeroButton(label: context.t.common.learnMore, filled: false, onTap: onLearnMore),
           ],
@@ -188,8 +178,8 @@ class _HeroImage extends StatelessWidget {
   Widget build(BuildContext context) {
     final colors = context.colors;
     return _AuthorPhoto(
-      index: _heroPhotoIndex,
-      aspectRatio: 0.75,
+      index: AboutAuthorPageConstants.heroPhotoIndex,
+      aspectRatio: KSize.heroPortraitAspectRatio,
       borderRadius: BorderRadius.circular(KSize.radius3XL),
       placeholderBackground: colors.onDarkPlaceholder,
       placeholderIcon: Icons.palette_outlined,
@@ -212,7 +202,10 @@ class _FeatureSection extends StatelessWidget {
 
     return Container(
       color: context.colors.white,
-      padding: EdgeInsets.symmetric(horizontal: hPad, vertical: isCompact ? 48 : 80),
+      padding: EdgeInsets.symmetric(
+        horizontal: hPad,
+        vertical: isCompact ? KSize.heroVerticalPaddingCompact : KSize.heroVerticalPaddingWide,
+      ),
       child: isCompact ? _buildCompact(context) : _buildWide(context),
     );
   }
@@ -255,7 +248,7 @@ class _FeatureDescription extends StatelessWidget {
         MouseRegion(
           cursor: SystemMouseCursors.click,
           child: GestureDetector(
-            onTap: () => context.go('/catalog'),
+            onTap: () => context.go(AppRoutes.catalog),
             child: Row(
               mainAxisSize: MainAxisSize.min,
               children: [
@@ -324,39 +317,48 @@ class _BiographySection extends StatelessWidget {
 
     return Container(
       color: context.colors.bioBg,
-      padding: EdgeInsets.symmetric(horizontal: hPad, vertical: isCompact ? 48 : 80),
+      padding: EdgeInsets.symmetric(
+        horizontal: hPad,
+        vertical: isCompact ? KSize.heroVerticalPaddingCompact : KSize.heroVerticalPaddingWide,
+      ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(bio.name, style: context.textContent.bioName(isCompact ? 24.0 : 34.0)),
+          Text(
+            bio.name,
+            style: context.textContent.bioName(isCompact ? KSize.bioNameCompact : KSize.bioNameWide),
+          ),
           const SizedBox(height: KSize.margin3x),
           Text(bio.tagline, style: context.textContent.bioTagline),
           const SizedBox(height: KSize.margin8x),
           Text(bio.intro, style: context.textContent.bioIntro),
           const SizedBox(height: KSize.margin5x),
-          _BioExternalLinkButton(url: _wikipediaUrl, label: bio.wikipediaLinkLabel),
+          _BioExternalLinkButton(
+            url: AboutAuthorPageConstants.wikipediaUrl,
+            label: bio.wikipediaLinkLabel,
+          ),
           const SizedBox(height: KSize.margin12x),
           _BioSectionWithPhoto(
             isCompact: isCompact,
-            photoIndex: _universalRealismPhotoIndex,
+            photoIndex: AboutAuthorPageConstants.universalRealismPhotoIndex,
             child: _BioSubSection(title: bio.universalRealism.title, body: bio.universalRealism.body),
           ),
           const SizedBox(height: KSize.margin12x),
           _BioSectionWithPhoto(
             isCompact: isCompact,
-            photoIndex: _tapestryPhotoIndex,
+            photoIndex: AboutAuthorPageConstants.tapestryPhotoIndex,
             child: _TapestryCopy(),
           ),
           const SizedBox(height: KSize.margin12x),
           _BioSectionWithPhoto(
             isCompact: isCompact,
-            photoIndex: _chernobylPhotoIndex,
+            photoIndex: AboutAuthorPageConstants.chernobylPhotoIndex,
             child: _ChernobylCopy(),
           ),
           const SizedBox(height: KSize.margin12x),
           _BioSectionWithPhoto(
             isCompact: isCompact,
-            photoIndex: _mosaicPhotoIndex,
+            photoIndex: AboutAuthorPageConstants.mosaicPhotoIndex,
             child: _MosaicCopy(),
           ),
           const SizedBox(height: KSize.margin12x),
@@ -393,7 +395,7 @@ class _BioSectionWithPhoto extends StatelessWidget {
   Widget build(BuildContext context) {
     final media = _AuthorPhoto(
       index: photoIndex,
-      aspectRatio: isCompact ? 4 / 3 : 5 / 4,
+      aspectRatio: isCompact ? KSize.bioPhotoCompactAspectRatio : KSize.bioPhotoWideAspectRatio,
       borderRadius: BorderRadius.circular(KSize.radiusLargeExtra),
       placeholderBackground: context.colors.bioBg,
       placeholderIcon: Icons.image_outlined,
@@ -441,7 +443,7 @@ class _TapestryCopy extends StatelessWidget {
         const SizedBox(height: KSize.margin4x),
         _BioHighlightRow(label: tapestry.meaningLabel, text: tapestry.meaning),
         const SizedBox(height: KSize.margin5x),
-        const _BioExternalLinkButton(url: _tapestryExternalUrl),
+        const _BioExternalLinkButton(url: AboutAuthorPageConstants.tapestryExternalUrl),
       ],
     );
   }
@@ -457,7 +459,7 @@ class _ChernobylCopy extends StatelessWidget {
       children: [
         _BioSubSection(title: chernobyl.title, body: chernobyl.body),
         const SizedBox(height: KSize.margin5x),
-        const _BioExternalLinkButton(url: _chernobylExternalUrl),
+        const _BioExternalLinkButton(url: AboutAuthorPageConstants.chernobylExternalUrl),
       ],
     );
   }
@@ -477,7 +479,7 @@ class _MosaicCopy extends StatelessWidget {
         const SizedBox(height: KSize.margin4x),
         Text(mosaic.panelsMeaning, style: context.textContent.bioDetail),
         const SizedBox(height: KSize.margin5x),
-        const _BioExternalLinkButton(url: _mosaicExternalUrl),
+        const _BioExternalLinkButton(url: AboutAuthorPageConstants.mosaicExternalUrl),
       ],
     );
   }
@@ -567,18 +569,14 @@ class _AuthorPhoto extends StatelessWidget {
 
         return MouseRegion(
           cursor: SystemMouseCursors.click,
-          child: Semantics(
-            button: true,
-            image: true,
-            child: GestureDetector(
-              behavior: HitTestBehavior.opaque,
-              onTap: () => FullscreenImageViewer.show(
-                context,
-                imagePathOrUrl: photo.url,
-                heroTag: heroTag,
-              ),
-              child: frame,
+          child: GestureDetector(
+            behavior: HitTestBehavior.opaque,
+            onTap: () => FullscreenImageViewer.show(
+              context,
+              imagePathOrUrl: photo.url,
+              heroTag: heroTag,
             ),
+            child: frame,
           ),
         );
       },
@@ -705,25 +703,20 @@ class _BioExternalLinkButton extends StatelessWidget {
 
     return MouseRegion(
       cursor: SystemMouseCursors.click,
-      child: Semantics(
-        button: true,
-        link: true,
-        label: label,
-        child: GestureDetector(
-          behavior: HitTestBehavior.opaque,
-          onTap: () => UrlLauncherUtils.launchUrlIfPossible(url: url),
-          child: Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Text(label, style: context.textContent.archiveLink),
-              const SizedBox(width: KSize.margin1Halfx),
-              Icon(
-                Icons.arrow_outward_rounded,
-                size: KSize.iconSPlus,
-                color: context.colors.forestGreen,
-              ),
-            ],
-          ),
+      child: GestureDetector(
+        behavior: HitTestBehavior.opaque,
+        onTap: () => UrlLauncherUtils.launchUrlIfPossible(url: url),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text(label, style: context.textContent.archiveLink),
+            const SizedBox(width: KSize.margin1Halfx),
+            Icon(
+              Icons.arrow_outward_rounded,
+              size: KSize.iconSPlus,
+              color: context.colors.forestGreen,
+            ),
+          ],
         ),
       ),
     );
@@ -745,9 +738,9 @@ class _BioQuote extends StatelessWidget {
         border: Border(
           left: BorderSide(color: context.colors.forestGreen, width: KSize.borderWidthMedium),
         ),
-        borderRadius: BorderRadius.only(
-          topRight: Radius.circular(8),
-          bottomRight: Radius.circular(8),
+        borderRadius: const BorderRadius.only(
+          topRight: Radius.circular(KSize.radiusDefault),
+          bottomRight: Radius.circular(KSize.radiusDefault),
         ),
       ),
       child: Column(

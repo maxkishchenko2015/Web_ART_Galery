@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:visibility_detector/visibility_detector.dart';
 import 'package:web_art_galery/i18n/strings.g.dart';
 import 'package:web_art_galery/src/features/catalog_of_works/domain/entities/painting.dart';
 import 'package:web_art_galery/src/features/catalog_of_works/presentation/cubits/catalog_of_works_cubit.dart';
@@ -32,7 +31,10 @@ class _CatalogOfWorksContent extends StatelessWidget {
           CatalogOfWorksError(:final message) => Center(
             child: Padding(
               padding: const EdgeInsets.all(KSize.margin4x),
-              child: Text('Failed to load paintings. $message', textAlign: TextAlign.center),
+              child: Text(
+                context.t.catalog.errorWithDetails(message: message),
+                textAlign: TextAlign.center,
+              ),
             ),
           ),
           CatalogOfWorksLoaded(:final paintings, :final isLoadingMore, :final hasReachedMax) =>
@@ -63,24 +65,8 @@ class _PaintingsGrid extends StatefulWidget {
 }
 
 class _PaintingsGridState extends State<_PaintingsGrid> {
-  // Tracks paintings whose impression event has already fired in this session
-  // so we don't spam analytics when the user scrolls back and forth.
-  final Set<String> _seenIds = <String>{};
-
-  void _onPaintingVisible(Painting painting, double visibleFraction) {
-    if (visibleFraction < 0.5) return;
-    if (!_seenIds.add(painting.pictureId)) return;
-    AppTelemetry.instance.logEvent(
-      'gallery_image_impression',
-      params: _galleryParams(painting),
-    );
-  }
-
   void _onPaintingOpened(Painting painting) {
-    AppTelemetry.instance.logEvent(
-      'gallery_image_opened',
-      params: _galleryParams(painting),
-    );
+    AppTelemetry.instance.logEvent('gallery_image_opened', params: _galleryParams(painting));
     FullscreenImageViewer.show(
       context,
       imagePathOrUrl: AspectAwareImage.resolveUrl(painting.imageUrl),
@@ -126,11 +112,8 @@ class _PaintingsGridState extends State<_PaintingsGrid> {
             padding: EdgeInsets.symmetric(vertical: KSize.margin5x),
             child: Center(child: CircularProgressIndicator()),
           ),
-          itemBuilder: (context, index) => _PaintingCard(
-            painting: widget.paintings[index],
-            onVisible: _onPaintingVisible,
-            onOpen: _onPaintingOpened,
-          ),
+          itemBuilder: (context, index) =>
+              _PaintingCard(painting: widget.paintings[index], onOpen: _onPaintingOpened),
         );
       },
     );
@@ -138,14 +121,9 @@ class _PaintingsGridState extends State<_PaintingsGrid> {
 }
 
 class _PaintingCard extends StatelessWidget {
-  const _PaintingCard({
-    required this.painting,
-    required this.onVisible,
-    required this.onOpen,
-  });
+  const _PaintingCard({required this.painting, required this.onOpen});
 
   final Painting painting;
-  final void Function(Painting painting, double visibleFraction) onVisible;
   final void Function(Painting painting) onOpen;
 
   @override
@@ -156,76 +134,69 @@ class _PaintingCard extends StatelessWidget {
       firebaseName: painting.name,
     );
 
-    return VisibilityDetector(
-      key: ValueKey('catalog_${painting.pictureId}'),
-      onVisibilityChanged: (info) => onVisible(painting, info.visibleFraction),
-      child: Container(
-        decoration: BoxDecoration(
-          color: Theme.of(context).colorScheme.surface,
-          border: Border.all(color: Theme.of(context).colorScheme.outlineVariant, width: 1),
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            MouseRegion(
-              cursor: SystemMouseCursors.zoomIn,
-              child: GestureDetector(
-                behavior: HitTestBehavior.opaque,
-                onTap: () => onOpen(painting),
-                child: Hero(
-                  tag: 'catalog_${painting.pictureId}',
-                  child: AspectAwareImage(imageUrl: painting.imageUrl),
+    return Container(
+      decoration: BoxDecoration(
+        color: Theme.of(context).colorScheme.surface,
+        border: Border.all(color: Theme.of(context).colorScheme.outlineVariant, width: 1),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          MouseRegion(
+            cursor: SystemMouseCursors.zoomIn,
+            child: GestureDetector(
+              behavior: HitTestBehavior.opaque,
+              onTap: () => onOpen(painting),
+              child: Hero(
+                tag: 'catalog_${painting.pictureId}',
+                child: AspectAwareImage(imageUrl: painting.imageUrl),
+              ),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.fromLTRB(
+              KSize.margin3x,
+              KSize.margin3x,
+              KSize.margin3x,
+              KSize.margin4x,
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  localizedName,
+                  style: Theme.of(
+                    context,
+                  ).textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.w500),
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
                 ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.fromLTRB(
-                KSize.margin3x,
-                KSize.margin3x,
-                KSize.margin3x,
-                KSize.margin4x,
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
+                const SizedBox(height: KSize.margin2x),
+                Text(
+                  '${painting.yearOfCreation}',
+                  style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                    fontStyle: FontStyle.italic,
+                    color: Theme.of(context).colorScheme.onSurfaceVariant,
+                  ),
+                ),
+                const SizedBox(height: KSize.margin1x),
+                Text(
+                  PaintingMediumLocalization.resolve(context.t, painting.paintedOnAndHow),
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                  style: Theme.of(context).textTheme.bodyMedium,
+                ),
+                if (painting.location.isNotEmpty)
                   Text(
-                    localizedName,
-                    style: Theme.of(
-                      context,
-                    ).textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.w500),
-                    maxLines: 2,
+                    painting.location,
+                    maxLines: 1,
                     overflow: TextOverflow.ellipsis,
+                    style: Theme.of(context).textTheme.bodySmall,
                   ),
-                  const SizedBox(height: KSize.margin2x),
-                  Text(
-                    '${painting.yearOfCreation}',
-                    style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                      fontStyle: FontStyle.italic,
-                      color: Theme.of(context).colorScheme.onSurfaceVariant,
-                    ),
-                  ),
-                  const SizedBox(height: KSize.margin1x),
-                  Text(
-                    PaintingMediumLocalization.resolve(
-                      context.t,
-                      painting.paintedOnAndHow,
-                    ),
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
-                    style: Theme.of(context).textTheme.bodyMedium,
-                  ),
-                  if (painting.location.isNotEmpty)
-                    Text(
-                      painting.location,
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                      style: Theme.of(context).textTheme.bodySmall,
-                    ),
-                ],
-              ),
+              ],
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

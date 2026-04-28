@@ -59,6 +59,8 @@ class _TranslationsAppEn extends TranslationsAppRu {
 
 	// Translations
 	@override String get title => 'KISHCHANKA.ART';
+	@override String get brandTagline => 'Collection of Fine Arts';
+	@override String get logoMark => 'KA';
 }
 
 // Path: navigation
@@ -84,6 +86,8 @@ class _TranslationsCatalogEn extends TranslationsCatalogRu {
 
 	// Translations
 	@override String get workPrefix => 'Work';
+	@override String get errorTitle => 'Failed to load paintings';
+	@override String errorWithDetails({required Object message}) => 'Failed to load paintings. ${message}';
 	@override late final _TranslationsCatalogPaintingNamesEn paintingNames = _TranslationsCatalogPaintingNamesEn._(_root);
 	@override late final _TranslationsCatalogPaintingMediumsEn paintingMediums = _TranslationsCatalogPaintingMediumsEn._(_root);
 }
@@ -98,6 +102,7 @@ class _TranslationsCommonEn extends TranslationsCommonRu {
 	@override String get pageNotFound => 'Page not found';
 	@override String get viewCatalog => 'VIEW CATALOG';
 	@override String get learnMore => 'LEARN MORE';
+	@override late final _TranslationsCommonVideoEn video = _TranslationsCommonVideoEn._(_root);
 }
 
 // Path: language
@@ -178,6 +183,7 @@ class _TranslationsBioEn extends TranslationsBioRu {
 	// Translations
 	@override String get heroTitle => 'ART OF COSMIC SCALE';
 	@override String get heroSubtitle => 'Art that erases boundaries between the earthly and the eternal. People\'s Artist of the Republic of Belarus, creator of the world\'s largest tapestry "The Tapestry of the Century".';
+	@override String get heroBrandName => 'Alexander Mikhailovich Kishchanka';
 	@override String get name => 'Alexander Mikhailovich Kishchanka (1933–1997)';
 	@override String get tagline => 'Painter. Philosopher. Monumentalist. Founder of Universal Realism.';
 	@override String get intro => 'Alexander Kishchanka is a figure of Renaissance stature in 20th-century art. A man who transformed the soft thread of tapestry into a powerful architectural statement, and city walls into open books of philosophical meaning. His work is a bridge between the archaic and the cosmic, between the pain of the earth and the light of distant galaxies.';
@@ -397,6 +403,17 @@ class _TranslationsCatalogPaintingMediumsEn extends TranslationsCatalogPaintingM
 	@override String get woolLinenWeaving => 'Wool, linen, weaving';
 }
 
+// Path: common.video
+class _TranslationsCommonVideoEn extends TranslationsCommonVideoRu {
+	_TranslationsCommonVideoEn._(TranslationsEn root) : this._root = root, super.internal(root);
+
+	final TranslationsEn _root; // ignore: unused_field
+
+	// Translations
+	@override String get loadError => 'Failed to load video stream';
+	@override String get openExternally => 'Open externally';
+}
+
 // Path: archiveFeed.items
 class _TranslationsArchiveFeedItemsEn extends TranslationsArchiveFeedItemsRu {
 	_TranslationsArchiveFeedItemsEn._(TranslationsEn root) : this._root = root, super.internal(root);
@@ -452,8 +469,8 @@ class _TranslationsBioFeatureEn extends TranslationsBioFeatureRu {
 	@override String get title => 'LEGACY OF GLOBAL SCALE';
 	@override String get body => 'This collection brings together works by an outstanding master whose art forever changed the understanding of monumental painting and tapestry. From the grand mosaics that became a visual code of Minsk to the celebrated Tapestry of the Century and the Chernobyl canvas displayed at United Nations Headquarters in New York, every work by Kishchanka is a philosophical treatise on the connection of times, the cosmos, and the indestructible human spirit.';
 	@override String get cta => 'EXPLORE THE COLLECTION';
-	@override String get worksValue => '200+';
-	@override String get worksLabel => 'Works of Art';
+	@override String get worksValue => '500+';
+	@override String get worksLabel => 'Works of art around the world';
 	@override String get panelsValue => '6+';
 	@override String get panelsLabel => 'Monumental panels in Minsk';
 	@override String get guinnessValue => '1';
@@ -698,6 +715,8 @@ extension on TranslationsEn {
 	dynamic _flatMapFunction(String path) {
 		return switch (path) {
 			'app.title' => 'KISHCHANKA.ART',
+			'app.brandTagline' => 'Collection of Fine Arts',
+			'app.logoMark' => 'KA',
 			'navigation.aboutAuthor' => 'About author',
 			'navigation.news' => 'News',
 			'navigation.catalogOfWorks' => 'Catalog of works',
@@ -705,6 +724,8 @@ extension on TranslationsEn {
 			'navigation.archive' => 'Archive',
 			'navigation.contacts' => 'Contacts',
 			'catalog.workPrefix' => 'Work',
+			'catalog.errorTitle' => 'Failed to load paintings',
+			'catalog.errorWithDetails' => ({required Object message}) => 'Failed to load paintings. ${message}',
 			'catalog.paintingNames.id1958_1' => 'Outskirts. The Old Mill',
 			'catalog.paintingNames.id1958_2' => 'Angelina',
 			'catalog.paintingNames.id1958_3' => 'Toilette',
@@ -873,6 +894,8 @@ extension on TranslationsEn {
 			'common.pageNotFound' => 'Page not found',
 			'common.viewCatalog' => 'VIEW CATALOG',
 			'common.learnMore' => 'LEARN MORE',
+			'common.video.loadError' => 'Failed to load video stream',
+			'common.video.openExternally' => 'Open externally',
 			'language.label' => 'Language',
 			'language.russian' => 'Russian',
 			'language.english' => 'English',
@@ -938,14 +961,15 @@ extension on TranslationsEn {
 			'newsFeed.publishedLabel' => 'Published',
 			'bio.heroTitle' => 'ART OF COSMIC SCALE',
 			'bio.heroSubtitle' => 'Art that erases boundaries between the earthly and the eternal. People\'s Artist of the Republic of Belarus, creator of the world\'s largest tapestry "The Tapestry of the Century".',
+			'bio.heroBrandName' => 'Alexander Mikhailovich Kishchanka',
 			'bio.name' => 'Alexander Mikhailovich Kishchanka (1933–1997)',
 			'bio.tagline' => 'Painter. Philosopher. Monumentalist. Founder of Universal Realism.',
 			'bio.intro' => 'Alexander Kishchanka is a figure of Renaissance stature in 20th-century art. A man who transformed the soft thread of tapestry into a powerful architectural statement, and city walls into open books of philosophical meaning. His work is a bridge between the archaic and the cosmic, between the pain of the earth and the light of distant galaxies.',
 			'bio.feature.title' => 'LEGACY OF GLOBAL SCALE',
 			'bio.feature.body' => 'This collection brings together works by an outstanding master whose art forever changed the understanding of monumental painting and tapestry. From the grand mosaics that became a visual code of Minsk to the celebrated Tapestry of the Century and the Chernobyl canvas displayed at United Nations Headquarters in New York, every work by Kishchanka is a philosophical treatise on the connection of times, the cosmos, and the indestructible human spirit.',
 			'bio.feature.cta' => 'EXPLORE THE COLLECTION',
-			'bio.feature.worksValue' => '200+',
-			'bio.feature.worksLabel' => 'Works of Art',
+			'bio.feature.worksValue' => '500+',
+			'bio.feature.worksLabel' => 'Works of art around the world',
 			'bio.feature.panelsValue' => '6+',
 			'bio.feature.panelsLabel' => 'Monumental panels in Minsk',
 			'bio.feature.guinnessValue' => '1',

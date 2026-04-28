@@ -59,6 +59,8 @@ class _TranslationsAppEs extends TranslationsAppRu {
 
 	// Translations
 	@override String get title => 'KISHCHANKA.ART';
+	@override String get brandTagline => 'Colección de Bellas Artes';
+	@override String get logoMark => 'KA';
 }
 
 // Path: navigation
@@ -84,6 +86,8 @@ class _TranslationsCatalogEs extends TranslationsCatalogRu {
 
 	// Translations
 	@override String get workPrefix => 'Obra';
+	@override String get errorTitle => 'No se pudieron cargar las pinturas';
+	@override String errorWithDetails({required Object message}) => 'No se pudieron cargar las pinturas. ${message}';
 	@override late final _TranslationsCatalogPaintingNamesEs paintingNames = _TranslationsCatalogPaintingNamesEs._(_root);
 	@override late final _TranslationsCatalogPaintingMediumsEs paintingMediums = _TranslationsCatalogPaintingMediumsEs._(_root);
 }
@@ -98,6 +102,7 @@ class _TranslationsCommonEs extends TranslationsCommonRu {
 	@override String get pageNotFound => 'Página no encontrada';
 	@override String get viewCatalog => 'VER CATÁLOGO';
 	@override String get learnMore => 'SABER MÁS';
+	@override late final _TranslationsCommonVideoEs video = _TranslationsCommonVideoEs._(_root);
 }
 
 // Path: language
@@ -178,6 +183,7 @@ class _TranslationsBioEs extends TranslationsBioRu {
 	// Translations
 	@override String get heroTitle => 'ARTE DE ESCALA CÓSMICA';
 	@override String get heroSubtitle => 'Un arte que borra las fronteras entre lo terrenal y lo eterno. Artista del Pueblo de la República de Bielorrusia, creador del tapiz más grande del mundo «El Tapiz del Siglo».';
+	@override String get heroBrandName => 'Alexander Mikhailovich Kishchanka';
 	@override String get name => 'Alexander Mikhailovich Kishchanka (1933–1997)';
 	@override String get tagline => 'Pintor. Filósofo. Monumentalista. Fundador del Realismo Universal.';
 	@override String get intro => 'Alexander Kishchanka es una figura de escala renacentista en el arte del siglo XX. Un hombre que logró transformar el suave hilo del tapiz en una poderosa declaración arquitectónica, y las paredes de las ciudades en libros abiertos de significados filosóficos. Su obra es un puente entre lo arcaico y el cosmos, entre el dolor de la tierra y la luz de galaxias lejanas.';
@@ -397,6 +403,17 @@ class _TranslationsCatalogPaintingMediumsEs extends TranslationsCatalogPaintingM
 	@override String get woolLinenWeaving => 'Lana, lino, tejido';
 }
 
+// Path: common.video
+class _TranslationsCommonVideoEs extends TranslationsCommonVideoRu {
+	_TranslationsCommonVideoEs._(TranslationsEs root) : this._root = root, super.internal(root);
+
+	final TranslationsEs _root; // ignore: unused_field
+
+	// Translations
+	@override String get loadError => 'No se pudo cargar la transmisión de video';
+	@override String get openExternally => 'Abrir externamente';
+}
+
 // Path: archiveFeed.items
 class _TranslationsArchiveFeedItemsEs extends TranslationsArchiveFeedItemsRu {
 	_TranslationsArchiveFeedItemsEs._(TranslationsEs root) : this._root = root, super.internal(root);
@@ -452,8 +469,8 @@ class _TranslationsBioFeatureEs extends TranslationsBioFeatureRu {
 	@override String get title => 'LEGADO DE ESCALA MUNDIAL';
 	@override String get body => 'Esta colección reúne obras de un maestro excepcional cuyo arte cambió para siempre la idea de la pintura monumental y del tapiz. Desde los grandiosos mosaicos que se convirtieron en el código visual de Minsk hasta el célebre Tapiz del Siglo y la obra Chernóbil, que adorna la sede de las Naciones Unidas en Nueva York. Cada obra de Kishchanka es un tratado filosófico sobre la conexión de los tiempos, el cosmos y el espíritu humano indestructible.';
 	@override String get cta => 'EXPLORAR LA COLECCIÓN';
-	@override String get worksValue => '200+';
-	@override String get worksLabel => 'Obras de arte';
+	@override String get worksValue => '500+';
+	@override String get worksLabel => 'Obras de arte en todo el mundo';
 	@override String get panelsValue => '6+';
 	@override String get panelsLabel => 'Paneles monumentales en Minsk';
 	@override String get guinnessValue => '1';
@@ -698,6 +715,8 @@ extension on TranslationsEs {
 	dynamic _flatMapFunction(String path) {
 		return switch (path) {
 			'app.title' => 'KISHCHANKA.ART',
+			'app.brandTagline' => 'Colección de Bellas Artes',
+			'app.logoMark' => 'KA',
 			'navigation.aboutAuthor' => 'Sobre el autor',
 			'navigation.news' => 'Noticias',
 			'navigation.catalogOfWorks' => 'Catalogo de obras',
@@ -705,6 +724,8 @@ extension on TranslationsEs {
 			'navigation.archive' => 'Archivo',
 			'navigation.contacts' => 'Contactos',
 			'catalog.workPrefix' => 'Obra',
+			'catalog.errorTitle' => 'No se pudieron cargar las pinturas',
+			'catalog.errorWithDetails' => ({required Object message}) => 'No se pudieron cargar las pinturas. ${message}',
 			'catalog.paintingNames.id1958_1' => 'Afueras. Viejo molino',
 			'catalog.paintingNames.id1958_2' => 'Angelina',
 			'catalog.paintingNames.id1958_3' => 'El tocador',
@@ -873,6 +894,8 @@ extension on TranslationsEs {
 			'common.pageNotFound' => 'Página no encontrada',
 			'common.viewCatalog' => 'VER CATÁLOGO',
 			'common.learnMore' => 'SABER MÁS',
+			'common.video.loadError' => 'No se pudo cargar la transmisión de video',
+			'common.video.openExternally' => 'Abrir externamente',
 			'language.label' => 'Idioma',
 			'language.russian' => 'Ruso',
 			'language.english' => 'Ingles',
@@ -938,14 +961,15 @@ extension on TranslationsEs {
 			'newsFeed.publishedLabel' => 'Publicado',
 			'bio.heroTitle' => 'ARTE DE ESCALA CÓSMICA',
 			'bio.heroSubtitle' => 'Un arte que borra las fronteras entre lo terrenal y lo eterno. Artista del Pueblo de la República de Bielorrusia, creador del tapiz más grande del mundo «El Tapiz del Siglo».',
+			'bio.heroBrandName' => 'Alexander Mikhailovich Kishchanka',
 			'bio.name' => 'Alexander Mikhailovich Kishchanka (1933–1997)',
 			'bio.tagline' => 'Pintor. Filósofo. Monumentalista. Fundador del Realismo Universal.',
 			'bio.intro' => 'Alexander Kishchanka es una figura de escala renacentista en el arte del siglo XX. Un hombre que logró transformar el suave hilo del tapiz en una poderosa declaración arquitectónica, y las paredes de las ciudades en libros abiertos de significados filosóficos. Su obra es un puente entre lo arcaico y el cosmos, entre el dolor de la tierra y la luz de galaxias lejanas.',
 			'bio.feature.title' => 'LEGADO DE ESCALA MUNDIAL',
 			'bio.feature.body' => 'Esta colección reúne obras de un maestro excepcional cuyo arte cambió para siempre la idea de la pintura monumental y del tapiz. Desde los grandiosos mosaicos que se convirtieron en el código visual de Minsk hasta el célebre Tapiz del Siglo y la obra Chernóbil, que adorna la sede de las Naciones Unidas en Nueva York. Cada obra de Kishchanka es un tratado filosófico sobre la conexión de los tiempos, el cosmos y el espíritu humano indestructible.',
 			'bio.feature.cta' => 'EXPLORAR LA COLECCIÓN',
-			'bio.feature.worksValue' => '200+',
-			'bio.feature.worksLabel' => 'Obras de arte',
+			'bio.feature.worksValue' => '500+',
+			'bio.feature.worksLabel' => 'Obras de arte en todo el mundo',
 			'bio.feature.panelsValue' => '6+',
 			'bio.feature.panelsLabel' => 'Paneles monumentales en Minsk',
 			'bio.feature.guinnessValue' => '1',

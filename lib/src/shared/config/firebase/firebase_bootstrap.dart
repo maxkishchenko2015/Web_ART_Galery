@@ -1,5 +1,4 @@
 import 'package:firebase_core/firebase_core.dart';
-import 'package:flutter/foundation.dart';
 import 'package:web_art_galery/src/shared/config/firebase/firebase_environment.dart';
 import 'package:web_art_galery/src/shared/utils/app_logger.dart';
 
@@ -34,7 +33,7 @@ class FirebaseBootstrap {
       storageBucket: FirebaseEnvironment.storageBucket.isEmpty
           ? null
           : FirebaseEnvironment.storageBucket,
-      measurementId: kIsWeb && FirebaseEnvironment.measurementId.isNotEmpty
+      measurementId: FirebaseEnvironment.measurementId.isNotEmpty
           ? FirebaseEnvironment.measurementId
           : null,
     );

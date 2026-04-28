@@ -62,6 +62,12 @@ class TranslationsAppRu {
 
 	/// ru: 'КИЩЕНКО-АРТ'
 	String get title => 'КИЩЕНКО-АРТ';
+
+	/// ru: 'Коллекция изобразительного искусства'
+	String get brandTagline => 'Коллекция изобразительного искусства';
+
+	/// ru: 'КА'
+	String get logoMark => 'КА';
 }
 
 // Path: navigation
@@ -102,6 +108,12 @@ class TranslationsCatalogRu {
 	/// ru: 'Работа'
 	String get workPrefix => 'Работа';
 
+	/// ru: 'Не удалось загрузить картины'
+	String get errorTitle => 'Не удалось загрузить картины';
+
+	/// ru: 'Не удалось загрузить картины. ${message}'
+	String errorWithDetails({required Object message}) => 'Не удалось загрузить картины. ${message}';
+
 	late final TranslationsCatalogPaintingNamesRu paintingNames = TranslationsCatalogPaintingNamesRu.internal(_root);
 	late final TranslationsCatalogPaintingMediumsRu paintingMediums = TranslationsCatalogPaintingMediumsRu.internal(_root);
 }
@@ -122,6 +134,8 @@ class TranslationsCommonRu {
 
 	/// ru: 'ПОДРОБНЕЕ'
 	String get learnMore => 'ПОДРОБНЕЕ';
+
+	late final TranslationsCommonVideoRu video = TranslationsCommonVideoRu.internal(_root);
 }
 
 // Path: language
@@ -268,6 +282,9 @@ class TranslationsBioRu {
 
 	/// ru: 'Искусство, стирающее границы между земным и вечным. Народный художник Республики Беларусь, создатель самого большого в мире «Гобелена века»'
 	String get heroSubtitle => 'Искусство, стирающее границы между земным и вечным. Народный художник Республики Беларусь, создатель самого большого в мире «Гобелена века»';
+
+	/// ru: 'Александр Михайлович Кищенко'
+	String get heroBrandName => 'Александр Михайлович Кищенко';
 
 	/// ru: 'Александр Михайлович Кищенко (1933–1997)'
 	String get name => 'Александр Михайлович Кищенко (1933–1997)';
@@ -856,6 +873,21 @@ class TranslationsCatalogPaintingMediumsRu {
 	String get woolLinenWeaving => 'Шерсть, лён, ткачество';
 }
 
+// Path: common.video
+class TranslationsCommonVideoRu {
+	TranslationsCommonVideoRu.internal(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// ru: 'Не удалось загрузить видео'
+	String get loadError => 'Не удалось загрузить видео';
+
+	/// ru: 'Открыть во внешнем плеере'
+	String get openExternally => 'Открыть во внешнем плеере';
+}
+
 // Path: archiveFeed.items
 class TranslationsArchiveFeedItemsRu {
 	TranslationsArchiveFeedItemsRu.internal(this._root);
@@ -924,11 +956,11 @@ class TranslationsBioFeatureRu {
 	/// ru: 'ИССЛЕДОВАТЬ КОЛЛЕКЦИЮ'
 	String get cta => 'ИССЛЕДОВАТЬ КОЛЛЕКЦИЮ';
 
-	/// ru: '200+'
-	String get worksValue => '200+';
+	/// ru: '500+'
+	String get worksValue => '500+';
 
-	/// ru: 'Работ искусства'
-	String get worksLabel => 'Работ искусства';
+	/// ru: 'Работ искусства по всему миру'
+	String get worksLabel => 'Работ искусства по всему миру';
 
 	/// ru: '6+'
 	String get panelsValue => '6+';
@@ -1279,6 +1311,8 @@ extension on Translations {
 	dynamic _flatMapFunction(String path) {
 		return switch (path) {
 			'app.title' => 'КИЩЕНКО-АРТ',
+			'app.brandTagline' => 'Коллекция изобразительного искусства',
+			'app.logoMark' => 'КА',
 			'navigation.aboutAuthor' => 'Об авторе',
 			'navigation.news' => 'Новости',
 			'navigation.catalogOfWorks' => 'Каталог работ',
@@ -1286,6 +1320,8 @@ extension on Translations {
 			'navigation.archive' => 'Архив',
 			'navigation.contacts' => 'Контакты',
 			'catalog.workPrefix' => 'Работа',
+			'catalog.errorTitle' => 'Не удалось загрузить картины',
+			'catalog.errorWithDetails' => ({required Object message}) => 'Не удалось загрузить картины. ${message}',
 			'catalog.paintingNames.id1958_1' => 'Окраина. Старая мельница',
 			'catalog.paintingNames.id1958_2' => 'Ангелина',
 			'catalog.paintingNames.id1958_3' => 'Туалет',
@@ -1454,6 +1490,8 @@ extension on Translations {
 			'common.pageNotFound' => 'Страница не найдена',
 			'common.viewCatalog' => 'СМОТРЕТЬ КАТАЛОГ',
 			'common.learnMore' => 'ПОДРОБНЕЕ',
+			'common.video.loadError' => 'Не удалось загрузить видео',
+			'common.video.openExternally' => 'Открыть во внешнем плеере',
 			'language.label' => 'Язык',
 			'language.russian' => 'Русский',
 			'language.english' => 'English',
@@ -1519,14 +1557,15 @@ extension on Translations {
 			'newsFeed.publishedLabel' => 'Опубликовано',
 			'bio.heroTitle' => 'ИСКУССТВО КОСМИЧЕСКОГО МАСШТАБА',
 			'bio.heroSubtitle' => 'Искусство, стирающее границы между земным и вечным. Народный художник Республики Беларусь, создатель самого большого в мире «Гобелена века»',
+			'bio.heroBrandName' => 'Александр Михайлович Кищенко',
 			'bio.name' => 'Александр Михайлович Кищенко (1933–1997)',
 			'bio.tagline' => 'Живописец. Философ. Монументалист. Родоначальник «Вселенского реализма».',
 			'bio.intro' => 'Александр Кищенко — фигура ренессансного масштаба в искусстве XX века. Человек, сумевший превратить мягкую нить гобелена в мощное архитектурное высказывание, а стены городов — в открытые книги философских смыслов. Его творчество — это мост между архаикой и космосом, между болью земли и светом далеких галактик.',
 			'bio.feature.title' => 'НАСЛЕДИЕ МИРОВОГО МАСШТАБА',
 			'bio.feature.body' => 'В этой коллекции собраны работы выдающегося мастера, чье искусство навсегда изменило представление о монументальной живописи и ткачестве. От грандиозных мозаик, ставших визуальным кодом Минска, до знаменитого «Гобелена века» и полотна «Чернобыль», украшающего штаб-квартиру ООН в Нью-Йорке. Каждое произведение Кищенко — это философский трактат о связи времен, космосе и несокрушимом человеческом духе.',
 			'bio.feature.cta' => 'ИССЛЕДОВАТЬ КОЛЛЕКЦИЮ',
-			'bio.feature.worksValue' => '200+',
-			'bio.feature.worksLabel' => 'Работ искусства',
+			'bio.feature.worksValue' => '500+',
+			'bio.feature.worksLabel' => 'Работ искусства по всему миру',
 			'bio.feature.panelsValue' => '6+',
 			'bio.feature.panelsLabel' => 'Монументальные панно в Минске',
 			'bio.feature.guinnessValue' => '1',

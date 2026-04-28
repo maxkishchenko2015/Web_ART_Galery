@@ -59,6 +59,8 @@ class _TranslationsAppDe extends TranslationsAppRu {
 
 	// Translations
 	@override String get title => 'KISHCHANKA.ART';
+	@override String get brandTagline => 'Sammlung der Bildenden Künste';
+	@override String get logoMark => 'KA';
 }
 
 // Path: navigation
@@ -84,6 +86,8 @@ class _TranslationsCatalogDe extends TranslationsCatalogRu {
 
 	// Translations
 	@override String get workPrefix => 'Werk';
+	@override String get errorTitle => 'Gemälde konnten nicht geladen werden';
+	@override String errorWithDetails({required Object message}) => 'Gemälde konnten nicht geladen werden. ${message}';
 	@override late final _TranslationsCatalogPaintingNamesDe paintingNames = _TranslationsCatalogPaintingNamesDe._(_root);
 	@override late final _TranslationsCatalogPaintingMediumsDe paintingMediums = _TranslationsCatalogPaintingMediumsDe._(_root);
 }
@@ -98,6 +102,7 @@ class _TranslationsCommonDe extends TranslationsCommonRu {
 	@override String get pageNotFound => 'Seite nicht gefunden';
 	@override String get viewCatalog => 'KATALOG ANSEHEN';
 	@override String get learnMore => 'MEHR ERFAHREN';
+	@override late final _TranslationsCommonVideoDe video = _TranslationsCommonVideoDe._(_root);
 }
 
 // Path: language
@@ -178,6 +183,7 @@ class _TranslationsBioDe extends TranslationsBioRu {
 	// Translations
 	@override String get heroTitle => 'KUNST VON KOSMISCHEM AUSMAS';
 	@override String get heroSubtitle => 'Kunst, die Grenzen zwischen dem Irdischen und dem Ewigen verwischt. Volkskünstler der Republik Belarus, Schöpfer des weltgrößten Wandteppichs «Der Wandteppich des Jahrhunderts».';
+	@override String get heroBrandName => 'Alexander Michailowitsch Kischanka';
 	@override String get name => 'Alexander Michailowitsch Kischanka (1933–1997)';
 	@override String get tagline => 'Maler. Philosoph. Monumentalist. Begründer des Universellen Realismus.';
 	@override String get intro => 'Alexander Kischanka ist eine Persönlichkeit von Renaissance-Format in der Kunst des 20. Jahrhunderts. Ein Mann, dem es gelang, den weichen Faden des Wandteppichs in eine gewaltige architektonische Aussage zu verwandeln und Stadtmauern in offene Bücher philosophischer Bedeutung. Sein Werk ist eine Brücke zwischen Archaik und Kosmos, zwischen dem Schmerz der Erde und dem Licht ferner Galaxien.';
@@ -397,6 +403,17 @@ class _TranslationsCatalogPaintingMediumsDe extends TranslationsCatalogPaintingM
 	@override String get woolLinenWeaving => 'Wolle, Leinen, Weberei';
 }
 
+// Path: common.video
+class _TranslationsCommonVideoDe extends TranslationsCommonVideoRu {
+	_TranslationsCommonVideoDe._(TranslationsDe root) : this._root = root, super.internal(root);
+
+	final TranslationsDe _root; // ignore: unused_field
+
+	// Translations
+	@override String get loadError => 'Videostream konnte nicht geladen werden';
+	@override String get openExternally => 'Extern öffnen';
+}
+
 // Path: archiveFeed.items
 class _TranslationsArchiveFeedItemsDe extends TranslationsArchiveFeedItemsRu {
 	_TranslationsArchiveFeedItemsDe._(TranslationsDe root) : this._root = root, super.internal(root);
@@ -452,8 +469,8 @@ class _TranslationsBioFeatureDe extends TranslationsBioFeatureRu {
 	@override String get title => 'ERBE VON WELTRANG';
 	@override String get body => 'Diese Sammlung vereint Werke eines herausragenden Meisters, dessen Kunst das Verständnis von monumentaler Malerei und Tapisserie für immer verändert hat. Von den monumentalen Mosaiken, die zum visuellen Code von Minsk wurden, bis zum berühmten Wandteppich des Jahrhunderts und dem Werk Tschernobyl, das den Hauptsitz der Vereinten Nationen in New York schmückt. Jedes Werk Kischankas ist eine philosophische Abhandlung über die Verbindung der Zeiten, den Kosmos und den unzerstörbaren menschlichen Geist.';
 	@override String get cta => 'DIE SAMMLUNG ERKUNDEN';
-	@override String get worksValue => '200+';
-	@override String get worksLabel => 'Kunstwerke';
+	@override String get worksValue => '500+';
+	@override String get worksLabel => 'Kunstwerke weltweit';
 	@override String get panelsValue => '6+';
 	@override String get panelsLabel => 'Monumentale Tafeln in Minsk';
 	@override String get guinnessValue => '1';
@@ -698,6 +715,8 @@ extension on TranslationsDe {
 	dynamic _flatMapFunction(String path) {
 		return switch (path) {
 			'app.title' => 'KISHCHANKA.ART',
+			'app.brandTagline' => 'Sammlung der Bildenden Künste',
+			'app.logoMark' => 'KA',
 			'navigation.aboutAuthor' => 'Uber den Autor',
 			'navigation.news' => 'Neuigkeiten',
 			'navigation.catalogOfWorks' => 'Werkkatalog',
@@ -705,6 +724,8 @@ extension on TranslationsDe {
 			'navigation.archive' => 'Archiv',
 			'navigation.contacts' => 'Kontakte',
 			'catalog.workPrefix' => 'Werk',
+			'catalog.errorTitle' => 'Gemälde konnten nicht geladen werden',
+			'catalog.errorWithDetails' => ({required Object message}) => 'Gemälde konnten nicht geladen werden. ${message}',
 			'catalog.paintingNames.id1958_1' => 'Stadtrand. Alte Mühle',
 			'catalog.paintingNames.id1958_2' => 'Angelina',
 			'catalog.paintingNames.id1958_3' => 'Die Toilette',
@@ -873,6 +894,8 @@ extension on TranslationsDe {
 			'common.pageNotFound' => 'Seite nicht gefunden',
 			'common.viewCatalog' => 'KATALOG ANSEHEN',
 			'common.learnMore' => 'MEHR ERFAHREN',
+			'common.video.loadError' => 'Videostream konnte nicht geladen werden',
+			'common.video.openExternally' => 'Extern öffnen',
 			'language.label' => 'Sprache',
 			'language.russian' => 'Russisch',
 			'language.english' => 'Englisch',
@@ -938,14 +961,15 @@ extension on TranslationsDe {
 			'newsFeed.publishedLabel' => 'Veroffentlicht',
 			'bio.heroTitle' => 'KUNST VON KOSMISCHEM AUSMAS',
 			'bio.heroSubtitle' => 'Kunst, die Grenzen zwischen dem Irdischen und dem Ewigen verwischt. Volkskünstler der Republik Belarus, Schöpfer des weltgrößten Wandteppichs «Der Wandteppich des Jahrhunderts».',
+			'bio.heroBrandName' => 'Alexander Michailowitsch Kischanka',
 			'bio.name' => 'Alexander Michailowitsch Kischanka (1933–1997)',
 			'bio.tagline' => 'Maler. Philosoph. Monumentalist. Begründer des Universellen Realismus.',
 			'bio.intro' => 'Alexander Kischanka ist eine Persönlichkeit von Renaissance-Format in der Kunst des 20. Jahrhunderts. Ein Mann, dem es gelang, den weichen Faden des Wandteppichs in eine gewaltige architektonische Aussage zu verwandeln und Stadtmauern in offene Bücher philosophischer Bedeutung. Sein Werk ist eine Brücke zwischen Archaik und Kosmos, zwischen dem Schmerz der Erde und dem Licht ferner Galaxien.',
 			'bio.feature.title' => 'ERBE VON WELTRANG',
 			'bio.feature.body' => 'Diese Sammlung vereint Werke eines herausragenden Meisters, dessen Kunst das Verständnis von monumentaler Malerei und Tapisserie für immer verändert hat. Von den monumentalen Mosaiken, die zum visuellen Code von Minsk wurden, bis zum berühmten Wandteppich des Jahrhunderts und dem Werk Tschernobyl, das den Hauptsitz der Vereinten Nationen in New York schmückt. Jedes Werk Kischankas ist eine philosophische Abhandlung über die Verbindung der Zeiten, den Kosmos und den unzerstörbaren menschlichen Geist.',
 			'bio.feature.cta' => 'DIE SAMMLUNG ERKUNDEN',
-			'bio.feature.worksValue' => '200+',
-			'bio.feature.worksLabel' => 'Kunstwerke',
+			'bio.feature.worksValue' => '500+',
+			'bio.feature.worksLabel' => 'Kunstwerke weltweit',
 			'bio.feature.panelsValue' => '6+',
 			'bio.feature.panelsLabel' => 'Monumentale Tafeln in Minsk',
 			'bio.feature.guinnessValue' => '1',

@@ -207,9 +207,122 @@ class KSize {
   static const double platformBreakpoint = 700.0;
   static const double adaptiveCompactBreakpoint = 600.0;
   static const double adaptiveExpandedBreakpoint = 840.0;
+
+  /// Width above which feature pages render two columns side-by-side
+  /// (films, archive, news lists).
+  static const double adaptiveTwoColumnBreakpoint = 1080.0;
+
+  /// Width above which the desktop header switches from compact spacing
+  /// (no brand subtitle) to the full-width layout.
+  static const double adaptiveDesktopHeaderBreakpoint = 1180.0;
+
   static const double contentMaxWidth = 600;
   static const double contentMaxHeight = 700;
   static const double contentTopPadding = 250;
+
+  // ── App shell layout ────────────────────────────────────────────────────
+
+  /// Outer height of the mobile app bar.
+  static const double mobileAppBarHeight = 64;
+
+  /// Outer height of the desktop navigation header.
+  static const double desktopHeaderHeight = 80;
+
+  /// Maximum content width clamp for the desktop shell (centered in the
+  /// viewport on ultra-wide screens).
+  static const double desktopMaxContentWidth = 1420;
+
+  // ── Brand logo sizes ────────────────────────────────────────────────────
+
+  /// Compact circular logo (footer).
+  static const double logoSizeCompact = 24;
+
+  /// Default circular logo (mobile app bar, narrow desktop header).
+  static const double logoSizeMedium = 32;
+
+  /// Large circular logo (wide desktop header, drawer).
+  static const double logoSizeLarge = 40;
+
+  // ── Hero typography (page-level headlines) ──────────────────────────────
+
+  /// Headline size in the hero section on compact viewports.
+  static const double heroHeadlineCompact = 36;
+
+  /// Headline size in the hero section on wide viewports.
+  static const double heroHeadlineWide = 56;
+
+  /// Bio name headline size on compact viewports.
+  static const double bioNameCompact = 24;
+
+  /// Bio name headline size on wide viewports.
+  static const double bioNameWide = 34;
+
+  /// Vertical padding inside hero / feature sections on compact viewports.
+  static const double heroVerticalPaddingCompact = 48;
+
+  /// Vertical padding inside hero / feature sections on wide viewports.
+  static const double heroVerticalPaddingWide = 80;
+
+  /// Width of the underline rule in the contacts hero.
+  static const double heroDividerWidth = 56;
+
+  // ── Featured artwork glow (archive + films) ─────────────────────────────
+
+  /// Top-left light glow circle diameter on featured cards.
+  static const double featuredArtworkGlowLg = 180;
+
+  /// Top-left light glow circle diameter on regular list cards.
+  static const double featuredArtworkGlowSm = 110;
+
+  /// Bottom-right dark glow circle diameter on featured cards.
+  static const double featuredArtworkGlowDarkLg = 210;
+
+  /// Bottom-right dark glow circle diameter on regular list cards.
+  static const double featuredArtworkGlowDarkSm = 130;
+
+  /// Glow circle inset used to bleed the shape past the card edge (top/left).
+  static const double featuredArtworkGlowOffsetTop = -36;
+  static const double featuredArtworkGlowOffsetLeft = -26;
+
+  /// Glow circle inset used to bleed the shape past the card edge (bottom/right).
+  static const double featuredArtworkGlowOffsetBottom = -54;
+  static const double featuredArtworkGlowOffsetRight = -24;
+
+  /// Inset of the host chip / year label on featured / regular cards.
+  static const double featuredArtworkChipInset = 28;
+  static const double regularArtworkChipInset = 20;
+
+  /// Inset of the host chip on regular film thumbnails.
+  static const double regularFilmChipInset = 16;
+
+  /// Year label inset variants for archive cards.
+  static const double featuredArtworkYearInsetX = 28;
+  static const double featuredArtworkYearInsetY = 26;
+  static const double regularArtworkYearInsetX = 20;
+  static const double regularArtworkYearInsetY = 18;
+
+  /// Year label font size on archive cards.
+  static const double archiveYearFeaturedFontSize = 56;
+  static const double archiveYearRegularFontSize = 34;
+
+  // ── Films play button ───────────────────────────────────────────────────
+
+  static const double playButtonSizeFeatured = 84;
+  static const double playButtonSizeDefault = 56;
+  static const double playButtonIconSizeFeatured = 44;
+  static const double playButtonIconSizeDefault = 30;
+  static const double playButtonShadowBlur = 16;
+  static const double playButtonShadowOffsetY = 4;
+
+  // ── Aspect ratios ───────────────────────────────────────────────────────
+
+  static const double archiveFeaturedAspectRatio = 1.22;
+  static const double archiveRegularAspectRatio = 1.45;
+  static const double filmCardAspectRatio = 16 / 9;
+  static const double reelCardAspectRatio = 9 / 16;
+  static const double heroPortraitAspectRatio = 0.75;
+  static const double bioPhotoCompactAspectRatio = 4 / 3;
+  static const double bioPhotoWideAspectRatio = 5 / 4;
 
   static const double disabledOpacity = 0.3;
   static const double disabledOpacity50 = 0.5;

@@ -59,6 +59,8 @@ class _TranslationsAppBe extends TranslationsAppRu {
 
 	// Translations
 	@override String get title => 'КІШЧАНКА.АРТ';
+	@override String get brandTagline => 'Калекцыя выяўленчага мастацтва';
+	@override String get logoMark => 'КА';
 }
 
 // Path: navigation
@@ -84,6 +86,8 @@ class _TranslationsCatalogBe extends TranslationsCatalogRu {
 
 	// Translations
 	@override String get workPrefix => 'Праца';
+	@override String get errorTitle => 'Не атрымалася загрузіць карціны';
+	@override String errorWithDetails({required Object message}) => 'Не атрымалася загрузіць карціны. ${message}';
 	@override late final _TranslationsCatalogPaintingNamesBe paintingNames = _TranslationsCatalogPaintingNamesBe._(_root);
 	@override late final _TranslationsCatalogPaintingMediumsBe paintingMediums = _TranslationsCatalogPaintingMediumsBe._(_root);
 }
@@ -98,6 +102,7 @@ class _TranslationsCommonBe extends TranslationsCommonRu {
 	@override String get pageNotFound => 'Старонка не знойдзена';
 	@override String get viewCatalog => 'ПАГЛЯДЗЕЦЬ КАТАЛОГ';
 	@override String get learnMore => 'ПАДРАБЯЗНЕЙ';
+	@override late final _TranslationsCommonVideoBe video = _TranslationsCommonVideoBe._(_root);
 }
 
 // Path: language
@@ -178,6 +183,7 @@ class _TranslationsBioBe extends TranslationsBioRu {
 	// Translations
 	@override String get heroTitle => 'МАСТАЦТВА КАСМІЧНАГА МАШТАБУ';
 	@override String get heroSubtitle => 'Мастацтва, якое сцірае межы паміж зямным і вечным. Народны мастак Рэспублікі Беларусь, стваральнік найбуйнейшага ў свеце «Гобелена стагоддзя»';
+	@override String get heroBrandName => 'Аляксандр Міхайлавіч Кішчанка';
 	@override String get name => 'Аляксандр Міхайлавіч Кішчанка (1933–1997)';
 	@override String get tagline => 'Жывапісец. Філосаф. Манументаліст. Заснавальнік «Сусветнага рэалізму».';
 	@override String get intro => 'Аляксандр Кішчанка — постаць рэнесансавага маштабу ў мастацтве XX стагоддзя. Чалавек, якому ўдалося ператварыць мяккую нітку гобелена ў магутнае архітэктурнае выказванне, а сцены гарадоў — у адкрытыя кнігі філасофскіх сэнсаў. Яго творчасць — гэта мост паміж архаікай і космасам, паміж болем зямлі і святлом далёкіх галактык.';
@@ -397,6 +403,17 @@ class _TranslationsCatalogPaintingMediumsBe extends TranslationsCatalogPaintingM
 	@override String get woolLinenWeaving => 'Воўна, лён, ткацтва';
 }
 
+// Path: common.video
+class _TranslationsCommonVideoBe extends TranslationsCommonVideoRu {
+	_TranslationsCommonVideoBe._(TranslationsBe root) : this._root = root, super.internal(root);
+
+	final TranslationsBe _root; // ignore: unused_field
+
+	// Translations
+	@override String get loadError => 'Не атрымалася загрузіць відэа';
+	@override String get openExternally => 'Адкрыць у знешнім плэеры';
+}
+
 // Path: archiveFeed.items
 class _TranslationsArchiveFeedItemsBe extends TranslationsArchiveFeedItemsRu {
 	_TranslationsArchiveFeedItemsBe._(TranslationsBe root) : this._root = root, super.internal(root);
@@ -452,8 +469,8 @@ class _TranslationsBioFeatureBe extends TranslationsBioFeatureRu {
 	@override String get title => 'СПАДЧЫНА СУСВЕТНАГА МАШТАБУ';
 	@override String get body => 'У гэтай калекцыі сабраны творы выбітнага майстра, чыё мастацтва назаўсёды змяніла ўяўленне пра манументальны жывапіс і ткацтва. Ад грандыёзных мазаік, якія сталі візуальным кодам Мінска, да знакамітага «Гобелена стагоддзя» і палатна «Чарнобыль», што ўпрыгожвае штаб-кватэру ААН у Нью-Ёрку. Кожны твор Кішчанкі — гэта філасофскі трактат пра сувязь часоў, космас і нязломны чалавечы дух.';
 	@override String get cta => 'ДАСЛЕДАВАЦЬ КАЛЕКЦЫЮ';
-	@override String get worksValue => '200+';
-	@override String get worksLabel => 'Твораў мастацтва';
+	@override String get worksValue => '500+';
+	@override String get worksLabel => 'Твораў мастацтва па ўсім свеце';
 	@override String get panelsValue => '6+';
 	@override String get panelsLabel => 'Манументальныя пано ў Мінску';
 	@override String get guinnessValue => '1';
@@ -698,6 +715,8 @@ extension on TranslationsBe {
 	dynamic _flatMapFunction(String path) {
 		return switch (path) {
 			'app.title' => 'КІШЧАНКА.АРТ',
+			'app.brandTagline' => 'Калекцыя выяўленчага мастацтва',
+			'app.logoMark' => 'КА',
 			'navigation.aboutAuthor' => 'Пра аўтара',
 			'navigation.news' => 'Навіны',
 			'navigation.catalogOfWorks' => 'Каталог прац',
@@ -705,6 +724,8 @@ extension on TranslationsBe {
 			'navigation.archive' => 'Архіў',
 			'navigation.contacts' => 'Кантакты',
 			'catalog.workPrefix' => 'Праца',
+			'catalog.errorTitle' => 'Не атрымалася загрузіць карціны',
+			'catalog.errorWithDetails' => ({required Object message}) => 'Не атрымалася загрузіць карціны. ${message}',
 			'catalog.paintingNames.id1958_1' => 'Ускраіна. Стары млын',
 			'catalog.paintingNames.id1958_2' => 'Ангеліна',
 			'catalog.paintingNames.id1958_3' => 'Туалет',
@@ -873,6 +894,8 @@ extension on TranslationsBe {
 			'common.pageNotFound' => 'Старонка не знойдзена',
 			'common.viewCatalog' => 'ПАГЛЯДЗЕЦЬ КАТАЛОГ',
 			'common.learnMore' => 'ПАДРАБЯЗНЕЙ',
+			'common.video.loadError' => 'Не атрымалася загрузіць відэа',
+			'common.video.openExternally' => 'Адкрыць у знешнім плэеры',
 			'language.label' => 'Мова',
 			'language.russian' => 'Рускі',
 			'language.english' => 'Англійская',
@@ -938,14 +961,15 @@ extension on TranslationsBe {
 			'newsFeed.publishedLabel' => 'Апублікавана',
 			'bio.heroTitle' => 'МАСТАЦТВА КАСМІЧНАГА МАШТАБУ',
 			'bio.heroSubtitle' => 'Мастацтва, якое сцірае межы паміж зямным і вечным. Народны мастак Рэспублікі Беларусь, стваральнік найбуйнейшага ў свеце «Гобелена стагоддзя»',
+			'bio.heroBrandName' => 'Аляксандр Міхайлавіч Кішчанка',
 			'bio.name' => 'Аляксандр Міхайлавіч Кішчанка (1933–1997)',
 			'bio.tagline' => 'Жывапісец. Філосаф. Манументаліст. Заснавальнік «Сусветнага рэалізму».',
 			'bio.intro' => 'Аляксандр Кішчанка — постаць рэнесансавага маштабу ў мастацтве XX стагоддзя. Чалавек, якому ўдалося ператварыць мяккую нітку гобелена ў магутнае архітэктурнае выказванне, а сцены гарадоў — у адкрытыя кнігі філасофскіх сэнсаў. Яго творчасць — гэта мост паміж архаікай і космасам, паміж болем зямлі і святлом далёкіх галактык.',
 			'bio.feature.title' => 'СПАДЧЫНА СУСВЕТНАГА МАШТАБУ',
 			'bio.feature.body' => 'У гэтай калекцыі сабраны творы выбітнага майстра, чыё мастацтва назаўсёды змяніла ўяўленне пра манументальны жывапіс і ткацтва. Ад грандыёзных мазаік, якія сталі візуальным кодам Мінска, да знакамітага «Гобелена стагоддзя» і палатна «Чарнобыль», што ўпрыгожвае штаб-кватэру ААН у Нью-Ёрку. Кожны твор Кішчанкі — гэта філасофскі трактат пра сувязь часоў, космас і нязломны чалавечы дух.',
 			'bio.feature.cta' => 'ДАСЛЕДАВАЦЬ КАЛЕКЦЫЮ',
-			'bio.feature.worksValue' => '200+',
-			'bio.feature.worksLabel' => 'Твораў мастацтва',
+			'bio.feature.worksValue' => '500+',
+			'bio.feature.worksLabel' => 'Твораў мастацтва па ўсім свеце',
 			'bio.feature.panelsValue' => '6+',
 			'bio.feature.panelsLabel' => 'Манументальныя пано ў Мінску',
 			'bio.feature.guinnessValue' => '1',

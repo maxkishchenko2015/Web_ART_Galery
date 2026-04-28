@@ -1,6 +1,8 @@
 {
   "app": {
-    "title": "KISHCHANKA.ART"
+    "title": "KISHCHANKA.ART",
+    "brandTagline": "Sammlung der Bildenden Künste",
+    "logoMark": "KA"
   },
   "navigation": {
     "aboutAuthor": "Uber den Autor",
@@ -12,6 +14,8 @@
   },
   "catalog": {
     "workPrefix": "Werk",
+    "errorTitle": "Gemälde konnten nicht geladen werden",
+    "errorWithDetails": "Gemälde konnten nicht geladen werden. ${message}",
     "paintingNames": {
       "id1958_1": "Stadtrand. Alte Mühle",
       "id1958_2": "Angelina",
@@ -185,7 +189,11 @@
   "common": {
     "pageNotFound": "Seite nicht gefunden",
     "viewCatalog": "KATALOG ANSEHEN",
-    "learnMore": "MEHR ERFAHREN"
+    "learnMore": "MEHR ERFAHREN",
+    "video": {
+      "loadError": "Videostream konnte nicht geladen werden",
+      "openExternally": "Extern öffnen"
+    }
   },
   "language": {
     "label": "Sprache",
@@ -297,6 +305,7 @@
   "bio": {
     "heroTitle": "KUNST VON KOSMISCHEM AUSMAS",
     "heroSubtitle": "Kunst, die Grenzen zwischen dem Irdischen und dem Ewigen verwischt. Volkskünstler der Republik Belarus, Schöpfer des weltgrößten Wandteppichs «Der Wandteppich des Jahrhunderts».",
+    "heroBrandName": "Alexander Michailowitsch Kischanka",
     "name": "Alexander Michailowitsch Kischanka (1933–1997)",
     "tagline": "Maler. Philosoph. Monumentalist. Begründer des Universellen Realismus.",
     "intro": "Alexander Kischanka ist eine Persönlichkeit von Renaissance-Format in der Kunst des 20. Jahrhunderts. Ein Mann, dem es gelang, den weichen Faden des Wandteppichs in eine gewaltige architektonische Aussage zu verwandeln und Stadtmauern in offene Bücher philosophischer Bedeutung. Sein Werk ist eine Brücke zwischen Archaik und Kosmos, zwischen dem Schmerz der Erde und dem Licht ferner Galaxien.",
@@ -304,8 +313,8 @@
       "title": "ERBE VON WELTRANG",
       "body": "Diese Sammlung vereint Werke eines herausragenden Meisters, dessen Kunst das Verständnis von monumentaler Malerei und Tapisserie für immer verändert hat. Von den monumentalen Mosaiken, die zum visuellen Code von Minsk wurden, bis zum berühmten Wandteppich des Jahrhunderts und dem Werk Tschernobyl, das den Hauptsitz der Vereinten Nationen in New York schmückt. Jedes Werk Kischankas ist eine philosophische Abhandlung über die Verbindung der Zeiten, den Kosmos und den unzerstörbaren menschlichen Geist.",
       "cta": "DIE SAMMLUNG ERKUNDEN",
-      "worksValue": "200+",
-      "worksLabel": "Kunstwerke",
+      "worksValue": "500+",
+      "worksLabel": "Kunstwerke weltweit",
       "panelsValue": "6+",
       "panelsLabel": "Monumentale Tafeln in Minsk",
       "guinnessValue": "1",

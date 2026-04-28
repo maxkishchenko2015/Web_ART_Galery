@@ -1,6 +1,8 @@
 {
   "app": {
-    "title": "KISHCHANKA.ART"
+    "title": "KISHCHANKA.ART",
+    "brandTagline": "Colección de Bellas Artes",
+    "logoMark": "KA"
   },
   "navigation": {
     "aboutAuthor": "Sobre el autor",
@@ -12,6 +14,8 @@
   },
   "catalog": {
     "workPrefix": "Obra",
+    "errorTitle": "No se pudieron cargar las pinturas",
+    "errorWithDetails": "No se pudieron cargar las pinturas. ${message}",
     "paintingNames": {
       "id1958_1": "Afueras. Viejo molino",
       "id1958_2": "Angelina",
@@ -185,7 +189,11 @@
   "common": {
     "pageNotFound": "Página no encontrada",
     "viewCatalog": "VER CATÁLOGO",
-    "learnMore": "SABER MÁS"
+    "learnMore": "SABER MÁS",
+    "video": {
+      "loadError": "No se pudo cargar la transmisión de video",
+      "openExternally": "Abrir externamente"
+    }
   },
   "language": {
     "label": "Idioma",
@@ -297,6 +305,7 @@
   "bio": {
     "heroTitle": "ARTE DE ESCALA CÓSMICA",
     "heroSubtitle": "Un arte que borra las fronteras entre lo terrenal y lo eterno. Artista del Pueblo de la República de Bielorrusia, creador del tapiz más grande del mundo «El Tapiz del Siglo».",
+    "heroBrandName": "Alexander Mikhailovich Kishchanka",
     "name": "Alexander Mikhailovich Kishchanka (1933–1997)",
     "tagline": "Pintor. Filósofo. Monumentalista. Fundador del Realismo Universal.",
     "intro": "Alexander Kishchanka es una figura de escala renacentista en el arte del siglo XX. Un hombre que logró transformar el suave hilo del tapiz en una poderosa declaración arquitectónica, y las paredes de las ciudades en libros abiertos de significados filosóficos. Su obra es un puente entre lo arcaico y el cosmos, entre el dolor de la tierra y la luz de galaxias lejanas.",
@@ -304,8 +313,8 @@
       "title": "LEGADO DE ESCALA MUNDIAL",
       "body": "Esta colección reúne obras de un maestro excepcional cuyo arte cambió para siempre la idea de la pintura monumental y del tapiz. Desde los grandiosos mosaicos que se convirtieron en el código visual de Minsk hasta el célebre Tapiz del Siglo y la obra Chernóbil, que adorna la sede de las Naciones Unidas en Nueva York. Cada obra de Kishchanka es un tratado filosófico sobre la conexión de los tiempos, el cosmos y el espíritu humano indestructible.",
       "cta": "EXPLORAR LA COLECCIÓN",
-      "worksValue": "200+",
-      "worksLabel": "Obras de arte",
+      "worksValue": "500+",
+      "worksLabel": "Obras de arte en todo el mundo",
       "panelsValue": "6+",
       "panelsLabel": "Paneles monumentales en Minsk",
       "guinnessValue": "1",

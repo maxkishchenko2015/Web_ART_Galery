@@ -7,6 +7,7 @@ import 'package:web_art_galery/src/features/news/data/api/news_api_controller.da
 import 'package:web_art_galery/src/features/news/data/repository/news_repository_firebase.dart';
 import 'package:web_art_galery/src/features/news/domain/entities/news_article.dart';
 import 'package:web_art_galery/src/features/news/presentation/cubits/news_detail_cubit.dart';
+import 'package:web_art_galery/src/navigation/presentation/router/app_routes.dart';
 import 'package:web_art_galery/src/shared/config/app_context_extensions.dart';
 import 'package:web_art_galery/src/shared/config/ksize.dart';
 import 'package:web_art_galery/src/shared/presentation/cubits/app_locale_cubit.dart';
@@ -82,7 +83,7 @@ class _BackButton extends StatelessWidget {
           if (context.canPop()) {
             context.pop();
           } else {
-            context.go('/news');
+            context.go(AppRoutes.news);
           }
         },
         icon: Icon(
@@ -492,11 +493,13 @@ class _Paragraphs extends StatelessWidget {
       children: [
         for (int i = 0; i < paragraphs.length; i++) ...[
           Text(paragraphs[i], style: context.textContent.bioBody),
-          if (i != paragraphs.length - 1) const SizedBox(height: KSize.margin4x),
+          if (!_isLastParagraph(i)) const SizedBox(height: KSize.margin4x),
         ],
       ],
     );
   }
+
+  bool _isLastParagraph(int index) => index == paragraphs.length - 1;
 }
 
 class _SourceLink extends StatelessWidget {
@@ -584,7 +587,7 @@ class _ArticleStats extends StatelessWidget {
         children: [
           for (int i = 0; i < cells.length; i++) ...[
             cells[i],
-            if (i != cells.length - 1) const SizedBox(height: KSize.margin4x),
+            if (!_isLastStatCell(i, cells.length)) const SizedBox(height: KSize.margin4x),
           ],
         ],
       );
@@ -595,11 +598,13 @@ class _ArticleStats extends StatelessWidget {
       children: [
         for (int i = 0; i < cells.length; i++) ...[
           Expanded(child: cells[i]),
-          if (i != cells.length - 1) const SizedBox(width: KSize.margin6x),
+          if (!_isLastStatCell(i, cells.length)) const SizedBox(width: KSize.margin6x),
         ],
       ],
     );
   }
+
+  static bool _isLastStatCell(int index, int length) => index == length - 1;
 
   static int _estimateReadMinutes(String body) {
     final words = body.split(RegExp(r'\s+')).where((w) => w.isNotEmpty).length;

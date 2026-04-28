@@ -1,6 +1,8 @@
 {
   "app": {
-    "title": "KISHCHANKA.ART"
+    "title": "KISHCHANKA.ART",
+    "brandTagline": "Collection des Beaux-Arts",
+    "logoMark": "KA"
   },
   "navigation": {
     "aboutAuthor": "A propos de l'auteur",
@@ -12,6 +14,8 @@
   },
   "catalog": {
     "workPrefix": "Oeuvre",
+    "errorTitle": "Echec du chargement des peintures",
+    "errorWithDetails": "Echec du chargement des peintures. ${message}",
     "paintingNames": {
       "id1958_1": "Périphérie. Vieux moulin",
       "id1958_2": "Angelina",
@@ -185,7 +189,11 @@
   "common": {
     "pageNotFound": "Page introuvable",
     "viewCatalog": "VOIR LE CATALOGUE",
-    "learnMore": "EN SAVOIR PLUS"
+    "learnMore": "EN SAVOIR PLUS",
+    "video": {
+      "loadError": "Echec du chargement du flux vidéo",
+      "openExternally": "Ouvrir en externe"
+    }
   },
   "language": {
     "label": "Langue",
@@ -297,6 +305,7 @@
   "bio": {
     "heroTitle": "ART À L'ÉCHELLE COSMIQUE",
     "heroSubtitle": "Un art qui efface les frontières entre le terrestre et l'éternel. Artiste du Peuple de la République du Bélarus, créateur de la plus grande tapisserie du monde «La Tapisserie du Siècle».",
+    "heroBrandName": "Alexandre Mikhaïlovitch Kichtchanka",
     "name": "Alexandre Mikhaïlovitch Kichtchanka (1933–1997)",
     "tagline": "Peintre. Philosophe. Monumentaliste. Fondateur du Réalisme Universel.",
     "intro": "Alexandre Kichtchanka est une figure de dimension renaissante dans l'art du XXe siècle. Un homme qui réussit à transformer le fil souple de la tapisserie en une déclaration architecturale puissante, et les murs des villes en livres ouverts de significations philosophiques. Son oeuvre est un pont entre l'archaïque et le cosmos, entre la douleur de la terre et la lumière de galaxies lointaines.",
@@ -304,8 +313,8 @@
       "title": "HÉRITAGE D'ENVERGURE MONDIALE",
       "body": "Cette collection réunit les oeuvres d'un maître exceptionnel dont l'art a changé à jamais la perception de la peinture monumentale et de la tapisserie. Des mosaïques grandioses devenues le code visuel de Minsk jusqu'à la célèbre Tapisserie du Siècle et à l'oeuvre Tchernobyl qui orne le siège des Nations Unies à New York. Chaque oeuvre de Kichtchanka est un traité philosophique sur le lien des époques, le cosmos et l'esprit humain indestructible.",
       "cta": "EXPLORER LA COLLECTION",
-      "worksValue": "200+",
-      "worksLabel": "Oeuvres d'art",
+      "worksValue": "500+",
+      "worksLabel": "Oeuvres d'art à travers le monde",
       "panelsValue": "6+",
       "panelsLabel": "Panneaux monumentaux à Minsk",
       "guinnessValue": "1",

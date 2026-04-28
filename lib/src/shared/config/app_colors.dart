@@ -112,6 +112,35 @@ abstract final class AppColors {
 
   /// Secondary archive year label.
   static const Color newsYearDefault = Color(0xD1FFFFFF);
+
+  // ── Films play button ───────────────────────────────────────────────────
+
+  /// Brand red used by the circular play-button overlay on film thumbnails.
+  static const Color playButtonRed = Color(0xFFE0203A);
+
+  // ── Archive card gradient accents ───────────────────────────────────────
+  //
+  // Each archive entry pairs a primary + secondary color to drive a
+  // diagonal gradient on its card thumbnail. Tokens are named by hue so the
+  // local repo seed reads as a palette rather than raw hex.
+
+  static const Color archiveAccentBluePrimary = Color(0xFF7C95C7);
+  static const Color archiveAccentBlueSecondary = Color(0xFF394F87);
+
+  static const Color archiveAccentTerracottaPrimary = Color(0xFFB55A4F);
+  static const Color archiveAccentTerracottaSecondary = Color(0xFF7A4536);
+
+  static const Color archiveAccentRustPrimary = Color(0xFFC97A52);
+  static const Color archiveAccentRustSecondary = Color(0xFF6B8A63);
+
+  static const Color archiveAccentCrimsonPrimary = Color(0xFFC04A4A);
+  static const Color archiveAccentCrimsonSecondary = Color(0xFF5C2B2B);
+
+  static const Color archiveAccentAmberPrimary = Color(0xFFD3A24C);
+  static const Color archiveAccentAmberSecondary = Color(0xFF8E6831);
+
+  static const Color archiveAccentSagePrimary = Color(0xFF8DAA78);
+  static const Color archiveAccentSageSecondary = Color(0xFF355743);
 }
 
 @immutable

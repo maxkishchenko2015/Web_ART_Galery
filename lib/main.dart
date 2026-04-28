@@ -1,18 +1,20 @@
 import 'dart:async';
+import 'dart:ui';
 
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
-import 'package:path_provider/path_provider.dart';
 import 'package:web_art_galery/i18n/strings.g.dart';
 import 'package:web_art_galery/src/features/about_author/data/api/about_author_api_controller.dart';
 import 'package:web_art_galery/src/features/about_author/data/repository/about_author_repository_firebase.dart';
 import 'package:web_art_galery/src/features/about_author/presentation/cubits/about_author_cubit.dart';
+import 'package:web_art_galery/src/features/archive/data/repository/archive_repository_local.dart';
+import 'package:web_art_galery/src/features/archive/presentation/cubits/archive_cubit.dart';
 import 'package:web_art_galery/src/features/catalog_of_works/data/api/catalog_of_works_api_controller.dart';
 import 'package:web_art_galery/src/features/catalog_of_works/data/repository/catalog_of_works_repository_firebase.dart';
 import 'package:web_art_galery/src/features/catalog_of_works/presentation/cubits/catalog_of_works_cubit.dart';
+import 'package:web_art_galery/src/features/films/data/repository/films_repository_local.dart';
 import 'package:web_art_galery/src/features/films/presentation/cubits/films_cubit.dart';
 import 'package:web_art_galery/src/features/news/data/api/news_api_controller.dart';
 import 'package:web_art_galery/src/features/news/data/repository/news_repository_firebase.dart';
@@ -32,9 +34,7 @@ void main() {
       WidgetsFlutterBinding.ensureInitialized();
 
       HydratedBloc.storage = await HydratedStorage.build(
-        storageDirectory: kIsWeb
-            ? HydratedStorageDirectory.web
-            : HydratedStorageDirectory((await getTemporaryDirectory()).path),
+        storageDirectory: HydratedStorageDirectory.web,
       );
 
       FlutterError.onError = (details) {
@@ -67,12 +67,10 @@ void main() {
 
       LocaleSettings.setLocaleSync(AppLocale.ru);
 
-      if (kIsWeb) {
+      setPageTitle(t.app.title);
+      LocaleSettings.getLocaleStream().listen((_) {
         setPageTitle(t.app.title);
-        LocaleSettings.getLocaleStream().listen((_) {
-          setPageTitle(t.app.title);
-        });
-      }
+      });
 
       runApp(
         TranslationProvider(
@@ -98,7 +96,13 @@ void main() {
                   ),
                 )..loadInitial(),
               ),
-              BlocProvider<FilmsCubit>(create: (_) => FilmsCubit()..load()),
+              BlocProvider<FilmsCubit>(
+                create: (_) => FilmsCubit(repository: const FilmsRepositoryLocal())..load(),
+              ),
+              BlocProvider<ArchiveCubit>(
+                create: (_) =>
+                    ArchiveCubit(repository: const ArchiveRepositoryLocal())..load(),
+              ),
             ],
             child: const ArtGalleryApp(),
           ),
@@ -122,7 +126,7 @@ void main() {
 
 void _setDeviceFormFactorUserProperties() {
   WidgetsBinding.instance.addPostFrameCallback((_) {
-    AppTelemetry.instance.setUserProperty('is_web', kIsWeb ? 'true' : 'false');
+    AppTelemetry.instance.setUserProperty('is_web', 'true');
     final view = WidgetsBinding.instance.platformDispatcher.views.isNotEmpty
         ? WidgetsBinding.instance.platformDispatcher.views.first
         : null;
@@ -137,12 +141,12 @@ void _setDeviceFormFactorUserProperties() {
 
 String _classifyFormFactor(double logicalWidth) {
   if (logicalWidth < KSize.adaptiveCompactBreakpoint) {
-    return kIsWeb ? 'mobile_web' : 'mobile';
+    return 'mobile_web';
   }
   if (logicalWidth < KSize.adaptiveExpandedBreakpoint) {
-    return kIsWeb ? 'tablet_web' : 'tablet';
+    return 'tablet_web';
   }
-  return kIsWeb ? 'desktop_web' : 'desktop';
+  return 'desktop_web';
 }
 
 class ArtGalleryApp extends StatelessWidget {

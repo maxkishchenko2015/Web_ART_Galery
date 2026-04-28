@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:web_art_galery/i18n/strings.g.dart';
+import 'package:web_art_galery/src/navigation/presentation/router/app_routes.dart';
 import 'package:web_art_galery/src/navigation/presentation/router/screen_name_resolver.dart';
 import 'package:web_art_galery/src/shared/config/app_context_extensions.dart';
 import 'package:web_art_galery/src/shared/config/ksize.dart';
 import 'package:web_art_galery/src/shared/presentation/widgets/language_switcher.dart';
 import 'package:web_art_galery/src/shared/telemetry/scroll_depth_tracker.dart';
 
-class AppShellPage extends StatelessWidget {
-  const AppShellPage({super.key, required this.child});
+class AppShellMenu extends StatelessWidget {
+  const AppShellMenu({super.key, required this.child});
 
   final Widget child;
 
@@ -30,28 +31,32 @@ class AppShellPage extends StatelessWidget {
   List<_NavItem> _buildNavItems(BuildContext context) => [
     _NavItem(
       label: context.t.navigation.aboutAuthor,
-      location: '/about-author',
+      location: AppRoutes.aboutAuthor,
       icon: Icons.person_outline,
     ),
-    _NavItem(label: context.t.navigation.news, location: '/news', icon: Icons.newspaper_outlined),
+    _NavItem(
+      label: context.t.navigation.news,
+      location: AppRoutes.news,
+      icon: Icons.newspaper_outlined,
+    ),
     _NavItem(
       label: context.t.navigation.catalogOfWorks,
-      location: '/catalog',
+      location: AppRoutes.catalog,
       icon: Icons.collections_bookmark_outlined,
     ),
     _NavItem(
       label: context.t.navigation.films,
-      location: '/films',
+      location: AppRoutes.films,
       icon: Icons.movie_outlined,
     ),
     _NavItem(
       label: context.t.navigation.archive,
-      location: '/archive',
+      location: AppRoutes.archive,
       icon: Icons.archive_outlined,
     ),
     _NavItem(
       label: context.t.navigation.contacts,
-      location: '/contacts',
+      location: AppRoutes.contacts,
       icon: Icons.contacts_outlined,
     ),
   ];
@@ -87,7 +92,7 @@ class _DesktopShell extends StatelessWidget {
             child: Align(
               alignment: Alignment.topCenter,
               child: ConstrainedBox(
-                constraints: const BoxConstraints(maxWidth: 1420),
+                constraints: const BoxConstraints(maxWidth: KSize.desktopMaxContentWidth),
                 child: child,
               ),
             ),
@@ -112,10 +117,10 @@ class _MobileShell extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        toolbarHeight: 64,
+        toolbarHeight: KSize.mobileAppBarHeight,
         title: Row(
           children: [
-            const _GalleryLogo(size: 32),
+            const _GalleryLogo(size: KSize.logoSizeMedium),
             const SizedBox(width: KSize.margin3x),
             Text(context.t.app.title.toUpperCase(), style: context.textOnDark.brandTitle),
           ],
@@ -152,8 +157,6 @@ class _GalleryHeader extends StatelessWidget {
     required this.onSelected,
   });
 
-  static const double _compactDesktopHeaderBreakpoint = 1180;
-
   final List<_NavItem> items;
   final int selectedIndex;
   final ValueChanged<int> onSelected;
@@ -161,13 +164,13 @@ class _GalleryHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.sizeOf(context).width;
-    final isMediumWidth = width < _compactDesktopHeaderBreakpoint;
-    final contactsIndex = items.indexWhere((e) => e.location == '/contacts');
-    final navItems = items.where((e) => e.location != '/contacts').toList();
+    final isMediumWidth = width < KSize.adaptiveDesktopHeaderBreakpoint;
+    final contactsIndex = items.indexWhere((e) => e.location == AppRoutes.contacts);
+    final navItems = items.where((e) => e.location != AppRoutes.contacts).toList();
 
     return Container(
       color: context.colors.forestGreen,
-      height: 80,
+      height: KSize.desktopHeaderHeight,
       child: Padding(
         padding: EdgeInsets.symmetric(horizontal: isMediumWidth ? KSize.margin6x : KSize.margin12x),
         child: Row(
@@ -179,7 +182,7 @@ class _GalleryHeader extends StatelessWidget {
                 cursor: SystemMouseCursors.click,
                 child: Row(
                   children: [
-                    _GalleryLogo(size: isMediumWidth ? 32 : 40),
+                    _GalleryLogo(size: isMediumWidth ? KSize.logoSizeMedium : KSize.logoSizeLarge),
                     SizedBox(width: isMediumWidth ? KSize.margin3x : KSize.margin4x),
                     Column(
                       mainAxisSize: MainAxisSize.min,
@@ -190,7 +193,10 @@ class _GalleryHeader extends StatelessWidget {
                           style: context.textOnDark.brandTitle,
                         ),
                         if (!isMediumWidth)
-                          Text('Collection of Fine Arts', style: context.textOnDark.brandSubtitle),
+                          Text(
+                            context.t.app.brandTagline,
+                            style: context.textOnDark.brandSubtitle,
+                          ),
                       ],
                     ),
                   ],
@@ -337,7 +343,7 @@ class _ContactsButton extends StatelessWidget {
 // ─── Logo mark ────────────────────────────────────────────────────────────────
 
 class _GalleryLogo extends StatelessWidget {
-  const _GalleryLogo({this.size = 40});
+  const _GalleryLogo({this.size = KSize.logoSizeLarge});
 
   final double size;
 
@@ -353,7 +359,10 @@ class _GalleryLogo extends StatelessWidget {
         border: Border.all(color: colors.onDarkSubtle, width: KSize.borderWidthVerySmall),
       ),
       child: Center(
-        child: Builder(builder: (context) => Text('KA', style: context.textOnDark.logoMark(size))),
+        child: Builder(
+          builder: (context) =>
+              Text(context.t.app.logoMark, style: context.textOnDark.logoMark(size)),
+        ),
       ),
     );
   }
@@ -384,7 +393,7 @@ class _GalleryDrawer extends StatelessWidget {
               padding: const EdgeInsets.all(KSize.margin6x),
               child: Row(
                 children: [
-                  const _GalleryLogo(size: 40),
+                  const _GalleryLogo(size: KSize.logoSizeLarge),
                   const SizedBox(width: KSize.margin4x),
                   Text(context.t.app.title.toUpperCase(), style: context.textOnDark.brandTitle),
                 ],
@@ -471,19 +480,13 @@ class _GalleryFooter extends StatelessWidget {
   Widget _buildFull(BuildContext context) {
     return Container(
       color: context.colors.darkOlive,
-      padding: const EdgeInsets.symmetric(
-        horizontal: KSize.margin12x,
-        vertical: KSize.margin3x,
-      ),
+      padding: const EdgeInsets.symmetric(horizontal: KSize.margin12x, vertical: KSize.margin3x),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          const _GalleryLogo(size: 24),
+          const _GalleryLogo(size: KSize.logoSizeCompact),
           const SizedBox(width: KSize.margin3x),
-          Text(
-            context.t.app.title.toUpperCase(),
-            style: context.textOnDark.footerBrand,
-          ),
+          Text(context.t.app.title.toUpperCase(), style: context.textOnDark.footerBrand),
           const SizedBox(width: KSize.margin8x),
           Expanded(
             child: Wrap(

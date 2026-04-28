@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
+import 'package:web_art_galery/i18n/strings.g.dart';
 import 'package:web_art_galery/src/shared/utils/url_launcher_utils.dart';
 
 class NetworkVideoPlayer extends StatefulWidget {
@@ -122,18 +123,19 @@ class _VideoError extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final video = context.t.common.video;
     return Center(
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
           const Icon(Icons.error_outline),
           const SizedBox(height: 8),
-          const Text('Failed to load video stream'),
+          Text(video.loadError),
           if (showOpenExternallyButton)
             TextButton.icon(
               onPressed: onOpenExternally,
               icon: const Icon(Icons.open_in_new),
-              label: const Text('Open externally'),
+              label: Text(video.openExternally),
             ),
         ],
       ),

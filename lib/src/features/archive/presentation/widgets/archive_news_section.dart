@@ -1,25 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:web_art_galery/i18n/strings.g.dart';
+import 'package:web_art_galery/src/features/archive/domain/entities/archive_news_item.dart';
+import 'package:web_art_galery/src/features/archive/presentation/cubits/archive_cubit.dart';
 import 'package:web_art_galery/src/shared/config/app_context_extensions.dart';
 import 'package:web_art_galery/src/shared/config/ksize.dart';
 
 class ArchiveNewsSection extends StatelessWidget {
   const ArchiveNewsSection({super.key});
 
-  static const double _wideTwoColumnBreakpoint = 1080;
-
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.sizeOf(context).width;
     final isCompact = width < KSize.adaptiveExpandedBreakpoint;
-    final useTwoColumnLayout = width >= _wideTwoColumnBreakpoint;
     final horizontalPadding = isCompact ? KSize.margin6x : KSize.margin12x * 2;
-    final items = _newsItems()..sort((a, b) => b.date.compareTo(a.date));
-    final featured = items.first;
-    final secondary = items.skip(1).toList();
-    final groupedByYear = _groupByYear(secondary);
-    final archiveFeed = context.t.archiveFeed;
 
     return Container(
       color: context.colors.white,
@@ -27,69 +22,105 @@ class ArchiveNewsSection extends StatelessWidget {
         horizontal: horizontalPadding,
         vertical: isCompact ? KSize.margin10x : KSize.margin15x,
       ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(archiveFeed.title, style: context.textContent.archiveSectionTitle),
-          const SizedBox(height: KSize.margin4x),
-          Wrap(
-            crossAxisAlignment: WrapCrossAlignment.center,
-            spacing: KSize.margin3x,
-            runSpacing: KSize.margin2x,
-            children: [
-              Container(
-                width: KSize.newsRuleWidth,
-                height: KSize.borderWidthSmallHalf,
-                color: Theme.of(context).dividerColor,
+      child: BlocBuilder<ArchiveCubit, ArchiveState>(
+        builder: (context, state) {
+          return switch (state) {
+            ArchiveInitial() || ArchiveLoading() => const Center(child: CircularProgressIndicator()),
+            ArchiveError(:final message) => Center(
+              child: Padding(
+                padding: const EdgeInsets.all(KSize.margin4x),
+                child: Text(message, textAlign: TextAlign.center),
               ),
-              Text(archiveFeed.moreLabel.toUpperCase(), style: context.textContent.archiveMeta),
-              Icon(
-                Icons.arrow_forward_rounded,
-                size: KSize.iconSMedium,
-                color: context.colors.forestGreen,
-              ),
-            ],
-          ),
-          const SizedBox(height: KSize.margin10x),
-          if (!useTwoColumnLayout)
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                _FeaturedNewsCard(item: featured),
-                if (groupedByYear.isNotEmpty) const SizedBox(height: KSize.margin10x),
-                ..._buildYearGroups(context, groupedByYear),
-              ],
-            )
-          else
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Expanded(flex: 6, child: _FeaturedNewsCard(item: featured)),
-                const SizedBox(width: KSize.margin8x),
-                Expanded(
-                  flex: 5,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: _buildYearGroups(context, groupedByYear),
-                  ),
-                ),
-              ],
             ),
-        ],
+            ArchiveLoaded(:final items) when items.isEmpty => const SizedBox.shrink(),
+            ArchiveLoaded(:final items) => _ArchiveContent(items: items, width: width),
+          };
+        },
       ),
     );
   }
+}
 
-  static List<MapEntry<int, List<_NewsItem>>> _groupByYear(List<_NewsItem> items) {
-    final byYear = <int, List<_NewsItem>>{};
+class _ArchiveContent extends StatelessWidget {
+  const _ArchiveContent({required this.items, required this.width});
+
+  final List<ArchiveNewsItem> items;
+  final double width;
+
+  @override
+  Widget build(BuildContext context) {
+    final useTwoColumnLayout = width >= KSize.adaptiveTwoColumnBreakpoint;
+    final sorted = [...items]..sort((a, b) => b.date.compareTo(a.date));
+    final featured = sorted.first;
+    final secondary = sorted.skip(1).toList();
+    final groupedByYear = _groupByYear(secondary);
+    final archiveFeed = context.t.archiveFeed;
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(archiveFeed.title, style: context.textContent.archiveSectionTitle),
+        const SizedBox(height: KSize.margin4x),
+        Wrap(
+          crossAxisAlignment: WrapCrossAlignment.center,
+          spacing: KSize.margin3x,
+          runSpacing: KSize.margin2x,
+          children: [
+            Container(
+              width: KSize.newsRuleWidth,
+              height: KSize.borderWidthSmallHalf,
+              color: Theme.of(context).dividerColor,
+            ),
+            Text(archiveFeed.moreLabel.toUpperCase(), style: context.textContent.archiveMeta),
+            Icon(
+              Icons.arrow_forward_rounded,
+              size: KSize.iconSMedium,
+              color: context.colors.forestGreen,
+            ),
+          ],
+        ),
+        const SizedBox(height: KSize.margin10x),
+        if (!useTwoColumnLayout)
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              _FeaturedNewsCard(item: featured),
+              if (groupedByYear.isNotEmpty) const SizedBox(height: KSize.margin10x),
+              ..._buildYearGroups(context, groupedByYear),
+            ],
+          )
+        else
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Expanded(flex: 6, child: _FeaturedNewsCard(item: featured)),
+              const SizedBox(width: KSize.margin8x),
+              Expanded(
+                flex: 5,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: _buildYearGroups(context, groupedByYear),
+                ),
+              ),
+            ],
+          ),
+      ],
+    );
+  }
+
+  static List<MapEntry<int, List<ArchiveNewsItem>>> _groupByYear(List<ArchiveNewsItem> items) {
+    final byYear = <int, List<ArchiveNewsItem>>{};
     for (final item in items) {
-      byYear.putIfAbsent(item.date.year, () => <_NewsItem>[]).add(item);
+      byYear.putIfAbsent(item.date.year, () => <ArchiveNewsItem>[]).add(item);
     }
     final entries = byYear.entries.toList()..sort((a, b) => b.key.compareTo(a.key));
     return entries;
   }
 
-  List<Widget> _buildYearGroups(BuildContext context, List<MapEntry<int, List<_NewsItem>>> groups) {
+  List<Widget> _buildYearGroups(
+    BuildContext context,
+    List<MapEntry<int, List<ArchiveNewsItem>>> groups,
+  ) {
     final widgets = <Widget>[];
     for (var groupIndex = 0; groupIndex < groups.length; groupIndex++) {
       final entry = groups[groupIndex];
@@ -101,67 +132,16 @@ class ArchiveNewsSection extends StatelessWidget {
       final yearItems = entry.value;
       for (var i = 0; i < yearItems.length; i++) {
         widgets.add(_NewsListCard(item: yearItems[i]));
-        if (i != yearItems.length - 1) {
+        final isLastInYearGroup = i == yearItems.length - 1;
+        if (!isLastInYearGroup) {
           widgets.add(const SizedBox(height: KSize.margin6x));
         }
       }
     }
     return widgets;
   }
-
-  List<_NewsItem> _newsItems() => [
-    _NewsItem(
-      key: 'priorbankChtobyChuvstvovat',
-      url: 'https://www.priorbank.by/priorbank-main/art',
-      date: DateTime(2026, 4, 10),
-      host: 'priorbank.by',
-      accent: Color(0xFF7C95C7),
-      accentSecondary: Color(0xFF394F87),
-    ),
-    _NewsItem(
-      key: 'boguchar2026',
-      url: 'https://boguchar.bezformata.com/listnews/ekskursiya-istoriya/156791600/',
-      date: DateTime(2026, 2, 19),
-      host: 'bezformata.com',
-      accent: Color(0xFFB55A4F),
-      accentSecondary: Color(0xFF7A4536),
-    ),
-    _NewsItem(
-      key: 'nitiSudby',
-      url: 'https://mkram.ru/ru/2025/07/14/aleksandr-kishhenko-2/',
-      date: DateTime(2025, 7, 19),
-      host: 'mkram.ru',
-      accent: Color(0xFFC97A52),
-      accentSecondary: Color(0xFF6B8A63),
-    ),
-    _NewsItem(
-      key: 'belgazprombankKraskiPobedy',
-      url:
-          'https://belgazprombank.by/about/press_centr/novosti_banka/2024/belgazprombank-priglashaet-na-vystavku-kraski-velikoy-pobedy/',
-      date: DateTime(2024, 6, 28),
-      host: 'belgazprombank.by',
-      accent: Color(0xFFC04A4A),
-      accentSecondary: Color(0xFF5C2B2B),
-    ),
-    _NewsItem(
-      key: 'boguchar2024',
-      url:
-          'https://boguchar.bezformata.com/listnews/ekskursiya-istoriya-zhizni-a-m-kishenko/131561835/',
-      date: DateTime(2024, 9, 1),
-      host: 'bezformata.com',
-      accent: Color(0xFFD3A24C),
-      accentSecondary: Color(0xFF8E6831),
-    ),
-    _NewsItem(
-      key: 'nebaZiamlja',
-      url: 'https://artmuseum.by/ru/events-news/neba-i-ziamlia-aliaksandra-kishchanki',
-      date: DateTime(2023, 5, 6),
-      host: 'artmuseum.by',
-      accent: Color(0xFF8DAA78),
-      accentSecondary: Color(0xFF355743),
-    ),
-  ];
 }
+
 
 class _YearHeading extends StatelessWidget {
   const _YearHeading({required this.year});
@@ -193,7 +173,7 @@ class _YearHeading extends StatelessWidget {
 class _FeaturedNewsCard extends StatelessWidget {
   const _FeaturedNewsCard({required this.item});
 
-  final _NewsItem item;
+  final ArchiveNewsItem item;
 
   @override
   Widget build(BuildContext context) {
@@ -227,7 +207,7 @@ class _FeaturedNewsCard extends StatelessWidget {
 class _NewsListCard extends StatelessWidget {
   const _NewsListCard({required this.item});
 
-  final _NewsItem item;
+  final ArchiveNewsItem item;
 
   @override
   Widget build(BuildContext context) {
@@ -294,7 +274,7 @@ class _NewsListCard extends StatelessWidget {
 class _NewsArtwork extends StatelessWidget {
   const _NewsArtwork({required this.item, required this.featured});
 
-  final _NewsItem item;
+  final ArchiveNewsItem item;
   final bool featured;
 
   @override
@@ -305,7 +285,7 @@ class _NewsArtwork extends StatelessWidget {
     return ClipRRect(
       borderRadius: BorderRadius.circular(featured ? KSize.radiusLargeExtra : KSize.radiusLarge),
       child: AspectRatio(
-        aspectRatio: featured ? 1.22 : 1.45,
+        aspectRatio: featured ? KSize.archiveFeaturedAspectRatio : KSize.archiveRegularAspectRatio,
         child: Container(
           height: height,
           decoration: BoxDecoration(
@@ -319,26 +299,30 @@ class _NewsArtwork extends StatelessWidget {
             fit: StackFit.expand,
             children: [
               Positioned(
-                top: -36,
-                left: -26,
+                top: KSize.featuredArtworkGlowOffsetTop,
+                left: KSize.featuredArtworkGlowOffsetLeft,
                 child: Container(
-                  width: featured ? 180 : 110,
-                  height: featured ? 180 : 110,
+                  width: featured ? KSize.featuredArtworkGlowLg : KSize.featuredArtworkGlowSm,
+                  height: featured ? KSize.featuredArtworkGlowLg : KSize.featuredArtworkGlowSm,
                   decoration: BoxDecoration(shape: BoxShape.circle, color: colors.newsGlowLight),
                 ),
               ),
               Positioned(
-                bottom: -54,
-                right: -24,
+                bottom: KSize.featuredArtworkGlowOffsetBottom,
+                right: KSize.featuredArtworkGlowOffsetRight,
                 child: Container(
-                  width: featured ? 210 : 130,
-                  height: featured ? 210 : 130,
+                  width: featured
+                      ? KSize.featuredArtworkGlowDarkLg
+                      : KSize.featuredArtworkGlowDarkSm,
+                  height: featured
+                      ? KSize.featuredArtworkGlowDarkLg
+                      : KSize.featuredArtworkGlowDarkSm,
                   decoration: BoxDecoration(shape: BoxShape.circle, color: colors.newsGlowDark),
                 ),
               ),
               Positioned(
-                top: featured ? 28 : 20,
-                right: featured ? 28 : 20,
+                top: featured ? KSize.featuredArtworkChipInset : KSize.regularArtworkChipInset,
+                right: featured ? KSize.featuredArtworkChipInset : KSize.regularArtworkChipInset,
                 child: Container(
                   padding: const EdgeInsets.symmetric(
                     horizontal: KSize.margin3x,
@@ -356,12 +340,20 @@ class _NewsArtwork extends StatelessWidget {
                 ),
               ),
               Positioned(
-                left: featured ? 28 : 20,
-                bottom: featured ? 26 : 18,
+                left: featured
+                    ? KSize.featuredArtworkYearInsetX
+                    : KSize.regularArtworkYearInsetX,
+                bottom: featured
+                    ? KSize.featuredArtworkYearInsetY
+                    : KSize.regularArtworkYearInsetY,
                 child: Text(
                   item.date.year.toString(),
                   style: context.textOnDark
-                      .heroHeadline(featured ? 56 : 34)
+                      .heroHeadline(
+                        featured
+                            ? KSize.archiveYearFeaturedFontSize
+                            : KSize.archiveYearRegularFontSize,
+                      )
                       .copyWith(
                         color: featured ? colors.newsYearFeatured : colors.newsYearDefault,
                         height: 1,
@@ -379,7 +371,7 @@ class _NewsArtwork extends StatelessWidget {
 class _NewsMetaRow extends StatelessWidget {
   const _NewsMetaRow({required this.item});
 
-  final _NewsItem item;
+  final ArchiveNewsItem item;
 
   @override
   Widget build(BuildContext context) {
@@ -429,40 +421,4 @@ class _NewsMetaRow extends StatelessWidget {
 Future<void> _openUrl(String rawUrl) async {
   final uri = Uri.parse(rawUrl);
   await launchUrl(uri, webOnlyWindowName: '_blank');
-}
-
-class _NewsItem {
-  const _NewsItem({
-    required this.key,
-    required this.url,
-    required this.date,
-    required this.host,
-    required this.accent,
-    required this.accentSecondary,
-  });
-
-  final String key;
-  final String url;
-  final DateTime date;
-  final String host;
-  final Color accent;
-  final Color accentSecondary;
-
-  String localizedTitle(Translations t) {
-    final path = 'archiveFeed.items.$key.title';
-    final value = t[path];
-    if (value is String && value != path) {
-      return value;
-    }
-    return key;
-  }
-
-  String localizedExcerpt(Translations t) {
-    final path = 'archiveFeed.items.$key.excerpt';
-    final value = t[path];
-    if (value is String && value != path) {
-      return value;
-    }
-    return '';
-  }
 }

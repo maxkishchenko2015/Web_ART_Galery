@@ -8,6 +8,7 @@ import 'package:web_art_galery/src/features/contacts/presentation/screens/contac
 import 'package:web_art_galery/src/features/films/presentation/screens/films_page.dart';
 import 'package:web_art_galery/src/features/news/presentation/screens/news_detail_page.dart';
 import 'package:web_art_galery/src/features/news/presentation/screens/news_page.dart';
+import 'package:web_art_galery/src/navigation/presentation/router/app_routes.dart';
 import 'package:web_art_galery/src/navigation/presentation/router/screen_name_resolver.dart';
 import 'package:web_art_galery/src/navigation/presentation/screens/app_shell_page.dart';
 import 'package:web_art_galery/src/shared/presentation/screens/placeholder_page.dart';
@@ -17,17 +18,17 @@ final appRouter = _buildAppRouter();
 
 GoRouter _buildAppRouter() {
   final router = GoRouter(
-    initialLocation: '/about-author',
+    initialLocation: AppRoutes.aboutAuthor,
     redirect: (context, state) {
       if (state.uri.path == '/') {
-        return '/about-author';
+        return AppRoutes.aboutAuthor;
       }
 
       return null;
     },
     routes: _routes,
     errorBuilder: (context, state) =>
-        AppShellPage(child: PlaceholderPage(title: context.t.common.pageNotFound)),
+        AppShellMenu(child: PlaceholderPage(title: context.t.common.pageNotFound)),
   );
   router.routerDelegate.addListener(() {
     final path = router.routerDelegate.currentConfiguration.uri.path;
@@ -39,34 +40,53 @@ GoRouter _buildAppRouter() {
 
 final List<RouteBase> _routes = [
   ShellRoute(
-    builder: (context, state, child) => AppShellPage(child: child),
+    pageBuilder: (context, state, child) =>
+        NoTransitionPage<void>(child: AppShellMenu(child: child)),
     routes: [
-      GoRoute(path: '/about-author', builder: (context, state) => const AboutAuthorPage()),
       GoRoute(
-        path: '/news',
-        builder: (context, state) => const NewsPage(),
+        path: AppRoutes.aboutAuthor,
+        pageBuilder: (context, state) => const NoTransitionPage<void>(child: AboutAuthorPage()),
+      ),
+      GoRoute(
+        path: AppRoutes.news,
+        pageBuilder: (context, state) => const NoTransitionPage<void>(child: NewsPage()),
         routes: [
           GoRoute(
-            path: ':articleId',
-            builder: (context, state) =>
-                NewsDetailPage(articleId: state.pathParameters['articleId'] ?? ''),
+            path: AppRoutes.newsArticleSegment,
+            pageBuilder: (context, state) => NoTransitionPage<void>(
+              child: NewsDetailPage(
+                articleId: state.pathParameters[AppRoutes.articleIdParam] ?? '',
+              ),
+            ),
           ),
         ],
       ),
       GoRoute(
-        path: '/catalog',
-        builder: (context, state) => const CatalogOfWorksPage(),
+        path: AppRoutes.catalog,
+        pageBuilder: (context, state) => const NoTransitionPage<void>(child: CatalogOfWorksPage()),
         routes: [
           GoRoute(
-            path: ':workId',
-            builder: (context, state) =>
-                CatalogWorkDetailPage(workId: state.pathParameters['workId'] ?? 'unknown'),
+            path: AppRoutes.catalogWorkSegment,
+            pageBuilder: (context, state) => NoTransitionPage<void>(
+              child: CatalogWorkDetailPage(
+                workId: state.pathParameters[AppRoutes.workIdParam] ?? 'unknown',
+              ),
+            ),
           ),
         ],
       ),
-      GoRoute(path: '/films', builder: (context, state) => const FilmsPage()),
-      GoRoute(path: '/archive', builder: (context, state) => const ArchivePage()),
-      GoRoute(path: '/contacts', builder: (context, state) => const ContactsPage()),
+      GoRoute(
+        path: AppRoutes.films,
+        pageBuilder: (context, state) => const NoTransitionPage<void>(child: FilmsPage()),
+      ),
+      GoRoute(
+        path: AppRoutes.archive,
+        pageBuilder: (context, state) => const NoTransitionPage<void>(child: ArchivePage()),
+      ),
+      GoRoute(
+        path: AppRoutes.contacts,
+        pageBuilder: (context, state) => const NoTransitionPage<void>(child: ContactsPage()),
+      ),
     ],
   ),
 ];

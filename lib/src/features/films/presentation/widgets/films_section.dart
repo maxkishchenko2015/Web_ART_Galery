@@ -2,27 +2,16 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:visibility_detector/visibility_detector.dart';
 import 'package:web_art_galery/i18n/strings.g.dart';
 import 'package:web_art_galery/src/features/films/domain/entities/film.dart';
 import 'package:web_art_galery/src/features/films/presentation/cubits/films_cubit.dart';
+import 'package:web_art_galery/src/shared/config/app_colors.dart';
 import 'package:web_art_galery/src/shared/config/app_context_extensions.dart';
 import 'package:web_art_galery/src/shared/config/ksize.dart';
 import 'package:web_art_galery/src/shared/telemetry/app_telemetry.dart';
 
-class FilmsSection extends StatefulWidget {
+class FilmsSection extends StatelessWidget {
   const FilmsSection({super.key});
-
-  static const double _wideTwoColumnBreakpoint = 1080;
-
-  @override
-  State<FilmsSection> createState() => _FilmsSectionState();
-}
-
-class _FilmsSectionState extends State<FilmsSection> {
-  // Tracks films whose impression event has already fired in this session
-  // so we don't spam analytics when the user scrolls back and forth.
-  final Set<String> _seenIds = <String>{};
 
   @override
   Widget build(BuildContext context) {
@@ -41,22 +30,14 @@ class _FilmsSectionState extends State<FilmsSection> {
           if (state is! FilmsLoaded || state.isEmpty) {
             return const SizedBox.shrink();
           }
-          final useTwoColumnLayout = width >= FilmsSection._wideTwoColumnBreakpoint;
+          final useTwoColumnLayout = width >= KSize.adaptiveTwoColumnBreakpoint;
           return Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              _FilmsBlock(
-                videos: state.videos,
-                onVisible: _onFilmVisible,
-                useTwoColumnLayout: useTwoColumnLayout,
-              ),
+              _FilmsBlock(videos: state.videos, useTwoColumnLayout: useTwoColumnLayout),
               if (state.reels.isNotEmpty) ...[
                 const SizedBox(height: KSize.margin15x),
-                _ReelsBlock(
-                  reels: state.reels,
-                  onVisible: _onFilmVisible,
-                  isCompact: isCompact,
-                ),
+                _ReelsBlock(reels: state.reels, isCompact: isCompact),
               ],
             ],
           );
@@ -64,32 +45,14 @@ class _FilmsSectionState extends State<FilmsSection> {
       ),
     );
   }
-
-  void _onFilmVisible(Film film, double visibleFraction) {
-    if (visibleFraction < 0.5) return;
-    if (!_seenIds.add(film.key)) return;
-    AppTelemetry.instance.logEvent(
-      'films_card_impression',
-      params: <String, Object?>{
-        'key': film.key,
-        'video_id': film.videoId,
-        'source': film.sourceTag,
-      },
-    );
-  }
 }
 
 // ─── Films block (header + featured + responsive list) ───────────────────────
 
 class _FilmsBlock extends StatelessWidget {
-  const _FilmsBlock({
-    required this.videos,
-    required this.onVisible,
-    required this.useTwoColumnLayout,
-  });
+  const _FilmsBlock({required this.videos, required this.useTwoColumnLayout});
 
   final List<Film> videos;
-  final void Function(Film film, double visibleFraction) onVisible;
   final bool useTwoColumnLayout;
 
   @override
@@ -112,11 +75,11 @@ class _FilmsBlock extends StatelessWidget {
           Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              _FilmFeaturedCard(film: featured, onVisible: onVisible),
+              _FilmFeaturedCard(film: featured),
               if (secondary.isNotEmpty) const SizedBox(height: KSize.margin10x),
               for (var i = 0; i < secondary.length; i++) ...[
                 if (i != 0) const SizedBox(height: KSize.margin6x),
-                _FilmListCard(film: secondary[i], onVisible: onVisible),
+                _FilmListCard(film: secondary[i]),
               ],
             ],
           )
@@ -124,10 +87,7 @@ class _FilmsBlock extends StatelessWidget {
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Expanded(
-                flex: 6,
-                child: _FilmFeaturedCard(film: featured, onVisible: onVisible),
-              ),
+              Expanded(flex: 6, child: _FilmFeaturedCard(film: featured)),
               const SizedBox(width: KSize.margin8x),
               Expanded(
                 flex: 5,
@@ -136,7 +96,7 @@ class _FilmsBlock extends StatelessWidget {
                   children: [
                     for (var i = 0; i < secondary.length; i++) ...[
                       if (i != 0) const SizedBox(height: KSize.margin6x),
-                      _FilmListCard(film: secondary[i], onVisible: onVisible),
+                      _FilmListCard(film: secondary[i]),
                     ],
                   ],
                 ),
@@ -151,10 +111,9 @@ class _FilmsBlock extends StatelessWidget {
 // ─── Reels block (Instagram grid) ────────────────────────────────────────────
 
 class _ReelsBlock extends StatelessWidget {
-  const _ReelsBlock({required this.reels, required this.onVisible, required this.isCompact});
+  const _ReelsBlock({required this.reels, required this.isCompact});
 
   final List<Film> reels;
-  final void Function(Film film, double visibleFraction) onVisible;
   final bool isCompact;
 
   @override
@@ -184,7 +143,7 @@ class _ReelsBlock extends StatelessWidget {
                 for (final reel in reels)
                   SizedBox(
                     width: cellWidth.clamp(220.0, 360.0),
-                    child: _ReelCard(reel: reel, onVisible: onVisible),
+                    child: _ReelCard(reel: reel),
                   ),
               ],
             );
@@ -233,39 +192,34 @@ class _SectionHeader extends StatelessWidget {
 // ─── Featured card (top of the films block) ─────────────────────────────────
 
 class _FilmFeaturedCard extends StatelessWidget {
-  const _FilmFeaturedCard({required this.film, required this.onVisible});
+  const _FilmFeaturedCard({required this.film});
 
   final Film film;
-  final void Function(Film film, double visibleFraction) onVisible;
 
   @override
   Widget build(BuildContext context) {
     final t = context.t;
     final filmsCopy = t.films;
 
-    return VisibilityDetector(
-      key: ValueKey('films_featured_${film.key}'),
-      onVisibilityChanged: (info) => onVisible(film, info.visibleFraction),
-      child: InkWell(
-        borderRadius: BorderRadius.circular(KSize.radiusLargeExtra),
-        onTap: () => _openFilm(film),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            _FilmThumbnail(film: film, featured: true),
-            const SizedBox(height: KSize.margin5x),
-            Text(
-              filmsCopy.latestLabel.toUpperCase(),
-              style: context.textContent.archiveSectionLabel,
-            ),
-            const SizedBox(height: KSize.margin2x),
-            Text(_localizedTitle(t, film), style: context.textContent.archiveFeaturedTitle),
-            const SizedBox(height: KSize.margin3x),
-            Text(_localizedExcerpt(t, film), style: context.textContent.archiveExcerpt),
-            const SizedBox(height: KSize.margin4x),
-            _FilmMetaRow(film: film),
-          ],
-        ),
+    return InkWell(
+      borderRadius: BorderRadius.circular(KSize.radiusLargeExtra),
+      onTap: () => _openFilm(film),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          _FilmThumbnail(film: film, featured: true),
+          const SizedBox(height: KSize.margin5x),
+          Text(
+            filmsCopy.latestLabel.toUpperCase(),
+            style: context.textContent.archiveSectionLabel,
+          ),
+          const SizedBox(height: KSize.margin2x),
+          Text(_localizedTitle(t, film), style: context.textContent.archiveFeaturedTitle),
+          const SizedBox(height: KSize.margin3x),
+          Text(_localizedExcerpt(t, film), style: context.textContent.archiveExcerpt),
+          const SizedBox(height: KSize.margin4x),
+          _FilmMetaRow(film: film),
+        ],
       ),
     );
   }
@@ -274,10 +228,9 @@ class _FilmFeaturedCard extends StatelessWidget {
 // ─── List card (everything below the featured card) ──────────────────────────
 
 class _FilmListCard extends StatelessWidget {
-  const _FilmListCard({required this.film, required this.onVisible});
+  const _FilmListCard({required this.film});
 
   final Film film;
-  final void Function(Film film, double visibleFraction) onVisible;
 
   @override
   Widget build(BuildContext context) {
@@ -286,61 +239,57 @@ class _FilmListCard extends StatelessWidget {
     final title = _localizedTitle(t, film);
     final excerpt = _localizedExcerpt(t, film);
 
-    return VisibilityDetector(
-      key: ValueKey('films_list_${film.key}'),
-      onVisibilityChanged: (info) => onVisible(film, info.visibleFraction),
-      child: InkWell(
-        borderRadius: BorderRadius.circular(KSize.radiusLarge),
-        onTap: () => _openFilm(film),
-        child: isCompact
-            ? Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  _FilmThumbnail(film: film, featured: false),
-                  const SizedBox(height: KSize.margin4x),
-                  Text(title, style: context.textContent.archiveCardTitle),
-                  const SizedBox(height: KSize.margin2x),
-                  Text(
-                    excerpt,
-                    style: context.textContent.archiveExcerpt,
-                    maxLines: 4,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                  const SizedBox(height: KSize.margin3x),
-                  _FilmMetaRow(film: film),
-                ],
-              )
-            : Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  SizedBox(
-                    width: KSize.newsListArtworkWidth,
-                    child: _FilmThumbnail(film: film, featured: false),
-                  ),
-                  const SizedBox(width: KSize.margin5x),
-                  Expanded(
-                    child: Padding(
-                      padding: const EdgeInsets.only(top: KSize.margin1x),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(title, style: context.textContent.archiveCardTitle),
-                          const SizedBox(height: KSize.margin2x),
-                          Text(
-                            excerpt,
-                            style: context.textContent.archiveExcerpt,
-                            maxLines: 4,
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                          const SizedBox(height: KSize.margin3x),
-                          _FilmMetaRow(film: film),
-                        ],
-                      ),
+    return InkWell(
+      borderRadius: BorderRadius.circular(KSize.radiusLarge),
+      onTap: () => _openFilm(film),
+      child: isCompact
+          ? Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                _FilmThumbnail(film: film, featured: false),
+                const SizedBox(height: KSize.margin4x),
+                Text(title, style: context.textContent.archiveCardTitle),
+                const SizedBox(height: KSize.margin2x),
+                Text(
+                  excerpt,
+                  style: context.textContent.archiveExcerpt,
+                  maxLines: 4,
+                  overflow: TextOverflow.ellipsis,
+                ),
+                const SizedBox(height: KSize.margin3x),
+                _FilmMetaRow(film: film),
+              ],
+            )
+          : Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(
+                  width: KSize.newsListArtworkWidth,
+                  child: _FilmThumbnail(film: film, featured: false),
+                ),
+                const SizedBox(width: KSize.margin5x),
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.only(top: KSize.margin1x),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(title, style: context.textContent.archiveCardTitle),
+                        const SizedBox(height: KSize.margin2x),
+                        Text(
+                          excerpt,
+                          style: context.textContent.archiveExcerpt,
+                          maxLines: 4,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                        const SizedBox(height: KSize.margin3x),
+                        _FilmMetaRow(film: film),
+                      ],
                     ),
                   ),
-                ],
-              ),
-      ),
+                ),
+              ],
+            ),
     );
   }
 }
@@ -348,10 +297,9 @@ class _FilmListCard extends StatelessWidget {
 // ─── Reel card (Instagram, 9:16) ─────────────────────────────────────────────
 
 class _ReelCard extends StatelessWidget {
-  const _ReelCard({required this.reel, required this.onVisible});
+  const _ReelCard({required this.reel});
 
   final Film reel;
-  final void Function(Film film, double visibleFraction) onVisible;
 
   @override
   Widget build(BuildContext context) {
@@ -359,32 +307,27 @@ class _ReelCard extends StatelessWidget {
     final title = _localizedTitle(t, reel);
     final excerpt = _localizedExcerpt(t, reel);
 
-    return VisibilityDetector(
-      key: ValueKey('films_reel_${reel.key}'),
-      onVisibilityChanged: (info) => onVisible(reel, info.visibleFraction),
-      child: InkWell(
-        borderRadius: BorderRadius.circular(KSize.radiusLarge),
-        onTap: () => _openFilm(reel),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            _FilmThumbnail(film: reel, featured: false, aspectRatio: 9 / 16),
-            const SizedBox(height: KSize.margin3x),
-            if (title.isNotEmpty)
-              Text(title, style: context.textContent.archiveCardTitle),
-            if (excerpt.isNotEmpty) ...[
-              const SizedBox(height: KSize.margin1x),
-              Text(
-                excerpt,
-                style: context.textContent.archiveExcerpt,
-                maxLines: 3,
-                overflow: TextOverflow.ellipsis,
-              ),
-            ],
-            const SizedBox(height: KSize.margin3x),
-            _FilmMetaRow(film: reel),
+    return InkWell(
+      borderRadius: BorderRadius.circular(KSize.radiusLarge),
+      onTap: () => _openFilm(reel),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          _FilmThumbnail(film: reel, featured: false, aspectRatio: KSize.reelCardAspectRatio),
+          const SizedBox(height: KSize.margin3x),
+          if (title.isNotEmpty) Text(title, style: context.textContent.archiveCardTitle),
+          if (excerpt.isNotEmpty) ...[
+            const SizedBox(height: KSize.margin1x),
+            Text(
+              excerpt,
+              style: context.textContent.archiveExcerpt,
+              maxLines: 3,
+              overflow: TextOverflow.ellipsis,
+            ),
           ],
-        ),
+          const SizedBox(height: KSize.margin3x),
+          _FilmMetaRow(film: reel),
+        ],
       ),
     );
   }
@@ -396,7 +339,7 @@ class _FilmThumbnail extends StatelessWidget {
   const _FilmThumbnail({
     required this.film,
     required this.featured,
-    this.aspectRatio = 16 / 9,
+    this.aspectRatio = KSize.filmCardAspectRatio,
   });
 
   final Film film;
@@ -415,7 +358,7 @@ class _FilmThumbnail extends StatelessWidget {
         child: Stack(
           fit: StackFit.expand,
           children: [
-            // Gradient backdrop — also serves as the fallback when the
+            // Brand gradient backdrop — also serves as the fallback when the
             // remote thumbnail fails to load (Drive without public sharing,
             // Instagram, YouTube tile fetch errors, etc.).
             DecoratedBox(
@@ -423,7 +366,7 @@ class _FilmThumbnail extends StatelessWidget {
                 gradient: LinearGradient(
                   begin: Alignment.topLeft,
                   end: Alignment.bottomRight,
-                  colors: [film.accent, film.accentSecondary],
+                  colors: [colors.forestGreen, colors.darkOlive],
                 ),
               ),
             ),
@@ -457,8 +400,8 @@ class _FilmThumbnail extends StatelessWidget {
             ),
             // Host chip
             Positioned(
-              top: featured ? 28 : 16,
-              right: featured ? 28 : 16,
+              top: featured ? KSize.featuredArtworkChipInset : KSize.regularFilmChipInset,
+              right: featured ? KSize.featuredArtworkChipInset : KSize.regularFilmChipInset,
               child: Container(
                 padding: const EdgeInsets.symmetric(
                   horizontal: KSize.margin3x,
@@ -488,20 +431,22 @@ class _PlayButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final size = featured ? 84.0 : 56.0;
-    final iconSize = featured ? 44.0 : 30.0;
+    final size = featured ? KSize.playButtonSizeFeatured : KSize.playButtonSizeDefault;
+    final iconSize = featured
+        ? KSize.playButtonIconSizeFeatured
+        : KSize.playButtonIconSizeDefault;
     return IgnorePointer(
       child: Container(
         width: size,
         height: size,
         decoration: BoxDecoration(
           shape: BoxShape.circle,
-          color: const Color(0xFFE0203A),
+          color: AppColors.playButtonRed,
           boxShadow: [
             BoxShadow(
               color: Colors.black.withAlpha(70),
-              blurRadius: 16,
-              offset: const Offset(0, 4),
+              blurRadius: KSize.playButtonShadowBlur,
+              offset: const Offset(0, KSize.playButtonShadowOffsetY),
             ),
           ],
         ),

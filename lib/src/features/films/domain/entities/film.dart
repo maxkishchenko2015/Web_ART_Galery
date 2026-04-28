@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart';
 
 /// Where the film is hosted. Drives URL construction, the host chip label
 /// shown on the preview card, and the choice of thumbnail endpoint.
@@ -6,19 +6,17 @@ enum FilmSource { youtube, googleDrive, instagram }
 
 /// A single film entry rendered as a video preview card on the Films page.
 ///
-/// The list is provided by [FilmsCubit] (see
-/// `lib/src/features/films/presentation/cubits/films_cubit.dart`). Each
-/// entry carries a stable [key] used both for analytics events and for
+/// Each entry carries a stable [key] used both for analytics events and for
 /// resolving localized copy via the slang
-/// `films.items.[key].{title, excerpt}` path.
+/// `films.items.[key].{title, excerpt}` path. Card thumbnails use a single
+/// shared brand gradient (no per-entry colors), so the entity stays focused
+/// on identity + source metadata.
 @immutable
 class Film {
   const Film({
     required this.key,
     required this.source,
     required this.videoId,
-    required this.accent,
-    required this.accentSecondary,
   });
 
   /// Stable key used for analytics and slang i18n lookups.
@@ -30,13 +28,6 @@ class Film {
   /// - Google Drive → file id (segment after `/d/` in a share URL)
   /// - Instagram → reel shortcode (segment after `/reel/`)
   final String videoId;
-
-  /// Gradient end-stops used as the thumbnail backdrop and as the fallback
-  /// when the remote thumbnail can't be fetched (always the case for
-  /// Instagram, often the case for Google Drive when the file isn't
-  /// shared publicly).
-  final Color accent;
-  final Color accentSecondary;
 
   /// External URL the user is redirected to when tapping the card.
   String get watchUrl => switch (source) {
