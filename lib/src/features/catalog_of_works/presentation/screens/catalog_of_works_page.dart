@@ -4,9 +4,9 @@ import 'package:web_art_galery/i18n/strings.g.dart';
 import 'package:web_art_galery/src/features/catalog_of_works/domain/entities/painting.dart';
 import 'package:web_art_galery/src/features/catalog_of_works/presentation/cubits/catalog_of_works_cubit.dart';
 import 'package:web_art_galery/src/features/catalog_of_works/presentation/localization/painting_name_localization.dart';
-import 'package:web_art_galery/src/features/catalog_of_works/presentation/widgets/catalog_lazy_grid_view.dart';
+import 'package:web_art_galery/src/features/catalog_of_works/presentation/widgets/aspect_aware_image.dart';
+import 'package:web_art_galery/src/features/catalog_of_works/presentation/widgets/catalog_lazy_masonry_view.dart';
 import 'package:web_art_galery/src/shared/config/ksize.dart';
-import 'package:web_art_galery/src/shared/presentation/widgets/cached_network_image_view.dart';
 
 class CatalogOfWorksPage extends StatelessWidget {
   const CatalogOfWorksPage({super.key});
@@ -61,13 +61,13 @@ class _PaintingsGrid extends StatelessWidget {
     return LayoutBuilder(
       builder: (context, constraints) {
         final width = constraints.maxWidth;
-        final maxCrossAxisExtent = width < KSize.adaptiveCompactBreakpoint
-            ? width
+        final crossAxisCount = width < KSize.adaptiveCompactBreakpoint
+            ? 1
             : width < KSize.adaptiveExpandedBreakpoint
-            ? 460.0
-            : 520.0;
+            ? 2
+            : 3;
 
-        return CatalogLazyGridView(
+        return CatalogLazyMasonryView(
           itemCount: paintings.length,
           isLoading: isLoadingMore,
           hasReachedMax: hasReachedMax,
@@ -78,12 +78,9 @@ class _PaintingsGrid extends StatelessWidget {
             KSize.margin4x,
             KSize.margin12x,
           ),
-          gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-            maxCrossAxisExtent: maxCrossAxisExtent,
-            mainAxisSpacing: KSize.margin7x,
-            crossAxisSpacing: KSize.margin4x,
-            childAspectRatio: width < KSize.adaptiveCompactBreakpoint ? 0.80 : 0.72,
-          ),
+          crossAxisCount: crossAxisCount,
+          mainAxisSpacing: KSize.margin7x,
+          crossAxisSpacing: KSize.margin4x,
           loadingWidget: const Padding(
             padding: EdgeInsets.symmetric(vertical: KSize.margin5x),
             child: Center(child: CircularProgressIndicator()),
@@ -116,60 +113,48 @@ class _PaintingCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Expanded(
-            flex: 8,
-            child: CachedNetworkImageView(
-              imagePathOrUrl: painting.imageUrl,
-              width: double.infinity,
-              height: double.infinity,
-              fit: BoxFit.cover,
-              borderRadius: BorderRadius.zero,
+          AspectAwareImage(imageUrl: painting.imageUrl),
+          Padding(
+            padding: const EdgeInsets.fromLTRB(
+              KSize.margin3x,
+              KSize.margin3x,
+              KSize.margin3x,
+              KSize.margin4x,
             ),
-          ),
-          Expanded(
-            flex: 5,
-            child: Padding(
-              padding: const EdgeInsets.fromLTRB(
-                KSize.margin3x,
-                KSize.margin3x,
-                KSize.margin3x,
-                KSize.margin4x,
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  localizedName,
+                  style: Theme.of(
+                    context,
+                  ).textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.w500),
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                ),
+                const SizedBox(height: KSize.margin2x),
+                Text(
+                  '${painting.yearOfCreation}',
+                  style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                    fontStyle: FontStyle.italic,
+                    color: Theme.of(context).colorScheme.onSurfaceVariant,
+                  ),
+                ),
+                const SizedBox(height: KSize.margin1x),
+                Text(
+                  painting.paintedOnAndHow,
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                  style: Theme.of(context).textTheme.bodyMedium,
+                ),
+                if (painting.location.isNotEmpty)
                   Text(
-                    localizedName,
-                    style: Theme.of(
-                      context,
-                    ).textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.w500),
-                    maxLines: 2,
+                    painting.location,
+                    maxLines: 1,
                     overflow: TextOverflow.ellipsis,
+                    style: Theme.of(context).textTheme.bodySmall,
                   ),
-                  const SizedBox(height: KSize.margin2x),
-                  Text(
-                    '${painting.yearOfCreation}',
-                    style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                      fontStyle: FontStyle.italic,
-                      color: Theme.of(context).colorScheme.onSurfaceVariant,
-                    ),
-                  ),
-                  const SizedBox(height: KSize.margin1x),
-                  Text(
-                    painting.paintedOnAndHow,
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
-                    style: Theme.of(context).textTheme.bodyMedium,
-                  ),
-                  if (painting.location.isNotEmpty)
-                    Text(
-                      painting.location,
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                      style: Theme.of(context).textTheme.bodySmall,
-                    ),
-                ],
-              ),
+              ],
             ),
           ),
         ],

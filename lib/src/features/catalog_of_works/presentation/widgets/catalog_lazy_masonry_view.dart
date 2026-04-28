@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
-/// A lazy-loading grid view modelled after IDTLazyListView.
+/// A lazy-loading masonry grid view.
+///
+/// Uses [SliverMasonryGrid.count] so cards keep their natural height — each
+/// card grows to fit its content (used by the catalog to size each painting
+/// to its intrinsic aspect ratio without cropping).
 ///
 /// Manages its own [ScrollController] internally (or accepts an external one
 /// via [scrollController]). When the user scrolls within [_loadMoreThreshold]
@@ -9,16 +14,18 @@ import 'package:flutter/material.dart';
 ///
 /// The loading indicator is rendered as a full-width row **below** the grid
 /// (via [SliverToBoxAdapter]) so it never occupies a grid cell.
-class CatalogLazyGridView extends StatefulWidget {
-  const CatalogLazyGridView({
+class CatalogLazyMasonryView extends StatefulWidget {
+  const CatalogLazyMasonryView({
     super.key,
     required this.itemCount,
     required this.isLoading,
     required this.hasReachedMax,
     required this.onLoadMore,
     required this.itemBuilder,
-    required this.gridDelegate,
+    required this.crossAxisCount,
     required this.loadingWidget,
+    this.mainAxisSpacing = 0,
+    this.crossAxisSpacing = 0,
     this.physics = const AlwaysScrollableScrollPhysics(),
     this.padding = EdgeInsets.zero,
     this.scrollController,
@@ -29,17 +36,19 @@ class CatalogLazyGridView extends StatefulWidget {
   final bool hasReachedMax;
   final VoidCallback onLoadMore;
   final Widget Function(BuildContext context, int index) itemBuilder;
-  final SliverGridDelegate gridDelegate;
+  final int crossAxisCount;
+  final double mainAxisSpacing;
+  final double crossAxisSpacing;
   final Widget loadingWidget;
   final ScrollPhysics physics;
   final EdgeInsets padding;
   final ScrollController? scrollController;
 
   @override
-  State<CatalogLazyGridView> createState() => _CatalogLazyGridViewState();
+  State<CatalogLazyMasonryView> createState() => _CatalogLazyMasonryViewState();
 }
 
-class _CatalogLazyGridViewState extends State<CatalogLazyGridView> {
+class _CatalogLazyMasonryViewState extends State<CatalogLazyMasonryView> {
   late final ScrollController _scrollController;
 
   @override
@@ -50,7 +59,7 @@ class _CatalogLazyGridViewState extends State<CatalogLazyGridView> {
   }
 
   @override
-  void didUpdateWidget(CatalogLazyGridView oldWidget) {
+  void didUpdateWidget(CatalogLazyMasonryView oldWidget) {
     super.didUpdateWidget(oldWidget);
     if (oldWidget.scrollController != widget.scrollController) {
       _scrollController.removeListener(_onScroll);
@@ -97,9 +106,12 @@ class _CatalogLazyGridViewState extends State<CatalogLazyGridView> {
       slivers: [
         SliverPadding(
           padding: widget.padding,
-          sliver: SliverGrid(
-            delegate: SliverChildBuilderDelegate(widget.itemBuilder, childCount: widget.itemCount),
-            gridDelegate: widget.gridDelegate,
+          sliver: SliverMasonryGrid.count(
+            crossAxisCount: widget.crossAxisCount,
+            mainAxisSpacing: widget.mainAxisSpacing,
+            crossAxisSpacing: widget.crossAxisSpacing,
+            childCount: widget.itemCount,
+            itemBuilder: widget.itemBuilder,
           ),
         ),
         if (widget.isLoading && !widget.hasReachedMax && !_shouldHideLoadingWidget)
