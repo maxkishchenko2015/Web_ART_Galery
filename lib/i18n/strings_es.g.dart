@@ -183,7 +183,7 @@ class _TranslationsContactsEs extends TranslationsContactsRu {
 	@override String get title => 'Contactos';
 	@override String get tagline => 'Póngase en contacto con el estudio.';
 	@override String get phoneSectionLabel => 'Teléfono';
-	@override String get phoneHint => 'MTS';
+	@override String get phoneSectionHint => 'Llamadas y WhatsApp';
 	@override String get instagramSectionLabel => 'Instagram';
 	@override String get instagramHandle => '@kishchenko.art';
 	@override String get vkSectionLabel => 'VK';
@@ -799,7 +799,7 @@ extension on TranslationsEs {
 			'contacts.title' => 'Contactos',
 			'contacts.tagline' => 'Póngase en contacto con el estudio.',
 			'contacts.phoneSectionLabel' => 'Teléfono',
-			'contacts.phoneHint' => 'MTS',
+			'contacts.phoneSectionHint' => 'Llamadas y WhatsApp',
 			'contacts.instagramSectionLabel' => 'Instagram',
 			'contacts.instagramHandle' => '@kishchenko.art',
 			'contacts.vkSectionLabel' => 'VK',

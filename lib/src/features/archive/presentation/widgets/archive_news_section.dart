@@ -4,8 +4,8 @@ import 'package:web_art_galery/i18n/strings.g.dart';
 import 'package:web_art_galery/src/shared/config/app_context_extensions.dart';
 import 'package:web_art_galery/src/shared/config/ksize.dart';
 
-class NewsSection extends StatelessWidget {
-  const NewsSection({super.key});
+class ArchiveNewsSection extends StatelessWidget {
+  const ArchiveNewsSection({super.key});
 
   static const double _wideTwoColumnBreakpoint = 1080;
 
@@ -85,15 +85,11 @@ class NewsSection extends StatelessWidget {
     for (final item in items) {
       byYear.putIfAbsent(item.date.year, () => <_NewsItem>[]).add(item);
     }
-    final entries = byYear.entries.toList()
-      ..sort((a, b) => b.key.compareTo(a.key));
+    final entries = byYear.entries.toList()..sort((a, b) => b.key.compareTo(a.key));
     return entries;
   }
 
-  List<Widget> _buildYearGroups(
-    BuildContext context,
-    List<MapEntry<int, List<_NewsItem>>> groups,
-  ) {
+  List<Widget> _buildYearGroups(BuildContext context, List<MapEntry<int, List<_NewsItem>>> groups) {
     final widgets = <Widget>[];
     for (var groupIndex = 0; groupIndex < groups.length; groupIndex++) {
       final entry = groups[groupIndex];
@@ -180,10 +176,7 @@ class _YearHeading extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Text(
-            yearLabel.toUpperCase(),
-            style: context.textContent.archiveSectionLabel,
-          ),
+          Text(yearLabel.toUpperCase(), style: context.textContent.archiveSectionLabel),
           const SizedBox(width: KSize.margin3x),
           Expanded(
             child: Container(

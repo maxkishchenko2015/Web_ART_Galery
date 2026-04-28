@@ -56,9 +56,16 @@ class _ContactsHero extends StatelessWidget {
   Widget build(BuildContext context) {
     final hPad = isCompact ? KSize.margin6x : KSize.margin12x * 2;
     final headlineSize = isCompact ? 36.0 : 56.0;
+    final colors = context.colors;
 
     return Container(
-      color: context.colors.forestGreen,
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+          colors: [colors.forestGreen, colors.darkOlive],
+        ),
+      ),
       padding: EdgeInsets.symmetric(horizontal: hPad, vertical: isCompact ? 48 : 80),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -68,7 +75,16 @@ class _ContactsHero extends StatelessWidget {
             style: context.textOnDark.heroSectionLabel,
           ),
           const SizedBox(height: KSize.margin4x),
-          Text(context.t.contacts.title, style: context.textOnDark.heroHeadline(headlineSize)),
+          Text(
+            context.t.contacts.title,
+            style: context.textOnDark.heroHeadline(headlineSize),
+          ),
+          const SizedBox(height: KSize.margin3x),
+          Container(
+            width: 56,
+            height: KSize.borderWidthSmallHalf,
+            color: colors.onDarkBody,
+          ),
           const SizedBox(height: KSize.margin3x),
           Text(context.t.contacts.tagline, style: context.textOnDark.heroSubtitle),
         ],
@@ -87,9 +103,16 @@ class _ContactsCardsSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final hPad = isCompact ? KSize.margin6x : KSize.margin12x * 2;
+    final colors = context.colors;
 
     return Container(
-      color: context.colors.white,
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+          colors: [colors.white, colors.bioBg],
+        ),
+      ),
       padding: EdgeInsets.symmetric(horizontal: hPad, vertical: isCompact ? 48 : 80),
       child: Wrap(
         spacing: KSize.margin5x,
@@ -101,52 +124,116 @@ class _ContactsCardsSection extends StatelessWidget {
   }
 }
 
-/// Outlined card matching the catalog/painting card visual idiom.
+/// Polished gradient card used for every contact channel.
 ///
-/// Header: a brand glyph next to a section label.
-/// Body: caller-provided rows (tappable values).
+/// Visual contract:
+///  - subtle white → bioBg vertical gradient gives the card depth without
+///    fighting the underlying section gradient;
+///  - 1 px outline using the theme outlineVariant token;
+///  - soft elevation shadow tinted with forestGreen for brand cohesion;
+///  - icon hosted in a circular forestGreen-tinted pill — keeps the brand
+///    accent visible at a glance while the rest of the card stays calm.
 class _ContactCard extends StatelessWidget {
   const _ContactCard({
     required this.label,
     required this.icon,
     required this.children,
+    this.subtitle,
   });
 
   static const double _maxWidth = 360;
 
   final String label;
   final Widget icon;
+  final String? subtitle;
   final List<Widget> children;
 
   @override
   Widget build(BuildContext context) {
+    final colors = context.colors;
+
     return ConstrainedBox(
       constraints: const BoxConstraints(maxWidth: _maxWidth, minWidth: 240),
       child: Container(
-        padding: const EdgeInsets.all(KSize.margin5x),
+        padding: const EdgeInsets.all(KSize.margin6x),
         decoration: BoxDecoration(
-          color: context.colors.white,
-          border: Border.all(color: Theme.of(context).colorScheme.outlineVariant, width: 1),
+          gradient: LinearGradient(
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+            colors: [colors.white, colors.bioBg],
+          ),
+          borderRadius: BorderRadius.circular(KSize.radiusLargeExtra),
+          border: Border.all(
+            color: Theme.of(context).colorScheme.outlineVariant,
+            width: KSize.borderWidthVerySmall,
+          ),
+          boxShadow: [
+            BoxShadow(
+              color: colors.forestGreen.withAlpha(20),
+              blurRadius: 24,
+              offset: const Offset(0, 8),
+            ),
+          ],
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                SizedBox(
-                  width: KSize.iconL,
-                  height: KSize.iconL,
-                  child: Center(child: icon),
+                _IconPill(child: icon),
+                const SizedBox(width: KSize.margin4x),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(label, style: context.textContent.bioSectionTitle),
+                      if (subtitle != null && subtitle!.isNotEmpty) ...[
+                        const SizedBox(height: KSize.margin1x),
+                        Text(
+                          subtitle!,
+                          style: context.textContent.bioDetail,
+                        ),
+                      ],
+                    ],
+                  ),
                 ),
-                const SizedBox(width: KSize.margin3x),
-                Text(label, style: context.textContent.bioSectionTitle),
               ],
             ),
-            const SizedBox(height: KSize.margin4x),
+            const SizedBox(height: KSize.margin5x),
             ...children,
           ],
         ),
       ),
+    );
+  }
+}
+
+/// Circular gradient pill that hosts a brand glyph (phone / Instagram / VK).
+class _IconPill extends StatelessWidget {
+  const _IconPill({required this.child});
+
+  final Widget child;
+
+  @override
+  Widget build(BuildContext context) {
+    final colors = context.colors;
+    return Container(
+      width: 48,
+      height: 48,
+      decoration: BoxDecoration(
+        shape: BoxShape.circle,
+        gradient: LinearGradient(
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+          colors: [colors.quoteBg, colors.forestGreen.withAlpha(36)],
+        ),
+        border: Border.all(
+          color: colors.forestGreen.withAlpha(40),
+          width: KSize.borderWidthVerySmall,
+        ),
+      ),
+      child: Center(child: child),
     );
   }
 }
@@ -159,26 +246,22 @@ class _PhoneCard extends StatelessWidget {
     final colors = context.colors;
     return _ContactCard(
       label: context.t.contacts.phoneSectionLabel,
+      subtitle: context.t.contacts.phoneSectionHint,
       icon: Icon(Icons.phone_outlined, size: KSize.iconM, color: colors.forestGreen),
-      children: [
+      children: const [
         _TappablePhone(display: _phone1Display, telUrl: _phone1Tel),
-        const SizedBox(height: KSize.margin2x),
-        _TappablePhone(
-          display: _phone2Display,
-          telUrl: _phone2Tel,
-          hint: context.t.contacts.phoneHint,
-        ),
+        SizedBox(height: KSize.margin3x),
+        _TappablePhone(display: _phone2Display, telUrl: _phone2Tel),
       ],
     );
   }
 }
 
 class _TappablePhone extends StatelessWidget {
-  const _TappablePhone({required this.display, required this.telUrl, this.hint});
+  const _TappablePhone({required this.display, required this.telUrl});
 
   final String display;
   final String telUrl;
-  final String? hint;
 
   @override
   Widget build(BuildContext context) {
@@ -192,13 +275,15 @@ class _TappablePhone extends StatelessWidget {
           behavior: HitTestBehavior.opaque,
           onTap: () => UrlLauncherUtils.launchUrlIfPossible(url: telUrl),
           child: Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisSize: MainAxisSize.min,
             children: [
               Text(display, style: context.textContent.bioBody),
-              if (hint != null && hint!.isNotEmpty) ...[
-                const SizedBox(width: KSize.margin2x),
-                Text(hint!, style: context.textContent.bioDetail),
-              ],
+              const SizedBox(width: KSize.margin2x),
+              Icon(
+                Icons.arrow_outward_rounded,
+                size: KSize.iconSPlus,
+                color: context.colors.forestGreen,
+              ),
             ],
           ),
         ),
@@ -319,16 +404,42 @@ class _StudioSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final hPad = isCompact ? KSize.margin6x : KSize.margin12x * 2;
+    final colors = context.colors;
 
     return Container(
-      color: context.colors.bioBg,
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+          colors: [colors.bioBg, colors.cream],
+        ),
+      ),
       padding: EdgeInsets.symmetric(horizontal: hPad, vertical: isCompact ? 48 : 80),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            context.t.contacts.studioSectionTitle,
-            style: context.textContent.bioName(isCompact ? 24.0 : 34.0),
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Text(
+                context.t.contacts.studioSectionTitle,
+                style: context.textContent.bioName(isCompact ? 24.0 : 34.0),
+              ),
+              const SizedBox(width: KSize.margin5x),
+              Expanded(
+                child: Container(
+                  height: KSize.borderWidthSmallHalf,
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      colors: [
+                        colors.forestGreen.withAlpha(60),
+                        colors.forestGreen.withAlpha(0),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            ],
           ),
           const SizedBox(height: KSize.margin8x),
           isCompact ? _buildCompact(context) : _buildWide(context),
@@ -370,11 +481,25 @@ class _AddressCard extends StatelessWidget {
     final colors = context.colors;
 
     return Container(
-      padding: const EdgeInsets.all(KSize.margin5x),
+      padding: const EdgeInsets.all(KSize.margin6x),
       decoration: BoxDecoration(
-        color: colors.white,
-        border: Border.all(color: Theme.of(context).colorScheme.outlineVariant, width: 1),
+        gradient: LinearGradient(
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+          colors: [colors.white, colors.bioBg],
+        ),
+        border: Border.all(
+          color: Theme.of(context).colorScheme.outlineVariant,
+          width: KSize.borderWidthVerySmall,
+        ),
         borderRadius: BorderRadius.circular(KSize.radiusLargeExtra),
+        boxShadow: [
+          BoxShadow(
+            color: colors.forestGreen.withAlpha(20),
+            blurRadius: 24,
+            offset: const Offset(0, 8),
+          ),
+        ],
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -382,12 +507,21 @@ class _AddressCard extends StatelessWidget {
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Icon(Icons.place_outlined, size: KSize.iconL, color: colors.forestGreen),
-              const SizedBox(width: KSize.margin3x),
+              _IconPill(
+                child: Icon(
+                  Icons.place_outlined,
+                  size: KSize.iconM,
+                  color: colors.forestGreen,
+                ),
+              ),
+              const SizedBox(width: KSize.margin4x),
               Expanded(
-                child: Text(
-                  context.t.contacts.studioAddress,
-                  style: context.textContent.bioBody,
+                child: Padding(
+                  padding: const EdgeInsets.only(top: KSize.margin1x),
+                  child: Text(
+                    context.t.contacts.studioAddress,
+                    style: context.textContent.bioBody,
+                  ),
                 ),
               ),
             ],
@@ -445,8 +579,18 @@ class _StudioMap extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.end,
       children: [
-        SizedBox(
+        Container(
           height: height,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(KSize.radiusLargeExtra),
+            boxShadow: [
+              BoxShadow(
+                color: colors.forestGreen.withAlpha(28),
+                blurRadius: 32,
+                offset: const Offset(0, 12),
+              ),
+            ],
+          ),
           child: ClipRRect(
             borderRadius: BorderRadius.circular(KSize.radiusLargeExtra),
             child: FlutterMap(

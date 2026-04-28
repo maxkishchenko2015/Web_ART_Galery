@@ -278,8 +278,8 @@ class TranslationsContactsRu {
 	/// ru: 'Телефон'
 	String get phoneSectionLabel => 'Телефон';
 
-	/// ru: 'МТС'
-	String get phoneHint => 'МТС';
+	/// ru: 'Звонки и WhatsApp'
+	String get phoneSectionHint => 'Звонки и WhatsApp';
 
 	/// ru: 'Instagram'
 	String get instagramSectionLabel => 'Instagram';
@@ -1323,7 +1323,7 @@ extension on Translations {
 			'contacts.title' => 'Контакты',
 			'contacts.tagline' => 'Свяжитесь со студией.',
 			'contacts.phoneSectionLabel' => 'Телефон',
-			'contacts.phoneHint' => 'МТС',
+			'contacts.phoneSectionHint' => 'Звонки и WhatsApp',
 			'contacts.instagramSectionLabel' => 'Instagram',
 			'contacts.instagramHandle' => '@kishchenko.art',
 			'contacts.vkSectionLabel' => 'ВКонтакте',

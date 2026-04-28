@@ -183,7 +183,7 @@ class _TranslationsContactsBe extends TranslationsContactsRu {
 	@override String get title => 'Кантакты';
 	@override String get tagline => 'Звяжыцеся са студыяй.';
 	@override String get phoneSectionLabel => 'Тэлефон';
-	@override String get phoneHint => 'МТС';
+	@override String get phoneSectionHint => 'Званкі і WhatsApp';
 	@override String get instagramSectionLabel => 'Instagram';
 	@override String get instagramHandle => '@kishchenko.art';
 	@override String get vkSectionLabel => 'УКантакце';
@@ -799,7 +799,7 @@ extension on TranslationsBe {
 			'contacts.title' => 'Кантакты',
 			'contacts.tagline' => 'Звяжыцеся са студыяй.',
 			'contacts.phoneSectionLabel' => 'Тэлефон',
-			'contacts.phoneHint' => 'МТС',
+			'contacts.phoneSectionHint' => 'Званкі і WhatsApp',
 			'contacts.instagramSectionLabel' => 'Instagram',
 			'contacts.instagramHandle' => '@kishchenko.art',
 			'contacts.vkSectionLabel' => 'УКантакце',

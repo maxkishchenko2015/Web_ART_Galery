@@ -4,17 +4,20 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:web_art_galery/src/shared/config/app_environment.dart';
 import 'package:web_art_galery/src/shared/config/cache/app_cache_manager.dart';
-import 'package:web_art_galery/src/shared/config/ksize.dart';
 
 /// Renders a network image at its intrinsic aspect ratio so the gallery
 /// never crops paintings.
 ///
 /// Behaviour:
 ///  - While the image's intrinsic dimensions are unknown the cell reserves
-///    space using [placeholderAspectRatio] (default 4/3) to avoid layout
-///    jolt once the real ratio resolves.
-///  - Once the underlying [ImageStream] reports the loaded image, the cell
-///    animates to that aspect ratio.
+///    space using [placeholderAspectRatio] (default 4/3) so that once the
+///    real ratio resolves the box snaps to the correct size.
+///  - When the parent supplies a finite width budget (the common case
+///    inside a masonry/list cell), `cardWidth = constraints.maxWidth`.
+///    When the parent provides unbounded width (e.g. inside a sliver that
+///    never lays out a bounded width), we fall back to [maxImageWidth] so
+///    that the layout is computed against an actual width budget — never
+///    a height constant (which used to silently distort aspect ratios).
 ///  - If the natural height (cardWidth / ratio) would exceed
 ///    [maxImageHeight], the cell clamps to [maxImageHeight] and uses
 ///    `BoxFit.contain` (centred, no crop). Symmetrically, if it would fall
@@ -28,6 +31,7 @@ class AspectAwareImage extends StatefulWidget {
     required this.imageUrl,
     this.useImageKitEndpoint = true,
     this.placeholderAspectRatio = 4 / 3,
+    this.maxImageWidth = 720,
     this.maxImageHeight = 720,
     this.minImageHeight = 200,
   });
@@ -35,6 +39,10 @@ class AspectAwareImage extends StatefulWidget {
   final String imageUrl;
   final bool useImageKitEndpoint;
   final double placeholderAspectRatio;
+
+  /// Width budget used when the parent provides unbounded constraints.
+  /// Never confuse with [maxImageHeight] — this is a width.
+  final double maxImageWidth;
   final double maxImageHeight;
   final double minImageHeight;
 
@@ -132,7 +140,7 @@ class _AspectAwareImageState extends State<AspectAwareImage> {
       builder: (context, constraints) {
         final cardWidth = constraints.maxWidth.isFinite
             ? constraints.maxWidth
-            : widget.maxImageHeight;
+            : widget.maxImageWidth;
         final size = _resolvedSize;
 
         final aspectRatio = size == null || size.height == 0
@@ -144,15 +152,14 @@ class _AspectAwareImageState extends State<AspectAwareImage> {
             .clamp(widget.minImageHeight, widget.maxImageHeight)
             .toDouble();
 
-        return AnimatedSize(
-          duration: KSize.durationStandard,
-          alignment: Alignment.topCenter,
-          curve: Curves.easeOut,
-          child: SizedBox(
-            width: cardWidth,
-            height: boxHeight,
-            child: _buildImage(),
-          ),
+        // No AnimatedSize: animating the cell as each image stream resolves
+        // its intrinsic size causes the masonry to reflow mid-scroll, which
+        // shows up as cards "jumping" up and down. Snapping to the resolved
+        // ratio in a single frame is far less disruptive.
+        return SizedBox(
+          width: cardWidth,
+          height: boxHeight,
+          child: _buildImage(),
         );
       },
     );
