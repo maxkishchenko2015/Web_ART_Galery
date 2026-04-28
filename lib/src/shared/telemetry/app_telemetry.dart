@@ -82,6 +82,9 @@ class AppTelemetry {
     if (!_enabled || _analytics == null) {
       return;
     }
+    if (_isIgnorableError(error)) {
+      return;
+    }
     try {
       final message = error.toString();
       final params = <String, Object>{
@@ -93,7 +96,10 @@ class AppTelemetry {
       if (reason != null && reason.isNotEmpty) {
         params['reason'] = _truncate(reason, 100);
       }
-      await _analytics!.logEvent(name: 'app_exception', parameters: params);
+      // 'app_exception' is a reserved Firebase Analytics event name (the
+      // SDK auto-emits it). We expose our own custom event, which GA4
+      // accepts and surfaces alongside the reserved one.
+      await _analytics!.logEvent(name: _fatalEventName, parameters: params);
     } catch (innerError, innerStack) {
       AppLogger.instance.e(
         'AppTelemetry logFatal failed',
@@ -101,6 +107,25 @@ class AppTelemetry {
         stackTrace: innerStack,
       );
     }
+  }
+
+  static const String _fatalEventName = 'client_app_error';
+
+  /// Returns true for error classes that pollute telemetry without being
+  /// actionable — primarily transient browser-side network failures from
+  /// third-party tile/image providers (OSM, ImageKit) which are already
+  /// surfaced in DevTools and visible to the user as a missing tile.
+  bool _isIgnorableError(Object error) {
+    final type = error.runtimeType.toString();
+    if (type == 'ClientException' || type == 'NetworkImageLoadException') {
+      return true;
+    }
+    final message = error.toString();
+    if (message.contains('Failed to fetch') ||
+        message.contains('tile.openstreetmap.org')) {
+      return true;
+    }
+    return false;
   }
 
   Future<void> setUserProperty(String name, String? value) async {

@@ -591,38 +591,43 @@ class _StudioMap extends StatelessWidget {
               ),
             ],
           ),
+          // The map is rendered as a static "screenshot" with the studio
+          // marker — no panning, zooming, taps or rotation. Tile fetch
+          // failures are swallowed so they don't bubble up to telemetry as
+          // fatal errors (the OSM CDN occasionally rejects browser fetches).
           child: ClipRRect(
             borderRadius: BorderRadius.circular(KSize.radiusLargeExtra),
-            child: FlutterMap(
-              options: const MapOptions(
-                initialCenter: _studioLatLng,
-                initialZoom: 16,
-                interactionOptions: InteractionOptions(
-                  flags: InteractiveFlag.all & ~InteractiveFlag.rotate,
+            child: IgnorePointer(
+              child: FlutterMap(
+                options: const MapOptions(
+                  initialCenter: _studioLatLng,
+                  initialZoom: 16,
+                  interactionOptions: InteractionOptions(flags: InteractiveFlag.none),
                 ),
-              ),
-              children: [
-                TileLayer(
-                  urlTemplate: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
-                  userAgentPackageName: _userAgentPackageName,
-                  maxZoom: 19,
-                ),
-                MarkerLayer(
-                  markers: [
-                    Marker(
-                      point: _studioLatLng,
-                      width: 36,
-                      height: 36,
-                      alignment: Alignment.topCenter,
-                      child: Icon(
-                        Icons.place,
-                        size: 36,
-                        color: colors.forestGreen,
+                children: [
+                  TileLayer(
+                    urlTemplate: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
+                    userAgentPackageName: _userAgentPackageName,
+                    maxZoom: 19,
+                    errorTileCallback: (_, _, _) {},
+                  ),
+                  MarkerLayer(
+                    markers: [
+                      Marker(
+                        point: _studioLatLng,
+                        width: 36,
+                        height: 36,
+                        alignment: Alignment.topCenter,
+                        child: Icon(
+                          Icons.place,
+                          size: 36,
+                          color: colors.forestGreen,
+                        ),
                       ),
-                    ),
-                  ],
-                ),
-              ],
+                    ],
+                  ),
+                ],
+              ),
             ),
           ),
         ),
