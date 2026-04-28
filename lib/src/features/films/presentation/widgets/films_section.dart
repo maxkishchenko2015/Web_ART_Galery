@@ -134,8 +134,7 @@ class _ReelsBlock extends StatelessWidget {
         LayoutBuilder(
           builder: (context, constraints) {
             const gap = KSize.margin5x;
-            final cellWidth =
-                (constraints.maxWidth - gap * (crossAxisCount - 1)) / crossAxisCount;
+            final cellWidth = (constraints.maxWidth - gap * (crossAxisCount - 1)) / crossAxisCount;
             return Wrap(
               spacing: gap,
               runSpacing: KSize.margin6x,
@@ -209,10 +208,7 @@ class _FilmFeaturedCard extends StatelessWidget {
         children: [
           _FilmThumbnail(film: film, featured: true),
           const SizedBox(height: KSize.margin5x),
-          Text(
-            filmsCopy.latestLabel.toUpperCase(),
-            style: context.textContent.archiveSectionLabel,
-          ),
+          Text(filmsCopy.latestLabel.toUpperCase(), style: context.textContent.archiveSectionLabel),
           const SizedBox(height: KSize.margin2x),
           Text(_localizedTitle(t, film), style: context.textContent.archiveFeaturedTitle),
           const SizedBox(height: KSize.margin3x),
@@ -432,9 +428,7 @@ class _PlayButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final size = featured ? KSize.playButtonSizeFeatured : KSize.playButtonSizeDefault;
-    final iconSize = featured
-        ? KSize.playButtonIconSizeFeatured
-        : KSize.playButtonIconSizeDefault;
+    final iconSize = featured ? KSize.playButtonIconSizeFeatured : KSize.playButtonIconSizeDefault;
     return IgnorePointer(
       child: Container(
         width: size,
@@ -516,11 +510,7 @@ class _FilmMetaRow extends StatelessWidget {
 Future<void> _openFilm(Film film) async {
   AppTelemetry.instance.logEvent(
     'films_card_opened',
-    params: <String, Object?>{
-      'key': film.key,
-      'video_id': film.videoId,
-      'source': film.sourceTag,
-    },
+    params: <String, Object?>{'key': film.key, 'video_id': film.videoId, 'source': film.sourceTag},
   );
   await launchUrl(Uri.parse(film.watchUrl), webOnlyWindowName: '_blank');
 }
