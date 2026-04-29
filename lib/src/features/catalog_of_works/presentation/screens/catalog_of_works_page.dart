@@ -7,6 +7,7 @@ import 'package:web_art_galery/src/features/catalog_of_works/presentation/locali
 import 'package:web_art_galery/src/features/catalog_of_works/presentation/localization/painting_name_localization.dart';
 import 'package:web_art_galery/src/features/catalog_of_works/presentation/widgets/aspect_aware_image.dart';
 import 'package:web_art_galery/src/features/catalog_of_works/presentation/widgets/catalog_lazy_masonry_view.dart';
+import 'package:web_art_galery/src/features/catalog_of_works/presentation/widgets/decade_filter_bar.dart';
 import 'package:web_art_galery/src/shared/config/ksize.dart';
 import 'package:web_art_galery/src/shared/presentation/widgets/fullscreen_image_viewer.dart';
 import 'package:web_art_galery/src/shared/telemetry/app_telemetry.dart';
@@ -37,14 +38,33 @@ class _CatalogOfWorksContent extends StatelessWidget {
               ),
             ),
           ),
-          CatalogOfWorksLoaded(:final paintings, :final isLoadingMore, :final hasReachedMax) =>
-            _PaintingsGrid(
-              paintings: paintings,
-              isLoadingMore: isLoadingMore,
-              hasReachedMax: hasReachedMax,
-            ),
+          CatalogOfWorksLoaded() => _CatalogOfWorksLoadedView(state: state),
         };
       },
+    );
+  }
+}
+
+class _CatalogOfWorksLoadedView extends StatelessWidget {
+  const _CatalogOfWorksLoadedView({required this.state});
+
+  final CatalogOfWorksLoaded state;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        const DecadeFilterBar(),
+        Expanded(
+          child: _PaintingsGrid(
+            paintings: state.visiblePaintings,
+            isLoadingMore: state.isLoadingMore,
+            hasReachedMax: state.hasReachedMax,
+            isFiltered: state.selectedDecade != null,
+          ),
+        ),
+      ],
     );
   }
 }
@@ -54,11 +74,13 @@ class _PaintingsGrid extends StatefulWidget {
     required this.paintings,
     required this.isLoadingMore,
     required this.hasReachedMax,
+    required this.isFiltered,
   });
 
   final List<Painting> paintings;
   final bool isLoadingMore;
   final bool hasReachedMax;
+  final bool isFiltered;
 
   @override
   State<_PaintingsGrid> createState() => _PaintingsGridState();
@@ -84,6 +106,13 @@ class _PaintingsGridState extends State<_PaintingsGrid> {
   @override
   Widget build(BuildContext context) {
     final cubit = context.read<CatalogOfWorksCubit>();
+
+    // While a decade filter is active and no items match yet, the grid
+    // would otherwise be empty during the auto-pager's catch-up phase.
+    // Surface a centered spinner so the page doesn't look broken.
+    if (widget.isFiltered && widget.paintings.isEmpty && !widget.hasReachedMax) {
+      return const Center(child: CircularProgressIndicator());
+    }
 
     return LayoutBuilder(
       builder: (context, constraints) {

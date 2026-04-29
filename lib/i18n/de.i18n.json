@@ -16,6 +16,13 @@
     "workPrefix": "Werk",
     "errorTitle": "Gemälde konnten nicht geladen werden",
     "errorWithDetails": "Gemälde konnten nicht geladen werden. ${message}",
+    "decade": {
+      "all": "Alle",
+      "sixties": "60er",
+      "seventies": "70er",
+      "eighties": "80er",
+      "nineties": "90er"
+    },
     "paintingNames": {
       "id1958_1": "Stadtrand. Alte Mühle",
       "id1958_2": "Angelina",

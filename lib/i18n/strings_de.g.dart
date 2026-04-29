@@ -88,6 +88,7 @@ class _TranslationsCatalogDe extends TranslationsCatalogRu {
 	@override String get workPrefix => 'Werk';
 	@override String get errorTitle => 'Gemälde konnten nicht geladen werden';
 	@override String errorWithDetails({required Object message}) => 'Gemälde konnten nicht geladen werden. ${message}';
+	@override late final _TranslationsCatalogDecadeDe decade = _TranslationsCatalogDecadeDe._(_root);
 	@override late final _TranslationsCatalogPaintingNamesDe paintingNames = _TranslationsCatalogPaintingNamesDe._(_root);
 	@override late final _TranslationsCatalogPaintingMediumsDe paintingMediums = _TranslationsCatalogPaintingMediumsDe._(_root);
 }
@@ -218,6 +219,20 @@ class _TranslationsContactsDe extends TranslationsContactsRu {
 	@override String get studioAddress => 'Minsk, Surhanawa-Straße 44 — 7. Etage';
 	@override String get openInOsm => 'IN OPENSTREETMAP ÖFFNEN';
 	@override String get mapAttribution => '© OpenStreetMap-Mitwirkende';
+}
+
+// Path: catalog.decade
+class _TranslationsCatalogDecadeDe extends TranslationsCatalogDecadeRu {
+	_TranslationsCatalogDecadeDe._(TranslationsDe root) : this._root = root, super.internal(root);
+
+	final TranslationsDe _root; // ignore: unused_field
+
+	// Translations
+	@override String get all => 'Alle';
+	@override String get sixties => '60er';
+	@override String get seventies => '70er';
+	@override String get eighties => '80er';
+	@override String get nineties => '90er';
 }
 
 // Path: catalog.paintingNames
@@ -726,6 +741,11 @@ extension on TranslationsDe {
 			'catalog.workPrefix' => 'Werk',
 			'catalog.errorTitle' => 'Gemälde konnten nicht geladen werden',
 			'catalog.errorWithDetails' => ({required Object message}) => 'Gemälde konnten nicht geladen werden. ${message}',
+			'catalog.decade.all' => 'Alle',
+			'catalog.decade.sixties' => '60er',
+			'catalog.decade.seventies' => '70er',
+			'catalog.decade.eighties' => '80er',
+			'catalog.decade.nineties' => '90er',
 			'catalog.paintingNames.id1958_1' => 'Stadtrand. Alte Mühle',
 			'catalog.paintingNames.id1958_2' => 'Angelina',
 			'catalog.paintingNames.id1958_3' => 'Die Toilette',

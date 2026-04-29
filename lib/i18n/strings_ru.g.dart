@@ -114,6 +114,7 @@ class TranslationsCatalogRu {
 	/// ru: 'Не удалось загрузить картины. ${message}'
 	String errorWithDetails({required Object message}) => 'Не удалось загрузить картины. ${message}';
 
+	late final TranslationsCatalogDecadeRu decade = TranslationsCatalogDecadeRu.internal(_root);
 	late final TranslationsCatalogPaintingNamesRu paintingNames = TranslationsCatalogPaintingNamesRu.internal(_root);
 	late final TranslationsCatalogPaintingMediumsRu paintingMediums = TranslationsCatalogPaintingMediumsRu.internal(_root);
 }
@@ -358,6 +359,30 @@ class TranslationsContactsRu {
 
 	/// ru: '© OpenStreetMap contributors'
 	String get mapAttribution => '© OpenStreetMap contributors';
+}
+
+// Path: catalog.decade
+class TranslationsCatalogDecadeRu {
+	TranslationsCatalogDecadeRu.internal(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// ru: 'Все'
+	String get all => 'Все';
+
+	/// ru: '60-е'
+	String get sixties => '60-е';
+
+	/// ru: '70-е'
+	String get seventies => '70-е';
+
+	/// ru: '80-е'
+	String get eighties => '80-е';
+
+	/// ru: '90-е'
+	String get nineties => '90-е';
 }
 
 // Path: catalog.paintingNames
@@ -1322,6 +1347,11 @@ extension on Translations {
 			'catalog.workPrefix' => 'Работа',
 			'catalog.errorTitle' => 'Не удалось загрузить картины',
 			'catalog.errorWithDetails' => ({required Object message}) => 'Не удалось загрузить картины. ${message}',
+			'catalog.decade.all' => 'Все',
+			'catalog.decade.sixties' => '60-е',
+			'catalog.decade.seventies' => '70-е',
+			'catalog.decade.eighties' => '80-е',
+			'catalog.decade.nineties' => '90-е',
 			'catalog.paintingNames.id1958_1' => 'Окраина. Старая мельница',
 			'catalog.paintingNames.id1958_2' => 'Ангелина',
 			'catalog.paintingNames.id1958_3' => 'Туалет',

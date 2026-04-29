@@ -88,6 +88,7 @@ class _TranslationsCatalogEn extends TranslationsCatalogRu {
 	@override String get workPrefix => 'Work';
 	@override String get errorTitle => 'Failed to load paintings';
 	@override String errorWithDetails({required Object message}) => 'Failed to load paintings. ${message}';
+	@override late final _TranslationsCatalogDecadeEn decade = _TranslationsCatalogDecadeEn._(_root);
 	@override late final _TranslationsCatalogPaintingNamesEn paintingNames = _TranslationsCatalogPaintingNamesEn._(_root);
 	@override late final _TranslationsCatalogPaintingMediumsEn paintingMediums = _TranslationsCatalogPaintingMediumsEn._(_root);
 }
@@ -218,6 +219,20 @@ class _TranslationsContactsEn extends TranslationsContactsRu {
 	@override String get studioAddress => 'Minsk, 44 Surganova St., 7th floor';
 	@override String get openInOsm => 'OPEN IN OPENSTREETMAP';
 	@override String get mapAttribution => '© OpenStreetMap contributors';
+}
+
+// Path: catalog.decade
+class _TranslationsCatalogDecadeEn extends TranslationsCatalogDecadeRu {
+	_TranslationsCatalogDecadeEn._(TranslationsEn root) : this._root = root, super.internal(root);
+
+	final TranslationsEn _root; // ignore: unused_field
+
+	// Translations
+	@override String get all => 'All';
+	@override String get sixties => '60s';
+	@override String get seventies => '70s';
+	@override String get eighties => '80s';
+	@override String get nineties => '90s';
 }
 
 // Path: catalog.paintingNames
@@ -726,6 +741,11 @@ extension on TranslationsEn {
 			'catalog.workPrefix' => 'Work',
 			'catalog.errorTitle' => 'Failed to load paintings',
 			'catalog.errorWithDetails' => ({required Object message}) => 'Failed to load paintings. ${message}',
+			'catalog.decade.all' => 'All',
+			'catalog.decade.sixties' => '60s',
+			'catalog.decade.seventies' => '70s',
+			'catalog.decade.eighties' => '80s',
+			'catalog.decade.nineties' => '90s',
 			'catalog.paintingNames.id1958_1' => 'Outskirts. The Old Mill',
 			'catalog.paintingNames.id1958_2' => 'Angelina',
 			'catalog.paintingNames.id1958_3' => 'Toilette',

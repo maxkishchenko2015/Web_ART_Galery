@@ -16,6 +16,13 @@
     "workPrefix": "Obra",
     "errorTitle": "No se pudieron cargar las pinturas",
     "errorWithDetails": "No se pudieron cargar las pinturas. ${message}",
+    "decade": {
+      "all": "Todas",
+      "sixties": "Años 60",
+      "seventies": "Años 70",
+      "eighties": "Años 80",
+      "nineties": "Años 90"
+    },
     "paintingNames": {
       "id1958_1": "Afueras. Viejo molino",
       "id1958_2": "Angelina",

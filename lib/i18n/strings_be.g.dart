@@ -88,6 +88,7 @@ class _TranslationsCatalogBe extends TranslationsCatalogRu {
 	@override String get workPrefix => 'Праца';
 	@override String get errorTitle => 'Не атрымалася загрузіць карціны';
 	@override String errorWithDetails({required Object message}) => 'Не атрымалася загрузіць карціны. ${message}';
+	@override late final _TranslationsCatalogDecadeBe decade = _TranslationsCatalogDecadeBe._(_root);
 	@override late final _TranslationsCatalogPaintingNamesBe paintingNames = _TranslationsCatalogPaintingNamesBe._(_root);
 	@override late final _TranslationsCatalogPaintingMediumsBe paintingMediums = _TranslationsCatalogPaintingMediumsBe._(_root);
 }
@@ -218,6 +219,20 @@ class _TranslationsContactsBe extends TranslationsContactsRu {
 	@override String get studioAddress => 'Мінск, вул. Сурганава, 44 — 7 паверх';
 	@override String get openInOsm => 'АДКРЫЦЬ У OPENSTREETMAP';
 	@override String get mapAttribution => '© OpenStreetMap contributors';
+}
+
+// Path: catalog.decade
+class _TranslationsCatalogDecadeBe extends TranslationsCatalogDecadeRu {
+	_TranslationsCatalogDecadeBe._(TranslationsBe root) : this._root = root, super.internal(root);
+
+	final TranslationsBe _root; // ignore: unused_field
+
+	// Translations
+	@override String get all => 'Усе';
+	@override String get sixties => '60-я';
+	@override String get seventies => '70-я';
+	@override String get eighties => '80-я';
+	@override String get nineties => '90-я';
 }
 
 // Path: catalog.paintingNames
@@ -726,6 +741,11 @@ extension on TranslationsBe {
 			'catalog.workPrefix' => 'Праца',
 			'catalog.errorTitle' => 'Не атрымалася загрузіць карціны',
 			'catalog.errorWithDetails' => ({required Object message}) => 'Не атрымалася загрузіць карціны. ${message}',
+			'catalog.decade.all' => 'Усе',
+			'catalog.decade.sixties' => '60-я',
+			'catalog.decade.seventies' => '70-я',
+			'catalog.decade.eighties' => '80-я',
+			'catalog.decade.nineties' => '90-я',
 			'catalog.paintingNames.id1958_1' => 'Ускраіна. Стары млын',
 			'catalog.paintingNames.id1958_2' => 'Ангеліна',
 			'catalog.paintingNames.id1958_3' => 'Туалет',

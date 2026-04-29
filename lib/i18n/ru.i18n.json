@@ -16,6 +16,13 @@
     "workPrefix": "Работа",
     "errorTitle": "Не удалось загрузить картины",
     "errorWithDetails": "Не удалось загрузить картины. ${message}",
+    "decade": {
+      "all": "Все",
+      "sixties": "60-е",
+      "seventies": "70-е",
+      "eighties": "80-е",
+      "nineties": "90-е"
+    },
     "paintingNames": {
       "id1958_1": "Окраина. Старая мельница",
       "id1958_2": "Ангелина",

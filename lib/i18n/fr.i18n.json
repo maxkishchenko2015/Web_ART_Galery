@@ -16,6 +16,13 @@
     "workPrefix": "Oeuvre",
     "errorTitle": "Echec du chargement des peintures",
     "errorWithDetails": "Echec du chargement des peintures. ${message}",
+    "decade": {
+      "all": "Toutes",
+      "sixties": "Années 60",
+      "seventies": "Années 70",
+      "eighties": "Années 80",
+      "nineties": "Années 90"
+    },
     "paintingNames": {
       "id1958_1": "Périphérie. Vieux moulin",
       "id1958_2": "Angelina",

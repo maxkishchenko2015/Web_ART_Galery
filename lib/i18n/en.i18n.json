@@ -16,6 +16,13 @@
     "workPrefix": "Work",
     "errorTitle": "Failed to load paintings",
     "errorWithDetails": "Failed to load paintings. ${message}",
+    "decade": {
+      "all": "All",
+      "sixties": "60s",
+      "seventies": "70s",
+      "eighties": "80s",
+      "nineties": "90s"
+    },
     "paintingNames": {
       "id1958_1": "Outskirts. The Old Mill",
       "id1958_2": "Angelina",

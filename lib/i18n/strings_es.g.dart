@@ -88,6 +88,7 @@ class _TranslationsCatalogEs extends TranslationsCatalogRu {
 	@override String get workPrefix => 'Obra';
 	@override String get errorTitle => 'No se pudieron cargar las pinturas';
 	@override String errorWithDetails({required Object message}) => 'No se pudieron cargar las pinturas. ${message}';
+	@override late final _TranslationsCatalogDecadeEs decade = _TranslationsCatalogDecadeEs._(_root);
 	@override late final _TranslationsCatalogPaintingNamesEs paintingNames = _TranslationsCatalogPaintingNamesEs._(_root);
 	@override late final _TranslationsCatalogPaintingMediumsEs paintingMediums = _TranslationsCatalogPaintingMediumsEs._(_root);
 }
@@ -218,6 +219,20 @@ class _TranslationsContactsEs extends TranslationsContactsRu {
 	@override String get studioAddress => 'Minsk, calle Surganova 44 — 7.ª planta';
 	@override String get openInOsm => 'ABRIR EN OPENSTREETMAP';
 	@override String get mapAttribution => '© Colaboradores de OpenStreetMap';
+}
+
+// Path: catalog.decade
+class _TranslationsCatalogDecadeEs extends TranslationsCatalogDecadeRu {
+	_TranslationsCatalogDecadeEs._(TranslationsEs root) : this._root = root, super.internal(root);
+
+	final TranslationsEs _root; // ignore: unused_field
+
+	// Translations
+	@override String get all => 'Todas';
+	@override String get sixties => 'Años 60';
+	@override String get seventies => 'Años 70';
+	@override String get eighties => 'Años 80';
+	@override String get nineties => 'Años 90';
 }
 
 // Path: catalog.paintingNames
@@ -726,6 +741,11 @@ extension on TranslationsEs {
 			'catalog.workPrefix' => 'Obra',
 			'catalog.errorTitle' => 'No se pudieron cargar las pinturas',
 			'catalog.errorWithDetails' => ({required Object message}) => 'No se pudieron cargar las pinturas. ${message}',
+			'catalog.decade.all' => 'Todas',
+			'catalog.decade.sixties' => 'Años 60',
+			'catalog.decade.seventies' => 'Años 70',
+			'catalog.decade.eighties' => 'Años 80',
+			'catalog.decade.nineties' => 'Años 90',
 			'catalog.paintingNames.id1958_1' => 'Afueras. Viejo molino',
 			'catalog.paintingNames.id1958_2' => 'Angelina',
 			'catalog.paintingNames.id1958_3' => 'El tocador',

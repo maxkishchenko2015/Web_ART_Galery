@@ -88,6 +88,7 @@ class _TranslationsCatalogFr extends TranslationsCatalogRu {
 	@override String get workPrefix => 'Oeuvre';
 	@override String get errorTitle => 'Echec du chargement des peintures';
 	@override String errorWithDetails({required Object message}) => 'Echec du chargement des peintures. ${message}';
+	@override late final _TranslationsCatalogDecadeFr decade = _TranslationsCatalogDecadeFr._(_root);
 	@override late final _TranslationsCatalogPaintingNamesFr paintingNames = _TranslationsCatalogPaintingNamesFr._(_root);
 	@override late final _TranslationsCatalogPaintingMediumsFr paintingMediums = _TranslationsCatalogPaintingMediumsFr._(_root);
 }
@@ -218,6 +219,20 @@ class _TranslationsContactsFr extends TranslationsContactsRu {
 	@override String get studioAddress => 'Minsk, 44 rue Sourganov — 7ᵉ étage';
 	@override String get openInOsm => 'OUVRIR DANS OPENSTREETMAP';
 	@override String get mapAttribution => '© Contributeurs OpenStreetMap';
+}
+
+// Path: catalog.decade
+class _TranslationsCatalogDecadeFr extends TranslationsCatalogDecadeRu {
+	_TranslationsCatalogDecadeFr._(TranslationsFr root) : this._root = root, super.internal(root);
+
+	final TranslationsFr _root; // ignore: unused_field
+
+	// Translations
+	@override String get all => 'Toutes';
+	@override String get sixties => 'Années 60';
+	@override String get seventies => 'Années 70';
+	@override String get eighties => 'Années 80';
+	@override String get nineties => 'Années 90';
 }
 
 // Path: catalog.paintingNames
@@ -726,6 +741,11 @@ extension on TranslationsFr {
 			'catalog.workPrefix' => 'Oeuvre',
 			'catalog.errorTitle' => 'Echec du chargement des peintures',
 			'catalog.errorWithDetails' => ({required Object message}) => 'Echec du chargement des peintures. ${message}',
+			'catalog.decade.all' => 'Toutes',
+			'catalog.decade.sixties' => 'Années 60',
+			'catalog.decade.seventies' => 'Années 70',
+			'catalog.decade.eighties' => 'Années 80',
+			'catalog.decade.nineties' => 'Années 90',
 			'catalog.paintingNames.id1958_1' => 'Périphérie. Vieux moulin',
 			'catalog.paintingNames.id1958_2' => 'Angelina',
 			'catalog.paintingNames.id1958_3' => 'La Toilette',

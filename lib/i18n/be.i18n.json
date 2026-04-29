@@ -16,6 +16,13 @@
     "workPrefix": "Праца",
     "errorTitle": "Не атрымалася загрузіць карціны",
     "errorWithDetails": "Не атрымалася загрузіць карціны. ${message}",
+    "decade": {
+      "all": "Усе",
+      "sixties": "60-я",
+      "seventies": "70-я",
+      "eighties": "80-я",
+      "nineties": "90-я"
+    },
     "paintingNames": {
       "id1958_1": "Ускраіна. Стары млын",
       "id1958_2": "Ангеліна",
