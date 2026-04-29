@@ -32,6 +32,8 @@ dependencies:
     sdk: flutter
   flutter_localizations:
     sdk: flutter
+  flutter_web_plugins:
+    sdk: flutter
   cached_network_image: ^3.4.1
   flutter_cache_manager: ^3.4.1
   flutter_map: ^8.3.0

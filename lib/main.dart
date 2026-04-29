@@ -4,6 +4,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter_web_plugins/url_strategy.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:web_art_galery/i18n/strings.g.dart';
 import 'package:web_art_galery/src/features/about_author/data/api/about_author_api_controller.dart';
@@ -29,6 +30,7 @@ import 'package:web_art_galery/src/shared/telemetry/app_telemetry.dart';
 import 'package:web_art_galery/src/shared/utils/app_logger.dart';
 
 void main() {
+  usePathUrlStrategy();
   runZonedGuarded(
     () async {
       WidgetsFlutterBinding.ensureInitialized();
@@ -43,20 +45,12 @@ void main() {
           error: details.exception,
           stackTrace: details.stack,
         );
-        AppTelemetry.instance.logFatal(
-          details.exception,
-          details.stack,
-          reason: 'flutter_error',
-        );
+        AppTelemetry.instance.logFatal(details.exception, details.stack, reason: 'flutter_error');
         Zone.current.handleUncaughtError(details.exception, details.stack ?? StackTrace.current);
       };
 
       PlatformDispatcher.instance.onError = (error, stack) {
-        AppLogger.instance.f(
-          'Platform dispatcher error',
-          error: error,
-          stackTrace: stack,
-        );
+        AppLogger.instance.f('Platform dispatcher error', error: error, stackTrace: stack);
         AppTelemetry.instance.logFatal(error, stack, reason: 'platform_dispatcher');
         return true;
       };
@@ -100,8 +94,7 @@ void main() {
                 create: (_) => FilmsCubit(repository: const FilmsRepositoryLocal())..load(),
               ),
               BlocProvider<ArchiveCubit>(
-                create: (_) =>
-                    ArchiveCubit(repository: const ArchiveRepositoryLocal())..load(),
+                create: (_) => ArchiveCubit(repository: const ArchiveRepositoryLocal())..load(),
               ),
             ],
             child: const ArtGalleryApp(),
