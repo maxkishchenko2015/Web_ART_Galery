@@ -1,0 +1,8 @@
+Options -MultiViews
+
+# Serve WebAssembly files with the correct MIME type
+AddType application/wasm .wasm
+
+RewriteEngine On
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^ index.html [QSA,L]
