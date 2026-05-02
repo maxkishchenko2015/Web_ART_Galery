@@ -82,6 +82,10 @@ class AppTelemetry {
   Future<void> logFirebaseError(Object error, StackTrace? stack, {String? reason}) =>
       _emitError(_firebaseErrorEventName, error, stack, reason: reason, fatal: false);
 
+  /// Firestore collection loaded successfully but returned zero documents.
+  Future<void> logEmptyContent({required String source}) =>
+      logEvent(_emptyContentEventName, params: {'source': source});
+
   /// HydratedBloc local persistence failure (typically iOS Safari refusing
   /// IndexedDB under ITP / private mode / blocked cookies).
   Future<void> logHydratedBlocError(Object error, StackTrace? stack, {String? reason}) =>
@@ -126,6 +130,7 @@ class AppTelemetry {
   static const String _fatalEventName = 'client_app_error';
   static const String _firebaseErrorEventName = 'firebase_error';
   static const String _hydratedBlocErrorEventName = 'hydrated_bloc_error';
+  static const String _emptyContentEventName = 'firebase_empty_content';
 
   /// Returns true for error classes that pollute telemetry without being
   /// actionable — primarily transient browser-side network failures from

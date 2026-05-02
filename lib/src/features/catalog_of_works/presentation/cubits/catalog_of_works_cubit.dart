@@ -183,9 +183,15 @@ class CatalogOfWorksCubit extends Cubit<CatalogOfWorksState> {
           ? previous.selectedDecade
           : null;
 
+      final merged = <Painting>[...existing, ..._filterDisplayable(result.items)];
+
+      if (reset && merged.isEmpty && result.hasReachedMax) {
+        AppTelemetry.instance.logEmptyContent(source: 'catalog_paintings');
+      }
+
       emit(
         CatalogOfWorksLoaded(
-          paintings: <Painting>[...existing, ..._filterDisplayable(result.items)],
+          paintings: merged,
           page: result.page,
           hasReachedMax: result.hasReachedMax,
           isLoadingMore: false,

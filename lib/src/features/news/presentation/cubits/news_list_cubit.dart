@@ -44,6 +44,9 @@ class NewsListCubit extends Cubit<NewsListState> {
     emit(const NewsListLoading());
     try {
       final articles = await _repository.fetchAll();
+      if (articles.isEmpty) {
+        AppTelemetry.instance.logEmptyContent(source: 'news_list');
+      }
       emit(NewsListLoaded(articles: articles));
     } catch (error, stackTrace) {
       AppLogger.instance.e(

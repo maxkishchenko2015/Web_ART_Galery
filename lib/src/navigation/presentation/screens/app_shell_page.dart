@@ -65,11 +65,13 @@ class AppShellMenu extends StatelessWidget {
       // the has-content / no-content boundary.
       child: BlocBuilder<NewsListCubit, NewsListState>(
         buildWhen: (previous, current) =>
-            _newsHasContent(previous) != _newsHasContent(current),
+            _newsHasContent(previous) != _newsHasContent(current) ||
+            _newsIsSettledEmpty(previous) != _newsIsSettledEmpty(current),
         builder: (context, newsState) {
           return BlocBuilder<CatalogOfWorksCubit, CatalogOfWorksState>(
             buildWhen: (previous, current) =>
-                _catalogHasContent(previous) != _catalogHasContent(current),
+                _catalogHasContent(previous) != _catalogHasContent(current) ||
+                _catalogIsSettledEmpty(previous) != _catalogIsSettledEmpty(current),
             builder: (context, catalogState) {
               final hideNews = _newsIsSettledEmpty(newsState);
               final hideCatalog = _catalogIsSettledEmpty(catalogState);
