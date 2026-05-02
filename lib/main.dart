@@ -35,9 +35,32 @@ void main() {
     () async {
       WidgetsFlutterBinding.ensureInitialized();
 
-      HydratedBloc.storage = await HydratedStorage.build(
-        storageDirectory: HydratedStorageDirectory.web,
-      );
+      // Each init step is isolated and time-boxed so a single failure (most
+      // commonly IndexedDB on iOS Safari with strict ITP/private mode) cannot
+      // prevent runApp() from being called.
+      //
+      // HydratedBloc and Firebase failures are captured here and re-emitted as
+      // dedicated `hydrated_bloc_error` / `firebase_error` analytics events
+      // *after* telemetry initialises (telemetry depends on Firebase, so it
+      // can't be the receiver during these steps). If Firebase fully fails,
+      // telemetry never enables and the deferred `firebase_error` event won't
+      // transmit — local AppLogger.w still fires so the failure is diagnosable.
+      ({Object error, StackTrace stack})? deferredHydratedBlocError;
+      ({Object error, StackTrace stack})? deferredFirebaseError;
+
+      try {
+        HydratedBloc.storage = await HydratedStorage.build(
+          storageDirectory: HydratedStorageDirectory.web,
+        ).timeout(const Duration(seconds: 5));
+      } catch (e, s) {
+        AppLogger.instance.w(
+          'HydratedBloc storage unavailable, falling back to in-memory',
+          error: e,
+          stackTrace: s,
+        );
+        HydratedBloc.storage = _InMemoryStorage();
+        deferredHydratedBlocError = (error: e, stack: s);
+      }
 
       FlutterError.onError = (details) {
         AppLogger.instance.e(
@@ -55,8 +78,47 @@ void main() {
         return true;
       };
 
-      await FirebaseBootstrap.tryInitialize();
-      await AppTelemetry.instance.initialize();
+      bool firebaseReady = false;
+      try {
+        firebaseReady = await FirebaseBootstrap.tryInitialize().timeout(
+          const Duration(seconds: 8),
+        );
+      } catch (e, s) {
+        AppLogger.instance.w('Firebase init failed, continuing without', error: e, stackTrace: s);
+        deferredFirebaseError = (error: e, stack: s);
+      }
+
+      try {
+        await AppTelemetry.instance.initialize().timeout(const Duration(seconds: 5));
+      } catch (e, s) {
+        AppLogger.instance.w('Telemetry init failed, continuing without', error: e, stackTrace: s);
+      }
+
+      if (deferredHydratedBlocError != null) {
+        unawaited(
+          AppTelemetry.instance.logHydratedBlocError(
+            deferredHydratedBlocError.error,
+            deferredHydratedBlocError.stack,
+          ),
+        );
+      }
+      if (deferredFirebaseError != null) {
+        unawaited(
+          AppTelemetry.instance.logFirebaseError(
+            deferredFirebaseError.error,
+            deferredFirebaseError.stack,
+          ),
+        );
+      } else if (!firebaseReady) {
+        unawaited(
+          AppTelemetry.instance.logFirebaseError(
+            StateError('Firebase not configured'),
+            StackTrace.current,
+            reason: 'tryInitialize_returned_false',
+          ),
+        );
+      }
+
       _setDeviceFormFactorUserProperties();
 
       LocaleSettings.setLocaleSync(AppLocale.ru);
@@ -155,5 +217,35 @@ class ArtGalleryApp extends StatelessWidget {
       localizationsDelegates: GlobalMaterialLocalizations.delegates,
       theme: AppTheme.light,
     );
+  }
+}
+
+/// Volatile fallback for [HydratedBloc.storage] used when the platform's
+/// IndexedDB is unavailable (iOS Safari private mode, strict ITP, blocked
+/// cookies). State persists for the current session only.
+class _InMemoryStorage implements Storage {
+  final Map<String, dynamic> _store = {};
+
+  @override
+  dynamic read(String key) => _store[key];
+
+  @override
+  Future<void> write(String key, dynamic value) async {
+    _store[key] = value;
+  }
+
+  @override
+  Future<void> delete(String key) async {
+    _store.remove(key);
+  }
+
+  @override
+  Future<void> clear() async {
+    _store.clear();
+  }
+
+  @override
+  Future<void> close() async {
+    _store.clear();
   }
 }

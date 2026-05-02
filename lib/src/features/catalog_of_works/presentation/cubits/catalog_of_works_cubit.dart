@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:web_art_galery/src/features/catalog_of_works/domain/entities/painting.dart';
 import 'package:web_art_galery/src/features/catalog_of_works/domain/repository/catalog_of_works_repository.dart';
+import 'package:web_art_galery/src/shared/telemetry/app_telemetry.dart';
 import 'package:web_art_galery/src/shared/utils/app_logger.dart';
 
 /// Decade buckets exposed in the catalog filter chip bar.
@@ -193,6 +194,7 @@ class CatalogOfWorksCubit extends Cubit<CatalogOfWorksState> {
       );
     } catch (error, stackTrace) {
       AppLogger.instance.e('Catalog page fetch failed', error: error, stackTrace: stackTrace);
+      AppTelemetry.instance.logFirebaseError(error, stackTrace, reason: 'catalog_fetch_page');
       if (!reset && previous is CatalogOfWorksLoaded) {
         emit(previous.copyWith(isLoadingMore: false));
         return;

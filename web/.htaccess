@@ -1,8 +1,28 @@
 Options -MultiViews
 
-# Serve WebAssembly files with the correct MIME type
+# MIME types for WebAssembly and JavaScript
 AddType application/wasm .wasm
+AddType application/javascript .js
+AddType application/json .json
 
+# CORS for cross-origin checks
+<IfModule mod_headers.c>
+  Header set Access-Control-Allow-Origin "*"
+
+  # Aggressive cache for hashed Flutter assets (1 year)
+  <FilesMatch "\.(wasm|js|otf|ttf|png|jpg|jpeg|gif|svg|woff2?)$">
+    Header set Cache-Control "public, max-age=31536000, immutable"
+  </FilesMatch>
+
+  # Never cache the entry HTML so users get the new build immediately
+  <FilesMatch "(index\.html|flutter_bootstrap\.js|flutter_service_worker\.js)$">
+    Header set Cache-Control "no-cache, no-store, must-revalidate"
+  </FilesMatch>
+</IfModule>
+
+# SPA routing: only rewrite non-existent paths AND not for asset extensions
 RewriteEngine On
 RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_URI} !\.(wasm|js|json|otf|ttf|png|jpg|jpeg|gif|svg|woff2?|map)$
 RewriteRule ^ index.html [QSA,L]

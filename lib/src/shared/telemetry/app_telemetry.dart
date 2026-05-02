@@ -69,11 +69,30 @@ class AppTelemetry {
     }
   }
 
+  /// Generic catch-all for Flutter framework / Zone errors that aren't
+  /// classified as Firebase or HydratedBloc.
   Future<void> logFatal(
     Object error,
     StackTrace? stack, {
     String? reason,
     bool fatal = true,
+  }) => _emitError(_fatalEventName, error, stack, reason: reason, fatal: fatal);
+
+  /// Firebase initialisation or operation failure.
+  Future<void> logFirebaseError(Object error, StackTrace? stack, {String? reason}) =>
+      _emitError(_firebaseErrorEventName, error, stack, reason: reason, fatal: false);
+
+  /// HydratedBloc local persistence failure (typically iOS Safari refusing
+  /// IndexedDB under ITP / private mode / blocked cookies).
+  Future<void> logHydratedBlocError(Object error, StackTrace? stack, {String? reason}) =>
+      _emitError(_hydratedBlocErrorEventName, error, stack, reason: reason, fatal: false);
+
+  Future<void> _emitError(
+    String eventName,
+    Object error,
+    StackTrace? stack, {
+    String? reason,
+    required bool fatal,
   }) async {
     if (!_enabled || _analytics == null) {
       return;
@@ -82,23 +101,22 @@ class AppTelemetry {
       return;
     }
     try {
-      final message = error.toString();
       final params = <String, Object>{
         'fatal': fatal ? 1 : 0,
         'error_type': error.runtimeType.toString(),
-        'message': _truncate(message, 100),
+        'message': _truncate(error.toString(), 100),
         'stack_trace_top': _truncate(_topStackFrames(stack, 5), 100),
       };
       if (reason != null && reason.isNotEmpty) {
         params['reason'] = _truncate(reason, 100);
       }
-      // 'app_exception' is a reserved Firebase Analytics event name (the
-      // SDK auto-emits it). We expose our own custom event, which GA4
-      // accepts and surfaces alongside the reserved one.
-      await _analytics!.logEvent(name: _fatalEventName, parameters: params);
+      // 'app_exception' is a reserved Firebase Analytics event name (the SDK
+      // auto-emits it). Each of our custom event names is unreserved and
+      // surfaces as its own row in the GA4 events report.
+      await _analytics!.logEvent(name: eventName, parameters: params);
     } catch (innerError, innerStack) {
       AppLogger.instance.e(
-        'AppTelemetry logFatal failed',
+        'AppTelemetry $eventName failed',
         error: innerError,
         stackTrace: innerStack,
       );
@@ -106,6 +124,8 @@ class AppTelemetry {
   }
 
   static const String _fatalEventName = 'client_app_error';
+  static const String _firebaseErrorEventName = 'firebase_error';
+  static const String _hydratedBlocErrorEventName = 'hydrated_bloc_error';
 
   /// Returns true for error classes that pollute telemetry without being
   /// actionable — primarily transient browser-side network failures from

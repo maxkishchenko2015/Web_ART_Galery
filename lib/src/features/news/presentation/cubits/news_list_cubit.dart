@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:web_art_galery/src/features/news/domain/entities/news_article.dart';
 import 'package:web_art_galery/src/features/news/domain/repository/news_repository.dart';
+import 'package:web_art_galery/src/shared/telemetry/app_telemetry.dart';
 import 'package:web_art_galery/src/shared/utils/app_logger.dart';
 
 @immutable
@@ -50,6 +51,7 @@ class NewsListCubit extends Cubit<NewsListState> {
         error: error,
         stackTrace: stackTrace,
       );
+      AppTelemetry.instance.logFirebaseError(error, stackTrace, reason: 'news_list_fetch');
       emit(NewsListError(error.toString()));
     }
   }

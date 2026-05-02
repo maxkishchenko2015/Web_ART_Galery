@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:web_art_galery/src/shared/config/firebase/firebase_environment.dart';
 import 'package:web_art_galery/src/shared/utils/app_logger.dart';
@@ -16,10 +17,31 @@ class FirebaseBootstrap {
       }
 
       await Firebase.initializeApp(options: _options);
+      _configureFirestoreForWeb();
       return true;
     } catch (error, stackTrace) {
       AppLogger.instance.e('Firebase init skipped', error: error, stackTrace: stackTrace);
       return false;
+    }
+  }
+
+  /// Disables IndexedDB persistence and lets the SDK auto-fall back to
+  /// long-polling so iOS Safari can fetch data even when WebChannel streaming
+  /// is throttled (ITP, mobile carriers, corporate proxies). Without
+  /// long-polling auto-detection, Firestore on iOS Safari can hang on every
+  /// `.get()`/`.snapshots()` while Android/desktop work fine.
+  static void _configureFirestoreForWeb() {
+    try {
+      FirebaseFirestore.instance.settings = const Settings(
+        persistenceEnabled: false,
+        webExperimentalAutoDetectLongPolling: true,
+      );
+    } catch (error, stackTrace) {
+      AppLogger.instance.w(
+        'Firestore settings override failed',
+        error: error,
+        stackTrace: stackTrace,
+      );
     }
   }
 

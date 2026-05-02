@@ -29,11 +29,11 @@ class _CatalogOfWorksContent extends StatelessWidget {
         return switch (state) {
           CatalogOfWorksInitial() ||
           CatalogOfWorksLoading() => const Center(child: CircularProgressIndicator()),
-          CatalogOfWorksError(:final message) => Center(
+          CatalogOfWorksError() => Center(
             child: Padding(
               padding: const EdgeInsets.all(KSize.margin4x),
               child: Text(
-                context.t.catalog.errorWithDetails(message: message),
+                context.t.catalog.errorTitle,
                 textAlign: TextAlign.center,
               ),
             ),

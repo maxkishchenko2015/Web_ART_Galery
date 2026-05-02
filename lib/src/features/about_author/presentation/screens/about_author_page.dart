@@ -294,10 +294,17 @@ class _StatItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
+      crossAxisAlignment: CrossAxisAlignment.baseline,
+      textBaseline: TextBaseline.alphabetic,
       children: [
         Text(value, style: context.textContent.statValue),
         const SizedBox(width: KSize.margin4x),
-        Text(label, style: context.textContent.statLabel),
+        // Expanded so long localised labels (e.g. ru "Книга рекордов Гиннесса")
+        // wrap onto a second line instead of overflowing the 3/7 column the
+        // stat block lives in on narrower desktop widths.
+        Expanded(
+          child: Text(label, style: context.textContent.statLabel),
+        ),
       ],
     );
   }
