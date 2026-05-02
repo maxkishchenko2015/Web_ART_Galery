@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:web_art_galery/i18n/strings.g.dart';
+import 'package:web_art_galery/src/features/catalog_of_works/presentation/cubits/catalog_of_works_cubit.dart';
+import 'package:web_art_galery/src/features/news/presentation/cubits/news_list_cubit.dart';
 import 'package:web_art_galery/src/navigation/presentation/router/app_routes.dart';
 import 'package:web_art_galery/src/shared/config/app_context_extensions.dart';
 import 'package:web_art_galery/src/shared/config/ksize.dart';
@@ -13,33 +16,95 @@ class AppShellMenu extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final width = MediaQuery.sizeOf(context).width;
-    final currentPath = GoRouterState.of(context).uri.path;
-    final items = _buildNavItems(context);
-    final selectedIndex = _selectedIndex(items, currentPath);
+    return MultiBlocListener(
+      listeners: [
+        // If a Firebase-backed feature drops into its error state while the
+        // user is browsing it, bounce them to the safe home page so they're
+        // never stuck on an orphaned tab whose menu entry just disappeared.
+        BlocListener<NewsListCubit, NewsListState>(
+          listenWhen: (previous, current) =>
+              previous is! NewsListError && current is NewsListError,
+          listener: (context, _) {
+            final path = GoRouterState.of(context).uri.path;
+            if (path.startsWith(AppRoutes.news)) {
+              context.go(AppRoutes.aboutAuthor);
+            }
+          },
+        ),
+        BlocListener<CatalogOfWorksCubit, CatalogOfWorksState>(
+          listenWhen: (previous, current) =>
+              previous is! CatalogOfWorksError && current is CatalogOfWorksError,
+          listener: (context, _) {
+            final path = GoRouterState.of(context).uri.path;
+            if (path.startsWith(AppRoutes.catalog)) {
+              context.go(AppRoutes.aboutAuthor);
+            }
+          },
+        ),
+      ],
+      // Two narrow rebuild-on-error-transition guards keep the shell from
+      // churning on every Loading tick — we only re-run layout when the news
+      // or catalog cubit crosses the error boundary.
+      child: BlocBuilder<NewsListCubit, NewsListState>(
+        buildWhen: (previous, current) =>
+            (previous is NewsListError) != (current is NewsListError),
+        builder: (context, newsState) {
+          return BlocBuilder<CatalogOfWorksCubit, CatalogOfWorksState>(
+            buildWhen: (previous, current) =>
+                (previous is CatalogOfWorksError) != (current is CatalogOfWorksError),
+            builder: (context, catalogState) {
+              final hideNews = newsState is NewsListError;
+              final hideCatalog = catalogState is CatalogOfWorksError;
+              final width = MediaQuery.sizeOf(context).width;
+              final currentPath = GoRouterState.of(context).uri.path;
+              final items = _buildNavItems(
+                context,
+                hideNews: hideNews,
+                hideCatalog: hideCatalog,
+              );
+              final selectedIndex = _selectedIndex(items, currentPath);
 
-    if (width < KSize.adaptiveCompactBreakpoint) {
-      return _MobileShell(items: items, selectedIndex: selectedIndex, child: child);
-    }
-    return _DesktopShell(items: items, selectedIndex: selectedIndex, child: child);
+              if (width < KSize.adaptiveCompactBreakpoint) {
+                return _MobileShell(
+                  items: items,
+                  selectedIndex: selectedIndex,
+                  child: child,
+                );
+              }
+              return _DesktopShell(
+                items: items,
+                selectedIndex: selectedIndex,
+                child: child,
+              );
+            },
+          );
+        },
+      ),
+    );
   }
 
-  List<_NavItem> _buildNavItems(BuildContext context) => [
+  List<_NavItem> _buildNavItems(
+    BuildContext context, {
+    required bool hideNews,
+    required bool hideCatalog,
+  }) => [
     _NavItem(
       label: context.t.navigation.aboutAuthor,
       location: AppRoutes.aboutAuthor,
       icon: Icons.person_outline,
     ),
-    _NavItem(
-      label: context.t.navigation.news,
-      location: AppRoutes.news,
-      icon: Icons.newspaper_outlined,
-    ),
-    _NavItem(
-      label: context.t.navigation.catalogOfWorks,
-      location: AppRoutes.catalog,
-      icon: Icons.collections_bookmark_outlined,
-    ),
+    if (!hideNews)
+      _NavItem(
+        label: context.t.navigation.news,
+        location: AppRoutes.news,
+        icon: Icons.newspaper_outlined,
+      ),
+    if (!hideCatalog)
+      _NavItem(
+        label: context.t.navigation.catalogOfWorks,
+        location: AppRoutes.catalog,
+        icon: Icons.collections_bookmark_outlined,
+      ),
     _NavItem(
       label: context.t.navigation.films,
       location: AppRoutes.films,

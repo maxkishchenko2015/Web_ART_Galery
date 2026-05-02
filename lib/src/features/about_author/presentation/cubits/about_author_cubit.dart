@@ -44,15 +44,32 @@ class AboutAuthorCubit extends Cubit<AboutAuthorState> {
 
   final AboutAuthorRepository _repository;
 
+  // About-Author always renders five photo slots (hero, universal realism,
+  // tapestry, chernobyl, mosaic). When Firebase is unreachable we fall back to
+  // these bundled assets so the page never shows an error state.
+  // Indexes intentionally match AboutAuthorPageConstants.*PhotoIndex so the
+  // existing rendering code keeps working without further changes.
+  static const List<AuthorPhoto> _fallbackPhotos = <AuthorPhoto>[
+    AuthorPhoto(url: 'assets/images/about_author_fallback/01.png'),
+    AuthorPhoto(url: 'assets/images/about_author_fallback/02.png'),
+    AuthorPhoto(url: 'assets/images/about_author_fallback/03.png'),
+    AuthorPhoto(url: 'assets/images/about_author_fallback/04.png'),
+    AuthorPhoto(url: 'assets/images/about_author_fallback/05.png'),
+  ];
+
   Future<void> loadPhotos() async {
     if (state is AboutAuthorLoaded) return;
     emit(const AboutAuthorLoading());
     try {
       final result = await _repository.fetchPhotos();
+      if (result.isEmpty) {
+        emit(const AboutAuthorLoaded(photos: _fallbackPhotos));
+        return;
+      }
       emit(AboutAuthorLoaded(photos: result.photos));
     } catch (error, stackTrace) {
       AppLogger.instance.e(
-        'About author photos fetch failed',
+        'About author photos fetch failed — using bundled fallback',
         error: error,
         stackTrace: stackTrace,
       );
@@ -61,7 +78,7 @@ class AboutAuthorCubit extends Cubit<AboutAuthorState> {
         stackTrace,
         reason: 'about_author_photos_fetch',
       );
-      emit(AboutAuthorError(error.toString()));
+      emit(const AboutAuthorLoaded(photos: _fallbackPhotos));
     }
   }
 }
