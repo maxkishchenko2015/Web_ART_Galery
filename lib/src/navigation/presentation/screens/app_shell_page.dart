@@ -14,16 +14,34 @@ class AppShellMenu extends StatelessWidget {
 
   final Widget child;
 
+  // A tab counts as "having content" only once its cubit has settled into a
+  // Loaded state with a non-empty list. Initial/Loading keep the tab visible
+  // so cold-start ticks don't flicker the menu, and Error/empty-Loaded both
+  // hide the tab so users can't land on a blank page.
+  static bool _newsHasContent(NewsListState s) =>
+      s is NewsListLoaded && s.articles.isNotEmpty;
+
+  static bool _catalogHasContent(CatalogOfWorksState s) =>
+      s is CatalogOfWorksLoaded && s.paintings.isNotEmpty;
+
+  static bool _newsIsSettledEmpty(NewsListState s) =>
+      s is NewsListError || (s is NewsListLoaded && s.articles.isEmpty);
+
+  static bool _catalogIsSettledEmpty(CatalogOfWorksState s) =>
+      s is CatalogOfWorksError ||
+      (s is CatalogOfWorksLoaded && s.paintings.isEmpty);
+
   @override
   Widget build(BuildContext context) {
     return MultiBlocListener(
       listeners: [
-        // If a Firebase-backed feature drops into its error state while the
-        // user is browsing it, bounce them to the safe home page so they're
-        // never stuck on an orphaned tab whose menu entry just disappeared.
+        // If a Firebase-backed feature settles into a no-content terminal
+        // state (error or empty list) while the user is browsing it, bounce
+        // them to the safe home page so they're never stuck on an orphaned
+        // tab whose menu entry just disappeared.
         BlocListener<NewsListCubit, NewsListState>(
           listenWhen: (previous, current) =>
-              previous is! NewsListError && current is NewsListError,
+              !_newsIsSettledEmpty(previous) && _newsIsSettledEmpty(current),
           listener: (context, _) {
             final path = GoRouterState.of(context).uri.path;
             if (path.startsWith(AppRoutes.news)) {
@@ -33,7 +51,7 @@ class AppShellMenu extends StatelessWidget {
         ),
         BlocListener<CatalogOfWorksCubit, CatalogOfWorksState>(
           listenWhen: (previous, current) =>
-              previous is! CatalogOfWorksError && current is CatalogOfWorksError,
+              !_catalogIsSettledEmpty(previous) && _catalogIsSettledEmpty(current),
           listener: (context, _) {
             final path = GoRouterState.of(context).uri.path;
             if (path.startsWith(AppRoutes.catalog)) {
@@ -42,19 +60,19 @@ class AppShellMenu extends StatelessWidget {
           },
         ),
       ],
-      // Two narrow rebuild-on-error-transition guards keep the shell from
-      // churning on every Loading tick — we only re-run layout when the news
-      // or catalog cubit crosses the error boundary.
+      // Narrow rebuild guards keep the shell from churning on every Loading
+      // tick — we only re-run layout when the news or catalog cubit crosses
+      // the has-content / no-content boundary.
       child: BlocBuilder<NewsListCubit, NewsListState>(
         buildWhen: (previous, current) =>
-            (previous is NewsListError) != (current is NewsListError),
+            _newsHasContent(previous) != _newsHasContent(current),
         builder: (context, newsState) {
           return BlocBuilder<CatalogOfWorksCubit, CatalogOfWorksState>(
             buildWhen: (previous, current) =>
-                (previous is CatalogOfWorksError) != (current is CatalogOfWorksError),
+                _catalogHasContent(previous) != _catalogHasContent(current),
             builder: (context, catalogState) {
-              final hideNews = newsState is NewsListError;
-              final hideCatalog = catalogState is CatalogOfWorksError;
+              final hideNews = _newsIsSettledEmpty(newsState);
+              final hideCatalog = _catalogIsSettledEmpty(catalogState);
               final width = MediaQuery.sizeOf(context).width;
               final currentPath = GoRouterState.of(context).uri.path;
               final items = _buildNavItems(

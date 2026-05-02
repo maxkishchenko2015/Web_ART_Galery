@@ -45,8 +45,11 @@
   <meta name="twitter:description" content="Официальная коллекция работ белорусского художника-монументалиста Александра Михайловича Кищенко (1933–1997).">
   <meta name="twitter:image" content="https://kishchanka-art.com/icons/Icon-512.png">
 
-  <!-- iOS meta tags & icons -->
-  <meta name="mobile-web-app-capable" content="yes">
+  <!--
+    iOS bookmark metadata. These only style the home-screen icon IF the user
+    manually adds the page from the Share sheet on iOS. They never trigger an
+    install prompt on any platform.
+  -->
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   <meta name="apple-mobile-web-app-title" content="КИЩЕНКО-АРТ">
   <link rel="apple-touch-icon" href="icons/Icon-192.png">
@@ -54,7 +57,15 @@
   <!-- Favicon -->
   <link rel="icon" type="image/png" href="favicon.png"/>
 
-  <link rel="manifest" href="manifest.json">
+  <!--
+    PWA manifest intentionally NOT linked. Chrome on Android shows an
+    "Install app" prompt only when <link rel="manifest"> is present together
+    with the standalone display mode. We want the site to behave as a
+    regular website, so the manifest stays unreferenced (the file is kept on
+    disk so PWA support can be re-enabled later by simply adding the link
+    back). The cross-platform `mobile-web-app-capable` meta tag is also
+    omitted for the same reason.
+  -->
 </head>
 <body>
   <style>

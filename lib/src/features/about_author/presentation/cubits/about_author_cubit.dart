@@ -66,7 +66,7 @@ class AboutAuthorCubit extends Cubit<AboutAuthorState> {
         emit(const AboutAuthorLoaded(photos: _fallbackPhotos));
         return;
       }
-      emit(AboutAuthorLoaded(photos: result.photos));
+      emit(AboutAuthorLoaded(photos: _mergeWithFallbacks(result.photos)));
     } catch (error, stackTrace) {
       AppLogger.instance.e(
         'About author photos fetch failed — using bundled fallback',
@@ -80,5 +80,26 @@ class AboutAuthorCubit extends Cubit<AboutAuthorState> {
       );
       emit(const AboutAuthorLoaded(photos: _fallbackPhotos));
     }
+  }
+
+  /// Returns a photo list of at least [_fallbackPhotos].length entries where
+  /// every slot is guaranteed to have a usable URL: when Firestore omits or
+  /// blanks out a slot we substitute the matching bundled asset so each
+  /// biography section keeps its image instead of rendering a placeholder
+  /// icon.
+  static List<AuthorPhoto> _mergeWithFallbacks(List<AuthorPhoto> remote) {
+    final length = remote.length > _fallbackPhotos.length
+        ? remote.length
+        : _fallbackPhotos.length;
+    return List<AuthorPhoto>.generate(length, (index) {
+      final remotePhoto = index < remote.length ? remote[index] : null;
+      if (remotePhoto != null && !remotePhoto.isEmpty) {
+        return remotePhoto;
+      }
+      if (index < _fallbackPhotos.length) {
+        return _fallbackPhotos[index];
+      }
+      return remotePhoto ?? const AuthorPhoto(url: '');
+    }, growable: false);
   }
 }

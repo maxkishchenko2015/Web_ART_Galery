@@ -8,6 +8,7 @@ import 'package:web_art_galery/src/features/catalog_of_works/presentation/locali
 import 'package:web_art_galery/src/features/catalog_of_works/presentation/widgets/aspect_aware_image.dart';
 import 'package:web_art_galery/src/features/catalog_of_works/presentation/widgets/catalog_lazy_masonry_view.dart';
 import 'package:web_art_galery/src/features/catalog_of_works/presentation/widgets/decade_filter_bar.dart';
+import 'package:web_art_galery/src/shared/config/app_context_extensions.dart';
 import 'package:web_art_galery/src/shared/config/ksize.dart';
 import 'package:web_art_galery/src/shared/presentation/widgets/fullscreen_image_viewer.dart';
 import 'package:web_art_galery/src/shared/telemetry/app_telemetry.dart';
@@ -29,18 +30,35 @@ class _CatalogOfWorksContent extends StatelessWidget {
         return switch (state) {
           CatalogOfWorksInitial() ||
           CatalogOfWorksLoading() => const Center(child: CircularProgressIndicator()),
-          CatalogOfWorksError() => Center(
-            child: Padding(
-              padding: const EdgeInsets.all(KSize.margin4x),
-              child: Text(
-                context.t.catalog.errorTitle,
-                textAlign: TextAlign.center,
-              ),
-            ),
-          ),
+          // Errors and the all-filtered-out / empty result share the same
+          // wordless visual: rendering raw exception strings (e.g. "Null check
+          // operator used on a null value") in production was confusing users.
+          // The shell also hides the catalog tab in those states, so this view
+          // is mostly reached via direct deep links.
+          CatalogOfWorksError() => const _CatalogEmptyState(),
+          CatalogOfWorksLoaded(paintings: final paintings) when paintings.isEmpty =>
+            const _CatalogEmptyState(),
           CatalogOfWorksLoaded() => _CatalogOfWorksLoadedView(state: state),
         };
       },
+    );
+  }
+}
+
+class _CatalogEmptyState extends StatelessWidget {
+  const _CatalogEmptyState();
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Padding(
+        padding: const EdgeInsets.all(KSize.margin8x),
+        child: Icon(
+          Icons.image_outlined,
+          size: KSize.iconHeroPlaceholder,
+          color: context.colors.onDarkPlaceholderIcon,
+        ),
+      ),
     );
   }
 }

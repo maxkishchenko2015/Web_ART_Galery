@@ -85,10 +85,12 @@ class _NewsBody extends StatelessWidget {
       builder: (context, state) {
         return switch (state) {
           NewsListInitial() || NewsListLoading() => const _LoadingView(),
-          NewsListLoaded(articles: final articles) when articles.isEmpty =>
-            const _EmptyView(),
+          // Empty list and fetch errors share the same silent visual: the
+          // shell also hides the news tab in these states, so the page is
+          // only reachable via direct deep link.
+          NewsListLoaded(articles: final articles) when articles.isEmpty => const _EmptyView(),
           NewsListLoaded(articles: final articles) => _ArticleList(articles: articles),
-          NewsListError(message: final message) => _ErrorView(message: message),
+          NewsListError() => const _EmptyView(),
         };
       },
     );
@@ -115,50 +117,10 @@ class _EmptyView extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: KSize.margin15x),
       child: Center(
-        child: Text(
-          context.t.newsFeed.emptyState,
-          textAlign: TextAlign.center,
-          style: context.textContent.archiveExcerpt,
-        ),
-      ),
-    );
-  }
-}
-
-class _ErrorView extends StatelessWidget {
-  const _ErrorView({required this.message});
-
-  final String message;
-
-  @override
-  Widget build(BuildContext context) {
-    final feed = context.t.newsFeed;
-
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: KSize.margin15x),
-      child: Center(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Text(feed.errorTitle, style: context.textContent.archiveCardTitle),
-            const SizedBox(height: KSize.margin3x),
-            ConstrainedBox(
-              constraints: const BoxConstraints(maxWidth: 420),
-              child: Text(
-                message,
-                textAlign: TextAlign.center,
-                style: context.textContent.archiveExcerpt,
-              ),
-            ),
-            const SizedBox(height: KSize.margin5x),
-            TextButton(
-              onPressed: () => context.read<NewsListCubit>().load(),
-              child: Text(
-                feed.retry.toUpperCase(),
-                style: context.textContent.archiveLink,
-              ),
-            ),
-          ],
+        child: Icon(
+          Icons.article_outlined,
+          size: KSize.iconHeroPlaceholder,
+          color: context.colors.onDarkPlaceholderIcon,
         ),
       ),
     );
