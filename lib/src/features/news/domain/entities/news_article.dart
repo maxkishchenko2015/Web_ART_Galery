@@ -12,11 +12,17 @@ class NewsArticle {
     required this.id,
     required this.translations,
     required this.imageUrls,
+    this.name = '',
     this.publishedAt,
     this.sourceUrl,
   });
 
   final String id;
+
+  /// URL-safe slug (e.g. `tapestry_of_the_century`) used to build human-
+  /// readable `/news/<name>` deep links. Empty when the editor hasn't filled
+  /// the `name` field yet — callers fall back to [id] in that case.
+  final String name;
   final DateTime? publishedAt;
   final List<String> imageUrls;
   final String? sourceUrl;
@@ -36,6 +42,8 @@ class NewsArticle {
   String bodyFor(AppLocale locale) => _resolve(locale, (t) => t.body);
 
   bool get hasImage => imageUrls.isNotEmpty;
+
+  bool get hasName => name.isNotEmpty;
 
   bool get hasSourceUrl => (sourceUrl ?? '').trim().isNotEmpty;
 

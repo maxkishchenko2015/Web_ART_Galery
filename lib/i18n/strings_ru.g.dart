@@ -50,6 +50,7 @@ class Translations with BaseTranslations<AppLocale, Translations> {
 	late final TranslationsNewsFeedRu newsFeed = TranslationsNewsFeedRu.internal(_root);
 	late final TranslationsBioRu bio = TranslationsBioRu.internal(_root);
 	late final TranslationsContactsRu contacts = TranslationsContactsRu.internal(_root);
+	late final TranslationsSeoRu seo = TranslationsSeoRu.internal(_root);
 }
 
 // Path: app
@@ -359,6 +360,21 @@ class TranslationsContactsRu {
 
 	/// ru: '© OpenStreetMap contributors'
 	String get mapAttribution => '© OpenStreetMap contributors';
+}
+
+// Path: seo
+class TranslationsSeoRu {
+	TranslationsSeoRu.internal(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+	late final TranslationsSeoAboutAuthorRu aboutAuthor = TranslationsSeoAboutAuthorRu.internal(_root);
+	late final TranslationsSeoCatalogRu catalog = TranslationsSeoCatalogRu.internal(_root);
+	late final TranslationsSeoNewsRu news = TranslationsSeoNewsRu.internal(_root);
+	late final TranslationsSeoFilmsRu films = TranslationsSeoFilmsRu.internal(_root);
+	late final TranslationsSeoArchiveRu archive = TranslationsSeoArchiveRu.internal(_root);
+	late final TranslationsSeoContactsRu contacts = TranslationsSeoContactsRu.internal(_root);
 }
 
 // Path: catalog.decade
@@ -1102,6 +1118,114 @@ class TranslationsBioLegacyRu {
 	String get body => 'Александр Кищенко оставил после себя не только полотна, хранящиеся в Третьяковской галерее и частных коллекциях мировых лидеров (Б. Клинтона, Ф. Миттерана), но и целую школу белорусского монументального гобелена. Его имя носит Борисовский комбинат декоративно-прикладного искусства, где создавались его великие шпалеры.';
 }
 
+// Path: seo.aboutAuthor
+class TranslationsSeoAboutAuthorRu {
+	TranslationsSeoAboutAuthorRu.internal(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// ru: 'Александр Кищенко — народный художник Беларуси | КИЩЕНКО-АРТ'
+	String get title => 'Александр Кищенко — народный художник Беларуси | КИЩЕНКО-АРТ';
+
+	/// ru: 'Александр Михайлович Кищенко (1933–1997) — народный художник Республики Беларусь, живописец и монументалист. Автор самого большого гобелена в мире и «Чернобыля» в штаб-квартире ООН.'
+	String get description => 'Александр Михайлович Кищенко (1933–1997) — народный художник Республики Беларусь, живописец и монументалист. Автор самого большого гобелена в мире и «Чернобыля» в штаб-квартире ООН.';
+
+	/// ru: 'Александр Кищенко, биография, белорусский художник, монументалист, гобелен'
+	String get keywords => 'Александр Кищенко, биография, белорусский художник, монументалист, гобелен';
+}
+
+// Path: seo.catalog
+class TranslationsSeoCatalogRu {
+	TranslationsSeoCatalogRu.internal(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// ru: 'Каталог работ Александра Кищенко | КИЩЕНКО-АРТ'
+	String get title => 'Каталог работ Александра Кищенко | КИЩЕНКО-АРТ';
+
+	/// ru: 'Каталог живописи и гобеленов Александра Кищенко: портреты, пейзажи, философские полотна 1958–1997 годов.'
+	String get description => 'Каталог живописи и гобеленов Александра Кищенко: портреты, пейзажи, философские полотна 1958–1997 годов.';
+
+	/// ru: 'каталог работ Кищенко, живопись, гобелены, купить картину Кищенко'
+	String get keywords => 'каталог работ Кищенко, живопись, гобелены, купить картину Кищенко';
+}
+
+// Path: seo.news
+class TranslationsSeoNewsRu {
+	TranslationsSeoNewsRu.internal(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// ru: 'Новости и выставки | КИЩЕНКО-АРТ'
+	String get title => 'Новости и выставки | КИЩЕНКО-АРТ';
+
+	/// ru: 'Новости, выставки и события, связанные с наследием Александра Кищенко и галереей КИЩЕНКО-АРТ.'
+	String get description => 'Новости, выставки и события, связанные с наследием Александра Кищенко и галереей КИЩЕНКО-АРТ.';
+
+	/// ru: 'выставки Кищенко, новости галереи, события'
+	String get keywords => 'выставки Кищенко, новости галереи, события';
+}
+
+// Path: seo.films
+class TranslationsSeoFilmsRu {
+	TranslationsSeoFilmsRu.internal(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// ru: 'Документальные фильмы об А. Кищенко | КИЩЕНКО-АРТ'
+	String get title => 'Документальные фильмы об А. Кищенко | КИЩЕНКО-АРТ';
+
+	/// ru: 'Документальные фильмы и видеоматериалы об Александре Кищенко, его творчестве и монументальных произведениях.'
+	String get description => 'Документальные фильмы и видеоматериалы об Александре Кищенко, его творчестве и монументальных произведениях.';
+
+	/// ru: 'фильм о Кищенко, документальный фильм, гобелен века, видео'
+	String get keywords => 'фильм о Кищенко, документальный фильм, гобелен века, видео';
+}
+
+// Path: seo.archive
+class TranslationsSeoArchiveRu {
+	TranslationsSeoArchiveRu.internal(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// ru: 'Архив публикаций | КИЩЕНКО-АРТ'
+	String get title => 'Архив публикаций | КИЩЕНКО-АРТ';
+
+	/// ru: 'Архив публикаций и материалов о творчестве и выставках Александра Михайловича Кищенко.'
+	String get description => 'Архив публикаций и материалов о творчестве и выставках Александра Михайловича Кищенко.';
+
+	/// ru: 'архив Кищенко, публикации, статьи, пресса'
+	String get keywords => 'архив Кищенко, публикации, статьи, пресса';
+}
+
+// Path: seo.contacts
+class TranslationsSeoContactsRu {
+	TranslationsSeoContactsRu.internal(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// ru: 'Контакты | КИЩЕНКО-АРТ'
+	String get title => 'Контакты | КИЩЕНКО-АРТ';
+
+	/// ru: 'Контакты галереи КИЩЕНКО-АРТ: мастерская в Минске, телефон, Instagram и ВКонтакте.'
+	String get description => 'Контакты галереи КИЩЕНКО-АРТ: мастерская в Минске, телефон, Instagram и ВКонтакте.';
+
+	/// ru: 'контакты галереи Кищенко, мастерская Минск, купить картину'
+	String get keywords => 'контакты галереи Кищенко, мастерская Минск, купить картину';
+}
+
 // Path: archiveFeed.items.boguchar2026
 class TranslationsArchiveFeedItemsBoguchar2026Ru {
 	TranslationsArchiveFeedItemsBoguchar2026Ru.internal(this._root);
@@ -1635,6 +1759,24 @@ extension on Translations {
 			'contacts.studioAddress' => 'Минск, ул. Сурганова, 44 — 7 этаж',
 			'contacts.openInOsm' => 'ОТКРЫТЬ В OPENSTREETMAP',
 			'contacts.mapAttribution' => '© OpenStreetMap contributors',
+			'seo.aboutAuthor.title' => 'Александр Кищенко — народный художник Беларуси | КИЩЕНКО-АРТ',
+			'seo.aboutAuthor.description' => 'Александр Михайлович Кищенко (1933–1997) — народный художник Республики Беларусь, живописец и монументалист. Автор самого большого гобелена в мире и «Чернобыля» в штаб-квартире ООН.',
+			'seo.aboutAuthor.keywords' => 'Александр Кищенко, биография, белорусский художник, монументалист, гобелен',
+			'seo.catalog.title' => 'Каталог работ Александра Кищенко | КИЩЕНКО-АРТ',
+			'seo.catalog.description' => 'Каталог живописи и гобеленов Александра Кищенко: портреты, пейзажи, философские полотна 1958–1997 годов.',
+			'seo.catalog.keywords' => 'каталог работ Кищенко, живопись, гобелены, купить картину Кищенко',
+			'seo.news.title' => 'Новости и выставки | КИЩЕНКО-АРТ',
+			'seo.news.description' => 'Новости, выставки и события, связанные с наследием Александра Кищенко и галереей КИЩЕНКО-АРТ.',
+			'seo.news.keywords' => 'выставки Кищенко, новости галереи, события',
+			'seo.films.title' => 'Документальные фильмы об А. Кищенко | КИЩЕНКО-АРТ',
+			'seo.films.description' => 'Документальные фильмы и видеоматериалы об Александре Кищенко, его творчестве и монументальных произведениях.',
+			'seo.films.keywords' => 'фильм о Кищенко, документальный фильм, гобелен века, видео',
+			'seo.archive.title' => 'Архив публикаций | КИЩЕНКО-АРТ',
+			'seo.archive.description' => 'Архив публикаций и материалов о творчестве и выставках Александра Михайловича Кищенко.',
+			'seo.archive.keywords' => 'архив Кищенко, публикации, статьи, пресса',
+			'seo.contacts.title' => 'Контакты | КИЩЕНКО-АРТ',
+			'seo.contacts.description' => 'Контакты галереи КИЩЕНКО-АРТ: мастерская в Минске, телефон, Instagram и ВКонтакте.',
+			'seo.contacts.keywords' => 'контакты галереи Кищенко, мастерская Минск, купить картину',
 			_ => null,
 		};
 	}

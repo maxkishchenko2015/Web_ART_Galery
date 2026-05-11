@@ -16,8 +16,7 @@ abstract final class AboutAuthorPageConstants {
 
   // ── External references rendered as "Open article" CTAs ─────────────────
 
-  static const String tapestryExternalUrl =
-      'https://robbielafleur.com/2016/01/16/tapestry-of-the-century/';
+  static const String tapestryExternalUrl = 'https://monumental.by/ru/point/gobelen_veka/';
   static const String chernobylExternalUrl = 'https://www.un.org/ungifts/chernobyl';
   static const String mosaicExternalUrl =
       'https://streetartcities.com/artists/alexander-kishchenko';

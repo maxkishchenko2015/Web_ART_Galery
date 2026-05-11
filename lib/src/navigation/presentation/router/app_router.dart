@@ -55,7 +55,7 @@ final List<RouteBase> _routes = [
             path: AppRoutes.newsArticleSegment,
             pageBuilder: (context, state) => NoTransitionPage<void>(
               child: NewsDetailPage(
-                articleId: state.pathParameters[AppRoutes.articleIdParam] ?? '',
+                articleSlug: state.pathParameters[AppRoutes.articleSlugParam] ?? '',
               ),
             ),
           ),

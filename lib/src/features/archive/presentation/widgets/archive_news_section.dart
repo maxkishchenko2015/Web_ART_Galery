@@ -402,7 +402,13 @@ class _NewsMetaRow extends StatelessWidget {
             child: Row(
               mainAxisSize: MainAxisSize.min,
               children: [
-                Text(archiveFeed.openArticle.toUpperCase(), style: context.textContent.archiveLink),
+                Flexible(
+                  child: Text(
+                    archiveFeed.openArticle.toUpperCase(),
+                    style: context.textContent.archiveLink,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ),
                 const SizedBox(width: KSize.margin1Halfx),
                 Icon(
                   Icons.arrow_outward_rounded,

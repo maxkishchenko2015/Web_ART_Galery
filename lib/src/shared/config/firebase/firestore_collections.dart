@@ -25,6 +25,10 @@ class FirestoreCollections {
   static const String news = 'News';
 
   static const String newsIdField = 'id';
+  // URL-safe slug used for human-readable deep links: `/news/<name>`.
+  // When unset/empty the app falls back to the Firestore document id so old
+  // links keep resolving.
+  static const String newsNameField = 'name';
   static const String newsPublishedAtField = 'publishedAt';
   // Array of image URL strings. The list card uses the first entry as the
   // cover; the detail screen renders all entries in a horizontal strip.

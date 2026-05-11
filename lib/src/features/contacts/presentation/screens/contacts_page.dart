@@ -1,5 +1,7 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
+import 'package:meta_seo/meta_seo.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:web_art_galery/i18n/strings.g.dart';
 import 'package:web_art_galery/src/features/contacts/presentation/screens/contacts_page_constants.dart';
@@ -12,6 +14,12 @@ class ContactsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    if (kIsWeb) {
+      MetaSEO()
+        ..ogTitle(ogTitle: context.t.seo.contacts.title)
+        ..description(description: context.t.seo.contacts.description)
+        ..keywords(keywords: context.t.seo.contacts.keywords);
+    }
     final width = MediaQuery.sizeOf(context).width;
     final isCompact = width < KSize.adaptiveExpandedBreakpoint;
 

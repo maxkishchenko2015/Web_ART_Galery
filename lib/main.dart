@@ -1,11 +1,12 @@
 import 'dart:async';
-import 'dart:ui';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_web_plugins/url_strategy.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
+import 'package:meta_seo/meta_seo.dart';
 import 'package:web_art_galery/i18n/strings.g.dart';
 import 'package:web_art_galery/src/features/about_author/data/api/about_author_api_controller.dart';
 import 'package:web_art_galery/src/features/about_author/data/repository/about_author_repository_firebase.dart';
@@ -80,9 +81,7 @@ void main() {
 
       bool firebaseReady = false;
       try {
-        firebaseReady = await FirebaseBootstrap.tryInitialize().timeout(
-          const Duration(seconds: 8),
-        );
+        firebaseReady = await FirebaseBootstrap.tryInitialize().timeout(const Duration(seconds: 8));
       } catch (e, s) {
         AppLogger.instance.w('Firebase init failed, continuing without', error: e, stackTrace: s);
         deferredFirebaseError = (error: e, stack: s);
@@ -118,6 +117,8 @@ void main() {
           ),
         );
       }
+
+      if (kIsWeb) MetaSEO().config();
 
       _setDeviceFormFactorUserProperties();
 

@@ -49,6 +49,7 @@ class TranslationsEn extends Translations with BaseTranslations<AppLocale, Trans
 	@override late final _TranslationsNewsFeedEn newsFeed = _TranslationsNewsFeedEn._(_root);
 	@override late final _TranslationsBioEn bio = _TranslationsBioEn._(_root);
 	@override late final _TranslationsContactsEn contacts = _TranslationsContactsEn._(_root);
+	@override late final _TranslationsSeoEn seo = _TranslationsSeoEn._(_root);
 }
 
 // Path: app
@@ -219,6 +220,21 @@ class _TranslationsContactsEn extends TranslationsContactsRu {
 	@override String get studioAddress => 'Minsk, 44 Surganova St., 7th floor';
 	@override String get openInOsm => 'OPEN IN OPENSTREETMAP';
 	@override String get mapAttribution => '© OpenStreetMap contributors';
+}
+
+// Path: seo
+class _TranslationsSeoEn extends TranslationsSeoRu {
+	_TranslationsSeoEn._(TranslationsEn root) : this._root = root, super.internal(root);
+
+	final TranslationsEn _root; // ignore: unused_field
+
+	// Translations
+	@override late final _TranslationsSeoAboutAuthorEn aboutAuthor = _TranslationsSeoAboutAuthorEn._(_root);
+	@override late final _TranslationsSeoCatalogEn catalog = _TranslationsSeoCatalogEn._(_root);
+	@override late final _TranslationsSeoNewsEn news = _TranslationsSeoNewsEn._(_root);
+	@override late final _TranslationsSeoFilmsEn films = _TranslationsSeoFilmsEn._(_root);
+	@override late final _TranslationsSeoArchiveEn archive = _TranslationsSeoArchiveEn._(_root);
+	@override late final _TranslationsSeoContactsEn contacts = _TranslationsSeoContactsEn._(_root);
 }
 
 // Path: catalog.decade
@@ -554,6 +570,78 @@ class _TranslationsBioLegacyEn extends TranslationsBioLegacyRu {
 	// Translations
 	@override String get title => 'Legacy';
 	@override String get body => 'Alexander Kishchanka left behind not only canvases housed in the Tretyakov Gallery and private collections of world leaders (B. Clinton, F. Mitterrand), but an entire school of Belarusian monumental tapestry. The Borisov Decorative and Applied Arts Combine, where his great tapestries were created, now bears his name.';
+}
+
+// Path: seo.aboutAuthor
+class _TranslationsSeoAboutAuthorEn extends TranslationsSeoAboutAuthorRu {
+	_TranslationsSeoAboutAuthorEn._(TranslationsEn root) : this._root = root, super.internal(root);
+
+	final TranslationsEn _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Alexander Kishchenko — People\'s Artist of Belarus | KISHCHANKA.ART';
+	@override String get description => 'Alexander Mikhailovich Kishchenko (1933–1997) — People\'s Artist of Belarus, painter and monumentalist. Author of the world\'s largest tapestry and the Chernobyl tapestry at the UN.';
+	@override String get keywords => 'Alexander Kishchenko, biography, Belarusian artist, monumentalist, tapestry';
+}
+
+// Path: seo.catalog
+class _TranslationsSeoCatalogEn extends TranslationsSeoCatalogRu {
+	_TranslationsSeoCatalogEn._(TranslationsEn root) : this._root = root, super.internal(root);
+
+	final TranslationsEn _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Catalog of Works by Alexander Kishchenko | KISHCHANKA.ART';
+	@override String get description => 'Catalog of paintings and tapestries by Alexander Kishchenko: portraits, landscapes, and philosophical works from 1958–1997.';
+	@override String get keywords => 'Kishchenko catalog, paintings, tapestries, buy Kishchenko art';
+}
+
+// Path: seo.news
+class _TranslationsSeoNewsEn extends TranslationsSeoNewsRu {
+	_TranslationsSeoNewsEn._(TranslationsEn root) : this._root = root, super.internal(root);
+
+	final TranslationsEn _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'News & Exhibitions | KISHCHANKA.ART';
+	@override String get description => 'News, exhibitions, and events related to the legacy of Alexander Kishchenko and the KISHCHANKA.ART gallery.';
+	@override String get keywords => 'Kishchenko exhibitions, gallery news, events';
+}
+
+// Path: seo.films
+class _TranslationsSeoFilmsEn extends TranslationsSeoFilmsRu {
+	_TranslationsSeoFilmsEn._(TranslationsEn root) : this._root = root, super.internal(root);
+
+	final TranslationsEn _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Documentary Films about A. Kishchenko | KISHCHANKA.ART';
+	@override String get description => 'Documentary films and videos about Alexander Kishchenko, his art, and monumental works.';
+	@override String get keywords => 'Kishchenko documentary, film, Tapestry of the Century, video';
+}
+
+// Path: seo.archive
+class _TranslationsSeoArchiveEn extends TranslationsSeoArchiveRu {
+	_TranslationsSeoArchiveEn._(TranslationsEn root) : this._root = root, super.internal(root);
+
+	final TranslationsEn _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Archive & Publications | KISHCHANKA.ART';
+	@override String get description => 'Archive of publications and materials about Alexander Kishchenko\'s art and exhibitions.';
+	@override String get keywords => 'Kishchenko archive, publications, press, articles';
+}
+
+// Path: seo.contacts
+class _TranslationsSeoContactsEn extends TranslationsSeoContactsRu {
+	_TranslationsSeoContactsEn._(TranslationsEn root) : this._root = root, super.internal(root);
+
+	final TranslationsEn _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Contact | KISHCHANKA.ART';
+	@override String get description => 'Contact the KISHCHANKA.ART gallery: studio in Minsk, phone, Instagram and VK.';
+	@override String get keywords => 'Kishchenko gallery contact, Minsk studio, buy painting';
 }
 
 // Path: archiveFeed.items.boguchar2026
@@ -1029,6 +1117,24 @@ extension on TranslationsEn {
 			'contacts.studioAddress' => 'Minsk, 44 Surganova St., 7th floor',
 			'contacts.openInOsm' => 'OPEN IN OPENSTREETMAP',
 			'contacts.mapAttribution' => '© OpenStreetMap contributors',
+			'seo.aboutAuthor.title' => 'Alexander Kishchenko — People\'s Artist of Belarus | KISHCHANKA.ART',
+			'seo.aboutAuthor.description' => 'Alexander Mikhailovich Kishchenko (1933–1997) — People\'s Artist of Belarus, painter and monumentalist. Author of the world\'s largest tapestry and the Chernobyl tapestry at the UN.',
+			'seo.aboutAuthor.keywords' => 'Alexander Kishchenko, biography, Belarusian artist, monumentalist, tapestry',
+			'seo.catalog.title' => 'Catalog of Works by Alexander Kishchenko | KISHCHANKA.ART',
+			'seo.catalog.description' => 'Catalog of paintings and tapestries by Alexander Kishchenko: portraits, landscapes, and philosophical works from 1958–1997.',
+			'seo.catalog.keywords' => 'Kishchenko catalog, paintings, tapestries, buy Kishchenko art',
+			'seo.news.title' => 'News & Exhibitions | KISHCHANKA.ART',
+			'seo.news.description' => 'News, exhibitions, and events related to the legacy of Alexander Kishchenko and the KISHCHANKA.ART gallery.',
+			'seo.news.keywords' => 'Kishchenko exhibitions, gallery news, events',
+			'seo.films.title' => 'Documentary Films about A. Kishchenko | KISHCHANKA.ART',
+			'seo.films.description' => 'Documentary films and videos about Alexander Kishchenko, his art, and monumental works.',
+			'seo.films.keywords' => 'Kishchenko documentary, film, Tapestry of the Century, video',
+			'seo.archive.title' => 'Archive & Publications | KISHCHANKA.ART',
+			'seo.archive.description' => 'Archive of publications and materials about Alexander Kishchenko\'s art and exhibitions.',
+			'seo.archive.keywords' => 'Kishchenko archive, publications, press, articles',
+			'seo.contacts.title' => 'Contact | KISHCHANKA.ART',
+			'seo.contacts.description' => 'Contact the KISHCHANKA.ART gallery: studio in Minsk, phone, Instagram and VK.',
+			'seo.contacts.keywords' => 'Kishchenko gallery contact, Minsk studio, buy painting',
 			_ => null,
 		};
 	}

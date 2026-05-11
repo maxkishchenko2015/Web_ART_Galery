@@ -374,5 +374,37 @@
     "studioAddress": "Minsk, 44 Surganova St., 7th floor",
     "openInOsm": "OPEN IN OPENSTREETMAP",
     "mapAttribution": "© OpenStreetMap contributors"
+  },
+  "seo": {
+    "aboutAuthor": {
+      "title": "Alexander Kishchenko — People's Artist of Belarus | KISHCHANKA.ART",
+      "description": "Alexander Mikhailovich Kishchenko (1933–1997) — People's Artist of Belarus, painter and monumentalist. Author of the world's largest tapestry and the Chernobyl tapestry at the UN.",
+      "keywords": "Alexander Kishchenko, biography, Belarusian artist, monumentalist, tapestry"
+    },
+    "catalog": {
+      "title": "Catalog of Works by Alexander Kishchenko | KISHCHANKA.ART",
+      "description": "Catalog of paintings and tapestries by Alexander Kishchenko: portraits, landscapes, and philosophical works from 1958–1997.",
+      "keywords": "Kishchenko catalog, paintings, tapestries, buy Kishchenko art"
+    },
+    "news": {
+      "title": "News & Exhibitions | KISHCHANKA.ART",
+      "description": "News, exhibitions, and events related to the legacy of Alexander Kishchenko and the KISHCHANKA.ART gallery.",
+      "keywords": "Kishchenko exhibitions, gallery news, events"
+    },
+    "films": {
+      "title": "Documentary Films about A. Kishchenko | KISHCHANKA.ART",
+      "description": "Documentary films and videos about Alexander Kishchenko, his art, and monumental works.",
+      "keywords": "Kishchenko documentary, film, Tapestry of the Century, video"
+    },
+    "archive": {
+      "title": "Archive & Publications | KISHCHANKA.ART",
+      "description": "Archive of publications and materials about Alexander Kishchenko's art and exhibitions.",
+      "keywords": "Kishchenko archive, publications, press, articles"
+    },
+    "contacts": {
+      "title": "Contact | KISHCHANKA.ART",
+      "description": "Contact the KISHCHANKA.ART gallery: studio in Minsk, phone, Instagram and VK.",
+      "keywords": "Kishchenko gallery contact, Minsk studio, buy painting"
+    }
   }
 }

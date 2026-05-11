@@ -6,6 +6,7 @@ import 'package:web_art_galery/src/features/news/domain/entities/news_translatio
 extension NewsFirebaseObjectX on NewsFirebaseObject {
   NewsArticle toDomain() => NewsArticle(
     id: id,
+    name: name,
     publishedAt: publishedAt,
     imageUrls: imageUrls,
     sourceUrl: sourceUrl,

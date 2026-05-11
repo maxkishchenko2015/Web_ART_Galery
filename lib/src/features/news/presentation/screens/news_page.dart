@@ -1,5 +1,7 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:meta_seo/meta_seo.dart';
 import 'package:go_router/go_router.dart';
 import 'package:web_art_galery/i18n/strings.g.dart';
 import 'package:web_art_galery/src/features/news/domain/entities/news_article.dart';
@@ -13,7 +15,15 @@ class NewsPage extends StatelessWidget {
   const NewsPage({super.key});
 
   @override
-  Widget build(BuildContext context) => const _NewsPageView();
+  Widget build(BuildContext context) {
+    if (kIsWeb) {
+      MetaSEO()
+        ..ogTitle(ogTitle: context.t.seo.news.title)
+        ..description(description: context.t.seo.news.description)
+        ..keywords(keywords: context.t.seo.news.keywords);
+    }
+    return const _NewsPageView();
+  }
 }
 
 class _NewsPageView extends StatelessWidget {
@@ -65,10 +75,7 @@ class _NewsHeader extends StatelessWidget {
               height: KSize.borderWidthSmallHalf,
               color: Theme.of(context).dividerColor,
             ),
-            Text(
-              feed.subtitle.toUpperCase(),
-              style: context.textContent.archiveMeta,
-            ),
+            Text(feed.subtitle.toUpperCase(), style: context.textContent.archiveMeta),
           ],
         ),
       ],
@@ -173,6 +180,11 @@ class _ArticleList extends StatelessWidget {
   bool _isLastArticle(int index) => index == articles.length - 1;
 
   void _openDetail(BuildContext context, NewsArticle article) {
-    context.push('/news/${article.id}');
+    // Prefer the editorial slug for the URL so the address bar shows a
+    // human-readable `/news/<name>` segment. Legacy items without `name`
+    // fall back to the raw Firestore doc id, which the detail page still
+    // resolves via its id-fallback branch.
+    final segment = article.hasName ? article.name : article.id;
+    context.push('/news/$segment');
   }
 }

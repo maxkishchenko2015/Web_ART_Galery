@@ -49,6 +49,7 @@ class TranslationsFr extends Translations with BaseTranslations<AppLocale, Trans
 	@override late final _TranslationsNewsFeedFr newsFeed = _TranslationsNewsFeedFr._(_root);
 	@override late final _TranslationsBioFr bio = _TranslationsBioFr._(_root);
 	@override late final _TranslationsContactsFr contacts = _TranslationsContactsFr._(_root);
+	@override late final _TranslationsSeoFr seo = _TranslationsSeoFr._(_root);
 }
 
 // Path: app
@@ -219,6 +220,21 @@ class _TranslationsContactsFr extends TranslationsContactsRu {
 	@override String get studioAddress => 'Minsk, 44 rue Sourganov — 7ᵉ étage';
 	@override String get openInOsm => 'OUVRIR DANS OPENSTREETMAP';
 	@override String get mapAttribution => '© Contributeurs OpenStreetMap';
+}
+
+// Path: seo
+class _TranslationsSeoFr extends TranslationsSeoRu {
+	_TranslationsSeoFr._(TranslationsFr root) : this._root = root, super.internal(root);
+
+	final TranslationsFr _root; // ignore: unused_field
+
+	// Translations
+	@override late final _TranslationsSeoAboutAuthorFr aboutAuthor = _TranslationsSeoAboutAuthorFr._(_root);
+	@override late final _TranslationsSeoCatalogFr catalog = _TranslationsSeoCatalogFr._(_root);
+	@override late final _TranslationsSeoNewsFr news = _TranslationsSeoNewsFr._(_root);
+	@override late final _TranslationsSeoFilmsFr films = _TranslationsSeoFilmsFr._(_root);
+	@override late final _TranslationsSeoArchiveFr archive = _TranslationsSeoArchiveFr._(_root);
+	@override late final _TranslationsSeoContactsFr contacts = _TranslationsSeoContactsFr._(_root);
 }
 
 // Path: catalog.decade
@@ -554,6 +570,78 @@ class _TranslationsBioLegacyFr extends TranslationsBioLegacyRu {
 	// Translations
 	@override String get title => 'Héritage';
 	@override String get body => 'Alexandre Kichtchanka a laissé derrière lui non seulement des toiles conservées à la Galerie Tretiakov et dans des collections privées de dirigeants mondiaux (B. Clinton, F. Mitterrand), mais aussi toute une école de tapisserie monumentale biélorusse. Le Combinat des arts décoratifs et appliqués de Borisov, où furent créées ses grandes tapisseries, porte aujourd\'hui son nom.';
+}
+
+// Path: seo.aboutAuthor
+class _TranslationsSeoAboutAuthorFr extends TranslationsSeoAboutAuthorRu {
+	_TranslationsSeoAboutAuthorFr._(TranslationsFr root) : this._root = root, super.internal(root);
+
+	final TranslationsFr _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Alexandre Kichtchanka — Artiste du Peuple de Biélorussie | KISHCHANKA.ART';
+	@override String get description => 'Alexandre Mikhaïlovitch Kichtchanka (1933–1997) — Artiste du Peuple de la République de Biélorussie, peintre et monumentaliste. Auteur de la plus grande tapisserie du monde et de la tapisserie Tchernobyl au siège de l\'ONU.';
+	@override String get keywords => 'Alexandre Kichtchanka, biographie, artiste biélorusse, monumentaliste, tapisserie';
+}
+
+// Path: seo.catalog
+class _TranslationsSeoCatalogFr extends TranslationsSeoCatalogRu {
+	_TranslationsSeoCatalogFr._(TranslationsFr root) : this._root = root, super.internal(root);
+
+	final TranslationsFr _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Catalogue des œuvres d\'Alexandre Kichtchanka | KISHCHANKA.ART';
+	@override String get description => 'Catalogue de peintures et de tapisseries d\'Alexandre Kichtchanka : portraits, paysages et œuvres philosophiques de 1958–1997.';
+	@override String get keywords => 'catalogue Kichtchanka, peintures, tapisseries, acheter art Kichtchanka';
+}
+
+// Path: seo.news
+class _TranslationsSeoNewsFr extends TranslationsSeoNewsRu {
+	_TranslationsSeoNewsFr._(TranslationsFr root) : this._root = root, super.internal(root);
+
+	final TranslationsFr _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Actualités et expositions | KISHCHANKA.ART';
+	@override String get description => 'Actualités, expositions et événements liés à l\'héritage d\'Alexandre Kichtchanka et à la galerie KISHCHANKA.ART.';
+	@override String get keywords => 'expositions Kichtchanka, actualités galerie, événements';
+}
+
+// Path: seo.films
+class _TranslationsSeoFilmsFr extends TranslationsSeoFilmsRu {
+	_TranslationsSeoFilmsFr._(TranslationsFr root) : this._root = root, super.internal(root);
+
+	final TranslationsFr _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Documentaires sur A. Kichtchanka | KISHCHANKA.ART';
+	@override String get description => 'Documentaires et vidéos sur Alexandre Kichtchanka, son art et ses œuvres monumentales.';
+	@override String get keywords => 'documentaire Kichtchanka, film, Tapisserie du Siècle, vidéo';
+}
+
+// Path: seo.archive
+class _TranslationsSeoArchiveFr extends TranslationsSeoArchiveRu {
+	_TranslationsSeoArchiveFr._(TranslationsFr root) : this._root = root, super.internal(root);
+
+	final TranslationsFr _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Archives et publications | KISHCHANKA.ART';
+	@override String get description => 'Archives de publications et de documents sur l\'art et les expositions d\'Alexandre Kichtchanka.';
+	@override String get keywords => 'archives Kichtchanka, publications, presse, articles';
+}
+
+// Path: seo.contacts
+class _TranslationsSeoContactsFr extends TranslationsSeoContactsRu {
+	_TranslationsSeoContactsFr._(TranslationsFr root) : this._root = root, super.internal(root);
+
+	final TranslationsFr _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Contact | KISHCHANKA.ART';
+	@override String get description => 'Contactez la galerie KISHCHANKA.ART : atelier à Minsk, téléphone, Instagram et VK.';
+	@override String get keywords => 'contact galerie Kichtchanka, atelier Minsk, acheter tableau';
 }
 
 // Path: archiveFeed.items.boguchar2026
@@ -1029,6 +1117,24 @@ extension on TranslationsFr {
 			'contacts.studioAddress' => 'Minsk, 44 rue Sourganov — 7ᵉ étage',
 			'contacts.openInOsm' => 'OUVRIR DANS OPENSTREETMAP',
 			'contacts.mapAttribution' => '© Contributeurs OpenStreetMap',
+			'seo.aboutAuthor.title' => 'Alexandre Kichtchanka — Artiste du Peuple de Biélorussie | KISHCHANKA.ART',
+			'seo.aboutAuthor.description' => 'Alexandre Mikhaïlovitch Kichtchanka (1933–1997) — Artiste du Peuple de la République de Biélorussie, peintre et monumentaliste. Auteur de la plus grande tapisserie du monde et de la tapisserie Tchernobyl au siège de l\'ONU.',
+			'seo.aboutAuthor.keywords' => 'Alexandre Kichtchanka, biographie, artiste biélorusse, monumentaliste, tapisserie',
+			'seo.catalog.title' => 'Catalogue des œuvres d\'Alexandre Kichtchanka | KISHCHANKA.ART',
+			'seo.catalog.description' => 'Catalogue de peintures et de tapisseries d\'Alexandre Kichtchanka : portraits, paysages et œuvres philosophiques de 1958–1997.',
+			'seo.catalog.keywords' => 'catalogue Kichtchanka, peintures, tapisseries, acheter art Kichtchanka',
+			'seo.news.title' => 'Actualités et expositions | KISHCHANKA.ART',
+			'seo.news.description' => 'Actualités, expositions et événements liés à l\'héritage d\'Alexandre Kichtchanka et à la galerie KISHCHANKA.ART.',
+			'seo.news.keywords' => 'expositions Kichtchanka, actualités galerie, événements',
+			'seo.films.title' => 'Documentaires sur A. Kichtchanka | KISHCHANKA.ART',
+			'seo.films.description' => 'Documentaires et vidéos sur Alexandre Kichtchanka, son art et ses œuvres monumentales.',
+			'seo.films.keywords' => 'documentaire Kichtchanka, film, Tapisserie du Siècle, vidéo',
+			'seo.archive.title' => 'Archives et publications | KISHCHANKA.ART',
+			'seo.archive.description' => 'Archives de publications et de documents sur l\'art et les expositions d\'Alexandre Kichtchanka.',
+			'seo.archive.keywords' => 'archives Kichtchanka, publications, presse, articles',
+			'seo.contacts.title' => 'Contact | KISHCHANKA.ART',
+			'seo.contacts.description' => 'Contactez la galerie KISHCHANKA.ART : atelier à Minsk, téléphone, Instagram et VK.',
+			'seo.contacts.keywords' => 'contact galerie Kichtchanka, atelier Minsk, acheter tableau',
 			_ => null,
 		};
 	}

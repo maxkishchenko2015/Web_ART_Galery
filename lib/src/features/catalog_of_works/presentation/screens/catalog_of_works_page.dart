@@ -1,5 +1,7 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:meta_seo/meta_seo.dart';
 import 'package:web_art_galery/i18n/strings.g.dart';
 import 'package:web_art_galery/src/features/catalog_of_works/domain/entities/painting.dart';
 import 'package:web_art_galery/src/features/catalog_of_works/presentation/cubits/catalog_of_works_cubit.dart';
@@ -17,7 +19,15 @@ class CatalogOfWorksPage extends StatelessWidget {
   const CatalogOfWorksPage({super.key});
 
   @override
-  Widget build(BuildContext context) => const _CatalogOfWorksContent();
+  Widget build(BuildContext context) {
+    if (kIsWeb) {
+      MetaSEO()
+        ..ogTitle(ogTitle: context.t.seo.catalog.title)
+        ..description(description: context.t.seo.catalog.description)
+        ..keywords(keywords: context.t.seo.catalog.keywords);
+    }
+    return const _CatalogOfWorksContent();
+  }
 }
 
 class _CatalogOfWorksContent extends StatelessWidget {

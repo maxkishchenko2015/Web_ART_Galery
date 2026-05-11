@@ -15,10 +15,14 @@ abstract final class AppRoutes {
 
   /// Sub-route segments mounted under [news] and [catalog]. Kept as bare
   /// segments (no leading `/`) so they compose cleanly with the parent path.
-  static const String newsArticleSegment = ':articleId';
+  ///
+  /// The news segment is named `articleSlug` because the value can be either
+  /// a URL-safe slug (Firestore `name` field, preferred) or the raw
+  /// document id (legacy fallback). The repository resolves both.
+  static const String newsArticleSegment = ':articleSlug';
   static const String catalogWorkSegment = ':workId';
 
   /// Path-parameter keys exposed by [GoRouterState.pathParameters].
-  static const String articleIdParam = 'articleId';
+  static const String articleSlugParam = 'articleSlug';
   static const String workIdParam = 'workId';
 }

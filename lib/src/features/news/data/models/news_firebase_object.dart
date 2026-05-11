@@ -8,6 +8,7 @@ class NewsFirebaseObject {
     required this.id,
     required this.translations,
     required this.imageUrls,
+    this.name = '',
     this.publishedAt,
     this.sourceUrl,
   });
@@ -40,6 +41,10 @@ class NewsFirebaseObject {
     final storedId = (data[FirestoreCollections.newsIdField] as String?)?.trim();
     final resolvedId = (storedId == null || storedId.isEmpty) ? snapshot.id : storedId;
 
+    // URL-safe slug used for `/news/<name>` deep links. Optional — when empty,
+    // the navigation layer falls back to the document id.
+    final name = (data[FirestoreCollections.newsNameField] as String?)?.trim() ?? '';
+
     final rawImageUrls = data[FirestoreCollections.newsImageUrlsField];
     final imageUrls = <String>[];
     if (rawImageUrls is List) {
@@ -51,6 +56,7 @@ class NewsFirebaseObject {
 
     return NewsFirebaseObject(
       id: resolvedId,
+      name: name,
       publishedAt: publishedAt,
       imageUrls: imageUrls,
       sourceUrl: (data[FirestoreCollections.newsSourceUrlField] as String?)?.trim(),
@@ -59,6 +65,7 @@ class NewsFirebaseObject {
   }
 
   final String id;
+  final String name;
   final DateTime? publishedAt;
   final List<String> imageUrls;
   final String? sourceUrl;
@@ -66,6 +73,7 @@ class NewsFirebaseObject {
 
   Map<String, dynamic> toFirestore() => <String, dynamic>{
     FirestoreCollections.newsIdField: id,
+    if (name.isNotEmpty) FirestoreCollections.newsNameField: name,
     if (publishedAt != null)
       FirestoreCollections.newsPublishedAtField: Timestamp.fromDate(publishedAt!),
     if (imageUrls.isNotEmpty) FirestoreCollections.newsImageUrlsField: imageUrls,

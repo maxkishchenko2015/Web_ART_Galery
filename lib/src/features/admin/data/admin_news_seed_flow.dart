@@ -47,6 +47,12 @@ class AdminNewsSeedFlow {
         // full document shape and can drop image URLs in without retyping the
         // field name.
         FirestoreCollections.newsImageUrlsField: template.imageUrls,
+        // Empty `name` slot makes the slug field visible in Firebase Console
+        // from day one — editors fill it with a URL-safe identifier
+        // (e.g. `tapestry_of_the_century`) that becomes the `/news/<name>`
+        // deep-link segment. Empty string keeps the existing id-based
+        // fallback path intact.
+        FirestoreCollections.newsNameField: '',
         if (template.sourceUrl != null) FirestoreCollections.newsSourceUrlField: template.sourceUrl,
         FirestoreCollections.newsTranslationsField: _translationsPayload(template),
       });

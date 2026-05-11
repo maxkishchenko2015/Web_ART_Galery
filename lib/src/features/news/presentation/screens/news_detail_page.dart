@@ -3,10 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:web_art_galery/i18n/strings.g.dart';
-import 'package:web_art_galery/src/features/news/data/api/news_api_controller.dart';
-import 'package:web_art_galery/src/features/news/data/repository/news_repository_firebase.dart';
 import 'package:web_art_galery/src/features/news/domain/entities/news_article.dart';
-import 'package:web_art_galery/src/features/news/presentation/cubits/news_detail_cubit.dart';
+import 'package:web_art_galery/src/features/news/presentation/cubits/news_list_cubit.dart';
 import 'package:web_art_galery/src/navigation/presentation/router/app_routes.dart';
 import 'package:web_art_galery/src/shared/config/app_context_extensions.dart';
 import 'package:web_art_galery/src/shared/config/ksize.dart';
@@ -15,25 +13,22 @@ import 'package:web_art_galery/src/shared/presentation/widgets/cached_network_im
 import 'package:web_art_galery/src/shared/utils/url_launcher_utils.dart';
 
 class NewsDetailPage extends StatelessWidget {
-  const NewsDetailPage({super.key, required this.articleId});
+  const NewsDetailPage({super.key, required this.articleSlug});
 
-  final String articleId;
+  /// URL segment captured by GoRouter — either the editorial `name` slug or
+  /// (for legacy links) a raw Firestore document id. Resolution happens
+  /// against the already-loaded [NewsListCubit] state, so the detail screen
+  /// never issues its own Firestore request.
+  final String articleSlug;
 
   @override
-  Widget build(BuildContext context) {
-    return BlocProvider<NewsDetailCubit>(
-      create: (_) => NewsDetailCubit(
-        repository: NewsRepositoryFirebase(apiController: NewsApiController()),
-      )..load(articleId),
-      child: _NewsDetailView(articleId: articleId),
-    );
-  }
+  Widget build(BuildContext context) => _NewsDetailView(articleSlug: articleSlug);
 }
 
 class _NewsDetailView extends StatelessWidget {
-  const _NewsDetailView({required this.articleId});
+  const _NewsDetailView({required this.articleSlug});
 
-  final String articleId;
+  final String articleSlug;
 
   @override
   Widget build(BuildContext context) {
@@ -53,14 +48,18 @@ class _NewsDetailView extends StatelessWidget {
           children: [
             const _BackButton(),
             const SizedBox(height: KSize.margin5x),
-            BlocBuilder<NewsDetailCubit, NewsDetailState>(
+            BlocBuilder<NewsListCubit, NewsListState>(
               builder: (context, state) {
                 return switch (state) {
-                  NewsDetailInitial() || NewsDetailLoading() => const _LoadingView(),
-                  NewsDetailLoaded(article: final article) =>
-                    _ArticleBody(article: article, isCompact: isCompact),
-                  NewsDetailMissing() => _MissingView(articleId: articleId),
-                  NewsDetailError(message: final message) => _ErrorView(message: message),
+                  NewsListInitial() || NewsListLoading() => const _LoadingView(),
+                  // List-level error => detail can't render anything useful;
+                  // fall through to "not found" instead of bubbling raw
+                  // Firestore strings into a content surface.
+                  NewsListError() => _MissingView(articleSlug: articleSlug),
+                  NewsListLoaded(articles: final articles) => _resolve(
+                    articles: articles,
+                    isCompact: isCompact,
+                  ),
                 };
               },
             ),
@@ -69,6 +68,36 @@ class _NewsDetailView extends StatelessWidget {
       ),
     );
   }
+
+  Widget _resolve({
+    required List<NewsArticle> articles,
+    required bool isCompact,
+  }) {
+    final match = _findArticle(articles, articleSlug);
+    if (match == null) {
+      return _MissingView(articleSlug: articleSlug);
+    }
+    return _ArticleBody(article: match, isCompact: isCompact);
+  }
+}
+
+/// Resolves the article for the current URL segment.
+///
+/// Order of preference:
+///  1. `name == slug` — the human-readable URL form editors curate.
+///  2. `id == slug` — legacy `/news/<docId>` deep links still must resolve.
+///
+/// Returns `null` for an empty slug or when neither lookup matches.
+NewsArticle? _findArticle(List<NewsArticle> articles, String slug) {
+  if (slug.isEmpty) return null;
+
+  for (final article in articles) {
+    if (article.hasName && article.name == slug) return article;
+  }
+  for (final article in articles) {
+    if (article.id == slug) return article;
+  }
+  return null;
 }
 
 class _BackButton extends StatelessWidget {
@@ -113,9 +142,9 @@ class _LoadingView extends StatelessWidget {
 }
 
 class _MissingView extends StatelessWidget {
-  const _MissingView({required this.articleId});
+  const _MissingView({required this.articleSlug});
 
-  final String articleId;
+  final String articleSlug;
 
   @override
   Widget build(BuildContext context) {
@@ -131,40 +160,8 @@ class _MissingView extends StatelessWidget {
             ),
             const SizedBox(height: KSize.margin3x),
             Text(
-              articleId,
+              articleSlug,
               style: context.textContent.archiveDate,
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class _ErrorView extends StatelessWidget {
-  const _ErrorView({required this.message});
-
-  final String message;
-
-  @override
-  Widget build(BuildContext context) {
-    final feed = context.t.newsFeed;
-
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: KSize.margin15x),
-      child: Center(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Text(feed.errorTitle, style: context.textContent.archiveCardTitle),
-            const SizedBox(height: KSize.margin3x),
-            ConstrainedBox(
-              constraints: const BoxConstraints(maxWidth: 420),
-              child: Text(
-                message,
-                textAlign: TextAlign.center,
-                style: context.textContent.archiveExcerpt,
-              ),
             ),
           ],
         ),

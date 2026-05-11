@@ -49,6 +49,7 @@ class TranslationsBe extends Translations with BaseTranslations<AppLocale, Trans
 	@override late final _TranslationsNewsFeedBe newsFeed = _TranslationsNewsFeedBe._(_root);
 	@override late final _TranslationsBioBe bio = _TranslationsBioBe._(_root);
 	@override late final _TranslationsContactsBe contacts = _TranslationsContactsBe._(_root);
+	@override late final _TranslationsSeoBe seo = _TranslationsSeoBe._(_root);
 }
 
 // Path: app
@@ -219,6 +220,21 @@ class _TranslationsContactsBe extends TranslationsContactsRu {
 	@override String get studioAddress => 'Мінск, вул. Сурганава, 44 — 7 паверх';
 	@override String get openInOsm => 'АДКРЫЦЬ У OPENSTREETMAP';
 	@override String get mapAttribution => '© OpenStreetMap contributors';
+}
+
+// Path: seo
+class _TranslationsSeoBe extends TranslationsSeoRu {
+	_TranslationsSeoBe._(TranslationsBe root) : this._root = root, super.internal(root);
+
+	final TranslationsBe _root; // ignore: unused_field
+
+	// Translations
+	@override late final _TranslationsSeoAboutAuthorBe aboutAuthor = _TranslationsSeoAboutAuthorBe._(_root);
+	@override late final _TranslationsSeoCatalogBe catalog = _TranslationsSeoCatalogBe._(_root);
+	@override late final _TranslationsSeoNewsBe news = _TranslationsSeoNewsBe._(_root);
+	@override late final _TranslationsSeoFilmsBe films = _TranslationsSeoFilmsBe._(_root);
+	@override late final _TranslationsSeoArchiveBe archive = _TranslationsSeoArchiveBe._(_root);
+	@override late final _TranslationsSeoContactsBe contacts = _TranslationsSeoContactsBe._(_root);
 }
 
 // Path: catalog.decade
@@ -554,6 +570,78 @@ class _TranslationsBioLegacyBe extends TranslationsBioLegacyRu {
 	// Translations
 	@override String get title => 'Спадчына';
 	@override String get body => 'Аляксандр Кішчанка пакінуў пасля сябе не толькі палотны, якія захоўваюцца ў Траццякоўскай галерэі і прыватных калекцыях сусветных лідараў (Б. Клінтана, Ф. Мітэрана), але і цэлую школу беларускага манументальнага гобелена. Яго імя носіць Барысаўскі камбінат дэкаратыўна-прыкладнога мастацтва, дзе стваралісяя яго вялікія шпалеры.';
+}
+
+// Path: seo.aboutAuthor
+class _TranslationsSeoAboutAuthorBe extends TranslationsSeoAboutAuthorRu {
+	_TranslationsSeoAboutAuthorBe._(TranslationsBe root) : this._root = root, super.internal(root);
+
+	final TranslationsBe _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Аляксандр Кішчанка — народны мастак Беларусі | КІШЧАНКА.АРТ';
+	@override String get description => 'Аляксандр Міхайлавіч Кішчанка (1933–1997) — народны мастак Рэспублікі Беларусь, жывапісец і манументаліст. Аўтар самага вялікага габелена ў свеце і «Чарнобыля» ў штаб-кватэры ААН.';
+	@override String get keywords => 'Аляксандр Кішчанка, біяграфія, беларускі мастак, манументаліст, габелен';
+}
+
+// Path: seo.catalog
+class _TranslationsSeoCatalogBe extends TranslationsSeoCatalogRu {
+	_TranslationsSeoCatalogBe._(TranslationsBe root) : this._root = root, super.internal(root);
+
+	final TranslationsBe _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Каталог прац Аляксандра Кішчанкі | КІШЧАНКА.АРТ';
+	@override String get description => 'Каталог жывапісу і габеленаў Аляксандра Кішчанкі: партрэты, пейзажы, філасофскія палотны 1958–1997 гадоў.';
+	@override String get keywords => 'каталог прац Кішчанкі, жывапіс, габелены, купіць карціну Кішчанкі';
+}
+
+// Path: seo.news
+class _TranslationsSeoNewsBe extends TranslationsSeoNewsRu {
+	_TranslationsSeoNewsBe._(TranslationsBe root) : this._root = root, super.internal(root);
+
+	final TranslationsBe _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Навіны і выставы | КІШЧАНКА.АРТ';
+	@override String get description => 'Навіны, выставы і падзеі, звязаныя са спадчынай Аляксандра Кішчанкі і галерэяй КІШЧАНКА.АРТ.';
+	@override String get keywords => 'выставы Кішчанкі, навіны галерэі, падзеі';
+}
+
+// Path: seo.films
+class _TranslationsSeoFilmsBe extends TranslationsSeoFilmsRu {
+	_TranslationsSeoFilmsBe._(TranslationsBe root) : this._root = root, super.internal(root);
+
+	final TranslationsBe _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Дакументальныя фільмы пра А. Кішчанку | КІШЧАНКА.АРТ';
+	@override String get description => 'Дакументальныя фільмы і відэаматэрыялы пра Аляксандра Кішчанку, яго творчасць і манументальныя творы.';
+	@override String get keywords => 'фільм пра Кішчанку, дакументальны фільм, габелен стагоддзя, відэа';
+}
+
+// Path: seo.archive
+class _TranslationsSeoArchiveBe extends TranslationsSeoArchiveRu {
+	_TranslationsSeoArchiveBe._(TranslationsBe root) : this._root = root, super.internal(root);
+
+	final TranslationsBe _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Архіў публікацый | КІШЧАНКА.АРТ';
+	@override String get description => 'Архіў публікацый і матэрыялаў пра творчасць і выставы Аляксандра Міхайлавіча Кішчанкі.';
+	@override String get keywords => 'архіў Кішчанкі, публікацыі, артыкулы, прэса';
+}
+
+// Path: seo.contacts
+class _TranslationsSeoContactsBe extends TranslationsSeoContactsRu {
+	_TranslationsSeoContactsBe._(TranslationsBe root) : this._root = root, super.internal(root);
+
+	final TranslationsBe _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Кантакты | КІШЧАНКА.АРТ';
+	@override String get description => 'Кантакты галерэі КІШЧАНКА.АРТ: майстэрня ў Мінску, тэлефон, Instagram і УКантакце.';
+	@override String get keywords => 'кантакты галерэі Кішчанкі, майстэрня Мінск, купіць карціну';
 }
 
 // Path: archiveFeed.items.boguchar2026
@@ -1029,6 +1117,24 @@ extension on TranslationsBe {
 			'contacts.studioAddress' => 'Мінск, вул. Сурганава, 44 — 7 паверх',
 			'contacts.openInOsm' => 'АДКРЫЦЬ У OPENSTREETMAP',
 			'contacts.mapAttribution' => '© OpenStreetMap contributors',
+			'seo.aboutAuthor.title' => 'Аляксандр Кішчанка — народны мастак Беларусі | КІШЧАНКА.АРТ',
+			'seo.aboutAuthor.description' => 'Аляксандр Міхайлавіч Кішчанка (1933–1997) — народны мастак Рэспублікі Беларусь, жывапісец і манументаліст. Аўтар самага вялікага габелена ў свеце і «Чарнобыля» ў штаб-кватэры ААН.',
+			'seo.aboutAuthor.keywords' => 'Аляксандр Кішчанка, біяграфія, беларускі мастак, манументаліст, габелен',
+			'seo.catalog.title' => 'Каталог прац Аляксандра Кішчанкі | КІШЧАНКА.АРТ',
+			'seo.catalog.description' => 'Каталог жывапісу і габеленаў Аляксандра Кішчанкі: партрэты, пейзажы, філасофскія палотны 1958–1997 гадоў.',
+			'seo.catalog.keywords' => 'каталог прац Кішчанкі, жывапіс, габелены, купіць карціну Кішчанкі',
+			'seo.news.title' => 'Навіны і выставы | КІШЧАНКА.АРТ',
+			'seo.news.description' => 'Навіны, выставы і падзеі, звязаныя са спадчынай Аляксандра Кішчанкі і галерэяй КІШЧАНКА.АРТ.',
+			'seo.news.keywords' => 'выставы Кішчанкі, навіны галерэі, падзеі',
+			'seo.films.title' => 'Дакументальныя фільмы пра А. Кішчанку | КІШЧАНКА.АРТ',
+			'seo.films.description' => 'Дакументальныя фільмы і відэаматэрыялы пра Аляксандра Кішчанку, яго творчасць і манументальныя творы.',
+			'seo.films.keywords' => 'фільм пра Кішчанку, дакументальны фільм, габелен стагоддзя, відэа',
+			'seo.archive.title' => 'Архіў публікацый | КІШЧАНКА.АРТ',
+			'seo.archive.description' => 'Архіў публікацый і матэрыялаў пра творчасць і выставы Аляксандра Міхайлавіча Кішчанкі.',
+			'seo.archive.keywords' => 'архіў Кішчанкі, публікацыі, артыкулы, прэса',
+			'seo.contacts.title' => 'Кантакты | КІШЧАНКА.АРТ',
+			'seo.contacts.description' => 'Кантакты галерэі КІШЧАНКА.АРТ: майстэрня ў Мінску, тэлефон, Instagram і УКантакце.',
+			'seo.contacts.keywords' => 'кантакты галерэі Кішчанкі, майстэрня Мінск, купіць карціну',
 			_ => null,
 		};
 	}

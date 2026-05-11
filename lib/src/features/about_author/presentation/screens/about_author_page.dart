@@ -1,5 +1,7 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:meta_seo/meta_seo.dart';
 import 'package:go_router/go_router.dart';
 import 'package:web_art_galery/i18n/strings.g.dart';
 import 'package:web_art_galery/src/features/about_author/presentation/cubits/about_author_cubit.dart';
@@ -15,7 +17,15 @@ class AboutAuthorPage extends StatelessWidget {
   const AboutAuthorPage({super.key});
 
   @override
-  Widget build(BuildContext context) => const _AboutAuthorView();
+  Widget build(BuildContext context) {
+    if (kIsWeb) {
+      MetaSEO()
+        ..ogTitle(ogTitle: context.t.seo.aboutAuthor.title)
+        ..description(description: context.t.seo.aboutAuthor.description)
+        ..keywords(keywords: context.t.seo.aboutAuthor.keywords);
+    }
+    return const _AboutAuthorView();
+  }
 }
 
 class _AboutAuthorView extends StatefulWidget {

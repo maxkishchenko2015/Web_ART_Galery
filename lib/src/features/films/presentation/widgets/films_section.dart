@@ -489,7 +489,13 @@ class _FilmMetaRow extends StatelessWidget {
             child: Row(
               mainAxisSize: MainAxisSize.min,
               children: [
-                Text(watchLabel.toUpperCase(), style: context.textContent.archiveLink),
+                Flexible(
+                  child: Text(
+                    watchLabel.toUpperCase(),
+                    style: context.textContent.archiveLink,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ),
                 const SizedBox(width: KSize.margin1Halfx),
                 Icon(
                   Icons.arrow_outward_rounded,

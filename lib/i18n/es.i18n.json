@@ -374,5 +374,37 @@
     "studioAddress": "Minsk, calle Surganova 44 — 7.ª planta",
     "openInOsm": "ABRIR EN OPENSTREETMAP",
     "mapAttribution": "© Colaboradores de OpenStreetMap"
+  },
+  "seo": {
+    "aboutAuthor": {
+      "title": "Alexander Kishchanka — Artista del Pueblo de Bielorrusia | KISHCHANKA.ART",
+      "description": "Alexander Mijáilovich Kishchanka (1933–1997) — Artista del Pueblo de la República de Bielorrusia, pintor y monumentalista. Autor del tapiz más grande del mundo y del tapiz de Chernóbil en la ONU.",
+      "keywords": "Alexander Kishchanka, biografía, artista bielorruso, monumentalista, tapiz"
+    },
+    "catalog": {
+      "title": "Catálogo de obras de Alexander Kishchanka | KISHCHANKA.ART",
+      "description": "Catálogo de pinturas y tapices de Alexander Kishchanka: retratos, paisajes y obras filosóficas de 1958–1997.",
+      "keywords": "catálogo Kishchanka, pinturas, tapices, comprar arte Kishchanka"
+    },
+    "news": {
+      "title": "Noticias y exposiciones | KISHCHANKA.ART",
+      "description": "Noticias, exposiciones y eventos relacionados con el legado de Alexander Kishchanka y la galería KISHCHANKA.ART.",
+      "keywords": "exposiciones Kishchanka, noticias de la galería, eventos"
+    },
+    "films": {
+      "title": "Documentales sobre A. Kishchanka | KISHCHANKA.ART",
+      "description": "Documentales y videos sobre Alexander Kishchanka, su arte y obras monumentales.",
+      "keywords": "documental Kishchanka, película, Tapiz del Siglo, video"
+    },
+    "archive": {
+      "title": "Archivo y publicaciones | KISHCHANKA.ART",
+      "description": "Archivo de publicaciones y materiales sobre el arte y las exposiciones de Alexander Kishchanka.",
+      "keywords": "archivo Kishchanka, publicaciones, prensa, artículos"
+    },
+    "contacts": {
+      "title": "Contacto | KISHCHANKA.ART",
+      "description": "Contacte con la galería KISHCHANKA.ART: taller en Minsk, teléfono, Instagram y VK.",
+      "keywords": "contacto galería Kishchanka, taller Minsk, comprar pintura"
+    }
   }
 }

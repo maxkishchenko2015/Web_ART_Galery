@@ -133,9 +133,12 @@ class _MetaRow extends StatelessWidget {
         Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Text(
-              context.t.common.learnMore,
-              style: context.textContent.archiveLink,
+            Flexible(
+              child: Text(
+                context.t.common.learnMore,
+                style: context.textContent.archiveLink,
+                overflow: TextOverflow.ellipsis,
+              ),
             ),
             const SizedBox(width: KSize.margin1Halfx),
             Icon(

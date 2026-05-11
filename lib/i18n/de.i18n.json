@@ -374,5 +374,37 @@
     "studioAddress": "Minsk, Surhanawa-Straße 44 — 7. Etage",
     "openInOsm": "IN OPENSTREETMAP ÖFFNEN",
     "mapAttribution": "© OpenStreetMap-Mitwirkende"
+  },
+  "seo": {
+    "aboutAuthor": {
+      "title": "Alexander Kischanka — Volkskünstler von Belarus | KISHCHANKA.ART",
+      "description": "Alexander Michailowitsch Kischanka (1933–1997) — Volkskünstler der Republik Belarus, Maler und Monumentalkünstler. Schöpfer des größten Wandteppichs der Welt und des Tschernobyl-Gobelins im UN-Hauptquartier.",
+      "keywords": "Alexander Kischanka, Biografie, belarussischer Künstler, Monumentalist, Gobelin"
+    },
+    "catalog": {
+      "title": "Werkkatalog von Alexander Kischanka | KISHCHANKA.ART",
+      "description": "Katalog der Gemälde und Wandteppiche von Alexander Kischanka: Porträts, Landschaften und philosophische Werke aus den Jahren 1958–1997.",
+      "keywords": "Kischanka Katalog, Gemälde, Gobelins, Kischanka Kunst kaufen"
+    },
+    "news": {
+      "title": "Neuigkeiten & Ausstellungen | KISHCHANKA.ART",
+      "description": "Neuigkeiten, Ausstellungen und Veranstaltungen rund um das Erbe von Alexander Kischanka und die Galerie KISHCHANKA.ART.",
+      "keywords": "Kischanka Ausstellungen, Galerienews, Veranstaltungen"
+    },
+    "films": {
+      "title": "Dokumentarfilme über A. Kischanka | KISHCHANKA.ART",
+      "description": "Dokumentarfilme und Videos über Alexander Kischanka, seine Kunst und monumentalen Werke.",
+      "keywords": "Kischanka Dokumentarfilm, Film, Gobelin des Jahrhunderts, Video"
+    },
+    "archive": {
+      "title": "Archiv & Veröffentlichungen | KISHCHANKA.ART",
+      "description": "Archiv von Veröffentlichungen und Materialien über die Kunst und Ausstellungen von Alexander Kischanka.",
+      "keywords": "Kischanka Archiv, Veröffentlichungen, Presse, Artikel"
+    },
+    "contacts": {
+      "title": "Kontakt | KISHCHANKA.ART",
+      "description": "Kontaktieren Sie die Galerie KISHCHANKA.ART: Atelier in Minsk, Telefon, Instagram und VK.",
+      "keywords": "Kischanka Galerie Kontakt, Atelier Minsk, Gemälde kaufen"
+    }
   }
 }

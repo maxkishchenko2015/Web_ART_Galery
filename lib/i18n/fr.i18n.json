@@ -374,5 +374,37 @@
     "studioAddress": "Minsk, 44 rue Sourganov — 7ᵉ étage",
     "openInOsm": "OUVRIR DANS OPENSTREETMAP",
     "mapAttribution": "© Contributeurs OpenStreetMap"
+  },
+  "seo": {
+    "aboutAuthor": {
+      "title": "Alexandre Kichtchanka — Artiste du Peuple de Biélorussie | KISHCHANKA.ART",
+      "description": "Alexandre Mikhaïlovitch Kichtchanka (1933–1997) — Artiste du Peuple de la République de Biélorussie, peintre et monumentaliste. Auteur de la plus grande tapisserie du monde et de la tapisserie Tchernobyl au siège de l'ONU.",
+      "keywords": "Alexandre Kichtchanka, biographie, artiste biélorusse, monumentaliste, tapisserie"
+    },
+    "catalog": {
+      "title": "Catalogue des œuvres d'Alexandre Kichtchanka | KISHCHANKA.ART",
+      "description": "Catalogue de peintures et de tapisseries d'Alexandre Kichtchanka : portraits, paysages et œuvres philosophiques de 1958–1997.",
+      "keywords": "catalogue Kichtchanka, peintures, tapisseries, acheter art Kichtchanka"
+    },
+    "news": {
+      "title": "Actualités et expositions | KISHCHANKA.ART",
+      "description": "Actualités, expositions et événements liés à l'héritage d'Alexandre Kichtchanka et à la galerie KISHCHANKA.ART.",
+      "keywords": "expositions Kichtchanka, actualités galerie, événements"
+    },
+    "films": {
+      "title": "Documentaires sur A. Kichtchanka | KISHCHANKA.ART",
+      "description": "Documentaires et vidéos sur Alexandre Kichtchanka, son art et ses œuvres monumentales.",
+      "keywords": "documentaire Kichtchanka, film, Tapisserie du Siècle, vidéo"
+    },
+    "archive": {
+      "title": "Archives et publications | KISHCHANKA.ART",
+      "description": "Archives de publications et de documents sur l'art et les expositions d'Alexandre Kichtchanka.",
+      "keywords": "archives Kichtchanka, publications, presse, articles"
+    },
+    "contacts": {
+      "title": "Contact | KISHCHANKA.ART",
+      "description": "Contactez la galerie KISHCHANKA.ART : atelier à Minsk, téléphone, Instagram et VK.",
+      "keywords": "contact galerie Kichtchanka, atelier Minsk, acheter tableau"
+    }
   }
 }

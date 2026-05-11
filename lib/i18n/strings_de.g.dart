@@ -49,6 +49,7 @@ class TranslationsDe extends Translations with BaseTranslations<AppLocale, Trans
 	@override late final _TranslationsNewsFeedDe newsFeed = _TranslationsNewsFeedDe._(_root);
 	@override late final _TranslationsBioDe bio = _TranslationsBioDe._(_root);
 	@override late final _TranslationsContactsDe contacts = _TranslationsContactsDe._(_root);
+	@override late final _TranslationsSeoDe seo = _TranslationsSeoDe._(_root);
 }
 
 // Path: app
@@ -219,6 +220,21 @@ class _TranslationsContactsDe extends TranslationsContactsRu {
 	@override String get studioAddress => 'Minsk, Surhanawa-Straße 44 — 7. Etage';
 	@override String get openInOsm => 'IN OPENSTREETMAP ÖFFNEN';
 	@override String get mapAttribution => '© OpenStreetMap-Mitwirkende';
+}
+
+// Path: seo
+class _TranslationsSeoDe extends TranslationsSeoRu {
+	_TranslationsSeoDe._(TranslationsDe root) : this._root = root, super.internal(root);
+
+	final TranslationsDe _root; // ignore: unused_field
+
+	// Translations
+	@override late final _TranslationsSeoAboutAuthorDe aboutAuthor = _TranslationsSeoAboutAuthorDe._(_root);
+	@override late final _TranslationsSeoCatalogDe catalog = _TranslationsSeoCatalogDe._(_root);
+	@override late final _TranslationsSeoNewsDe news = _TranslationsSeoNewsDe._(_root);
+	@override late final _TranslationsSeoFilmsDe films = _TranslationsSeoFilmsDe._(_root);
+	@override late final _TranslationsSeoArchiveDe archive = _TranslationsSeoArchiveDe._(_root);
+	@override late final _TranslationsSeoContactsDe contacts = _TranslationsSeoContactsDe._(_root);
 }
 
 // Path: catalog.decade
@@ -554,6 +570,78 @@ class _TranslationsBioLegacyDe extends TranslationsBioLegacyRu {
 	// Translations
 	@override String get title => 'Erbe';
 	@override String get body => 'Alexander Kischanka hinterließ nicht nur Leinwände, die sich in der Tretjakow-Galerie und Privatsammlungen von Weltführern (B. Clinton, F. Mitterrand) befinden, sondern auch eine ganze Schule des belarussischen Monumentalwandteppichs. Das Borissower Kombinat für dekorativ-angewandte Kunst, wo seine großen Wandteppiche entstanden, trägt heute seinen Namen.';
+}
+
+// Path: seo.aboutAuthor
+class _TranslationsSeoAboutAuthorDe extends TranslationsSeoAboutAuthorRu {
+	_TranslationsSeoAboutAuthorDe._(TranslationsDe root) : this._root = root, super.internal(root);
+
+	final TranslationsDe _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Alexander Kischanka — Volkskünstler von Belarus | KISHCHANKA.ART';
+	@override String get description => 'Alexander Michailowitsch Kischanka (1933–1997) — Volkskünstler der Republik Belarus, Maler und Monumentalkünstler. Schöpfer des größten Wandteppichs der Welt und des Tschernobyl-Gobelins im UN-Hauptquartier.';
+	@override String get keywords => 'Alexander Kischanka, Biografie, belarussischer Künstler, Monumentalist, Gobelin';
+}
+
+// Path: seo.catalog
+class _TranslationsSeoCatalogDe extends TranslationsSeoCatalogRu {
+	_TranslationsSeoCatalogDe._(TranslationsDe root) : this._root = root, super.internal(root);
+
+	final TranslationsDe _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Werkkatalog von Alexander Kischanka | KISHCHANKA.ART';
+	@override String get description => 'Katalog der Gemälde und Wandteppiche von Alexander Kischanka: Porträts, Landschaften und philosophische Werke aus den Jahren 1958–1997.';
+	@override String get keywords => 'Kischanka Katalog, Gemälde, Gobelins, Kischanka Kunst kaufen';
+}
+
+// Path: seo.news
+class _TranslationsSeoNewsDe extends TranslationsSeoNewsRu {
+	_TranslationsSeoNewsDe._(TranslationsDe root) : this._root = root, super.internal(root);
+
+	final TranslationsDe _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Neuigkeiten & Ausstellungen | KISHCHANKA.ART';
+	@override String get description => 'Neuigkeiten, Ausstellungen und Veranstaltungen rund um das Erbe von Alexander Kischanka und die Galerie KISHCHANKA.ART.';
+	@override String get keywords => 'Kischanka Ausstellungen, Galerienews, Veranstaltungen';
+}
+
+// Path: seo.films
+class _TranslationsSeoFilmsDe extends TranslationsSeoFilmsRu {
+	_TranslationsSeoFilmsDe._(TranslationsDe root) : this._root = root, super.internal(root);
+
+	final TranslationsDe _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Dokumentarfilme über A. Kischanka | KISHCHANKA.ART';
+	@override String get description => 'Dokumentarfilme und Videos über Alexander Kischanka, seine Kunst und monumentalen Werke.';
+	@override String get keywords => 'Kischanka Dokumentarfilm, Film, Gobelin des Jahrhunderts, Video';
+}
+
+// Path: seo.archive
+class _TranslationsSeoArchiveDe extends TranslationsSeoArchiveRu {
+	_TranslationsSeoArchiveDe._(TranslationsDe root) : this._root = root, super.internal(root);
+
+	final TranslationsDe _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Archiv & Veröffentlichungen | KISHCHANKA.ART';
+	@override String get description => 'Archiv von Veröffentlichungen und Materialien über die Kunst und Ausstellungen von Alexander Kischanka.';
+	@override String get keywords => 'Kischanka Archiv, Veröffentlichungen, Presse, Artikel';
+}
+
+// Path: seo.contacts
+class _TranslationsSeoContactsDe extends TranslationsSeoContactsRu {
+	_TranslationsSeoContactsDe._(TranslationsDe root) : this._root = root, super.internal(root);
+
+	final TranslationsDe _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Kontakt | KISHCHANKA.ART';
+	@override String get description => 'Kontaktieren Sie die Galerie KISHCHANKA.ART: Atelier in Minsk, Telefon, Instagram und VK.';
+	@override String get keywords => 'Kischanka Galerie Kontakt, Atelier Minsk, Gemälde kaufen';
 }
 
 // Path: archiveFeed.items.boguchar2026
@@ -1029,6 +1117,24 @@ extension on TranslationsDe {
 			'contacts.studioAddress' => 'Minsk, Surhanawa-Straße 44 — 7. Etage',
 			'contacts.openInOsm' => 'IN OPENSTREETMAP ÖFFNEN',
 			'contacts.mapAttribution' => '© OpenStreetMap-Mitwirkende',
+			'seo.aboutAuthor.title' => 'Alexander Kischanka — Volkskünstler von Belarus | KISHCHANKA.ART',
+			'seo.aboutAuthor.description' => 'Alexander Michailowitsch Kischanka (1933–1997) — Volkskünstler der Republik Belarus, Maler und Monumentalkünstler. Schöpfer des größten Wandteppichs der Welt und des Tschernobyl-Gobelins im UN-Hauptquartier.',
+			'seo.aboutAuthor.keywords' => 'Alexander Kischanka, Biografie, belarussischer Künstler, Monumentalist, Gobelin',
+			'seo.catalog.title' => 'Werkkatalog von Alexander Kischanka | KISHCHANKA.ART',
+			'seo.catalog.description' => 'Katalog der Gemälde und Wandteppiche von Alexander Kischanka: Porträts, Landschaften und philosophische Werke aus den Jahren 1958–1997.',
+			'seo.catalog.keywords' => 'Kischanka Katalog, Gemälde, Gobelins, Kischanka Kunst kaufen',
+			'seo.news.title' => 'Neuigkeiten & Ausstellungen | KISHCHANKA.ART',
+			'seo.news.description' => 'Neuigkeiten, Ausstellungen und Veranstaltungen rund um das Erbe von Alexander Kischanka und die Galerie KISHCHANKA.ART.',
+			'seo.news.keywords' => 'Kischanka Ausstellungen, Galerienews, Veranstaltungen',
+			'seo.films.title' => 'Dokumentarfilme über A. Kischanka | KISHCHANKA.ART',
+			'seo.films.description' => 'Dokumentarfilme und Videos über Alexander Kischanka, seine Kunst und monumentalen Werke.',
+			'seo.films.keywords' => 'Kischanka Dokumentarfilm, Film, Gobelin des Jahrhunderts, Video',
+			'seo.archive.title' => 'Archiv & Veröffentlichungen | KISHCHANKA.ART',
+			'seo.archive.description' => 'Archiv von Veröffentlichungen und Materialien über die Kunst und Ausstellungen von Alexander Kischanka.',
+			'seo.archive.keywords' => 'Kischanka Archiv, Veröffentlichungen, Presse, Artikel',
+			'seo.contacts.title' => 'Kontakt | KISHCHANKA.ART',
+			'seo.contacts.description' => 'Kontaktieren Sie die Galerie KISHCHANKA.ART: Atelier in Minsk, Telefon, Instagram und VK.',
+			'seo.contacts.keywords' => 'Kischanka Galerie Kontakt, Atelier Minsk, Gemälde kaufen',
 			_ => null,
 		};
 	}

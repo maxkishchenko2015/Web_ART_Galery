@@ -49,6 +49,7 @@ class TranslationsEs extends Translations with BaseTranslations<AppLocale, Trans
 	@override late final _TranslationsNewsFeedEs newsFeed = _TranslationsNewsFeedEs._(_root);
 	@override late final _TranslationsBioEs bio = _TranslationsBioEs._(_root);
 	@override late final _TranslationsContactsEs contacts = _TranslationsContactsEs._(_root);
+	@override late final _TranslationsSeoEs seo = _TranslationsSeoEs._(_root);
 }
 
 // Path: app
@@ -219,6 +220,21 @@ class _TranslationsContactsEs extends TranslationsContactsRu {
 	@override String get studioAddress => 'Minsk, calle Surganova 44 — 7.ª planta';
 	@override String get openInOsm => 'ABRIR EN OPENSTREETMAP';
 	@override String get mapAttribution => '© Colaboradores de OpenStreetMap';
+}
+
+// Path: seo
+class _TranslationsSeoEs extends TranslationsSeoRu {
+	_TranslationsSeoEs._(TranslationsEs root) : this._root = root, super.internal(root);
+
+	final TranslationsEs _root; // ignore: unused_field
+
+	// Translations
+	@override late final _TranslationsSeoAboutAuthorEs aboutAuthor = _TranslationsSeoAboutAuthorEs._(_root);
+	@override late final _TranslationsSeoCatalogEs catalog = _TranslationsSeoCatalogEs._(_root);
+	@override late final _TranslationsSeoNewsEs news = _TranslationsSeoNewsEs._(_root);
+	@override late final _TranslationsSeoFilmsEs films = _TranslationsSeoFilmsEs._(_root);
+	@override late final _TranslationsSeoArchiveEs archive = _TranslationsSeoArchiveEs._(_root);
+	@override late final _TranslationsSeoContactsEs contacts = _TranslationsSeoContactsEs._(_root);
 }
 
 // Path: catalog.decade
@@ -554,6 +570,78 @@ class _TranslationsBioLegacyEs extends TranslationsBioLegacyRu {
 	// Translations
 	@override String get title => 'Legado';
 	@override String get body => 'Alexander Kishchanka dejó tras de sí no sólo lienzos conservados en la Galería Tretiakov y colecciones privadas de líderes mundiales (B. Clinton, F. Mitterrand), sino toda una escuela del tapiz monumental bielorruso. El Combinado de Artes Decorativas y Aplicadas de Borisov, donde se crearon sus grandes tapices, lleva hoy su nombre.';
+}
+
+// Path: seo.aboutAuthor
+class _TranslationsSeoAboutAuthorEs extends TranslationsSeoAboutAuthorRu {
+	_TranslationsSeoAboutAuthorEs._(TranslationsEs root) : this._root = root, super.internal(root);
+
+	final TranslationsEs _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Alexander Kishchanka — Artista del Pueblo de Bielorrusia | KISHCHANKA.ART';
+	@override String get description => 'Alexander Mijáilovich Kishchanka (1933–1997) — Artista del Pueblo de la República de Bielorrusia, pintor y monumentalista. Autor del tapiz más grande del mundo y del tapiz de Chernóbil en la ONU.';
+	@override String get keywords => 'Alexander Kishchanka, biografía, artista bielorruso, monumentalista, tapiz';
+}
+
+// Path: seo.catalog
+class _TranslationsSeoCatalogEs extends TranslationsSeoCatalogRu {
+	_TranslationsSeoCatalogEs._(TranslationsEs root) : this._root = root, super.internal(root);
+
+	final TranslationsEs _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Catálogo de obras de Alexander Kishchanka | KISHCHANKA.ART';
+	@override String get description => 'Catálogo de pinturas y tapices de Alexander Kishchanka: retratos, paisajes y obras filosóficas de 1958–1997.';
+	@override String get keywords => 'catálogo Kishchanka, pinturas, tapices, comprar arte Kishchanka';
+}
+
+// Path: seo.news
+class _TranslationsSeoNewsEs extends TranslationsSeoNewsRu {
+	_TranslationsSeoNewsEs._(TranslationsEs root) : this._root = root, super.internal(root);
+
+	final TranslationsEs _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Noticias y exposiciones | KISHCHANKA.ART';
+	@override String get description => 'Noticias, exposiciones y eventos relacionados con el legado de Alexander Kishchanka y la galería KISHCHANKA.ART.';
+	@override String get keywords => 'exposiciones Kishchanka, noticias de la galería, eventos';
+}
+
+// Path: seo.films
+class _TranslationsSeoFilmsEs extends TranslationsSeoFilmsRu {
+	_TranslationsSeoFilmsEs._(TranslationsEs root) : this._root = root, super.internal(root);
+
+	final TranslationsEs _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Documentales sobre A. Kishchanka | KISHCHANKA.ART';
+	@override String get description => 'Documentales y videos sobre Alexander Kishchanka, su arte y obras monumentales.';
+	@override String get keywords => 'documental Kishchanka, película, Tapiz del Siglo, video';
+}
+
+// Path: seo.archive
+class _TranslationsSeoArchiveEs extends TranslationsSeoArchiveRu {
+	_TranslationsSeoArchiveEs._(TranslationsEs root) : this._root = root, super.internal(root);
+
+	final TranslationsEs _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Archivo y publicaciones | KISHCHANKA.ART';
+	@override String get description => 'Archivo de publicaciones y materiales sobre el arte y las exposiciones de Alexander Kishchanka.';
+	@override String get keywords => 'archivo Kishchanka, publicaciones, prensa, artículos';
+}
+
+// Path: seo.contacts
+class _TranslationsSeoContactsEs extends TranslationsSeoContactsRu {
+	_TranslationsSeoContactsEs._(TranslationsEs root) : this._root = root, super.internal(root);
+
+	final TranslationsEs _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Contacto | KISHCHANKA.ART';
+	@override String get description => 'Contacte con la galería KISHCHANKA.ART: taller en Minsk, teléfono, Instagram y VK.';
+	@override String get keywords => 'contacto galería Kishchanka, taller Minsk, comprar pintura';
 }
 
 // Path: archiveFeed.items.boguchar2026
@@ -1029,6 +1117,24 @@ extension on TranslationsEs {
 			'contacts.studioAddress' => 'Minsk, calle Surganova 44 — 7.ª planta',
 			'contacts.openInOsm' => 'ABRIR EN OPENSTREETMAP',
 			'contacts.mapAttribution' => '© Colaboradores de OpenStreetMap',
+			'seo.aboutAuthor.title' => 'Alexander Kishchanka — Artista del Pueblo de Bielorrusia | KISHCHANKA.ART',
+			'seo.aboutAuthor.description' => 'Alexander Mijáilovich Kishchanka (1933–1997) — Artista del Pueblo de la República de Bielorrusia, pintor y monumentalista. Autor del tapiz más grande del mundo y del tapiz de Chernóbil en la ONU.',
+			'seo.aboutAuthor.keywords' => 'Alexander Kishchanka, biografía, artista bielorruso, monumentalista, tapiz',
+			'seo.catalog.title' => 'Catálogo de obras de Alexander Kishchanka | KISHCHANKA.ART',
+			'seo.catalog.description' => 'Catálogo de pinturas y tapices de Alexander Kishchanka: retratos, paisajes y obras filosóficas de 1958–1997.',
+			'seo.catalog.keywords' => 'catálogo Kishchanka, pinturas, tapices, comprar arte Kishchanka',
+			'seo.news.title' => 'Noticias y exposiciones | KISHCHANKA.ART',
+			'seo.news.description' => 'Noticias, exposiciones y eventos relacionados con el legado de Alexander Kishchanka y la galería KISHCHANKA.ART.',
+			'seo.news.keywords' => 'exposiciones Kishchanka, noticias de la galería, eventos',
+			'seo.films.title' => 'Documentales sobre A. Kishchanka | KISHCHANKA.ART',
+			'seo.films.description' => 'Documentales y videos sobre Alexander Kishchanka, su arte y obras monumentales.',
+			'seo.films.keywords' => 'documental Kishchanka, película, Tapiz del Siglo, video',
+			'seo.archive.title' => 'Archivo y publicaciones | KISHCHANKA.ART',
+			'seo.archive.description' => 'Archivo de publicaciones y materiales sobre el arte y las exposiciones de Alexander Kishchanka.',
+			'seo.archive.keywords' => 'archivo Kishchanka, publicaciones, prensa, artículos',
+			'seo.contacts.title' => 'Contacto | KISHCHANKA.ART',
+			'seo.contacts.description' => 'Contacte con la galería KISHCHANKA.ART: taller en Minsk, teléfono, Instagram y VK.',
+			'seo.contacts.keywords' => 'contacto galería Kishchanka, taller Minsk, comprar pintura',
 			_ => null,
 		};
 	}
