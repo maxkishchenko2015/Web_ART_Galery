@@ -23,6 +23,7 @@ import 'package:web_art_galery/src/features/news/data/repository/news_repository
 import 'package:web_art_galery/src/features/news/presentation/cubits/news_list_cubit.dart';
 import 'package:web_art_galery/src/navigation/presentation/router/app_router.dart';
 import 'package:web_art_galery/src/shared/config/app_theme.dart';
+import 'package:web_art_galery/src/shared/config/app_version.dart';
 import 'package:web_art_galery/src/shared/config/firebase/firebase_bootstrap.dart';
 import 'package:web_art_galery/src/shared/config/ksize.dart';
 import 'package:web_art_galery/src/shared/platform/page_title/page_title.dart';
@@ -182,7 +183,18 @@ void main() {
 
 void _setDeviceFormFactorUserProperties() {
   WidgetsBinding.instance.addPostFrameCallback((_) {
+    final locale = LocaleSettings.currentLocale.languageCode;
     AppTelemetry.instance.setUserProperty('is_web', 'true');
+    AppTelemetry.instance.setUserProperty('app_version', AppVersion.current);
+    AppTelemetry.instance.setUserProperty('app_locale', locale);
+    AppTelemetry.instance.logEvent(
+      'app_open',
+      params: {
+        'version': AppVersion.current,
+        'locale': locale,
+      },
+    );
+
     final view = WidgetsBinding.instance.platformDispatcher.views.isNotEmpty
         ? WidgetsBinding.instance.platformDispatcher.views.first
         : null;
