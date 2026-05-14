@@ -1,7 +1,6 @@
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:web_art_galery/src/shared/telemetry/mixpanel_bridge.dart';
-import 'package:web_art_galery/src/shared/telemetry/yandex_metrica_bridge.dart';
 import 'package:web_art_galery/src/shared/utils/app_logger.dart';
 
 /// Thin facade over [FirebaseAnalytics] used as the single point of telemetry
@@ -9,8 +8,8 @@ import 'package:web_art_galery/src/shared/utils/app_logger.dart';
 /// configured (CI / local dev without env vars), mirroring the existing
 /// `FirebaseBootstrap.tryInitialize` pattern.
 ///
-/// Every event is also forwarded to [YandexMetricaBridge] and [MixpanelBridge]
-  /// so Yandex Metrica and Mixpanel receive the same data in parallel.
+/// Every event is also forwarded to [MixpanelBridge] so Mixpanel receives
+/// the same data in parallel.
 class AppTelemetry {
   AppTelemetry._();
 
@@ -22,16 +21,14 @@ class AppTelemetry {
   FirebaseAnalytics? _analytics;
   String? _lastScreenName;
 
-  final _yandex = YandexMetricaBridge.instance;
   final _mixpanel = MixpanelBridge.instance;
 
-  /// Hooks Firebase Analytics if Firebase has been initialized and Yandex
-  /// Metrica if [window.ymSend] is present. Safe to call multiple times;
-  /// subsequent calls become no-ops once enabled.
+  /// Hooks Firebase Analytics if Firebase has been initialized. Safe to call
+  /// multiple times; subsequent calls become no-ops once enabled.
+  ///
+  /// Mixpanel initializes independently of Firebase so it works even when
+  /// Firebase env vars are absent (e.g. local dev without .env).
   Future<void> initialize() async {
-    // Both Yandex and Mixpanel initialize independently of Firebase so they
-    // work even when Firebase env vars are absent (e.g. local dev without .env).
-    await _yandex.initialize();
     await _mixpanel.initialize();
 
     if (_enabled) {
@@ -55,7 +52,6 @@ class AppTelemetry {
     }
     _lastScreenName = screenName;
 
-    _yandex.logHit(Uri.base.toString(), screenName);
     _mixpanel.logScreenView(screenName);
 
     if (!_enabled || _analytics == null) {
@@ -73,7 +69,6 @@ class AppTelemetry {
   }
 
   Future<void> logEvent(String name, {Map<String, Object?>? params}) async {
-    _yandex.reachGoal(name, params: params);
     _mixpanel.logEvent(name, params: params);
 
     if (!_enabled || _analytics == null) {
@@ -133,7 +128,6 @@ class AppTelemetry {
       params['reason'] = _truncate(reason, 100);
     }
 
-    _yandex.reachGoal(eventName, params: params);
     _mixpanel.logEvent(eventName, params: params);
 
     if (!_enabled || _analytics == null) {
@@ -175,7 +169,6 @@ class AppTelemetry {
   }
 
   Future<void> setUserProperty(String name, String? value) async {
-    _yandex.setUserParams(name, value);
     _mixpanel.setUserProperty(name, value);
 
     if (!_enabled || _analytics == null) {
