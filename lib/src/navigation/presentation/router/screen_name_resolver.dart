@@ -6,38 +6,27 @@
 class ScreenNameResolver {
   const ScreenNameResolver._();
 
-  /// Returns a screen name and an optional item identifier for detail pages.
-  ///
-  /// [itemId] is non-null for `/news/:slug` and `/catalog/:workId` so the
-  /// analytics event can carry which specific article or artwork was viewed.
-  static ({String name, String? itemId}) resolve(String path) {
+  static String fromPath(String path) {
     final segments = path.split('/').where((s) => s.isNotEmpty).toList();
     if (segments.isEmpty) {
-      return (name: 'about_author', itemId: null);
+      return 'about_author';
     }
     final root = segments.first;
     switch (root) {
       case 'about-author':
-        return (name: 'about_author', itemId: null);
+        return 'about_author';
       case 'news':
-        return segments.length > 1
-            ? (name: 'news_detail', itemId: segments[1])
-            : (name: 'news', itemId: null);
+        return segments.length > 1 ? 'news_detail' : 'news';
       case 'catalog':
-        return segments.length > 1
-            ? (name: 'catalog_detail', itemId: segments[1])
-            : (name: 'catalog', itemId: null);
+        return segments.length > 1 ? 'catalog_detail' : 'catalog';
       case 'films':
-        return (name: 'films', itemId: null);
+        return 'films';
       case 'archive':
-        return (name: 'archive', itemId: null);
+        return 'archive';
       case 'contacts':
-        return (name: 'contacts', itemId: null);
+        return 'contacts';
       default:
-        return (name: 'unknown', itemId: null);
+        return 'unknown';
     }
   }
-
-  /// Convenience wrapper returning only the screen name.
-  static String fromPath(String path) => resolve(path).name;
 }

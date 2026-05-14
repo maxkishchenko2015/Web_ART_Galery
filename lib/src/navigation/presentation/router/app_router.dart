@@ -17,8 +17,6 @@ import 'package:web_art_galery/src/shared/telemetry/app_telemetry.dart';
 final appRouter = _buildAppRouter();
 
 GoRouter _buildAppRouter() {
-  String? previousScreen;
-
   final router = GoRouter(
     initialLocation: AppRoutes.aboutAuthor,
     redirect: (context, state) {
@@ -29,25 +27,14 @@ GoRouter _buildAppRouter() {
       return null;
     },
     routes: _routes,
-    errorBuilder: (context, state) {
-      AppTelemetry.instance.logEvent('page_not_found', params: {'path': state.uri.toString()});
-      return AppShellMenu(child: PlaceholderPage(title: context.t.common.pageNotFound));
-    },
+    errorBuilder: (context, state) =>
+        AppShellMenu(child: PlaceholderPage(title: context.t.common.pageNotFound)),
   );
 
   router.routerDelegate.addListener(() {
     final path = router.routerDelegate.currentConfiguration.uri.path;
-    final (:name, :itemId) = ScreenNameResolver.resolve(path);
-    AppTelemetry.instance.logScreenView(screenName: name);
-    AppTelemetry.instance.logEvent(
-      'page_view',
-      params: {
-        'screen': name,
-        if (previousScreen != null) 'previous_screen': previousScreen!,
-        'item_id': ?itemId,
-      },
-    );
-    previousScreen = name;
+    final screenName = ScreenNameResolver.fromPath(path);
+    AppTelemetry.instance.logScreenView(screenName: screenName);
   });
 
   return router;
