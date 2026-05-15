@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <!--
+    Per-route SEO stub for /about-author. Apache's mod_dir serves this file
+    when crawlers request https://kishchanka-art.by/about-author/, giving
+    Yandex / Bing / Googlebot a unique <title>, <meta>, JSON-LD, and hidden
+    H1 block for this section. Once flutter_bootstrap.js runs, GoRouter
+    sees the URL is /about-author and renders the same SPA experience as
+    if the user had arrived via the root index.html. Visual UX unchanged.
+
+    Maintenance contract: keep the boilerplate identical to web/index.html.
+    Only the SEO-bearing blocks below the "SEO OVERRIDES" comment differ.
+  -->
+  <base href="/">
+
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.getRegistrations().then(function (regs) {
+        for (var i = 0; i < regs.length; i++) { regs[i].unregister(); }
+      }).catch(function () {});
+      if (window.caches && caches.keys) {
+        caches.keys().then(function (keys) {
+          keys.forEach(function (k) { caches.delete(k); });
+        }).catch(function () {});
+      }
+    }
+  </script>
+
+  <meta charset="UTF-8">
+  <meta content="IE=Edge" http-equiv="X-UA-Compatible">
+  <meta name="theme-color" content="#F5F0E8">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <!-- ───────── SEO OVERRIDES (route-specific) ───────── -->
+  <title>Александр Кищенко — народный художник Беларуси | КИЩЕНКО-АРТ</title>
+
+  <meta name="description" content="Александр Михайлович Кищенко (1933–1997) — народный художник Республики Беларусь, живописец и монументалист. Автор самого большого гобелена в мире и «Чернобыля» в штаб-квартире ООН.">
+  <meta name="keywords" content="Александр Кищенко, биография, белорусский художник, монументалист, гобелен, Кищенко Александр Михайлович, народный художник Беларуси, родоначальник Вселенского реализма">
+  <meta name="author" content="Александр Михайлович Кищенко">
+  <meta name="robots" content="index, follow">
+
+  <link rel="canonical" href="https://kishchanka-art.by/about-author">
+
+  <link rel="alternate" hreflang="ru"        href="https://kishchanka-art.by/about-author">
+  <link rel="alternate" hreflang="en"        href="https://kishchanka-art.by/about-author">
+  <link rel="alternate" hreflang="be"        href="https://kishchanka-art.by/about-author">
+  <link rel="alternate" hreflang="de"        href="https://kishchanka-art.by/about-author">
+  <link rel="alternate" hreflang="es"        href="https://kishchanka-art.by/about-author">
+  <link rel="alternate" hreflang="fr"        href="https://kishchanka-art.by/about-author">
+  <link rel="alternate" hreflang="x-default" href="https://kishchanka-art.by/about-author">
+
+  <meta property="og:type" content="profile">
+  <meta property="og:url" content="https://kishchanka-art.by/about-author">
+  <meta property="og:title" content="Александр Кищенко — народный художник Беларуси">
+  <meta property="og:description" content="Биография художника-монументалиста Александра Кищенко (1933–1997), автора «Гобелена века» и «Чернобыля» в штаб-квартире ООН.">
+  <meta property="og:image" content="https://kishchanka-art.by/icons/Icon-512.png">
+  <meta property="og:locale" content="ru_RU">
+  <meta property="og:site_name" content="КИЩЕНКО-АРТ">
+  <meta property="profile:first_name" content="Александр">
+  <meta property="profile:last_name" content="Кищенко">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Александр Кищенко — народный художник Беларуси">
+  <meta name="twitter:description" content="Биография художника-монументалиста Александра Кищенко (1933–1997), автора «Гобелена века» и «Чернобыля» в штаб-квартире ООН.">
+  <meta name="twitter:image" content="https://kishchanka-art.by/icons/Icon-512.png">
+
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="apple-mobile-web-app-title" content="КИЩЕНКО-АРТ">
+  <link rel="apple-touch-icon" href="icons/Icon-192.png">
+
+  <link rel="icon" type="image/png" href="favicon.png"/>
+
+  <script type="application/ld+json">
+  [
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "@id": "https://kishchanka-art.by/#artist",
+      "name": "Александр Михайлович Кищенко",
+      "alternateName": "Alexander Mikhailovich Kishchenko",
+      "birthDate": "1933",
+      "deathDate": "1997",
+      "nationality": "BY",
+      "jobTitle": "Художник-монументалист, живописец",
+      "description": "Народный художник Республики Беларусь, живописец и монументалист, родоначальник «Вселенского реализма».",
+      "url": "https://kishchanka-art.by/about-author",
+      "image": "https://kishchanka-art.by/icons/Icon-512.png",
+      "knowsAbout": ["Живопись", "Гобелен", "Монументальное искусство", "Мозаика"],
+      "award": ["Книга рекордов Гиннесса — самый большой гобелен в мире", "Народный художник Республики Беларусь"],
+      "sameAs": [
+        "https://kishchanka-art.by",
+        "https://ru.wikipedia.org/wiki/Кищенко,_Александр_Михайлович"
+      ]
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "AboutPage",
+      "url": "https://kishchanka-art.by/about-author",
+      "name": "Об авторе — Александр Михайлович Кищенко",
+      "description": "Биография художника и краткий обзор главных произведений.",
+      "inLanguage": "ru",
+      "isPartOf": { "@id": "https://kishchanka-art.by/#website" },
+      "mainEntity": { "@id": "https://kishchanka-art.by/#artist" }
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Главная",   "item": "https://kishchanka-art.by/" },
+        { "@type": "ListItem", "position": 2, "name": "Об авторе", "item": "https://kishchanka-art.by/about-author" }
+      ]
+    }
+  ]
+  </script>
+
+  <script src="./assets/packages/mixpanel_flutter/assets/mixpanel.js"></script>
+</head>
+<body>
+  <style>
+    #flutter-loading {
+      position: fixed; inset: 0; display: flex; flex-direction: column;
+      align-items: center; justify-content: center; background: #F5F0E8;
+      z-index: 9999; transition: opacity 0.4s ease;
+    }
+    #flutter-loading.hidden { opacity: 0; pointer-events: none; }
+    #flutter-loading-bar-track { width: 160px; height: 2px; background: #E0DBD4; border-radius: 2px; overflow: hidden; margin-top: 24px; }
+    #flutter-loading-bar { height: 100%; width: 0%; background: #475F45; border-radius: 2px; animation: flutter-indeterminate 1.6s ease-in-out infinite; }
+    #flutter-loading-title { font-family: sans-serif; font-size: 13px; letter-spacing: 3px; color: #7A7E78; margin-top: 16px; }
+    @keyframes flutter-indeterminate { 0% { margin-left: -50%; width: 50%; } 50% { margin-left: 50%; width: 50%; } 100% { margin-left: 100%; width: 50%; } }
+  </style>
+  <div id="flutter-loading">
+    <div id="flutter-loading-bar-track"><div id="flutter-loading-bar"></div></div>
+    <div id="flutter-loading-title">КИЩЕНКО-АРТ</div>
+  </div>
+  <script>
+    window.addEventListener('flutter-first-frame', function() {
+      var el = document.getElementById('flutter-loading');
+      if (el) { el.classList.add('hidden'); setTimeout(function() { el.remove(); }, 500); }
+    });
+  </script>
+
+  <div aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">
+    <h1>Александр Михайлович Кищенко — биография художника</h1>
+
+    <p>
+      <strong>Александр Михайлович Кищенко</strong> (1933–1997) — народный художник
+      Республики Беларусь, живописец, монументалист, родоначальник «Вселенского реализма».
+      Фигура ренессансного масштаба в искусстве XX века.
+    </p>
+
+    <h2>Творческий метод — «Вселенский реализм»</h2>
+    <p>
+      Кищенко не просто отображал действительность — он создавал новую систему координат,
+      которую назвал «Вселенским реализмом». В основе его метода лежит убеждение, что
+      художник — это «ткач времени», обязанный соединять прошлое и будущее. Его искусство
+      вышло за рамки национальных границ, оперируя категориями глобальной человеческой
+      драмы.
+    </p>
+
+    <h2>«Гобелен века» — рекорд Гиннесса</h2>
+    <p>
+      Александр Кищенко вошёл в историю как автор самого большого гобелена в мире,
+      официально внесённого в Книгу рекордов Гиннесса. Полотно размером 19 × 14 метров
+      (около 300 кв. м), весом более тонны, объединяет 80 знаковых личностей мировой
+      истории — от Христа и Мадонны до Черчилля, Кастро и Горбачёва.
+    </p>
+
+    <h2>«Чернобыль» — голос Беларуси в ООН</h2>
+    <p>
+      Одним из самых эмоционально сильных произведений мастера стал гобелен «Чернобыль»
+      (1991). Переданный в дар Организации Объединённых Наций, он и сегодня украшает
+      штаб-квартиру ООН в Нью-Йорке. Генеральный секретарь ООН Перес де Куэльяр сравнил
+      его с «Герникой» Пикассо.
+    </p>
+
+    <h2>Монументальные мозаики Минска</h2>
+    <p>
+      Кищенко сформировал визуальный код современного Минска. Его знаменитые мозаики на
+      жилых высотках в микрорайоне «Восток-1» — «Город-воин», «Город науки», «Город
+      культуры» и «Город-строитель» — стали визитной карточкой столицы.
+    </p>
+
+    <h2>Наследие</h2>
+    <p>
+      Александр Кищенко оставил после себя не только полотна, хранящиеся в Третьяковской
+      галерее и частных коллекциях мировых лидеров (Б. Клинтона, Ф. Миттерана), но и
+      целую школу белорусского монументального гобелена. Его имя носит Борисовский
+      комбинат декоративно-прикладного искусства, где создавались его великие шпалеры.
+    </p>
+
+    <nav>
+      <h2>Разделы сайта</h2>
+      <ul>
+        <li><a href="/catalog">Каталог работ — живопись, гобелены, портреты</a></li>
+        <li><a href="/news">Новости и выставки</a></li>
+        <li><a href="/films">Документальные фильмы об А. Кищенко</a></li>
+        <li><a href="/archive">Архив публикаций</a></li>
+        <li><a href="/contacts">Контакты — студия в Минске</a></li>
+      </ul>
+    </nav>
+  </div>
+
+  <script src="flutter_bootstrap.js" async></script>
+</body>
+</html>

@@ -14,6 +14,7 @@ class CachedNetworkImageView extends StatelessWidget {
     this.borderRadius,
     this.useImageKitEndpoint = true,
     this.openOriginalOnError = false,
+    this.semanticLabel,
   });
 
   final String imagePathOrUrl;
@@ -24,6 +25,11 @@ class CachedNetworkImageView extends StatelessWidget {
   final bool useImageKitEndpoint;
   final bool openOriginalOnError;
 
+  /// Accessibility label. Also surfaces in CanvasKit's a11y DOM overlay so
+  /// crawlers that read the accessibility tree (Googlebot mobile) can index
+  /// the image as having meaningful content.
+  final String? semanticLabel;
+
   @override
   Widget build(BuildContext context) {
     final Widget image;
@@ -33,6 +39,7 @@ class CachedNetworkImageView extends StatelessWidget {
         width: width,
         height: height,
         fit: fit,
+        semanticLabel: semanticLabel,
         errorBuilder: (context, error, stackTrace) =>
             const Center(child: Icon(Icons.broken_image_outlined)),
       );
@@ -62,11 +69,13 @@ class CachedNetworkImageView extends StatelessWidget {
       );
     }
 
-    if (borderRadius == null) {
-      return image;
-    }
+    final clipped = borderRadius == null
+        ? image
+        : ClipRRect(borderRadius: borderRadius!, child: image);
 
-    return ClipRRect(borderRadius: borderRadius!, child: image);
+    final label = semanticLabel;
+    if (label == null || label.isEmpty) return clipped;
+    return Semantics(label: label, image: true, container: true, child: clipped);
   }
 
   // Bundled `assets/...` paths must be rendered with `Image.asset`, not

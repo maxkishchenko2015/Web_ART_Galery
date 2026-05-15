@@ -26,4 +26,5 @@ When assisting with this project, read and apply context from all agent skills i
 * [Flutter UI Constants](agent_skills/flutter-ui-constants/SKILL.md)
 * [Flutter Utils](agent_skills/flutter-utils/SKILL.md)
 * [Flutter Web Environment](agent_skills/flutter-web-environment/SKILL.md)
+* [Flutter Web SEO](agent_skills/flutter-web-seo/SKILL.md)
 * [Project Guidelines](agent_skills/project-guidelines/SKILL.md)

@@ -1,16 +1,60 @@
 # web_art_galery
 
-A new Flutter project.
+Flutter Web gallery for the works of Belarusian artist Alexander Kishchenko
+(1933–1997). Deployed at <https://kishchanka-art.by>.
 
-## Getting Started
+## Getting started (local dev)
 
-This project is a starting point for a Flutter application.
+```bash
+flutter pub get
+flutter run -d chrome
+```
 
-A few resources to get you started if this is your first Flutter project:
+For wider Flutter Web background see
+[`agent_skills/flutter-web-environment/SKILL.md`](agent_skills/flutter-web-environment/SKILL.md).
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+## Production build (with SEO deep-link stubs)
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+The production pipeline runs the Flutter build, then enriches it with
+per-painting and per-news HTML stubs and a deep-link sitemap. See
+[`agent_skills/flutter-web-seo/SKILL.md`](agent_skills/flutter-web-seo/SKILL.md)
+for the architecture and per-route conventions.
+
+```bash
+./scripts/build_web_seo.sh
+```
+
+What this does:
+
+1. `flutter build web --release --pwa-strategy=none` — emits `build/web/`.
+   PWA strategy is disabled on purpose: previous deploys registered a
+   service worker that cached stale asset hashes and bricked the site for
+   returning users. The `web/index.html` service-worker kill-switch
+   unregisters any lingering registrations on page load.
+2. `dart run tool/generate_seo.dart` — reads paintings (`Galery/.../GaleryItems`)
+   and news (`News`) from Firestore via the public REST API and writes:
+   - `build/web/catalog/<pictureId>/index.html` with `VisualArtwork` JSON-LD.
+   - `build/web/news/<slug>/index.html` with `Article` JSON-LD.
+   - Per-document `<url>` entries appended to `build/web/sitemap.xml`,
+     including `<image:image>` blocks with real Firebase Storage URLs.
+
+Environment variables (all optional, defaults match
+`lib/src/shared/config/firebase/firebase_environment.dart`):
+
+| Variable                | Default                                       |
+|-------------------------|-----------------------------------------------|
+| `FIREBASE_PROJECT_ID`   | `kishchenkoart-14257`                         |
+| `FIREBASE_API_KEY`      | (web public key)                              |
+| `SEO_BUILD_DIR`         | `build/web`                                   |
+| `SEO_BASE_URL`          | `https://kishchanka-art.by`                   |
+
+## Deployment
+
+Upload `build/web/` to the Apache `www/` root **including hidden files**.
+The `.htaccess` rewrite is what makes deep-link routing work for the SPA:
+
+```bash
+rsync -avz --delete build/web/ user@kishchanka-art.by:/var/www/kishchanka-art.by/
+```
+
+NGINX alternative is documented in [`deploy/nginx.conf`](deploy/nginx.conf).

@@ -44,6 +44,22 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
+  <!--
+    Critical-path preload hints. flutter_bootstrap.js is the entry script
+    (loaded async at end of body) — telling the browser to fetch it early
+    cuts LCP by roughly the bootstrap-roundtrip on cold connections. The
+    canvaskit.wasm preload is `as="fetch"` because <script type=module>
+    fetches WASM with credentials mode "omit", matching this `crossorigin`
+    attribute. Adjust if the canvaskit version path changes in a future
+    Flutter SDK upgrade.
+  -->
+  <link rel="preload" href="flutter_bootstrap.js" as="script">
+  <link rel="preload" href="canvaskit/canvaskit.wasm" as="fetch" crossorigin type="application/wasm">
+  <link rel="preconnect" href="https://www.unpkg.com" crossorigin>
+  <link rel="dns-prefetch" href="https://firestore.googleapis.com">
+  <link rel="dns-prefetch" href="https://firebasestorage.googleapis.com">
+  <link rel="dns-prefetch" href="https://ik.imagekit.io">
+
   <title>Александр Кищенко — белорусский художник</title>
 
   <meta name="description" content="Официальная коллекция работ белорусского художника-монументалиста Александра Михайловича Кищенко (1933–1997): гобелены, живопись, мозаики, портреты. Автор самого большого гобелена в мире и полотна «Чернобыль» в штаб-квартире ООН.">
@@ -95,7 +111,17 @@
   <!-- Favicon -->
   <link rel="icon" type="image/png" href="favicon.png"/>
 
-  <!-- Structured data -->
+  <!--
+    Structured data (schema.org / JSON-LD).
+    Top-level array hosts the canonical knowledge graph for the site:
+      • Person  — the artist (resolved by @id from every other entity).
+      • ArtGallery — the site itself.
+      • WebSite — enables Google sitelinks search box.
+      • BreadcrumbList — generic crumbs for the home page.
+      • CollectionPage + ItemList — wrapper around individual artworks.
+      • VisualArtwork[] — 20 top works; replaced with full Firebase-driven
+        list at deploy time by tool/generate_seo.dart (Phase 3).
+  -->
   <script type="application/ld+json">
   [
     {
@@ -112,7 +138,8 @@
       "url": "https://kishchanka-art.by/about-author",
       "image": "https://kishchanka-art.by/icons/Icon-512.png",
       "sameAs": [
-        "https://kishchanka-art.by"
+        "https://kishchanka-art.by",
+        "https://ru.wikipedia.org/wiki/Кищенко,_Александр_Михайлович"
       ]
     },
     {
@@ -126,32 +153,83 @@
       "logo": "https://kishchanka-art.by/icons/Icon-512.png",
       "image": "https://kishchanka-art.by/icons/Icon-512.png",
       "founder": { "@id": "https://kishchanka-art.by/#artist" },
-      "inLanguage": ["ru", "en", "be", "de", "es", "fr"]
+      "inLanguage": ["ru", "en", "be", "de", "es", "fr"],
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Минск",
+        "streetAddress": "ул. Сурганова, 44",
+        "addressCountry": "BY"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": 53.927989,
+        "longitude": 27.589894
+      }
     },
     {
       "@context": "https://schema.org",
-      "@type": "ItemList",
-      "name": "Избранные работы Александра Кищенко",
-      "description": "Каталог избранных произведений: живопись, гобелены, мозаики",
-      "url": "https://kishchanka-art.by/catalog",
-      "numberOfItems": 20,
+      "@type": "WebSite",
+      "@id": "https://kishchanka-art.by/#website",
+      "name": "КИЩЕНКО-АРТ",
+      "alternateName": "Kishchenko Art",
+      "url": "https://kishchanka-art.by",
+      "inLanguage": "ru",
+      "publisher": { "@id": "https://kishchanka-art.by/#gallery" },
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": {
+          "@type": "EntryPoint",
+          "urlTemplate": "https://kishchanka-art.by/catalog?q={search_term_string}"
+        },
+        "query-input": "required name=search_term_string"
+      }
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "@id": "https://kishchanka-art.by/#breadcrumbs-home",
       "itemListElement": [
-        { "@type": "ListItem", "position": 1,  "name": "Гобелен «Подсолнухи» (1992) — шерсть, лён" },
-        { "@type": "ListItem", "position": 2,  "name": "Девушка в красном с золотом (1976) — холст, масло" },
-        { "@type": "ListItem", "position": 3,  "name": "Моя Вселенная (1996) — холст, масло" },
-        { "@type": "ListItem", "position": 4,  "name": "Он будет жить. Чернобыль (1987) — холст, масло" },
-        { "@type": "ListItem", "position": 5,  "name": "Автопортрет (1982) — холст, масло" },
-        { "@type": "ListItem", "position": 6,  "name": "Адам и Ева (1982) — холст, масло" },
-        { "@type": "ListItem", "position": 7,  "name": "Мадонна (1983) — холст, масло" },
-        { "@type": "ListItem", "position": 8,  "name": "Гобелен «Море» («Волна») (1995) — шерсть, лён" },
-        { "@type": "ListItem", "position": 9,  "name": "Война миров (1997) — холст, масло" },
-        { "@type": "ListItem", "position": 10, "name": "Под созвездием Льва (1994) — холст, масло" },
-        { "@type": "ListItem", "position": 11, "name": "Дары планет (1990) — холст, масло" },
-        { "@type": "ListItem", "position": 12, "name": "Идущая (Вселенная) (1989) — холст, масло" },
-        { "@type": "ListItem", "position": 13, "name": "Портрет Елены Образцовой (1981) — холст, масло" },
-        { "@type": "ListItem", "position": 14, "name": "Последний севастополец (1970) — холст, масло" },
-        { "@type": "ListItem", "position": 15, "name": "Окраина. Старая мельница (1958) — холст, масло" }
+        { "@type": "ListItem", "position": 1, "name": "Главная",         "item": "https://kishchanka-art.by/" },
+        { "@type": "ListItem", "position": 2, "name": "Об авторе",       "item": "https://kishchanka-art.by/about-author" },
+        { "@type": "ListItem", "position": 3, "name": "Каталог работ",   "item": "https://kishchanka-art.by/catalog" }
       ]
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "CollectionPage",
+      "@id": "https://kishchanka-art.by/catalog#collection",
+      "name": "Каталог работ Александра Кищенко",
+      "description": "Каталог живописи, гобеленов и мозаик А. М. Кищенко 1958–1997 годов.",
+      "url": "https://kishchanka-art.by/catalog",
+      "isPartOf": { "@id": "https://kishchanka-art.by/#website" },
+      "about": { "@id": "https://kishchanka-art.by/#artist" },
+      "mainEntity": {
+        "@type": "ItemList",
+        "name": "Избранные работы Александра Кищенко",
+        "numberOfItems": 20,
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1,  "item": { "@type": "VisualArtwork", "name": "Гобелен «Подсолнухи»",            "creator": { "@id": "https://kishchanka-art.by/#artist" }, "dateCreated": "1992", "artMedium": "Шерсть, лён, ткачество", "artform": "Гобелен",      "url": "https://kishchanka-art.by/catalog" } },
+          { "@type": "ListItem", "position": 2,  "item": { "@type": "VisualArtwork", "name": "Девушка в красном с золотом",     "creator": { "@id": "https://kishchanka-art.by/#artist" }, "dateCreated": "1976", "artMedium": "Холст, масло",            "artform": "Живопись",    "url": "https://kishchanka-art.by/catalog" } },
+          { "@type": "ListItem", "position": 3,  "item": { "@type": "VisualArtwork", "name": "Моя Вселенная",                    "creator": { "@id": "https://kishchanka-art.by/#artist" }, "dateCreated": "1996", "artMedium": "Холст, масло",            "artform": "Живопись",    "url": "https://kishchanka-art.by/catalog" } },
+          { "@type": "ListItem", "position": 4,  "item": { "@type": "VisualArtwork", "name": "Он будет жить. Чернобыль",        "creator": { "@id": "https://kishchanka-art.by/#artist" }, "dateCreated": "1987", "artMedium": "Холст, масло",            "artform": "Живопись",    "url": "https://kishchanka-art.by/catalog" } },
+          { "@type": "ListItem", "position": 5,  "item": { "@type": "VisualArtwork", "name": "Автопортрет",                      "creator": { "@id": "https://kishchanka-art.by/#artist" }, "dateCreated": "1982", "artMedium": "Холст, масло",            "artform": "Живопись",    "url": "https://kishchanka-art.by/catalog" } },
+          { "@type": "ListItem", "position": 6,  "item": { "@type": "VisualArtwork", "name": "Адам и Ева",                       "creator": { "@id": "https://kishchanka-art.by/#artist" }, "dateCreated": "1982", "artMedium": "Холст, масло",            "artform": "Живопись",    "url": "https://kishchanka-art.by/catalog" } },
+          { "@type": "ListItem", "position": 7,  "item": { "@type": "VisualArtwork", "name": "Мадонна",                          "creator": { "@id": "https://kishchanka-art.by/#artist" }, "dateCreated": "1983", "artMedium": "Холст, масло",            "artform": "Живопись",    "url": "https://kishchanka-art.by/catalog" } },
+          { "@type": "ListItem", "position": 8,  "item": { "@type": "VisualArtwork", "name": "Гобелен «Море» («Волна»)",        "creator": { "@id": "https://kishchanka-art.by/#artist" }, "dateCreated": "1995", "artMedium": "Шерсть, лён, ткачество", "artform": "Гобелен",      "url": "https://kishchanka-art.by/catalog" } },
+          { "@type": "ListItem", "position": 9,  "item": { "@type": "VisualArtwork", "name": "Война миров",                      "creator": { "@id": "https://kishchanka-art.by/#artist" }, "dateCreated": "1997", "artMedium": "Холст, масло",            "artform": "Живопись",    "url": "https://kishchanka-art.by/catalog" } },
+          { "@type": "ListItem", "position": 10, "item": { "@type": "VisualArtwork", "name": "Под созвездием Льва",              "creator": { "@id": "https://kishchanka-art.by/#artist" }, "dateCreated": "1994", "artMedium": "Холст, масло",            "artform": "Живопись",    "url": "https://kishchanka-art.by/catalog" } },
+          { "@type": "ListItem", "position": 11, "item": { "@type": "VisualArtwork", "name": "Дары планет",                      "creator": { "@id": "https://kishchanka-art.by/#artist" }, "dateCreated": "1990", "artMedium": "Холст, масло",            "artform": "Живопись",    "url": "https://kishchanka-art.by/catalog" } },
+          { "@type": "ListItem", "position": 12, "item": { "@type": "VisualArtwork", "name": "Идущая (Вселенная)",               "creator": { "@id": "https://kishchanka-art.by/#artist" }, "dateCreated": "1989", "artMedium": "Холст, масло",            "artform": "Живопись",    "url": "https://kishchanka-art.by/catalog" } },
+          { "@type": "ListItem", "position": 13, "item": { "@type": "VisualArtwork", "name": "Портрет Елены Образцовой",         "creator": { "@id": "https://kishchanka-art.by/#artist" }, "dateCreated": "1981", "artMedium": "Холст, масло",            "artform": "Портрет",      "url": "https://kishchanka-art.by/catalog" } },
+          { "@type": "ListItem", "position": 14, "item": { "@type": "VisualArtwork", "name": "Последний севастополец",           "creator": { "@id": "https://kishchanka-art.by/#artist" }, "dateCreated": "1970", "artMedium": "Холст, масло",            "artform": "Живопись",    "url": "https://kishchanka-art.by/catalog" } },
+          { "@type": "ListItem", "position": 15, "item": { "@type": "VisualArtwork", "name": "Окраина. Старая мельница",         "creator": { "@id": "https://kishchanka-art.by/#artist" }, "dateCreated": "1958", "artMedium": "Холст, масло",            "artform": "Пейзаж",       "url": "https://kishchanka-art.by/catalog" } },
+          { "@type": "ListItem", "position": 16, "item": { "@type": "VisualArtwork", "name": "Учительница",                      "creator": { "@id": "https://kishchanka-art.by/#artist" }, "dateCreated": "1970", "artMedium": "Холст, масло",            "artform": "Портрет",      "url": "https://kishchanka-art.by/catalog" } },
+          { "@type": "ListItem", "position": 17, "item": { "@type": "VisualArtwork", "name": "Раздумье",                         "creator": { "@id": "https://kishchanka-art.by/#artist" }, "dateCreated": "1981", "artMedium": "Холст, масло",            "artform": "Портрет",      "url": "https://kishchanka-art.by/catalog" } },
+          { "@type": "ListItem", "position": 18, "item": { "@type": "VisualArtwork", "name": "Моя Родина",                       "creator": { "@id": "https://kishchanka-art.by/#artist" }, "dateCreated": "1995", "artMedium": "Холст, масло",            "artform": "Живопись",    "url": "https://kishchanka-art.by/catalog" } },
+          { "@type": "ListItem", "position": 19, "item": { "@type": "VisualArtwork", "name": "Вечная",                           "creator": { "@id": "https://kishchanka-art.by/#artist" }, "dateCreated": "1991", "artMedium": "Холст, масло",            "artform": "Живопись",    "url": "https://kishchanka-art.by/catalog" } },
+          { "@type": "ListItem", "position": 20, "item": { "@type": "VisualArtwork", "name": "Мечта",                            "creator": { "@id": "https://kishchanka-art.by/#artist" }, "dateCreated": "1991", "artMedium": "Холст, масло",            "artform": "Живопись",    "url": "https://kishchanka-art.by/catalog" } }
+        ]
+      }
     }
   ]
   </script>
@@ -166,8 +244,32 @@
     omitted for the same reason.
   -->
 
-  <!-- Mixpanel Web SDK (required by mixpanel_flutter for Flutter Web) -->
-  <script src="./assets/packages/mixpanel_flutter/assets/mixpanel.js"></script>
+  <!--
+    Mixpanel Web SDK is required by mixpanel_flutter but is a non-critical
+    analytics dependency. Loading it synchronously in <head> blocks the HTML
+    parser for ~50 kB of script before the user sees anything; we instead
+    inject it after `flutter-first-frame` (or 3 s of idle, whichever wins).
+    `AppTelemetry.init()` in lib/.../app_telemetry.dart is idempotent and
+    safe to call even if Mixpanel has not yet attached `window.mixpanel`.
+  -->
+  <script>
+    (function () {
+      var INJECTED = false;
+      function injectMixpanel() {
+        if (INJECTED) return;
+        INJECTED = true;
+        var s = document.createElement('script');
+        s.src = './assets/packages/mixpanel_flutter/assets/mixpanel.js';
+        s.async = true;
+        document.head.appendChild(s);
+      }
+      window.addEventListener('flutter-first-frame', injectMixpanel, { once: true });
+      // Safety net for browsers/agents that never emit flutter-first-frame
+      // (e.g. crawlers): fall back to requestIdleCallback / setTimeout.
+      var ric = window.requestIdleCallback || function (cb) { return setTimeout(cb, 3000); };
+      ric(injectMixpanel);
+    })();
+  </script>
 </head>
 <body>
   <style>
@@ -228,12 +330,20 @@
   </script>
 
   <!--
-    Hidden semantic block for search engine crawlers.
-    Flutter's canvas renders on top of this at runtime — users never see it,
-    but crawlers reading raw HTML source will index its content.
+    Hidden semantic block for search-engine crawlers.
+
+    Flutter's CanvasKit renders pixels into a single <canvas> element, so the
+    actual app UI is invisible to crawler text extraction. This block stays in
+    the DOM source for Yandex / Bing / Googlebot-mobile to index. The visual
+    layer covers it at runtime, users never see it.
+
+    Phase 3 (tool/generate_seo.dart) per-route stubs override this block with
+    route-specific content. The version below is the default served for the
+    root URL.
   -->
   <div aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">
     <h1>Александр Михайлович Кищенко — Коллекция изобразительного искусства</h1>
+
     <p>
       Александр Михайлович Кищенко (1933–1997) — народный художник Республики Беларусь,
       живописец, монументалист, родоначальник «Вселенского реализма». Автор самого большого
@@ -255,45 +365,75 @@
     </nav>
 
     <section>
+      <h2>Биография</h2>
+      <p>
+        Александр Кищенко — фигура ренессансного масштаба в искусстве XX века. Человек,
+        сумевший превратить мягкую нить гобелена в мощное архитектурное высказывание, а
+        стены городов — в открытые книги философских смыслов. Его творчество — это мост
+        между архаикой и космосом, между болью земли и светом далёких галактик.
+      </p>
+      <p>
+        Кищенко не просто отображал действительность — он создавал новую систему координат,
+        которую назвал «Вселенским реализмом». В основе его метода лежит убеждение, что
+        художник — это «ткач времени», обязанный соединять прошлое и будущее. Его искусство
+        вышло за рамки национальных границ, оперируя категориями глобальной человеческой
+        драмы. Для Кищенко человек — это полубог, чьи поступки резонируют в масштабах
+        Вселенной.
+      </p>
+      <p>
+        Александр Кищенко вошёл в историю как автор самого большого гобелена в мире,
+        официально внесённого в Книгу рекордов Гиннесса: полотно размером 19 × 14 метров
+        (около 300 кв. м), весом более тонны, объединяющее 80 знаковых личностей мировой
+        истории. Гобелен «Чернобыль» (1991), переданный в дар ООН, и сегодня украшает
+        штаб-квартиру организации в Нью-Йорке. Генеральный секретарь ООН Перес де Куэльяр
+        сравнил его с «Герникой» Пикассо.
+      </p>
+
       <h2>Избранные работы из каталога</h2>
+      <p>Полный каталог доступен в разделе <a href="/catalog">«Каталог работ»</a>.</p>
       <ul>
-        <li>Гобелен «Подсолнухи» (1992) — шерсть, лён, ткачество</li>
-        <li>Девушка в красном с золотом (Зелёный виноград) (1976) — холст, масло</li>
-        <li>Моя Вселенная (1996) — холст, масло</li>
-        <li>Он будет жить. Чернобыль (1987) — холст, масло</li>
-        <li>Автопортрет (1982) — холст, масло</li>
-        <li>Адам и Ева (1982) — холст, масло</li>
-        <li>Мадонна (1983) — холст, масло</li>
-        <li>Гобелен «Море» («Волна») (1995) — шерсть, лён, ткачество</li>
-        <li>Война миров (последняя работа) (1997) — холст, масло</li>
-        <li>Под созвездием Льва (1994) — холст, масло</li>
-        <li>Дары планет (1990) — холст, масло</li>
-        <li>Идущая (Вселенная) (1989) — холст, масло</li>
-        <li>Портрет Елены Образцовой (1981) — холст, масло</li>
-        <li>Последний севастополец (1970) — холст, масло</li>
-        <li>Окраина. Старая мельница (1958) — холст, масло</li>
-        <li>Учительница (1970) — холст, масло</li>
-        <li>Раздумье (1981) — холст, масло</li>
-        <li>Моя Родина (1995) — холст, масло</li>
-        <li>Вечная (1991) — холст, масло</li>
-        <li>Мечта (1991) — холст, масло</li>
+        <li><a href="/catalog">Гобелен «Подсолнухи» (1992) — шерсть, лён, ткачество</a></li>
+        <li><a href="/catalog">Девушка в красном с золотом (Зелёный виноград) (1976) — холст, масло</a></li>
+        <li><a href="/catalog">Моя Вселенная (1996) — холст, масло</a></li>
+        <li><a href="/catalog">Он будет жить. Чернобыль (1987) — холст, масло</a></li>
+        <li><a href="/catalog">Автопортрет (1982) — холст, масло</a></li>
+        <li><a href="/catalog">Адам и Ева (1982) — холст, масло</a></li>
+        <li><a href="/catalog">Мадонна (1983) — холст, масло</a></li>
+        <li><a href="/catalog">Гобелен «Море» («Волна») (1995) — шерсть, лён, ткачество</a></li>
+        <li><a href="/catalog">Война миров (последняя работа) (1997) — холст, масло</a></li>
+        <li><a href="/catalog">Под созвездием Льва (1994) — холст, масло</a></li>
+        <li><a href="/catalog">Дары планет (1990) — холст, масло</a></li>
+        <li><a href="/catalog">Идущая (Вселенная) (1989) — холст, масло</a></li>
+        <li><a href="/catalog">Портрет Елены Образцовой (1981) — холст, масло</a></li>
+        <li><a href="/catalog">Последний севастополец (1970) — холст, масло</a></li>
+        <li><a href="/catalog">Окраина. Старая мельница (1958) — холст, масло</a></li>
+        <li><a href="/catalog">Учительница (1970) — холст, масло</a></li>
+        <li><a href="/catalog">Раздумье (1981) — холст, масло</a></li>
+        <li><a href="/catalog">Моя Родина (1995) — холст, масло</a></li>
+        <li><a href="/catalog">Вечная (1991) — холст, масло</a></li>
+        <li><a href="/catalog">Мечта (1991) — холст, масло</a></li>
       </ul>
 
       <h2>Выставки и публикации</h2>
       <ul>
-        <li>Выставка «Александр Кищенко. Нити судьбы» — Воронежская область</li>
-        <li>Выставка «Небо и земля Александра Кищенко» — Национальный художественный музей Республики Беларусь, 2023</li>
-        <li>Выставка «Чтобы чувствовать» — коллекция Приорбанка, дворец Румянцевых и Паскевичей</li>
-        <li>Выставка «Краски Великой Победы» — Белгазпромбанк, 2024</li>
+        <li><a href="/news">Выставка «Александр Кищенко. Нити судьбы» — Воронежская область</a></li>
+        <li><a href="/news">Выставка «Небо и земля Александра Кищенко» — Национальный художественный музей Республики Беларусь, 2023</a></li>
+        <li><a href="/news">Выставка «Чтобы чувствовать» — коллекция Приорбанка, дворец Румянцевых и Паскевичей</a></li>
+        <li><a href="/news">Выставка «Краски Великой Победы» — Белгазпромбанк, 2024</a></li>
       </ul>
 
       <h2>Документальные фильмы</h2>
       <ul>
-        <li>А. Кищенко. Исповедь Времени — документальный фильм, режиссёр В. Королёв</li>
-        <li>Культурные коды нации: Где сейчас гобелены народного художника Кищенко?</li>
-        <li>Гобелены «Века» и «Чернобыль». Интересные факты</li>
-        <li>Выставка А. М. Кищенко в Воронежском художественном музее им. И. Н. Крамского</li>
+        <li><a href="/films">А. Кищенко. Исповедь Времени — документальный фильм, режиссёр В. Королёв</a></li>
+        <li><a href="/films">Культурные коды нации: Где сейчас гобелены народного художника Кищенко?</a></li>
+        <li><a href="/films">Гобелены «Века» и «Чернобыль». Интересные факты</a></li>
+        <li><a href="/films">Выставка А. М. Кищенко в Воронежском художественном музее им. И. Н. Крамского</a></li>
       </ul>
+
+      <h2>Контакты</h2>
+      <address>
+        Мастерская: <a href="/contacts">Минск, ул. Сурганова, 44 — 7 этаж</a>.
+      </address>
     </section>
   </div>
 

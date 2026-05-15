@@ -41,7 +41,7 @@ class NewsListCard extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        _NewsArtwork(article: article, featured: false),
+        _NewsArtwork(article: article, featured: false, semanticLabel: title),
         const SizedBox(height: KSize.margin4x),
         _TextBlock(
           title: title,
@@ -59,7 +59,7 @@ class NewsListCard extends StatelessWidget {
       children: [
         SizedBox(
           width: KSize.newsListArtworkWidth,
-          child: _NewsArtwork(article: article, featured: false),
+          child: _NewsArtwork(article: article, featured: false, semanticLabel: title),
         ),
         const SizedBox(width: KSize.margin5x),
         Expanded(
@@ -157,10 +157,15 @@ class _MetaRow extends StatelessWidget {
 /// available, otherwise falls back to the design-system gradient shared
 /// with the archive feed so list cards still feel on-brand.
 class _NewsArtwork extends StatelessWidget {
-  const _NewsArtwork({required this.article, required this.featured});
+  const _NewsArtwork({
+    required this.article,
+    required this.featured,
+    this.semanticLabel,
+  });
 
   final NewsArticle article;
   final bool featured;
+  final String? semanticLabel;
 
   @override
   Widget build(BuildContext context) {
@@ -175,6 +180,7 @@ class _NewsArtwork extends StatelessWidget {
             ? CachedNetworkImageView(
                 imagePathOrUrl: article.imageUrls.first,
                 fit: BoxFit.cover,
+                semanticLabel: semanticLabel,
               )
             : _GradientFallback(featured: featured, year: article.publishedAt?.year),
       ),

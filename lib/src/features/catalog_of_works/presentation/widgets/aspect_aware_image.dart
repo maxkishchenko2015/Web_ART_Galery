@@ -34,6 +34,7 @@ class AspectAwareImage extends StatefulWidget {
     this.maxImageWidth = 720,
     this.maxImageHeight = 720,
     this.minImageHeight = 200,
+    this.semanticLabel,
   });
 
   final String imageUrl;
@@ -45,6 +46,12 @@ class AspectAwareImage extends StatefulWidget {
   final double maxImageWidth;
   final double maxImageHeight;
   final double minImageHeight;
+
+  /// Description announced by assistive tech and exposed in the a11y tree.
+  /// In CanvasKit Flutter Web this also feeds the semantic DOM overlay used
+  /// by Googlebot's accessibility-tree pass, so passing painting/article
+  /// names here doubles as a lightweight SEO signal for the image.
+  final String? semanticLabel;
 
   @override
   State<AspectAwareImage> createState() => _AspectAwareImageState();
@@ -159,10 +166,16 @@ class _AspectAwareImageState extends State<AspectAwareImage> {
         return SizedBox(
           width: cardWidth,
           height: boxHeight,
-          child: _buildImage(),
+          child: _wrapSemantics(_buildImage()),
         );
       },
     );
+  }
+
+  Widget _wrapSemantics(Widget child) {
+    final label = widget.semanticLabel;
+    if (label == null || label.isEmpty) return child;
+    return Semantics(label: label, image: true, container: true, child: child);
   }
 
   Widget _buildImage() {

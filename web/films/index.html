@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <!--
+    Per-route SEO stub for /films. Maintenance contract: keep boilerplate
+    identical to web/index.html, only SEO OVERRIDES block differs.
+  -->
+  <base href="/">
+
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.getRegistrations().then(function (regs) {
+        for (var i = 0; i < regs.length; i++) { regs[i].unregister(); }
+      }).catch(function () {});
+      if (window.caches && caches.keys) {
+        caches.keys().then(function (keys) {
+          keys.forEach(function (k) { caches.delete(k); });
+        }).catch(function () {});
+      }
+    }
+  </script>
+
+  <meta charset="UTF-8">
+  <meta content="IE=Edge" http-equiv="X-UA-Compatible">
+  <meta name="theme-color" content="#F5F0E8">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <!-- ───────── SEO OVERRIDES (route-specific) ───────── -->
+  <title>Документальные фильмы об А. Кищенко | КИЩЕНКО-АРТ</title>
+
+  <meta name="description" content="Документальные фильмы и видеоматериалы об Александре Кищенко, его творчестве, «Гобелене века» и монументальных произведениях.">
+  <meta name="keywords" content="фильм о Кищенко, документальный фильм, гобелен века, видео, телепередача, исповедь времени, культурные коды нации">
+  <meta name="author" content="КИЩЕНКО-АРТ">
+  <meta name="robots" content="index, follow">
+
+  <link rel="canonical" href="https://kishchanka-art.by/films">
+
+  <link rel="alternate" hreflang="ru"        href="https://kishchanka-art.by/films">
+  <link rel="alternate" hreflang="en"        href="https://kishchanka-art.by/films">
+  <link rel="alternate" hreflang="be"        href="https://kishchanka-art.by/films">
+  <link rel="alternate" hreflang="de"        href="https://kishchanka-art.by/films">
+  <link rel="alternate" hreflang="es"        href="https://kishchanka-art.by/films">
+  <link rel="alternate" hreflang="fr"        href="https://kishchanka-art.by/films">
+  <link rel="alternate" hreflang="x-default" href="https://kishchanka-art.by/films">
+
+  <meta property="og:type" content="video.other">
+  <meta property="og:url" content="https://kishchanka-art.by/films">
+  <meta property="og:title" content="Документальные фильмы об Александре Кищенко">
+  <meta property="og:description" content="Документальные ленты о творчестве художника, «Гобелене века» и монументальных мозаиках.">
+  <meta property="og:image" content="https://kishchanka-art.by/icons/Icon-512.png">
+  <meta property="og:locale" content="ru_RU">
+  <meta property="og:site_name" content="КИЩЕНКО-АРТ">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Документальные фильмы об Александре Кищенко">
+  <meta name="twitter:description" content="Документальные ленты о творчестве художника.">
+  <meta name="twitter:image" content="https://kishchanka-art.by/icons/Icon-512.png">
+
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="apple-mobile-web-app-title" content="КИЩЕНКО-АРТ">
+  <link rel="apple-touch-icon" href="icons/Icon-192.png">
+
+  <link rel="icon" type="image/png" href="favicon.png"/>
+
+  <script type="application/ld+json">
+  [
+    {
+      "@context": "https://schema.org",
+      "@type": "CollectionPage",
+      "@id": "https://kishchanka-art.by/films#collection",
+      "name": "Документальные фильмы об Александре Кищенко",
+      "description": "Подборка документальных лент и видеоматериалов о творчестве художника.",
+      "url": "https://kishchanka-art.by/films",
+      "inLanguage": "ru",
+      "isPartOf": { "@id": "https://kishchanka-art.by/#website" },
+      "about": { "@id": "https://kishchanka-art.by/#artist" },
+      "mainEntity": {
+        "@type": "ItemList",
+        "name": "Документальные фильмы",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "item": { "@type": "VideoObject", "name": "А. Кищенко. Исповедь Времени",                                  "description": "Документальный фильм режиссёра В. Королёва о творческом пути А. М. Кищенко.", "inLanguage": "ru" } },
+          { "@type": "ListItem", "position": 2, "item": { "@type": "VideoObject", "name": "Культурные коды нации: Где сейчас гобелены Кищенко?",          "description": "Документальная передача о судьбе монументальных гобеленов А. М. Кищенко.", "inLanguage": "ru" } },
+          { "@type": "ListItem", "position": 3, "item": { "@type": "VideoObject", "name": "Гобелены «Века» и «Чернобыль». Интересные факты",              "description": "Видеоматериал о двух главных гобеленах мастера.",                          "inLanguage": "ru" } },
+          { "@type": "ListItem", "position": 4, "item": { "@type": "VideoObject", "name": "Выставка А. М. Кищенко в Воронежском художественном музее",     "description": "Репортаж об открытии выставки в музее им. И. Н. Крамского.",               "inLanguage": "ru" } }
+        ]
+      }
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Главная", "item": "https://kishchanka-art.by/" },
+        { "@type": "ListItem", "position": 2, "name": "Фильмы",  "item": "https://kishchanka-art.by/films" }
+      ]
+    }
+  ]
+  </script>
+
+  <script src="./assets/packages/mixpanel_flutter/assets/mixpanel.js"></script>
+</head>
+<body>
+  <style>
+    #flutter-loading {
+      position: fixed; inset: 0; display: flex; flex-direction: column;
+      align-items: center; justify-content: center; background: #F5F0E8;
+      z-index: 9999; transition: opacity 0.4s ease;
+    }
+    #flutter-loading.hidden { opacity: 0; pointer-events: none; }
+    #flutter-loading-bar-track { width: 160px; height: 2px; background: #E0DBD4; border-radius: 2px; overflow: hidden; margin-top: 24px; }
+    #flutter-loading-bar { height: 100%; width: 0%; background: #475F45; border-radius: 2px; animation: flutter-indeterminate 1.6s ease-in-out infinite; }
+    #flutter-loading-title { font-family: sans-serif; font-size: 13px; letter-spacing: 3px; color: #7A7E78; margin-top: 16px; }
+    @keyframes flutter-indeterminate { 0% { margin-left: -50%; width: 50%; } 50% { margin-left: 50%; width: 50%; } 100% { margin-left: 100%; width: 50%; } }
+  </style>
+  <div id="flutter-loading">
+    <div id="flutter-loading-bar-track"><div id="flutter-loading-bar"></div></div>
+    <div id="flutter-loading-title">КИЩЕНКО-АРТ</div>
+  </div>
+  <script>
+    window.addEventListener('flutter-first-frame', function() {
+      var el = document.getElementById('flutter-loading');
+      if (el) { el.classList.add('hidden'); setTimeout(function() { el.remove(); }, 500); }
+    });
+  </script>
+
+  <div aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">
+    <h1>Документальные фильмы об Александре Кищенко</h1>
+
+    <p>
+      Подборка документальных лент и видеоматериалов о творчестве художника
+      <a href="/about-author">Александра Михайловича Кищенко</a>, истории создания
+      «Гобелена века», работы над «Чернобылем» для ООН и монументальных мозаик Минска.
+    </p>
+
+    <h2>Фильмы и передачи</h2>
+    <ul>
+      <li><a href="/films">А. Кищенко. Исповедь Времени</a> — документальный фильм, режиссёр В. Королёв</li>
+      <li><a href="/films">Культурные коды нации: Где сейчас гобелены народного художника Кищенко?</a></li>
+      <li><a href="/films">Гобелены «Века» и «Чернобыль». Интересные факты</a></li>
+      <li><a href="/films">Выставка А. М. Кищенко в Воронежском художественном музее им. И. Н. Крамского</a></li>
+    </ul>
+
+    <nav>
+      <h2>Разделы сайта</h2>
+      <ul>
+        <li><a href="/about-author">Об авторе</a></li>
+        <li><a href="/catalog">Каталог работ</a></li>
+        <li><a href="/news">Новости и выставки</a></li>
+        <li><a href="/archive">Архив публикаций</a></li>
+        <li><a href="/contacts">Контакты</a></li>
+      </ul>
+    </nav>
+  </div>
+
+  <script src="flutter_bootstrap.js" async></script>
+</body>
+</html>

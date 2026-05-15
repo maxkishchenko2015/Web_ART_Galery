@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <!--
+    Per-route SEO stub for /contacts. Maintenance contract: keep boilerplate
+    identical to web/index.html, only SEO OVERRIDES block differs.
+  -->
+  <base href="/">
+
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.getRegistrations().then(function (regs) {
+        for (var i = 0; i < regs.length; i++) { regs[i].unregister(); }
+      }).catch(function () {});
+      if (window.caches && caches.keys) {
+        caches.keys().then(function (keys) {
+          keys.forEach(function (k) { caches.delete(k); });
+        }).catch(function () {});
+      }
+    }
+  </script>
+
+  <meta charset="UTF-8">
+  <meta content="IE=Edge" http-equiv="X-UA-Compatible">
+  <meta name="theme-color" content="#F5F0E8">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <!-- ───────── SEO OVERRIDES (route-specific) ───────── -->
+  <title>Контакты | КИЩЕНКО-АРТ</title>
+
+  <meta name="description" content="Контакты галереи КИЩЕНКО-АРТ: мастерская в Минске (ул. Сурганова, 44), телефон, Instagram и ВКонтакте. Запросы по выставкам и покупке работ.">
+  <meta name="keywords" content="контакты галереи Кищенко, мастерская Минск, купить картину, ул. Сурганова, Instagram Кищенко">
+  <meta name="author" content="КИЩЕНКО-АРТ">
+  <meta name="robots" content="index, follow">
+
+  <link rel="canonical" href="https://kishchanka-art.by/contacts">
+
+  <link rel="alternate" hreflang="ru"        href="https://kishchanka-art.by/contacts">
+  <link rel="alternate" hreflang="en"        href="https://kishchanka-art.by/contacts">
+  <link rel="alternate" hreflang="be"        href="https://kishchanka-art.by/contacts">
+  <link rel="alternate" hreflang="de"        href="https://kishchanka-art.by/contacts">
+  <link rel="alternate" hreflang="es"        href="https://kishchanka-art.by/contacts">
+  <link rel="alternate" hreflang="fr"        href="https://kishchanka-art.by/contacts">
+  <link rel="alternate" hreflang="x-default" href="https://kishchanka-art.by/contacts">
+
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://kishchanka-art.by/contacts">
+  <meta property="og:title" content="Контакты галереи КИЩЕНКО-АРТ">
+  <meta property="og:description" content="Мастерская в Минске, ул. Сурганова, 44. Телефон, Instagram и ВКонтакте.">
+  <meta property="og:image" content="https://kishchanka-art.by/icons/Icon-512.png">
+  <meta property="og:locale" content="ru_RU">
+  <meta property="og:site_name" content="КИЩЕНКО-АРТ">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Контакты галереи КИЩЕНКО-АРТ">
+  <meta name="twitter:description" content="Мастерская в Минске, ул. Сурганова, 44.">
+  <meta name="twitter:image" content="https://kishchanka-art.by/icons/Icon-512.png">
+
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="apple-mobile-web-app-title" content="КИЩЕНКО-АРТ">
+  <link rel="apple-touch-icon" href="icons/Icon-192.png">
+
+  <link rel="icon" type="image/png" href="favicon.png"/>
+
+  <script type="application/ld+json">
+  [
+    {
+      "@context": "https://schema.org",
+      "@type": "ContactPage",
+      "@id": "https://kishchanka-art.by/contacts#page",
+      "name": "Контакты — КИЩЕНКО-АРТ",
+      "description": "Контактная информация галереи и мастерской А. М. Кищенко в Минске.",
+      "url": "https://kishchanka-art.by/contacts",
+      "inLanguage": "ru",
+      "isPartOf": { "@id": "https://kishchanka-art.by/#website" }
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "LocalBusiness",
+      "@id": "https://kishchanka-art.by/contacts#business",
+      "name": "КИЩЕНКО-АРТ — мастерская",
+      "description": "Мастерская и галерея работ Александра Кищенко в Минске.",
+      "url": "https://kishchanka-art.by/contacts",
+      "image": "https://kishchanka-art.by/icons/Icon-512.png",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Минск",
+        "streetAddress": "ул. Сурганова, 44 — 7 этаж",
+        "addressCountry": "BY"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": 53.927989,
+        "longitude": 27.589894
+      },
+      "sameAs": [
+        "https://www.instagram.com/kishchenko.art",
+        "https://vk.com/aleksandrkishchenko"
+      ]
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Главная",  "item": "https://kishchanka-art.by/" },
+        { "@type": "ListItem", "position": 2, "name": "Контакты", "item": "https://kishchanka-art.by/contacts" }
+      ]
+    }
+  ]
+  </script>
+
+  <script src="./assets/packages/mixpanel_flutter/assets/mixpanel.js"></script>
+</head>
+<body>
+  <style>
+    #flutter-loading {
+      position: fixed; inset: 0; display: flex; flex-direction: column;
+      align-items: center; justify-content: center; background: #F5F0E8;
+      z-index: 9999; transition: opacity 0.4s ease;
+    }
+    #flutter-loading.hidden { opacity: 0; pointer-events: none; }
+    #flutter-loading-bar-track { width: 160px; height: 2px; background: #E0DBD4; border-radius: 2px; overflow: hidden; margin-top: 24px; }
+    #flutter-loading-bar { height: 100%; width: 0%; background: #475F45; border-radius: 2px; animation: flutter-indeterminate 1.6s ease-in-out infinite; }
+    #flutter-loading-title { font-family: sans-serif; font-size: 13px; letter-spacing: 3px; color: #7A7E78; margin-top: 16px; }
+    @keyframes flutter-indeterminate { 0% { margin-left: -50%; width: 50%; } 50% { margin-left: 50%; width: 50%; } 100% { margin-left: 100%; width: 50%; } }
+  </style>
+  <div id="flutter-loading">
+    <div id="flutter-loading-bar-track"><div id="flutter-loading-bar"></div></div>
+    <div id="flutter-loading-title">КИЩЕНКО-АРТ</div>
+  </div>
+  <script>
+    window.addEventListener('flutter-first-frame', function() {
+      var el = document.getElementById('flutter-loading');
+      if (el) { el.classList.add('hidden'); setTimeout(function() { el.remove(); }, 500); }
+    });
+  </script>
+
+  <div aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">
+    <h1>Контакты галереи КИЩЕНКО-АРТ</h1>
+
+    <h2>Мастерская</h2>
+    <address>
+      Беларусь, Минск, ул. Сурганова, 44 — 7 этаж
+    </address>
+
+    <h2>Социальные сети</h2>
+    <ul>
+      <li>Instagram — <a href="https://www.instagram.com/kishchenko.art" rel="noopener">@kishchenko.art</a></li>
+      <li>ВКонтакте — <a href="https://vk.com/aleksandrkishchenko" rel="noopener">aleksandrkishchenko</a></li>
+    </ul>
+
+    <p>
+      По вопросам выставок, репродукций и покупки работ Александра Кищенко обращайтесь
+      через указанные каналы или по телефону на странице контактов.
+    </p>
+
+    <nav>
+      <h2>Разделы сайта</h2>
+      <ul>
+        <li><a href="/about-author">Об авторе</a></li>
+        <li><a href="/catalog">Каталог работ</a></li>
+        <li><a href="/news">Новости и выставки</a></li>
+        <li><a href="/films">Документальные фильмы</a></li>
+        <li><a href="/archive">Архив публикаций</a></li>
+      </ul>
+    </nav>
+  </div>
+
+  <script src="flutter_bootstrap.js" async></script>
+</body>
+</html>

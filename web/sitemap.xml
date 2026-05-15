@@ -1,81 +1,112 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Static sitemap with the 6 top-level routes.
+
+  tool/generate_seo.dart (Phase 3) extends this at build time with
+  per-painting (/catalog/<workId>) and per-news (/news/<slug>) URLs
+  pulled from Firebase, plus image:image entries with real Firebase
+  Storage URLs. Do not hand-edit the deep-link section.
+-->
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
-        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+        xmlns:xhtml="http://www.w3.org/1999/xhtml"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
 
   <url>
     <loc>https://kishchanka-art.by/about-author</loc>
-    <xhtml:link rel="alternate" hreflang="ru"      href="https://kishchanka-art.by/about-author"/>
-    <xhtml:link rel="alternate" hreflang="en"      href="https://kishchanka-art.by/about-author"/>
-    <xhtml:link rel="alternate" hreflang="be"      href="https://kishchanka-art.by/about-author"/>
-    <xhtml:link rel="alternate" hreflang="de"      href="https://kishchanka-art.by/about-author"/>
-    <xhtml:link rel="alternate" hreflang="es"      href="https://kishchanka-art.by/about-author"/>
-    <xhtml:link rel="alternate" hreflang="fr"      href="https://kishchanka-art.by/about-author"/>
+    <xhtml:link rel="alternate" hreflang="ru"        href="https://kishchanka-art.by/about-author"/>
+    <xhtml:link rel="alternate" hreflang="en"        href="https://kishchanka-art.by/about-author"/>
+    <xhtml:link rel="alternate" hreflang="be"        href="https://kishchanka-art.by/about-author"/>
+    <xhtml:link rel="alternate" hreflang="de"        href="https://kishchanka-art.by/about-author"/>
+    <xhtml:link rel="alternate" hreflang="es"        href="https://kishchanka-art.by/about-author"/>
+    <xhtml:link rel="alternate" hreflang="fr"        href="https://kishchanka-art.by/about-author"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://kishchanka-art.by/about-author"/>
+    <image:image>
+      <image:loc>https://kishchanka-art.by/icons/Icon-512.png</image:loc>
+      <image:title>Александр Михайлович Кищенко — народный художник Беларуси</image:title>
+      <image:caption>Александр Кищенко (1933–1997), родоначальник «Вселенского реализма»</image:caption>
+    </image:image>
+    <lastmod>2026-05-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
 
   <url>
     <loc>https://kishchanka-art.by/catalog</loc>
-    <xhtml:link rel="alternate" hreflang="ru"      href="https://kishchanka-art.by/catalog"/>
-    <xhtml:link rel="alternate" hreflang="en"      href="https://kishchanka-art.by/catalog"/>
-    <xhtml:link rel="alternate" hreflang="be"      href="https://kishchanka-art.by/catalog"/>
-    <xhtml:link rel="alternate" hreflang="de"      href="https://kishchanka-art.by/catalog"/>
-    <xhtml:link rel="alternate" hreflang="es"      href="https://kishchanka-art.by/catalog"/>
-    <xhtml:link rel="alternate" hreflang="fr"      href="https://kishchanka-art.by/catalog"/>
+    <xhtml:link rel="alternate" hreflang="ru"        href="https://kishchanka-art.by/catalog"/>
+    <xhtml:link rel="alternate" hreflang="en"        href="https://kishchanka-art.by/catalog"/>
+    <xhtml:link rel="alternate" hreflang="be"        href="https://kishchanka-art.by/catalog"/>
+    <xhtml:link rel="alternate" hreflang="de"        href="https://kishchanka-art.by/catalog"/>
+    <xhtml:link rel="alternate" hreflang="es"        href="https://kishchanka-art.by/catalog"/>
+    <xhtml:link rel="alternate" hreflang="fr"        href="https://kishchanka-art.by/catalog"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://kishchanka-art.by/catalog"/>
+    <!--
+      Placeholder image entry — replaced with per-painting Firebase Storage
+      URLs by tool/generate_seo.dart (Phase 3). The Phase 3 script generates
+      one <image:image> block per artwork with image:loc set to the real
+      ImageKit-served Firebase URL.
+    -->
+    <image:image>
+      <image:loc>https://kishchanka-art.by/icons/Icon-512.png</image:loc>
+      <image:title>Каталог работ Александра Кищенко</image:title>
+      <image:caption>Живопись, гобелены и мозаики 1958–1997 годов</image:caption>
+    </image:image>
+    <lastmod>2026-05-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
 
   <url>
     <loc>https://kishchanka-art.by/news</loc>
-    <xhtml:link rel="alternate" hreflang="ru"      href="https://kishchanka-art.by/news"/>
-    <xhtml:link rel="alternate" hreflang="en"      href="https://kishchanka-art.by/news"/>
-    <xhtml:link rel="alternate" hreflang="be"      href="https://kishchanka-art.by/news"/>
-    <xhtml:link rel="alternate" hreflang="de"      href="https://kishchanka-art.by/news"/>
-    <xhtml:link rel="alternate" hreflang="es"      href="https://kishchanka-art.by/news"/>
-    <xhtml:link rel="alternate" hreflang="fr"      href="https://kishchanka-art.by/news"/>
+    <xhtml:link rel="alternate" hreflang="ru"        href="https://kishchanka-art.by/news"/>
+    <xhtml:link rel="alternate" hreflang="en"        href="https://kishchanka-art.by/news"/>
+    <xhtml:link rel="alternate" hreflang="be"        href="https://kishchanka-art.by/news"/>
+    <xhtml:link rel="alternate" hreflang="de"        href="https://kishchanka-art.by/news"/>
+    <xhtml:link rel="alternate" hreflang="es"        href="https://kishchanka-art.by/news"/>
+    <xhtml:link rel="alternate" hreflang="fr"        href="https://kishchanka-art.by/news"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://kishchanka-art.by/news"/>
+    <lastmod>2026-05-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <url>
     <loc>https://kishchanka-art.by/archive</loc>
-    <xhtml:link rel="alternate" hreflang="ru"      href="https://kishchanka-art.by/archive"/>
-    <xhtml:link rel="alternate" hreflang="en"      href="https://kishchanka-art.by/archive"/>
-    <xhtml:link rel="alternate" hreflang="be"      href="https://kishchanka-art.by/archive"/>
-    <xhtml:link rel="alternate" hreflang="de"      href="https://kishchanka-art.by/archive"/>
-    <xhtml:link rel="alternate" hreflang="es"      href="https://kishchanka-art.by/archive"/>
-    <xhtml:link rel="alternate" hreflang="fr"      href="https://kishchanka-art.by/archive"/>
+    <xhtml:link rel="alternate" hreflang="ru"        href="https://kishchanka-art.by/archive"/>
+    <xhtml:link rel="alternate" hreflang="en"        href="https://kishchanka-art.by/archive"/>
+    <xhtml:link rel="alternate" hreflang="be"        href="https://kishchanka-art.by/archive"/>
+    <xhtml:link rel="alternate" hreflang="de"        href="https://kishchanka-art.by/archive"/>
+    <xhtml:link rel="alternate" hreflang="es"        href="https://kishchanka-art.by/archive"/>
+    <xhtml:link rel="alternate" hreflang="fr"        href="https://kishchanka-art.by/archive"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://kishchanka-art.by/archive"/>
+    <lastmod>2026-05-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
 
   <url>
     <loc>https://kishchanka-art.by/films</loc>
-    <xhtml:link rel="alternate" hreflang="ru"      href="https://kishchanka-art.by/films"/>
-    <xhtml:link rel="alternate" hreflang="en"      href="https://kishchanka-art.by/films"/>
-    <xhtml:link rel="alternate" hreflang="be"      href="https://kishchanka-art.by/films"/>
-    <xhtml:link rel="alternate" hreflang="de"      href="https://kishchanka-art.by/films"/>
-    <xhtml:link rel="alternate" hreflang="es"      href="https://kishchanka-art.by/films"/>
-    <xhtml:link rel="alternate" hreflang="fr"      href="https://kishchanka-art.by/films"/>
+    <xhtml:link rel="alternate" hreflang="ru"        href="https://kishchanka-art.by/films"/>
+    <xhtml:link rel="alternate" hreflang="en"        href="https://kishchanka-art.by/films"/>
+    <xhtml:link rel="alternate" hreflang="be"        href="https://kishchanka-art.by/films"/>
+    <xhtml:link rel="alternate" hreflang="de"        href="https://kishchanka-art.by/films"/>
+    <xhtml:link rel="alternate" hreflang="es"        href="https://kishchanka-art.by/films"/>
+    <xhtml:link rel="alternate" hreflang="fr"        href="https://kishchanka-art.by/films"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://kishchanka-art.by/films"/>
+    <lastmod>2026-05-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
 
   <url>
     <loc>https://kishchanka-art.by/contacts</loc>
-    <xhtml:link rel="alternate" hreflang="ru"      href="https://kishchanka-art.by/contacts"/>
-    <xhtml:link rel="alternate" hreflang="en"      href="https://kishchanka-art.by/contacts"/>
-    <xhtml:link rel="alternate" hreflang="be"      href="https://kishchanka-art.by/contacts"/>
-    <xhtml:link rel="alternate" hreflang="de"      href="https://kishchanka-art.by/contacts"/>
-    <xhtml:link rel="alternate" hreflang="es"      href="https://kishchanka-art.by/contacts"/>
-    <xhtml:link rel="alternate" hreflang="fr"      href="https://kishchanka-art.by/contacts"/>
+    <xhtml:link rel="alternate" hreflang="ru"        href="https://kishchanka-art.by/contacts"/>
+    <xhtml:link rel="alternate" hreflang="en"        href="https://kishchanka-art.by/contacts"/>
+    <xhtml:link rel="alternate" hreflang="be"        href="https://kishchanka-art.by/contacts"/>
+    <xhtml:link rel="alternate" hreflang="de"        href="https://kishchanka-art.by/contacts"/>
+    <xhtml:link rel="alternate" hreflang="es"        href="https://kishchanka-art.by/contacts"/>
+    <xhtml:link rel="alternate" hreflang="fr"        href="https://kishchanka-art.by/contacts"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://kishchanka-art.by/contacts"/>
+    <lastmod>2026-05-15</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
   </url>

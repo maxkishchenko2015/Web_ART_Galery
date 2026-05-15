@@ -206,7 +206,12 @@ class _PaintingCard extends StatelessWidget {
               onTap: () => onOpen(painting),
               child: Hero(
                 tag: 'catalog_${painting.pictureId}',
-                child: AspectAwareImage(imageUrl: painting.imageUrl),
+                child: AspectAwareImage(
+                  imageUrl: painting.imageUrl,
+                  semanticLabel:
+                      '$localizedName (${painting.yearOfCreation}) — '
+                      '${PaintingMediumLocalization.resolve(context.t, painting.paintedOnAndHow)}',
+                ),
               ),
             ),
           ),
