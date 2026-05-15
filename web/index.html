@@ -16,6 +16,26 @@
   -->
   <base href="$FLUTTER_BASE_HREF">
 
+  <!--
+    Service-worker kill-switch. Older deploys registered flutter_service_worker.js
+    against this origin; on a redeploy with different asset hashes those cached
+    workers serve stale (now-404) URLs, leaving the page stuck on the loading
+    screen. Unregistering on every load is safe because this build itself is
+    produced with `--pwa-strategy=none`, so no new SW is ever installed.
+  -->
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.getRegistrations().then(function (regs) {
+        for (var i = 0; i < regs.length; i++) { regs[i].unregister(); }
+      }).catch(function () { /* swallow — never block bootstrap */ });
+      if (window.caches && caches.keys) {
+        caches.keys().then(function (keys) {
+          keys.forEach(function (k) { caches.delete(k); });
+        }).catch(function () {});
+      }
+    }
+  </script>
+
   <meta charset="UTF-8">
   <meta content="IE=Edge" http-equiv="X-UA-Compatible">
   <meta name="theme-color" content="#F5F0E8">
