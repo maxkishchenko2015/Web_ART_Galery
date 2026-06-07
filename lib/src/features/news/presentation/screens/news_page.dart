@@ -36,19 +36,24 @@ class _NewsPageView extends StatelessWidget {
     final isCompact = width < KSize.adaptiveExpandedBreakpoint;
     final horizontalPadding = isCompact ? KSize.margin6x : KSize.margin12x * 2;
 
-    return Container(
-      color: context.colors.white,
-      padding: EdgeInsets.symmetric(
-        horizontal: horizontalPadding,
-        vertical: isCompact ? KSize.margin10x : KSize.margin15x,
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          const _NewsHeader(),
-          const SizedBox(height: KSize.margin10x),
-          const _NewsBody(),
-        ],
+    // The app shell does not wrap routed pages in a scroll view, so each
+    // page owns its own scrolling (see FilmsPage / AboutAuthorPage). Without
+    // this the long news list overflows the viewport on small screens.
+    return SingleChildScrollView(
+      child: Container(
+        color: context.colors.white,
+        padding: EdgeInsets.symmetric(
+          horizontal: horizontalPadding,
+          vertical: isCompact ? KSize.margin10x : KSize.margin15x,
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            const _NewsHeader(),
+            const SizedBox(height: KSize.margin10x),
+            const _NewsBody(),
+          ],
+        ),
       ),
     );
   }

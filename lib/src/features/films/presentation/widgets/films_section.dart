@@ -1,14 +1,12 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:url_launcher/url_launcher.dart';
 import 'package:web_art_galery/i18n/strings.g.dart';
 import 'package:web_art_galery/src/features/films/domain/entities/film.dart';
 import 'package:web_art_galery/src/features/films/presentation/cubits/films_cubit.dart';
-import 'package:web_art_galery/src/shared/config/app_colors.dart';
+import 'package:web_art_galery/src/features/films/presentation/film_actions.dart';
+import 'package:web_art_galery/src/features/films/presentation/widgets/film_thumbnail.dart';
 import 'package:web_art_galery/src/shared/config/app_context_extensions.dart';
 import 'package:web_art_galery/src/shared/config/ksize.dart';
-import 'package:web_art_galery/src/shared/telemetry/app_telemetry.dart';
 
 class FilmsSection extends StatelessWidget {
   const FilmsSection({super.key});
@@ -202,17 +200,17 @@ class _FilmFeaturedCard extends StatelessWidget {
 
     return InkWell(
       borderRadius: BorderRadius.circular(KSize.radiusLargeExtra),
-      onTap: () => _openFilm(film),
+      onTap: () => openFilm(film),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          _FilmThumbnail(film: film, featured: true),
+          FilmThumbnail(film: film, featured: true),
           const SizedBox(height: KSize.margin5x),
           Text(filmsCopy.latestLabel.toUpperCase(), style: context.textContent.archiveSectionLabel),
           const SizedBox(height: KSize.margin2x),
-          Text(_localizedTitle(t, film), style: context.textContent.archiveFeaturedTitle),
+          Text(filmTitle(t, film), style: context.textContent.archiveFeaturedTitle),
           const SizedBox(height: KSize.margin3x),
-          Text(_localizedExcerpt(t, film), style: context.textContent.archiveExcerpt),
+          Text(filmExcerpt(t, film), style: context.textContent.archiveExcerpt),
           const SizedBox(height: KSize.margin4x),
           _FilmMetaRow(film: film),
         ],
@@ -232,17 +230,17 @@ class _FilmListCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final t = context.t;
     final isCompact = MediaQuery.sizeOf(context).width < KSize.adaptiveExpandedBreakpoint;
-    final title = _localizedTitle(t, film);
-    final excerpt = _localizedExcerpt(t, film);
+    final title = filmTitle(t, film);
+    final excerpt = filmExcerpt(t, film);
 
     return InkWell(
       borderRadius: BorderRadius.circular(KSize.radiusLarge),
-      onTap: () => _openFilm(film),
+      onTap: () => openFilm(film),
       child: isCompact
           ? Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                _FilmThumbnail(film: film, featured: false),
+                FilmThumbnail(film: film, featured: false),
                 const SizedBox(height: KSize.margin4x),
                 Text(title, style: context.textContent.archiveCardTitle),
                 const SizedBox(height: KSize.margin2x),
@@ -261,7 +259,7 @@ class _FilmListCard extends StatelessWidget {
               children: [
                 SizedBox(
                   width: KSize.newsListArtworkWidth,
-                  child: _FilmThumbnail(film: film, featured: false),
+                  child: FilmThumbnail(film: film, featured: false),
                 ),
                 const SizedBox(width: KSize.margin5x),
                 Expanded(
@@ -300,16 +298,16 @@ class _ReelCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final t = context.t;
-    final title = _localizedTitle(t, reel);
-    final excerpt = _localizedExcerpt(t, reel);
+    final title = filmTitle(t, reel);
+    final excerpt = filmExcerpt(t, reel);
 
     return InkWell(
       borderRadius: BorderRadius.circular(KSize.radiusLarge),
-      onTap: () => _openFilm(reel),
+      onTap: () => openFilm(reel),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          _FilmThumbnail(film: reel, featured: false, aspectRatio: KSize.reelCardAspectRatio),
+          FilmThumbnail(film: reel, featured: false, aspectRatio: KSize.reelCardAspectRatio),
           const SizedBox(height: KSize.margin3x),
           if (title.isNotEmpty) Text(title, style: context.textContent.archiveCardTitle),
           if (excerpt.isNotEmpty) ...[
@@ -324,127 +322,6 @@ class _ReelCard extends StatelessWidget {
           const SizedBox(height: KSize.margin3x),
           _FilmMetaRow(film: reel),
         ],
-      ),
-    );
-  }
-}
-
-// ─── Thumbnail (with red play button overlay) ────────────────────────────────
-
-class _FilmThumbnail extends StatelessWidget {
-  const _FilmThumbnail({
-    required this.film,
-    required this.featured,
-    this.aspectRatio = KSize.filmCardAspectRatio,
-  });
-
-  final Film film;
-  final bool featured;
-  final double aspectRatio;
-
-  @override
-  Widget build(BuildContext context) {
-    final colors = context.colors;
-    final radius = featured ? KSize.radiusLargeExtra : KSize.radiusLarge;
-
-    return ClipRRect(
-      borderRadius: BorderRadius.circular(radius),
-      child: AspectRatio(
-        aspectRatio: aspectRatio,
-        child: Stack(
-          fit: StackFit.expand,
-          children: [
-            // Brand gradient backdrop — also serves as the fallback when the
-            // remote thumbnail fails to load (Drive without public sharing,
-            // Instagram, YouTube tile fetch errors, etc.).
-            DecoratedBox(
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
-                  colors: [colors.forestGreen, colors.darkOlive],
-                ),
-              ),
-            ),
-            if (film.thumbnailUrl.isNotEmpty)
-              CachedNetworkImage(
-                imageUrl: film.thumbnailUrl,
-                fit: BoxFit.cover,
-                fadeInDuration: const Duration(milliseconds: 180),
-                // We deliberately render *no* widget while loading or on
-                // error: the gradient backdrop below keeps the box looking
-                // intentional, while tile failures stay silent (see also
-                // AppTelemetry._isIgnorableError).
-                placeholder: (context, _) => const SizedBox.shrink(),
-                errorWidget: (context, _, _) => const SizedBox.shrink(),
-              ),
-            // Subtle scrim so the chip + play button stay legible on top of
-            // any thumbnail content.
-            DecoratedBox(
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                  colors: [
-                    Colors.black.withAlpha(40),
-                    Colors.black.withAlpha(0),
-                    Colors.black.withAlpha(70),
-                  ],
-                  stops: const [0.0, 0.55, 1.0],
-                ),
-              ),
-            ),
-            // Host chip
-            Positioned(
-              top: featured ? KSize.featuredArtworkChipInset : KSize.regularFilmChipInset,
-              right: featured ? KSize.featuredArtworkChipInset : KSize.regularFilmChipInset,
-              child: Container(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: KSize.margin3x,
-                  vertical: KSize.margin1x,
-                ),
-                decoration: BoxDecoration(
-                  color: colors.newsChipFill,
-                  borderRadius: BorderRadius.circular(KSize.radiusOfRoundButton),
-                  border: Border.all(color: colors.newsChipBorder),
-                ),
-                child: Text(film.hostLabel, style: context.textOnDark.footerSitemapLabel),
-              ),
-            ),
-            // Centered red play button — the visual hook from the screenshot.
-            Center(child: _PlayButton(featured: featured)),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class _PlayButton extends StatelessWidget {
-  const _PlayButton({required this.featured});
-
-  final bool featured;
-
-  @override
-  Widget build(BuildContext context) {
-    final size = featured ? KSize.playButtonSizeFeatured : KSize.playButtonSizeDefault;
-    final iconSize = featured ? KSize.playButtonIconSizeFeatured : KSize.playButtonIconSizeDefault;
-    return IgnorePointer(
-      child: Container(
-        width: size,
-        height: size,
-        decoration: BoxDecoration(
-          shape: BoxShape.circle,
-          color: AppColors.playButtonRed,
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withAlpha(70),
-              blurRadius: KSize.playButtonShadowBlur,
-              offset: const Offset(0, KSize.playButtonShadowOffsetY),
-            ),
-          ],
-        ),
-        child: Icon(Icons.play_arrow_rounded, color: Colors.white, size: iconSize),
       ),
     );
   }
@@ -485,7 +362,7 @@ class _FilmMetaRow extends StatelessWidget {
         MouseRegion(
           cursor: SystemMouseCursors.click,
           child: GestureDetector(
-            onTap: () => _openFilm(film),
+            onTap: () => openFilm(film),
             child: Row(
               mainAxisSize: MainAxisSize.min,
               children: [
@@ -511,30 +388,3 @@ class _FilmMetaRow extends StatelessWidget {
   }
 }
 
-// ─── Helpers ──────────────────────────────────────────────────────────────────
-
-Future<void> _openFilm(Film film) async {
-  AppTelemetry.instance.logEvent(
-    'films_card_opened',
-    params: <String, Object?>{'key': film.key, 'video_id': film.videoId, 'source': film.sourceTag},
-  );
-  await launchUrl(Uri.parse(film.watchUrl), webOnlyWindowName: '_blank');
-}
-
-String _localizedTitle(Translations t, Film film) {
-  final path = 'films.items.${film.key}.title';
-  final value = t[path];
-  if (value is String && value != path) {
-    return value;
-  }
-  return film.key;
-}
-
-String _localizedExcerpt(Translations t, Film film) {
-  final path = 'films.items.${film.key}.excerpt';
-  final value = t[path];
-  if (value is String && value != path) {
-    return value;
-  }
-  return '';
-}

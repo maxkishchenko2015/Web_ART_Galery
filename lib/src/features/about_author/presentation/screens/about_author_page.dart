@@ -6,6 +6,7 @@ import 'package:go_router/go_router.dart';
 import 'package:web_art_galery/i18n/strings.g.dart';
 import 'package:web_art_galery/src/features/about_author/presentation/cubits/about_author_cubit.dart';
 import 'package:web_art_galery/src/features/about_author/presentation/screens/about_author_page_constants.dart';
+import 'package:web_art_galery/src/features/about_author/presentation/widgets/author_films_strip.dart';
 import 'package:web_art_galery/src/navigation/presentation/router/app_routes.dart';
 import 'package:web_art_galery/src/shared/config/app_context_extensions.dart';
 import 'package:web_art_galery/src/shared/config/ksize.dart';
@@ -54,6 +55,7 @@ class _AboutAuthorViewState extends State<_AboutAuthorView> {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           _HeroSection(isCompact: isCompact, onLearnMore: _scrollToBio),
+          AuthorFilmsStrip(isCompact: isCompact),
           _FeatureSection(isCompact: isCompact),
           _BiographySection(key: _bioKey, isCompact: isCompact),
         ],
