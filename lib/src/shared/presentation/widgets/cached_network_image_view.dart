@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:web_art_galery/src/shared/config/app_environment.dart';
 import 'package:web_art_galery/src/shared/config/cache/app_cache_manager.dart';
+import 'package:web_art_galery/src/shared/presentation/widgets/app_loader.dart';
 import 'package:web_art_galery/src/shared/utils/url_launcher_utils.dart';
 
 class CachedNetworkImageView extends StatelessWidget {
@@ -51,8 +52,7 @@ class CachedNetworkImageView extends StatelessWidget {
         width: width,
         height: height,
         fit: fit,
-        progressIndicatorBuilder: (context, _, downloadProgress) =>
-            Center(child: CircularProgressIndicator(value: downloadProgress.progress)),
+        progressIndicatorBuilder: (context, _, _) => const Center(child: AppLoader()),
         errorWidget: (context, url, error) {
           if (!openOriginalOnError) {
             return const Center(child: Icon(Icons.broken_image_outlined));

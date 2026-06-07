@@ -4,6 +4,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:web_art_galery/src/shared/config/app_environment.dart';
 import 'package:web_art_galery/src/shared/config/cache/app_cache_manager.dart';
+import 'package:web_art_galery/src/shared/presentation/widgets/app_loader.dart';
 
 /// Renders a network image at its intrinsic aspect ratio so the gallery
 /// never crops paintings.
@@ -188,8 +189,7 @@ class _AspectAwareImageState extends State<AspectAwareImage> {
       fit: BoxFit.contain,
       width: double.infinity,
       height: double.infinity,
-      progressIndicatorBuilder: (context, _, downloadProgress) =>
-          Center(child: CircularProgressIndicator(value: downloadProgress.progress)),
+      progressIndicatorBuilder: (context, _, _) => const Center(child: AppLoader()),
       errorWidget: (context, _, _) =>
           const Center(child: Icon(Icons.broken_image_outlined)),
     );

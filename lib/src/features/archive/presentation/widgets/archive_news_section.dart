@@ -6,6 +6,7 @@ import 'package:web_art_galery/src/features/archive/domain/entities/archive_news
 import 'package:web_art_galery/src/features/archive/presentation/cubits/archive_cubit.dart';
 import 'package:web_art_galery/src/shared/config/app_context_extensions.dart';
 import 'package:web_art_galery/src/shared/config/ksize.dart';
+import 'package:web_art_galery/src/shared/presentation/widgets/app_loader.dart';
 
 class ArchiveNewsSection extends StatelessWidget {
   const ArchiveNewsSection({super.key});
@@ -25,7 +26,7 @@ class ArchiveNewsSection extends StatelessWidget {
       child: BlocBuilder<ArchiveCubit, ArchiveState>(
         builder: (context, state) {
           return switch (state) {
-            ArchiveInitial() || ArchiveLoading() => const Center(child: CircularProgressIndicator()),
+            ArchiveInitial() || ArchiveLoading() => const Center(child: AppLoader()),
             ArchiveError(:final message) => Center(
               child: Padding(
                 padding: const EdgeInsets.all(KSize.margin4x),

@@ -169,6 +169,9 @@ class KSize {
   static const double circularProgressIndicatorSizeS = 24.0;
   static const double circularProgressIndicatorSizeSStrokeWidth = 3.0;
 
+  /// Size of the app-wide SpinKitCubeGrid loading animation ([AppLoader]).
+  static const double loaderSize = 44.0;
+
   static const int fieldLengthS = 10;
   static const int fieldLengthNormal = 16;
   static const int fieldLengthM = 25;

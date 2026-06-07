@@ -12,6 +12,7 @@ import 'package:web_art_galery/src/features/catalog_of_works/presentation/widget
 import 'package:web_art_galery/src/features/catalog_of_works/presentation/widgets/decade_filter_bar.dart';
 import 'package:web_art_galery/src/shared/config/app_context_extensions.dart';
 import 'package:web_art_galery/src/shared/config/ksize.dart';
+import 'package:web_art_galery/src/shared/presentation/widgets/app_loader.dart';
 import 'package:web_art_galery/src/shared/presentation/widgets/fullscreen_image_viewer.dart';
 import 'package:web_art_galery/src/shared/telemetry/app_telemetry.dart';
 
@@ -39,7 +40,7 @@ class _CatalogOfWorksContent extends StatelessWidget {
       builder: (context, state) {
         return switch (state) {
           CatalogOfWorksInitial() ||
-          CatalogOfWorksLoading() => const Center(child: CircularProgressIndicator()),
+          CatalogOfWorksLoading() => const Center(child: AppLoader()),
           // Errors and the all-filtered-out / empty result share the same
           // wordless visual: rendering raw exception strings (e.g. "Null check
           // operator used on a null value") in production was confusing users.
@@ -139,7 +140,7 @@ class _PaintingsGridState extends State<_PaintingsGrid> {
     // would otherwise be empty during the auto-pager's catch-up phase.
     // Surface a centered spinner so the page doesn't look broken.
     if (widget.isFiltered && widget.paintings.isEmpty && !widget.hasReachedMax) {
-      return const Center(child: CircularProgressIndicator());
+      return const Center(child: AppLoader());
     }
 
     return LayoutBuilder(
@@ -167,7 +168,7 @@ class _PaintingsGridState extends State<_PaintingsGrid> {
           crossAxisSpacing: KSize.margin4x,
           loadingWidget: const Padding(
             padding: EdgeInsets.symmetric(vertical: KSize.margin5x),
-            child: Center(child: CircularProgressIndicator()),
+            child: Center(child: AppLoader()),
           ),
           itemBuilder: (context, index) =>
               _PaintingCard(painting: widget.paintings[index], onOpen: _onPaintingOpened),

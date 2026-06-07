@@ -9,6 +9,7 @@ import 'package:web_art_galery/src/navigation/presentation/router/app_routes.dar
 import 'package:web_art_galery/src/shared/config/app_context_extensions.dart';
 import 'package:web_art_galery/src/shared/config/ksize.dart';
 import 'package:web_art_galery/src/shared/presentation/cubits/app_locale_cubit.dart';
+import 'package:web_art_galery/src/shared/presentation/widgets/app_loader.dart';
 import 'package:web_art_galery/src/shared/presentation/widgets/cached_network_image_view.dart';
 import 'package:web_art_galery/src/shared/utils/url_launcher_utils.dart';
 
@@ -136,7 +137,7 @@ class _LoadingView extends StatelessWidget {
   Widget build(BuildContext context) {
     return const Padding(
       padding: EdgeInsets.symmetric(vertical: KSize.margin15x),
-      child: Center(child: CircularProgressIndicator()),
+      child: Center(child: AppLoader()),
     );
   }
 }

@@ -10,6 +10,7 @@ import 'package:web_art_galery/src/features/about_author/presentation/widgets/au
 import 'package:web_art_galery/src/navigation/presentation/router/app_routes.dart';
 import 'package:web_art_galery/src/shared/config/app_context_extensions.dart';
 import 'package:web_art_galery/src/shared/config/ksize.dart';
+import 'package:web_art_galery/src/shared/presentation/widgets/app_loader.dart';
 import 'package:web_art_galery/src/shared/presentation/widgets/cached_network_image_view.dart';
 import 'package:web_art_galery/src/shared/presentation/widgets/fullscreen_image_viewer.dart';
 import 'package:web_art_galery/src/shared/utils/url_launcher_utils.dart';
@@ -608,16 +609,7 @@ class _AuthorPhotoLoading extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: SizedBox(
-        width: KSize.defaultCircularProgressIndicatorSize,
-        height: KSize.defaultCircularProgressIndicatorSize,
-        child: CircularProgressIndicator(
-          strokeWidth: KSize.defaultCircularProgressIndicatorSizeStrokeWidth,
-          valueColor: AlwaysStoppedAnimation<Color>(context.colors.forestGreen),
-        ),
-      ),
-    );
+    return const Center(child: AppLoader());
   }
 }
 

@@ -9,6 +9,7 @@ import 'package:web_art_galery/src/navigation/presentation/router/app_routes.dar
 import 'package:web_art_galery/src/navigation/presentation/router/screen_name_resolver.dart';
 import 'package:web_art_galery/src/navigation/presentation/screens/app_shell_page.dart';
 import 'package:web_art_galery/src/shared/presentation/screens/placeholder_page.dart';
+import 'package:web_art_galery/src/shared/presentation/widgets/app_loader.dart';
 import 'package:web_art_galery/src/shared/telemetry/app_telemetry.dart';
 
 // Deferred imports — screens listed here are loaded lazily by `loadLibrary()`
@@ -125,7 +126,7 @@ final List<RouteBase> _routes = [
 
 /// Renders a screen whose Dart library has been split out via
 /// `deferred as <name>`. While the chunk is being downloaded the
-/// `CircularProgressIndicator` placeholder fills the shell content area.
+/// [AppLoader] placeholder fills the shell content area.
 /// The Future is cached at the FutureBuilder level so repeat visits to the
 /// same route do not trigger another network round-trip.
 class _DeferredScreen extends StatefulWidget {
@@ -147,7 +148,7 @@ class _DeferredScreenState extends State<_DeferredScreen> {
       future: _ready,
       builder: (context, snapshot) {
         if (snapshot.connectionState != ConnectionState.done) {
-          return const Center(child: CircularProgressIndicator());
+          return const Center(child: AppLoader());
         }
         if (snapshot.hasError) {
           return Center(
