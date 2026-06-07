@@ -7,6 +7,7 @@ import 'package:web_art_galery/i18n/strings.g.dart';
 import 'package:web_art_galery/src/features/news/domain/entities/news_article.dart';
 import 'package:web_art_galery/src/features/news/presentation/cubits/news_list_cubit.dart';
 import 'package:web_art_galery/src/features/news/presentation/widgets/news_list_card.dart';
+import 'package:web_art_galery/src/navigation/presentation/router/app_routes.dart';
 import 'package:web_art_galery/src/shared/config/app_context_extensions.dart';
 import 'package:web_art_galery/src/shared/config/ksize.dart';
 import 'package:web_art_galery/src/shared/presentation/cubits/app_locale_cubit.dart';
@@ -185,6 +186,12 @@ class _ArticleList extends StatelessWidget {
     // fall back to the raw Firestore doc id, which the detail page still
     // resolves via its id-fallback branch.
     final segment = article.hasName ? article.name : article.id;
-    context.push('/news/$segment');
+    // Use `go`, not `push`: go_router only reflects the location in the
+    // browser address bar for declarative navigation (imperative `push`
+    // leaves the URL at `/news` unless optionURLReflectsImperativeAPIs is
+    // set). Because `:articleSlug` is nested under `/news`, `go` still
+    // builds the [NewsPage, NewsDetailPage] stack, so the in-app back
+    // button (context.canPop) and browser back both return to the list.
+    context.go('${AppRoutes.news}/$segment');
   }
 }
