@@ -1,4 +1,4 @@
-# Lighthouse measurement runbook
+.# Lighthouse measurement runbook
 
 Track Core Web Vitals after each SEO phase. The goal is a documented
 baseline → improvement curve, not a one-shot score.

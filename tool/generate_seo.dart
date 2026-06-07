@@ -80,12 +80,7 @@ Future<void> main(List<String> args) async {
       _writeNewsStub(buildDir: buildDir, baseUrl: baseUrl, article: article);
     }
 
-    _extendSitemap(
-      buildDir: buildDir,
-      baseUrl: baseUrl,
-      paintings: paintings,
-      news: news,
-    );
+    _extendSitemap(buildDir: buildDir, baseUrl: baseUrl, paintings: paintings, news: news);
 
     stdout.writeln('Done.');
   } finally {
@@ -136,11 +131,7 @@ Future<List<Map<String, dynamic>>> _listAllDocuments(
     final uri = Uri.https(
       'firestore.googleapis.com',
       '/v1/projects/$projectId/databases/(default)/documents/$collectionPath',
-      <String, String>{
-        'pageSize': '300',
-        'key': apiKey,
-        if (pageToken != null) 'pageToken': pageToken,
-      },
+      <String, String>{'pageSize': '300', 'key': apiKey, 'pageToken': ?pageToken},
     );
     final req = await client.getUrl(uri);
     final res = await req.close();
@@ -176,9 +167,7 @@ Object? _decodeValue(Map<String, dynamic> raw) {
   }
   if (raw.containsKey('arrayValue')) {
     final values = (raw['arrayValue']['values'] as List?) ?? const [];
-    return values
-        .map((v) => _decodeValue(v as Map<String, dynamic>))
-        .toList(growable: false);
+    return values.map((v) => _decodeValue(v as Map<String, dynamic>)).toList(growable: false);
   }
   return null;
 }
@@ -210,9 +199,7 @@ class _Painting {
   factory _Painting.fromDocument(Map<String, dynamic> doc) {
     final fields = _fields(doc);
     final yearRaw = fields['year_of_creation'] ?? fields['year'];
-    final year = yearRaw is int
-        ? yearRaw
-        : int.tryParse(yearRaw?.toString() ?? '') ?? 0;
+    final year = yearRaw is int ? yearRaw : int.tryParse(yearRaw?.toString() ?? '') ?? 0;
     return _Painting(
       pictureId: (fields['pictureId'] ?? _docId(doc)).toString(),
       name: (fields['name'] ?? '').toString(),
@@ -248,9 +235,7 @@ class _NewsArticle {
     if (translationsRaw is Map<String, dynamic>) {
       translationsRaw.forEach((locale, value) {
         if (value is Map) {
-          translations[locale] = value.map(
-            (k, v) => MapEntry(k.toString(), (v ?? '').toString()),
-          );
+          translations[locale] = value.map((k, v) => MapEntry(k.toString(), (v ?? '').toString()));
         }
       });
     }
@@ -312,9 +297,7 @@ void _writePaintingStub({
     'из коллекции Александра Михайловича Кищенко',
   ];
   final description = descriptionParts.join(', ');
-  final image = painting.imageUrl.isNotEmpty
-      ? painting.imageUrl
-      : '$baseUrl/icons/Icon-512.png';
+  final image = painting.imageUrl.isNotEmpty ? painting.imageUrl : '$baseUrl/icons/Icon-512.png';
 
   final jsonLd = jsonEncode([
     {
@@ -350,7 +333,8 @@ void _writePaintingStub({
     ogType: 'article',
     ogImage: image,
     jsonLd: jsonLd,
-    hiddenBlock: '''
+    hiddenBlock:
+        '''
     <h1>${_escapeHtml(painting.name)} (${painting.yearOfCreation})</h1>
     <p>
       <strong>${_escapeHtml(painting.name)}</strong> — произведение
@@ -417,7 +401,8 @@ void _writeNewsStub({
     ogType: 'article',
     ogImage: image,
     jsonLd: jsonLd,
-    hiddenBlock: '''
+    hiddenBlock:
+        '''
     <h1>${_escapeHtml(titleRu)}</h1>
     ${excerptRu.isNotEmpty ? '<p>${_escapeHtml(excerptRu)}</p>' : ''}
     <p>Источник:
@@ -587,7 +572,9 @@ void _extendSitemap({
     }
     final iso = a.publishedAtIso;
     buffer
-      ..writeln('    <lastmod>${iso != null && iso.length >= 10 ? iso.substring(0, 10) : today}</lastmod>')
+      ..writeln(
+        '    <lastmod>${iso != null && iso.length >= 10 ? iso.substring(0, 10) : today}</lastmod>',
+      )
       ..writeln('    <changefreq>monthly</changefreq>')
       ..writeln('    <priority>0.7</priority>')
       ..writeln('  </url>');
@@ -595,7 +582,9 @@ void _extendSitemap({
 
   final updated = original.replaceFirst('</urlset>', '${buffer.toString()}</urlset>');
   file.writeAsStringSync(updated);
-  stdout.writeln('  sitemap:   updated (${paintings.length + news.length} deep-link URLs appended)');
+  stdout.writeln(
+    '  sitemap:   updated (${paintings.length + news.length} deep-link URLs appended)',
+  );
 }
 
 // ── Tiny HTML / XML escapers (avoid pulling in package:html_unescape) ──────

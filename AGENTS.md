@@ -28,3 +28,4 @@ When assisting with this project, read and apply context from all agent skills i
 * [Flutter Web Environment](agent_skills/flutter-web-environment/SKILL.md)
 * [Flutter Web SEO](agent_skills/flutter-web-seo/SKILL.md)
 * [Project Guidelines](agent_skills/project-guidelines/SKILL.md)
+* [Version Bumper](agent_skills/version-bumper/SKILL.md)
