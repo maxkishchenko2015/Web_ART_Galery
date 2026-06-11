@@ -3,8 +3,8 @@ import 'dart:async';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:meta_seo/meta_seo.dart';
 import 'package:go_router/go_router.dart';
+import 'package:meta_seo/meta_seo.dart';
 import 'package:web_art_galery/i18n/strings.g.dart';
 import 'package:web_art_galery/src/features/about_author/presentation/cubits/about_author_cubit.dart';
 import 'package:web_art_galery/src/features/about_author/presentation/cubits/onboarding_tour_cubit.dart';
@@ -43,6 +43,7 @@ class _AboutAuthorView extends StatefulWidget {
 
 class _AboutAuthorViewState extends State<_AboutAuthorView> with OnboardingTourHostMixin {
   final _bioKey = GlobalKey();
+  final _authorPhotoKey = GlobalKey();
   final _tapestryMediaKey = GlobalKey();
   final _chernobylMediaKey = GlobalKey();
 
@@ -61,11 +62,12 @@ class _AboutAuthorViewState extends State<_AboutAuthorView> with OnboardingTourH
 
   @override
   GlobalKey onboardingTourTargetKey(int step) => switch (step) {
+    OnboardingTourSteps.tapestryScale => _tapestryMediaKey,
     OnboardingTourSteps.chernobyl => _chernobylMediaKey,
-    _ => _tapestryMediaKey,
+    _ => _authorPhotoKey,
   };
 
-  // Tooltip copy reuses the matching biography strings, so the tour stays in
+  // Tooltip copy reuses biography strings where it can, so the tour stays in
   // sync with the section texts across all locales.
   @override
   OnboardingTourTooltipData onboardingTourTooltipData(BuildContext context, int step) {
@@ -73,6 +75,15 @@ class _AboutAuthorViewState extends State<_AboutAuthorView> with OnboardingTourH
     final stepLabel = '${step + 1}/${OnboardingTourSteps.count}';
 
     return switch (step) {
+      OnboardingTourSteps.tapestryScale => OnboardingTourTooltipData(
+        stepLabel: stepLabel,
+        title: t.tour.scaleTitle,
+        body: t.tour.scaleBody,
+        buttonLabel: t.tour.next,
+        backLabel: t.tour.back,
+        linkLabel: t.common.learnMore,
+        linkUrl: AboutAuthorPageConstants.tapestryExternalUrl,
+      ),
       OnboardingTourSteps.chernobyl => OnboardingTourTooltipData(
         stepLabel: stepLabel,
         title: t.bio.chernobyl.title,
@@ -80,14 +91,21 @@ class _AboutAuthorViewState extends State<_AboutAuthorView> with OnboardingTourH
         buttonLabel: t.tour.gotIt,
         backLabel: t.tour.back,
       ),
-      // First step (tapestry scale) — no back button.
+      // First step (author origins) — no back button.
       _ => OnboardingTourTooltipData(
         stepLabel: stepLabel,
-        title: t.bio.tapestry.scaleLabel,
-        body: t.bio.tapestry.scale,
+        title: t.tour.originsTitle,
+        body: t.tour.originsBody,
         buttonLabel: t.tour.next,
       ),
     };
+  }
+
+  /// Finishing the final step sends the visitor on to the Films page.
+  @override
+  void onOnboardingTourCompleted() {
+    if (!mounted) return;
+    context.go(AppRoutes.films);
   }
 
   /// Holds the tour back until the section photos are loaded and decoded, so
@@ -110,6 +128,7 @@ class _AboutAuthorViewState extends State<_AboutAuthorView> with OnboardingTourH
     }
 
     final highlightedPhotos = [
+      state.photoAt(AboutAuthorPageConstants.heroPhotoIndex),
       state.photoAt(AboutAuthorPageConstants.tapestryPhotoIndex),
       state.photoAt(AboutAuthorPageConstants.chernobylPhotoIndex),
     ];
@@ -119,8 +138,10 @@ class _AboutAuthorViewState extends State<_AboutAuthorView> with OnboardingTourH
           return;
         }
         try {
-          await precacheImage(CachedNetworkImageView.providerFor(photo.url), context)
-              .timeout(AboutAuthorPageConstants.tourPhotosWaitTimeout);
+          await precacheImage(
+            CachedNetworkImageView.providerFor(photo.url),
+            context,
+          ).timeout(AboutAuthorPageConstants.tourPhotosWaitTimeout);
         } catch (_) {
           // Image fetch failures must not block the tour.
         }
@@ -143,7 +164,7 @@ class _AboutAuthorViewState extends State<_AboutAuthorView> with OnboardingTourH
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          _HeroSection(isCompact: isCompact, onLearnMore: _scrollToBio),
+          _HeroSection(isCompact: isCompact, onLearnMore: _scrollToBio, photoKey: _authorPhotoKey),
           AuthorFilmsStrip(isCompact: isCompact),
           _FeatureSection(isCompact: isCompact),
           _BiographySection(
@@ -161,10 +182,13 @@ class _AboutAuthorViewState extends State<_AboutAuthorView> with OnboardingTourH
 // ─── Hero section ─────────────────────────────────────────────────────────────
 
 class _HeroSection extends StatelessWidget {
-  const _HeroSection({required this.isCompact, required this.onLearnMore});
+  const _HeroSection({required this.isCompact, required this.onLearnMore, required this.photoKey});
 
   final bool isCompact;
   final VoidCallback onLearnMore;
+
+  /// Onboarding-tour anchor on the author portrait.
+  final GlobalKey photoKey;
 
   @override
   Widget build(BuildContext context) {
@@ -192,7 +216,7 @@ class _HeroSection extends StatelessWidget {
           child: _HeroText(headlineSize: headlineSize, onLearnMore: onLearnMore),
         ),
         const SizedBox(width: KSize.margin12x),
-        const Expanded(flex: 3, child: _HeroImage()),
+        Expanded(flex: 3, child: _HeroImage(photoKey: photoKey)),
       ],
     );
   }
@@ -203,7 +227,7 @@ class _HeroSection extends StatelessWidget {
       children: [
         _HeroText(headlineSize: headlineSize, onLearnMore: onLearnMore),
         const SizedBox(height: KSize.margin12x),
-        const _HeroImage(),
+        _HeroImage(photoKey: photoKey),
       ],
     );
   }
@@ -278,19 +302,25 @@ class _HeroButton extends StatelessWidget {
 }
 
 class _HeroImage extends StatelessWidget {
-  const _HeroImage();
+  const _HeroImage({required this.photoKey});
+
+  /// Onboarding-tour anchor on the author portrait.
+  final GlobalKey photoKey;
 
   @override
   Widget build(BuildContext context) {
     final colors = context.colors;
-    return _AuthorPhoto(
-      index: AboutAuthorPageConstants.heroPhotoIndex,
-      aspectRatio: KSize.heroPortraitAspectRatio,
-      borderRadius: BorderRadius.circular(KSize.radius3XL),
-      placeholderBackground: colors.onDarkPlaceholder,
-      placeholderIcon: Icons.palette_outlined,
-      placeholderIconColor: colors.onDarkPlaceholderIcon,
-      placeholderIconSize: KSize.iconHeroPlaceholder,
+    return KeyedSubtree(
+      key: photoKey,
+      child: _AuthorPhoto(
+        index: AboutAuthorPageConstants.heroPhotoIndex,
+        aspectRatio: KSize.heroPortraitAspectRatio,
+        borderRadius: BorderRadius.circular(KSize.radius3XL),
+        placeholderBackground: colors.onDarkPlaceholder,
+        placeholderIcon: Icons.palette_outlined,
+        placeholderIconColor: colors.onDarkPlaceholderIcon,
+        placeholderIconSize: KSize.iconHeroPlaceholder,
+      ),
     );
   }
 }
@@ -419,9 +449,7 @@ class _StatItem extends StatelessWidget {
         // Expanded so long localised labels (e.g. ru "Книга рекордов Гиннесса")
         // wrap onto a second line instead of overflowing the 3/7 column the
         // stat block lives in on narrower desktop widths.
-        Expanded(
-          child: Text(label, style: context.textContent.statLabel),
-        ),
+        Expanded(child: Text(label, style: context.textContent.statLabel)),
       ],
     );
   }
@@ -459,7 +487,9 @@ class _BiographySection extends StatelessWidget {
         children: [
           Text(
             bio.name,
-            style: context.textContent.bioName(isCompact ? KSize.bioNameCompact : KSize.bioNameWide),
+            style: context.textContent.bioName(
+              isCompact ? KSize.bioNameCompact : KSize.bioNameWide,
+            ),
           ),
           const SizedBox(height: KSize.margin3x),
           Text(bio.tagline, style: context.textContent.bioTagline),
@@ -474,7 +504,10 @@ class _BiographySection extends StatelessWidget {
           _BioSectionWithPhoto(
             isCompact: isCompact,
             photoIndex: AboutAuthorPageConstants.universalRealismPhotoIndex,
-            child: _BioSubSection(title: bio.universalRealism.title, body: bio.universalRealism.body),
+            child: _BioSubSection(
+              title: bio.universalRealism.title,
+              body: bio.universalRealism.body,
+            ),
           ),
           const SizedBox(height: KSize.margin12x),
           _BioSectionWithPhoto(
@@ -697,10 +730,7 @@ class _AuthorPhoto extends StatelessWidget {
           child: AspectRatio(
             aspectRatio: aspectRatio,
             child: DecoratedBox(
-              decoration: BoxDecoration(
-                color: placeholderBackground,
-                borderRadius: borderRadius,
-              ),
+              decoration: BoxDecoration(color: placeholderBackground, borderRadius: borderRadius),
               child: inner,
             ),
           ),
@@ -714,11 +744,8 @@ class _AuthorPhoto extends StatelessWidget {
           cursor: SystemMouseCursors.click,
           child: GestureDetector(
             behavior: HitTestBehavior.opaque,
-            onTap: () => FullscreenImageViewer.show(
-              context,
-              imagePathOrUrl: photo.url,
-              heroTag: heroTag,
-            ),
+            onTap: () =>
+                FullscreenImageViewer.show(context, imagePathOrUrl: photo.url, heroTag: heroTag),
             child: frame,
           ),
         );

@@ -5,13 +5,16 @@ import 'package:web_art_galery/src/shared/telemetry/app_telemetry.dart';
 abstract final class OnboardingTourSteps {
   const OnboardingTourSteps._();
 
+  /// Author portrait — origins / "Universal Realism".
+  static const int origins = 0;
+
   /// "Tapestry of the Century" photo — scale / dimensions.
-  static const int tapestryScale = 0;
+  static const int tapestryScale = 1;
 
   /// "Chernobyl" tapestry photo — gifted to the UN headquarters.
-  static const int chernobyl = 1;
+  static const int chernobyl = 2;
 
-  static const int count = 2;
+  static const int count = 3;
 }
 
 class OnboardingTourState {

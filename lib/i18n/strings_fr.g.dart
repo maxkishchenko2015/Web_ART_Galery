@@ -119,6 +119,10 @@ class _Translations$tour$fr extends Translations$tour$ru {
 	@override String get gotIt => 'Compris';
 	@override String get back => 'Retour';
 	@override String get chernobylBody => 'Offerte aux Nations unies, la tapisserie « Tchernobyl » (1991) orne toujours leur siège à New York. Le Secrétaire général de l\'ONU l\'a comparée à « Guernica » de Picasso.';
+	@override String get originsTitle => 'Aux origines du « réalisme universel »';
+	@override String get originsBody => 'Alexandre Mikhaïlovitch Kichtchanka (1933–1997). Peintre. Philosophe. Monumentaliste. Né au hameau de Bely Kolodez (aujourd\'hui district de Boutchar, oblast de Voronej), il a acquis une renommée mondiale.';
+	@override String get scaleTitle => 'L’échelle de la Tapisserie du siècle';
+	@override String get scaleBody => 'Une toile de 19 × 14 mètres (environ 300 m²), pesant plus d\'une tonne — la hauteur d\'un immeuble de cinq étages. Inscrite au Livre Guinness des records.';
 }
 
 // Path: language
@@ -521,7 +525,7 @@ class _Translations$bio$feature$fr extends Translations$bio$feature$ru {
 	@override String get guinnessValue => '1';
 	@override String get guinnessLabel => 'Record Guinness dans l\'art';
 	@override String get unGiftValue => '';
-	@override String get unGiftLabel => 'Un cadeau à l\'ONU';
+	@override String get unGiftLabel => 'Un cadeau à l\'ONU de la République du Bélarus';
 }
 
 // Path: bio.universalRealism
@@ -1024,6 +1028,10 @@ extension on TranslationsFr {
 			'tour.gotIt' => 'Compris',
 			'tour.back' => 'Retour',
 			'tour.chernobylBody' => 'Offerte aux Nations unies, la tapisserie « Tchernobyl » (1991) orne toujours leur siège à New York. Le Secrétaire général de l\'ONU l\'a comparée à « Guernica » de Picasso.',
+			'tour.originsTitle' => 'Aux origines du « réalisme universel »',
+			'tour.originsBody' => 'Alexandre Mikhaïlovitch Kichtchanka (1933–1997). Peintre. Philosophe. Monumentaliste. Né au hameau de Bely Kolodez (aujourd\'hui district de Boutchar, oblast de Voronej), il a acquis une renommée mondiale.',
+			'tour.scaleTitle' => 'L’échelle de la Tapisserie du siècle',
+			'tour.scaleBody' => 'Une toile de 19 × 14 mètres (environ 300 m²), pesant plus d\'une tonne — la hauteur d\'un immeuble de cinq étages. Inscrite au Livre Guinness des records.',
 			'language.label' => 'Langue',
 			'language.russian' => 'Russe',
 			'language.english' => 'Anglais',
@@ -1103,7 +1111,7 @@ extension on TranslationsFr {
 			'bio.feature.guinnessValue' => '1',
 			'bio.feature.guinnessLabel' => 'Record Guinness dans l\'art',
 			'bio.feature.unGiftValue' => '',
-			'bio.feature.unGiftLabel' => 'Un cadeau à l\'ONU',
+			'bio.feature.unGiftLabel' => 'Un cadeau à l\'ONU de la République du Bélarus',
 			'bio.universalRealism.title' => 'Fondateur du Réalisme Universel',
 			'bio.universalRealism.body' => 'Kichtchanka ne se contentait pas de représenter la réalité — il créait un nouveau système de coordonnées, qu\'il appelait le Réalisme Universel. Au coeur de sa méthode réside la conviction que l\'artiste est un tisserand du temps, tenu de relier le passé et l\'avenir. Son art dépassa les frontières nationales, opérant avec les catégories du drame humain mondial. Pour Kichtchanka, l\'homme est un demi-dieu dont les actes résonnent à l\'échelle de l\'Univers. Dans ses oeuvres, les ombres deviennent des formes autonomes, et la couleur une musique cosmique soumise à un ordre supérieur strict.',
 			'bio.tapestry.title' => 'La Tapisserie du Siècle: Le Sommet du Tissage Mondial',

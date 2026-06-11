@@ -6,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:web_art_galery/src/features/about_author/presentation/cubits/onboarding_tour_cubit.dart';
 import 'package:web_art_galery/src/shared/config/app_context_extensions.dart';
 import 'package:web_art_galery/src/shared/config/ksize.dart';
+import 'package:web_art_galery/src/shared/utils/url_launcher_utils.dart';
 
 /// Copy rendered inside a single onboarding tooltip step.
 class OnboardingTourTooltipData {
@@ -15,6 +16,8 @@ class OnboardingTourTooltipData {
     required this.body,
     required this.buttonLabel,
     this.backLabel,
+    this.linkLabel,
+    this.linkUrl,
   });
 
   final String stepLabel;
@@ -24,6 +27,11 @@ class OnboardingTourTooltipData {
 
   /// Secondary "back" action label; the button is hidden when null.
   final String? backLabel;
+
+  /// Optional external link (e.g. the tapestry article); rendered as a
+  /// tappable row above the buttons when both [linkLabel] and [linkUrl] are set.
+  final String? linkLabel;
+  final String? linkUrl;
 }
 
 /// Orchestrates the onboarding tour from a host screen state.
@@ -60,6 +68,11 @@ mixin OnboardingTourHostMixin<T extends StatefulWidget> on State<T> {
   /// Awaited before the tour starts — override to defer the first autoscroll
   /// until the highlighted content (e.g. photos) is actually on screen.
   Future<void> prepareOnboardingTour() async {}
+
+  /// Called once the visitor finishes the final step via its primary button
+  /// (not on an early close). Override to navigate away, etc. The default
+  /// keeps the page where it is.
+  void onOnboardingTourCompleted() {}
 
   void attachOnboardingTour() {
     _tourSubscription = context.read<OnboardingTourCubit>().stream.listen(_handleTourState);
@@ -163,16 +176,23 @@ mixin OnboardingTourHostMixin<T extends StatefulWidget> on State<T> {
 
   /// Tears down the overlay when the tour ends.
   ///
-  /// Finishing the last step (primary button) returns the visitor to the top
-  /// of the page with a smooth scroll. An early dismiss (close button) instead
-  /// pins the current offset, restoring it next frame if anything kicks it
-  /// back (observed on web, where closing the overlay could otherwise jump the
-  /// page to the top).
+  /// Finishing the last step (primary button) hands off to
+  /// [onOnboardingTourCompleted] (e.g. navigate elsewhere). An early dismiss
+  /// (close button) instead pins the current scroll offset, restoring it next
+  /// frame if anything kicks it back (observed on web, where closing the
+  /// overlay could otherwise jump the page to the top).
   void _finishTourOverlay() {
     final completedFully = _completedFully;
     _completedFully = false;
     final lastStep = _visibleStep;
     _visibleStep = null;
+
+    _removeTourOverlay();
+
+    if (completedFully) {
+      onOnboardingTourCompleted();
+      return;
+    }
 
     final targetContext = lastStep == null
         ? null
@@ -180,22 +200,10 @@ mixin OnboardingTourHostMixin<T extends StatefulWidget> on State<T> {
     final position = targetContext == null
         ? null
         : Scrollable.maybeOf(targetContext)?.position;
-    final offset = (position != null && position.hasPixels) ? position.pixels : null;
-
-    _removeTourOverlay();
-
-    if (position == null) {
+    if (position == null || !position.hasPixels) {
       return;
     }
-
-    if (completedFully) {
-      position.animateTo(0, duration: KSize.durationScroll, curve: Curves.easeInOut);
-      return;
-    }
-
-    if (offset == null) {
-      return;
-    }
+    final offset = position.pixels;
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (!mounted || !position.hasPixels) {
         return;
@@ -469,10 +477,10 @@ class _TourBubble extends StatelessWidget {
       constraints: BoxConstraints(maxWidth: maxWidth, maxHeight: maxHeight),
       child: Container(
         padding: const EdgeInsets.fromLTRB(
-          KSize.margin6x,
           KSize.margin5x,
-          KSize.margin6x,
-          KSize.margin6x,
+          KSize.margin4x,
+          KSize.margin5x,
+          KSize.margin5x,
         ),
         decoration: BoxDecoration(
           color: colors.white,
@@ -480,8 +488,8 @@ class _TourBubble extends StatelessWidget {
           boxShadow: [
             BoxShadow(
               color: colors.overlayShadow,
-              blurRadius: KSize.margin6x,
-              offset: const Offset(0, KSize.margin2x),
+              blurRadius: KSize.margin5x,
+              offset: const Offset(0, KSize.margin1Halfx),
             ),
           ],
         ),
@@ -502,7 +510,7 @@ class _TourBubble extends StatelessWidget {
                 ),
               ],
             ),
-            const SizedBox(height: KSize.margin2x),
+            const SizedBox(height: KSize.margin1Halfx),
             Text(data.title, style: text.tourTitle),
             const SizedBox(height: KSize.margin3x),
             // Long step copy (e.g. the Chernobyl story) scrolls inside the
@@ -512,7 +520,11 @@ class _TourBubble extends StatelessWidget {
                 child: Text(data.body, style: text.tourBody),
               ),
             ),
-            const SizedBox(height: KSize.margin5x),
+            if (data.linkLabel != null && data.linkUrl != null) ...[
+              const SizedBox(height: KSize.margin3x),
+              _TourLink(label: data.linkLabel!, url: data.linkUrl!),
+            ],
+            const SizedBox(height: KSize.margin4x),
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
@@ -522,10 +534,42 @@ class _TourBubble extends StatelessWidget {
                     filled: false,
                     onTap: onBack!,
                   ),
-                  const SizedBox(width: KSize.margin3x),
+                  const SizedBox(width: KSize.margin2x),
                 ],
                 _TourPillButton(label: data.buttonLabel, filled: true, onTap: onNext),
               ],
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+/// Tappable external-reference link inside the tour bubble. Mirrors the bio
+/// "open article" link: uppercase forest-green label + outward arrow.
+class _TourLink extends StatelessWidget {
+  const _TourLink({required this.label, required this.url});
+
+  final String label;
+  final String url;
+
+  @override
+  Widget build(BuildContext context) {
+    return MouseRegion(
+      cursor: SystemMouseCursors.click,
+      child: GestureDetector(
+        behavior: HitTestBehavior.opaque,
+        onTap: () => UrlLauncherUtils.launchUrlIfPossible(url: url),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text(label, style: context.textContent.archiveLink),
+            const SizedBox(width: KSize.margin1Halfx),
+            Icon(
+              Icons.arrow_outward_rounded,
+              size: KSize.iconSPlus,
+              color: context.colors.forestGreen,
             ),
           ],
         ),
@@ -554,8 +598,8 @@ class _TourPillButton extends StatelessWidget {
         onTap: onTap,
         child: Container(
           padding: const EdgeInsets.symmetric(
-            horizontal: KSize.margin6x,
-            vertical: KSize.margin3x,
+            horizontal: KSize.margin5x,
+            vertical: KSize.margin2x,
           ),
           decoration: BoxDecoration(
             color: filled ? colors.forestGreen : Colors.transparent,

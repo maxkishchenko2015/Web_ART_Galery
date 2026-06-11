@@ -206,7 +206,11 @@
     "next": "Next",
     "gotIt": "Got it",
     "back": "Back",
-    "chernobylBody": "The Chernobyl tapestry (1991) was gifted to the United Nations and still adorns its New York headquarters. The UN Secretary-General compared it to Picasso's Guernica."
+    "chernobylBody": "The Chernobyl tapestry (1991) was gifted to the United Nations and still adorns its New York headquarters. The UN Secretary-General compared it to Picasso's Guernica.",
+    "originsTitle": "At the origins of \"Universal Realism\"",
+    "originsBody": "Alexander Mikhailovich Kishchanka (1933–1997). Painter. Philosopher. Monumentalist. Born in the hamlet of Bely Kolodez (today the Boguchar District, Voronezh Region), he went on to win worldwide renown.",
+    "scaleTitle": "Scale of the Tapestry of the Century",
+    "scaleBody": "A canvas measuring 19 × 14 metres (about 300 sq. m), weighing over a tonne — as tall as a five-storey building. Listed in the Guinness Book of Records."
   },
   "language": {
     "label": "Language",
@@ -333,7 +337,7 @@
       "guinnessValue": "1",
       "guinnessLabel": "Guinness art record",
       "unGiftValue": "",
-      "unGiftLabel": "A gift to the UN"
+      "unGiftLabel": "A gift to the UN from the Republic of Belarus"
     },
     "universalRealism": {
       "title": "Founder of Universal Realism",

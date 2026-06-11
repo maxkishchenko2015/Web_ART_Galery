@@ -206,7 +206,11 @@
     "next": "Siguiente",
     "gotIt": "Entendido",
     "back": "Atrás",
-    "chernobylBody": "El tapiz «Chernóbil» (1991), donado a las Naciones Unidas, sigue adornando su sede de Nueva York. El Secretario General de la ONU lo comparó con el «Guernica» de Picasso."
+    "chernobylBody": "El tapiz «Chernóbil» (1991), donado a las Naciones Unidas, sigue adornando su sede de Nueva York. El Secretario General de la ONU lo comparó con el «Guernica» de Picasso.",
+    "originsTitle": "En los orígenes del «realismo universal»",
+    "originsBody": "Alexánder Mijáilovich Kishchanka (1933–1997). Pintor. Filósofo. Monumentalista. Nació en la aldea de Bely Kolodez (hoy distrito de Boguchar, óblast de Vorónezh) y alcanzó renombre mundial.",
+    "scaleTitle": "Escala del Tapiz del Siglo",
+    "scaleBody": "Un lienzo de 19 × 14 metros (unos 300 m²), de más de una tonelada — la altura de un edificio de cinco pisos. Inscrito en el Libro Guinness de los Récords."
   },
   "language": {
     "label": "Idioma",
@@ -333,7 +337,7 @@
       "guinnessValue": "1",
       "guinnessLabel": "Récord Guinness en el arte",
       "unGiftValue": "",
-      "unGiftLabel": "Un regalo a la ONU"
+      "unGiftLabel": "Un regalo a la ONU de la República de Belarús"
     },
     "universalRealism": {
       "title": "Fundador del Realismo Universal",

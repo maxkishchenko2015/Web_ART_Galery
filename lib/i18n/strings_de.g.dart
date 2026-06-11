@@ -119,6 +119,10 @@ class _Translations$tour$de extends Translations$tour$ru {
 	@override String get gotIt => 'Verstanden';
 	@override String get back => 'Zurück';
 	@override String get chernobylBody => 'Der Wandteppich „Tschernobyl“ (1991) wurde den Vereinten Nationen geschenkt und schmückt bis heute deren Hauptquartier in New York. Der UN-Generalsekretär verglich ihn mit Picassos „Guernica“.';
+	@override String get originsTitle => 'Am Ursprung des „universellen Realismus“';
+	@override String get originsBody => 'Alexander Michailowitsch Kischtschanka (1933–1997). Maler. Philosoph. Monumentalist. Geboren im Weiler Bely Kolodez (heute Rajon Botschar, Oblast Woronesch), erlangte er Weltruhm.';
+	@override String get scaleTitle => 'Maßstab des Wandteppichs des Jahrhunderts';
+	@override String get scaleBody => 'Eine Leinwand von 19 × 14 Metern (rund 300 m²), über eine Tonne schwer — so hoch wie ein fünfstöckiges Gebäude. Eingetragen im Guinness-Buch der Rekorde.';
 }
 
 // Path: language
@@ -521,7 +525,7 @@ class _Translations$bio$feature$de extends Translations$bio$feature$ru {
 	@override String get guinnessValue => '1';
 	@override String get guinnessLabel => 'Guinness-Rekord der Kunst';
 	@override String get unGiftValue => '';
-	@override String get unGiftLabel => 'Ein Geschenk an die UNO';
+	@override String get unGiftLabel => 'Ein Geschenk der Republik Belarus an die UNO';
 }
 
 // Path: bio.universalRealism
@@ -1024,6 +1028,10 @@ extension on TranslationsDe {
 			'tour.gotIt' => 'Verstanden',
 			'tour.back' => 'Zurück',
 			'tour.chernobylBody' => 'Der Wandteppich „Tschernobyl“ (1991) wurde den Vereinten Nationen geschenkt und schmückt bis heute deren Hauptquartier in New York. Der UN-Generalsekretär verglich ihn mit Picassos „Guernica“.',
+			'tour.originsTitle' => 'Am Ursprung des „universellen Realismus“',
+			'tour.originsBody' => 'Alexander Michailowitsch Kischtschanka (1933–1997). Maler. Philosoph. Monumentalist. Geboren im Weiler Bely Kolodez (heute Rajon Botschar, Oblast Woronesch), erlangte er Weltruhm.',
+			'tour.scaleTitle' => 'Maßstab des Wandteppichs des Jahrhunderts',
+			'tour.scaleBody' => 'Eine Leinwand von 19 × 14 Metern (rund 300 m²), über eine Tonne schwer — so hoch wie ein fünfstöckiges Gebäude. Eingetragen im Guinness-Buch der Rekorde.',
 			'language.label' => 'Sprache',
 			'language.russian' => 'Russisch',
 			'language.english' => 'Englisch',
@@ -1103,7 +1111,7 @@ extension on TranslationsDe {
 			'bio.feature.guinnessValue' => '1',
 			'bio.feature.guinnessLabel' => 'Guinness-Rekord der Kunst',
 			'bio.feature.unGiftValue' => '',
-			'bio.feature.unGiftLabel' => 'Ein Geschenk an die UNO',
+			'bio.feature.unGiftLabel' => 'Ein Geschenk der Republik Belarus an die UNO',
 			'bio.universalRealism.title' => 'Begründer des Universellen Realismus',
 			'bio.universalRealism.body' => 'Kischanka bildete die Wirklichkeit nicht nur ab — er schuf ein neues Koordinatensystem, das er Universellen Realismus nannte. Sein Ansatz beruht auf der Überzeugung, dass der Künstler ein Weben der Zeit ist, der Vergangenheit und Zukunft verbinden muss. Seine Kunst überschritt nationale Grenzen und operierte mit den Kategorien der menschlichen Weltdrama. Für Kischanka ist der Mensch ein Halbgott, dessen Handlungen im Maßstab des Universums widerhallen. In seinen Werken werden Schatten zu eigenständigen Formen, und die Farbe wird zur kosmischen Musik, die einer strengen höheren Ordnung unterliegt.',
 			'bio.tapestry.title' => 'Wandteppich des Jahrhunderts: Gipfel der Weltweberei',

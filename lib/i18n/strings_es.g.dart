@@ -119,6 +119,10 @@ class _Translations$tour$es extends Translations$tour$ru {
 	@override String get gotIt => 'Entendido';
 	@override String get back => 'Atrás';
 	@override String get chernobylBody => 'El tapiz «Chernóbil» (1991), donado a las Naciones Unidas, sigue adornando su sede de Nueva York. El Secretario General de la ONU lo comparó con el «Guernica» de Picasso.';
+	@override String get originsTitle => 'En los orígenes del «realismo universal»';
+	@override String get originsBody => 'Alexánder Mijáilovich Kishchanka (1933–1997). Pintor. Filósofo. Monumentalista. Nació en la aldea de Bely Kolodez (hoy distrito de Boguchar, óblast de Vorónezh) y alcanzó renombre mundial.';
+	@override String get scaleTitle => 'Escala del Tapiz del Siglo';
+	@override String get scaleBody => 'Un lienzo de 19 × 14 metros (unos 300 m²), de más de una tonelada — la altura de un edificio de cinco pisos. Inscrito en el Libro Guinness de los Récords.';
 }
 
 // Path: language
@@ -521,7 +525,7 @@ class _Translations$bio$feature$es extends Translations$bio$feature$ru {
 	@override String get guinnessValue => '1';
 	@override String get guinnessLabel => 'Récord Guinness en el arte';
 	@override String get unGiftValue => '';
-	@override String get unGiftLabel => 'Un regalo a la ONU';
+	@override String get unGiftLabel => 'Un regalo a la ONU de la República de Belarús';
 }
 
 // Path: bio.universalRealism
@@ -1024,6 +1028,10 @@ extension on TranslationsEs {
 			'tour.gotIt' => 'Entendido',
 			'tour.back' => 'Atrás',
 			'tour.chernobylBody' => 'El tapiz «Chernóbil» (1991), donado a las Naciones Unidas, sigue adornando su sede de Nueva York. El Secretario General de la ONU lo comparó con el «Guernica» de Picasso.',
+			'tour.originsTitle' => 'En los orígenes del «realismo universal»',
+			'tour.originsBody' => 'Alexánder Mijáilovich Kishchanka (1933–1997). Pintor. Filósofo. Monumentalista. Nació en la aldea de Bely Kolodez (hoy distrito de Boguchar, óblast de Vorónezh) y alcanzó renombre mundial.',
+			'tour.scaleTitle' => 'Escala del Tapiz del Siglo',
+			'tour.scaleBody' => 'Un lienzo de 19 × 14 metros (unos 300 m²), de más de una tonelada — la altura de un edificio de cinco pisos. Inscrito en el Libro Guinness de los Récords.',
 			'language.label' => 'Idioma',
 			'language.russian' => 'Ruso',
 			'language.english' => 'Ingles',
@@ -1103,7 +1111,7 @@ extension on TranslationsEs {
 			'bio.feature.guinnessValue' => '1',
 			'bio.feature.guinnessLabel' => 'Récord Guinness en el arte',
 			'bio.feature.unGiftValue' => '',
-			'bio.feature.unGiftLabel' => 'Un regalo a la ONU',
+			'bio.feature.unGiftLabel' => 'Un regalo a la ONU de la República de Belarús',
 			'bio.universalRealism.title' => 'Fundador del Realismo Universal',
 			'bio.universalRealism.body' => 'Kishchanka no sólo representaba la realidad — creaba un nuevo sistema de coordenadas, al que llamó Realismo Universal. La base de su método es la convicción de que el artista es un tejedor del tiempo, obligado a conectar el pasado y el futuro. Su arte trascendió las fronteras nacionales, operando en términos del drama humano global. Para Kishchanka, el hombre es un semidiós cuyos actos resuenan a escala universal. En sus obras, las sombras se convierten en formas independientes, y el color en música cósmica sujeta a un estricto orden superior.',
 			'bio.tapestry.title' => 'El Tapiz del Siglo: La Cima del Arte Textil Mundial',

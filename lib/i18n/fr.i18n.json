@@ -206,7 +206,11 @@
     "next": "Suivant",
     "gotIt": "Compris",
     "back": "Retour",
-    "chernobylBody": "Offerte aux Nations unies, la tapisserie « Tchernobyl » (1991) orne toujours leur siège à New York. Le Secrétaire général de l'ONU l'a comparée à « Guernica » de Picasso."
+    "chernobylBody": "Offerte aux Nations unies, la tapisserie « Tchernobyl » (1991) orne toujours leur siège à New York. Le Secrétaire général de l'ONU l'a comparée à « Guernica » de Picasso.",
+    "originsTitle": "Aux origines du « réalisme universel »",
+    "originsBody": "Alexandre Mikhaïlovitch Kichtchanka (1933–1997). Peintre. Philosophe. Monumentaliste. Né au hameau de Bely Kolodez (aujourd'hui district de Boutchar, oblast de Voronej), il a acquis une renommée mondiale.",
+    "scaleTitle": "L’échelle de la Tapisserie du siècle",
+    "scaleBody": "Une toile de 19 × 14 mètres (environ 300 m²), pesant plus d'une tonne — la hauteur d'un immeuble de cinq étages. Inscrite au Livre Guinness des records."
   },
   "language": {
     "label": "Langue",
@@ -333,7 +337,7 @@
       "guinnessValue": "1",
       "guinnessLabel": "Record Guinness dans l'art",
       "unGiftValue": "",
-      "unGiftLabel": "Un cadeau à l'ONU"
+      "unGiftLabel": "Un cadeau à l'ONU de la République du Bélarus"
     },
     "universalRealism": {
       "title": "Fondateur du Réalisme Universel",

@@ -119,6 +119,10 @@ class _Translations$tour$en extends Translations$tour$ru {
 	@override String get gotIt => 'Got it';
 	@override String get back => 'Back';
 	@override String get chernobylBody => 'The Chernobyl tapestry (1991) was gifted to the United Nations and still adorns its New York headquarters. The UN Secretary-General compared it to Picasso\'s Guernica.';
+	@override String get originsTitle => 'At the origins of "Universal Realism"';
+	@override String get originsBody => 'Alexander Mikhailovich Kishchanka (1933–1997). Painter. Philosopher. Monumentalist. Born in the hamlet of Bely Kolodez (today the Boguchar District, Voronezh Region), he went on to win worldwide renown.';
+	@override String get scaleTitle => 'Scale of the Tapestry of the Century';
+	@override String get scaleBody => 'A canvas measuring 19 × 14 metres (about 300 sq. m), weighing over a tonne — as tall as a five-storey building. Listed in the Guinness Book of Records.';
 }
 
 // Path: language
@@ -521,7 +525,7 @@ class _Translations$bio$feature$en extends Translations$bio$feature$ru {
 	@override String get guinnessValue => '1';
 	@override String get guinnessLabel => 'Guinness art record';
 	@override String get unGiftValue => '';
-	@override String get unGiftLabel => 'A gift to the UN';
+	@override String get unGiftLabel => 'A gift to the UN from the Republic of Belarus';
 }
 
 // Path: bio.universalRealism
@@ -1024,6 +1028,10 @@ extension on TranslationsEn {
 			'tour.gotIt' => 'Got it',
 			'tour.back' => 'Back',
 			'tour.chernobylBody' => 'The Chernobyl tapestry (1991) was gifted to the United Nations and still adorns its New York headquarters. The UN Secretary-General compared it to Picasso\'s Guernica.',
+			'tour.originsTitle' => 'At the origins of "Universal Realism"',
+			'tour.originsBody' => 'Alexander Mikhailovich Kishchanka (1933–1997). Painter. Philosopher. Monumentalist. Born in the hamlet of Bely Kolodez (today the Boguchar District, Voronezh Region), he went on to win worldwide renown.',
+			'tour.scaleTitle' => 'Scale of the Tapestry of the Century',
+			'tour.scaleBody' => 'A canvas measuring 19 × 14 metres (about 300 sq. m), weighing over a tonne — as tall as a five-storey building. Listed in the Guinness Book of Records.',
 			'language.label' => 'Language',
 			'language.russian' => 'Russian',
 			'language.english' => 'English',
@@ -1103,7 +1111,7 @@ extension on TranslationsEn {
 			'bio.feature.guinnessValue' => '1',
 			'bio.feature.guinnessLabel' => 'Guinness art record',
 			'bio.feature.unGiftValue' => '',
-			'bio.feature.unGiftLabel' => 'A gift to the UN',
+			'bio.feature.unGiftLabel' => 'A gift to the UN from the Republic of Belarus',
 			'bio.universalRealism.title' => 'Founder of Universal Realism',
 			'bio.universalRealism.body' => 'Kishchanka did not merely depict reality — he created a new system of coordinates, which he called Universal Realism. At the heart of his method lies the conviction that the artist is a weaver of time, obligated to connect past and future. His art transcended national boundaries, operating in terms of global human drama. For Kishchanka, man is a demigod whose actions resonate on a universal scale. In his works, shadows become autonomous forms, and colour becomes cosmic music subject to a strict higher order.',
 			'bio.tapestry.title' => 'Tapestry of the Century: The Pinnacle of World Weaving',

@@ -206,7 +206,11 @@
     "next": "Weiter",
     "gotIt": "Verstanden",
     "back": "Zurück",
-    "chernobylBody": "Der Wandteppich „Tschernobyl“ (1991) wurde den Vereinten Nationen geschenkt und schmückt bis heute deren Hauptquartier in New York. Der UN-Generalsekretär verglich ihn mit Picassos „Guernica“."
+    "chernobylBody": "Der Wandteppich „Tschernobyl“ (1991) wurde den Vereinten Nationen geschenkt und schmückt bis heute deren Hauptquartier in New York. Der UN-Generalsekretär verglich ihn mit Picassos „Guernica“.",
+    "originsTitle": "Am Ursprung des „universellen Realismus“",
+    "originsBody": "Alexander Michailowitsch Kischtschanka (1933–1997). Maler. Philosoph. Monumentalist. Geboren im Weiler Bely Kolodez (heute Rajon Botschar, Oblast Woronesch), erlangte er Weltruhm.",
+    "scaleTitle": "Maßstab des Wandteppichs des Jahrhunderts",
+    "scaleBody": "Eine Leinwand von 19 × 14 Metern (rund 300 m²), über eine Tonne schwer — so hoch wie ein fünfstöckiges Gebäude. Eingetragen im Guinness-Buch der Rekorde."
   },
   "language": {
     "label": "Sprache",
@@ -333,7 +337,7 @@
       "guinnessValue": "1",
       "guinnessLabel": "Guinness-Rekord der Kunst",
       "unGiftValue": "",
-      "unGiftLabel": "Ein Geschenk an die UNO"
+      "unGiftLabel": "Ein Geschenk der Republik Belarus an die UNO"
     },
     "universalRealism": {
       "title": "Begründer des Universellen Realismus",
