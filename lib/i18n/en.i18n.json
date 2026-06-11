@@ -202,6 +202,12 @@
       "openExternally": "Open externally"
     }
   },
+  "tour": {
+    "next": "Next",
+    "gotIt": "Got it",
+    "back": "Back",
+    "chernobylBody": "The Chernobyl tapestry (1991) was gifted to the United Nations and still adorns its New York headquarters. The UN Secretary-General compared it to Picasso's Guernica."
+  },
   "language": {
     "label": "Language",
     "russian": "Russian",
@@ -325,7 +331,9 @@
       "panelsValue": "6+",
       "panelsLabel": "Monumental panels in Minsk",
       "guinnessValue": "1",
-      "guinnessLabel": "Guinness art record"
+      "guinnessLabel": "Guinness art record",
+      "unGiftValue": "",
+      "unGiftLabel": "A gift to the UN"
     },
     "universalRealism": {
       "title": "Founder of Universal Realism",

@@ -202,6 +202,12 @@
       "openExternally": "Ouvrir en externe"
     }
   },
+  "tour": {
+    "next": "Suivant",
+    "gotIt": "Compris",
+    "back": "Retour",
+    "chernobylBody": "Offerte aux Nations unies, la tapisserie « Tchernobyl » (1991) orne toujours leur siège à New York. Le Secrétaire général de l'ONU l'a comparée à « Guernica » de Picasso."
+  },
   "language": {
     "label": "Langue",
     "russian": "Russe",
@@ -325,7 +331,9 @@
       "panelsValue": "6+",
       "panelsLabel": "Panneaux monumentaux à Minsk",
       "guinnessValue": "1",
-      "guinnessLabel": "Record Guinness dans l'art"
+      "guinnessLabel": "Record Guinness dans l'art",
+      "unGiftValue": "",
+      "unGiftLabel": "Un cadeau à l'ONU"
     },
     "universalRealism": {
       "title": "Fondateur du Réalisme Universel",

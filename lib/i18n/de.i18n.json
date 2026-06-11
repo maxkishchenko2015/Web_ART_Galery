@@ -202,6 +202,12 @@
       "openExternally": "Extern öffnen"
     }
   },
+  "tour": {
+    "next": "Weiter",
+    "gotIt": "Verstanden",
+    "back": "Zurück",
+    "chernobylBody": "Der Wandteppich „Tschernobyl“ (1991) wurde den Vereinten Nationen geschenkt und schmückt bis heute deren Hauptquartier in New York. Der UN-Generalsekretär verglich ihn mit Picassos „Guernica“."
+  },
   "language": {
     "label": "Sprache",
     "russian": "Russisch",
@@ -325,7 +331,9 @@
       "panelsValue": "6+",
       "panelsLabel": "Monumentale Tafeln in Minsk",
       "guinnessValue": "1",
-      "guinnessLabel": "Guinness-Rekord der Kunst"
+      "guinnessLabel": "Guinness-Rekord der Kunst",
+      "unGiftValue": "",
+      "unGiftLabel": "Ein Geschenk an die UNO"
     },
     "universalRealism": {
       "title": "Begründer des Universellen Realismus",

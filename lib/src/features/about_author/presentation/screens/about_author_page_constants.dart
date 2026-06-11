@@ -6,6 +6,10 @@
 abstract final class AboutAuthorPageConstants {
   const AboutAuthorPageConstants._();
 
+  /// Longest the onboarding tour waits for the section photos (Firestore
+  /// fetch, then image bytes) before starting anyway.
+  static const Duration tourPhotosWaitTimeout = Duration(seconds: 8);
+
   // ── Pinned photo indices ─────────────────────────────────────────────────
 
   static const int heroPhotoIndex = 0;

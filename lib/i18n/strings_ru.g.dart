@@ -40,22 +40,23 @@ class Translations with BaseTranslations<AppLocale, Translations> {
 	Translations $copyWith({TranslationMetadata<AppLocale, Translations>? meta}) => Translations(meta: meta ?? this.$meta);
 
 	// Translations
-	late final TranslationsAppRu app = TranslationsAppRu.internal(_root);
-	late final TranslationsNavigationRu navigation = TranslationsNavigationRu.internal(_root);
-	late final TranslationsCatalogRu catalog = TranslationsCatalogRu.internal(_root);
-	late final TranslationsCommonRu common = TranslationsCommonRu.internal(_root);
-	late final TranslationsLanguageRu language = TranslationsLanguageRu.internal(_root);
-	late final TranslationsArchiveFeedRu archiveFeed = TranslationsArchiveFeedRu.internal(_root);
-	late final TranslationsFilmsRu films = TranslationsFilmsRu.internal(_root);
-	late final TranslationsNewsFeedRu newsFeed = TranslationsNewsFeedRu.internal(_root);
-	late final TranslationsBioRu bio = TranslationsBioRu.internal(_root);
-	late final TranslationsContactsRu contacts = TranslationsContactsRu.internal(_root);
-	late final TranslationsSeoRu seo = TranslationsSeoRu.internal(_root);
+	late final Translations$app$ru app = Translations$app$ru.internal(_root);
+	late final Translations$navigation$ru navigation = Translations$navigation$ru.internal(_root);
+	late final Translations$catalog$ru catalog = Translations$catalog$ru.internal(_root);
+	late final Translations$common$ru common = Translations$common$ru.internal(_root);
+	late final Translations$tour$ru tour = Translations$tour$ru.internal(_root);
+	late final Translations$language$ru language = Translations$language$ru.internal(_root);
+	late final Translations$archiveFeed$ru archiveFeed = Translations$archiveFeed$ru.internal(_root);
+	late final Translations$films$ru films = Translations$films$ru.internal(_root);
+	late final Translations$newsFeed$ru newsFeed = Translations$newsFeed$ru.internal(_root);
+	late final Translations$bio$ru bio = Translations$bio$ru.internal(_root);
+	late final Translations$contacts$ru contacts = Translations$contacts$ru.internal(_root);
+	late final Translations$seo$ru seo = Translations$seo$ru.internal(_root);
 }
 
 // Path: app
-class TranslationsAppRu {
-	TranslationsAppRu.internal(this._root);
+class Translations$app$ru {
+	Translations$app$ru.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
@@ -72,8 +73,8 @@ class TranslationsAppRu {
 }
 
 // Path: navigation
-class TranslationsNavigationRu {
-	TranslationsNavigationRu.internal(this._root);
+class Translations$navigation$ru {
+	Translations$navigation$ru.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
@@ -99,8 +100,8 @@ class TranslationsNavigationRu {
 }
 
 // Path: catalog
-class TranslationsCatalogRu {
-	TranslationsCatalogRu.internal(this._root);
+class Translations$catalog$ru {
+	Translations$catalog$ru.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
@@ -115,14 +116,14 @@ class TranslationsCatalogRu {
 	/// ru: 'Не удалось загрузить картины. ${message}'
 	String errorWithDetails({required Object message}) => 'Не удалось загрузить картины. ${message}';
 
-	late final TranslationsCatalogDecadeRu decade = TranslationsCatalogDecadeRu.internal(_root);
-	late final TranslationsCatalogPaintingNamesRu paintingNames = TranslationsCatalogPaintingNamesRu.internal(_root);
-	late final TranslationsCatalogPaintingMediumsRu paintingMediums = TranslationsCatalogPaintingMediumsRu.internal(_root);
+	late final Translations$catalog$decade$ru decade = Translations$catalog$decade$ru.internal(_root);
+	late final Translations$catalog$paintingNames$ru paintingNames = Translations$catalog$paintingNames$ru.internal(_root);
+	late final Translations$catalog$paintingMediums$ru paintingMediums = Translations$catalog$paintingMediums$ru.internal(_root);
 }
 
 // Path: common
-class TranslationsCommonRu {
-	TranslationsCommonRu.internal(this._root);
+class Translations$common$ru {
+	Translations$common$ru.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
@@ -137,12 +138,33 @@ class TranslationsCommonRu {
 	/// ru: 'ПОДРОБНЕЕ'
 	String get learnMore => 'ПОДРОБНЕЕ';
 
-	late final TranslationsCommonVideoRu video = TranslationsCommonVideoRu.internal(_root);
+	late final Translations$common$video$ru video = Translations$common$video$ru.internal(_root);
+}
+
+// Path: tour
+class Translations$tour$ru {
+	Translations$tour$ru.internal(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// ru: 'Далее'
+	String get next => 'Далее';
+
+	/// ru: 'Понятно'
+	String get gotIt => 'Понятно';
+
+	/// ru: 'Назад'
+	String get back => 'Назад';
+
+	/// ru: 'Гобелен «Чернобыль» (1991) передан в дар ООН и сегодня украшает её штаб-квартиру в Нью-Йорке. Генеральный секретарь ООН сравнил его с «Герникой» Пикассо.'
+	String get chernobylBody => 'Гобелен «Чернобыль» (1991) передан в дар ООН и сегодня украшает её штаб-квартиру в Нью-Йорке. Генеральный секретарь ООН сравнил его с «Герникой» Пикассо.';
 }
 
 // Path: language
-class TranslationsLanguageRu {
-	TranslationsLanguageRu.internal(this._root);
+class Translations$language$ru {
+	Translations$language$ru.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
@@ -171,8 +193,8 @@ class TranslationsLanguageRu {
 }
 
 // Path: archiveFeed
-class TranslationsArchiveFeedRu {
-	TranslationsArchiveFeedRu.internal(this._root);
+class Translations$archiveFeed$ru {
+	Translations$archiveFeed$ru.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
@@ -196,12 +218,12 @@ class TranslationsArchiveFeedRu {
 	/// ru: '${year} год'
 	String yearLabel({required Object year}) => '${year} год';
 
-	late final TranslationsArchiveFeedItemsRu items = TranslationsArchiveFeedItemsRu.internal(_root);
+	late final Translations$archiveFeed$items$ru items = Translations$archiveFeed$items$ru.internal(_root);
 }
 
 // Path: films
-class TranslationsFilmsRu {
-	TranslationsFilmsRu.internal(this._root);
+class Translations$films$ru {
+	Translations$films$ru.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
@@ -225,13 +247,13 @@ class TranslationsFilmsRu {
 	/// ru: 'Короткие видео и истории'
 	String get instagramSubtitle => 'Короткие видео и истории';
 
-	late final TranslationsFilmsWatchOnRu watchOn = TranslationsFilmsWatchOnRu.internal(_root);
-	late final TranslationsFilmsItemsRu items = TranslationsFilmsItemsRu.internal(_root);
+	late final Translations$films$watchOn$ru watchOn = Translations$films$watchOn$ru.internal(_root);
+	late final Translations$films$items$ru items = Translations$films$items$ru.internal(_root);
 }
 
 // Path: newsFeed
-class TranslationsNewsFeedRu {
-	TranslationsNewsFeedRu.internal(this._root);
+class Translations$newsFeed$ru {
+	Translations$newsFeed$ru.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
@@ -272,8 +294,8 @@ class TranslationsNewsFeedRu {
 }
 
 // Path: bio
-class TranslationsBioRu {
-	TranslationsBioRu.internal(this._root);
+class Translations$bio$ru {
+	Translations$bio$ru.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
@@ -297,12 +319,12 @@ class TranslationsBioRu {
 	/// ru: 'Александр Кищенко — фигура ренессансного масштаба в искусстве XX века. Человек, сумевший превратить мягкую нить гобелена в мощное архитектурное высказывание, а стены городов — в открытые книги философских смыслов. Его творчество — это мост между архаикой и космосом, между болью земли и светом далеких галактик.'
 	String get intro => 'Александр Кищенко — фигура ренессансного масштаба в искусстве XX века. Человек, сумевший превратить мягкую нить гобелена в мощное архитектурное высказывание, а стены городов — в открытые книги философских смыслов. Его творчество — это мост между архаикой и космосом, между болью земли и светом далеких галактик.';
 
-	late final TranslationsBioFeatureRu feature = TranslationsBioFeatureRu.internal(_root);
-	late final TranslationsBioUniversalRealismRu universalRealism = TranslationsBioUniversalRealismRu.internal(_root);
-	late final TranslationsBioTapestryRu tapestry = TranslationsBioTapestryRu.internal(_root);
-	late final TranslationsBioChernobylRu chernobyl = TranslationsBioChernobylRu.internal(_root);
-	late final TranslationsBioMosaicRu mosaic = TranslationsBioMosaicRu.internal(_root);
-	late final TranslationsBioLegacyRu legacy = TranslationsBioLegacyRu.internal(_root);
+	late final Translations$bio$feature$ru feature = Translations$bio$feature$ru.internal(_root);
+	late final Translations$bio$universalRealism$ru universalRealism = Translations$bio$universalRealism$ru.internal(_root);
+	late final Translations$bio$tapestry$ru tapestry = Translations$bio$tapestry$ru.internal(_root);
+	late final Translations$bio$chernobyl$ru chernobyl = Translations$bio$chernobyl$ru.internal(_root);
+	late final Translations$bio$mosaic$ru mosaic = Translations$bio$mosaic$ru.internal(_root);
+	late final Translations$bio$legacy$ru legacy = Translations$bio$legacy$ru.internal(_root);
 
 	/// ru: 'Искусство – это божественное явление. Только ему дано остановить время. Искусство может разгадать Тайну будущего, А также восстановить Потерянное прошлое.'
 	String get quote => 'Искусство – это божественное явление. Только ему дано остановить время. Искусство может разгадать Тайну будущего, А также восстановить Потерянное прошлое.';
@@ -315,8 +337,8 @@ class TranslationsBioRu {
 }
 
 // Path: contacts
-class TranslationsContactsRu {
-	TranslationsContactsRu.internal(this._root);
+class Translations$contacts$ru {
+	Translations$contacts$ru.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
@@ -363,23 +385,23 @@ class TranslationsContactsRu {
 }
 
 // Path: seo
-class TranslationsSeoRu {
-	TranslationsSeoRu.internal(this._root);
+class Translations$seo$ru {
+	Translations$seo$ru.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
 	// Translations
-	late final TranslationsSeoAboutAuthorRu aboutAuthor = TranslationsSeoAboutAuthorRu.internal(_root);
-	late final TranslationsSeoCatalogRu catalog = TranslationsSeoCatalogRu.internal(_root);
-	late final TranslationsSeoNewsRu news = TranslationsSeoNewsRu.internal(_root);
-	late final TranslationsSeoFilmsRu films = TranslationsSeoFilmsRu.internal(_root);
-	late final TranslationsSeoArchiveRu archive = TranslationsSeoArchiveRu.internal(_root);
-	late final TranslationsSeoContactsRu contacts = TranslationsSeoContactsRu.internal(_root);
+	late final Translations$seo$aboutAuthor$ru aboutAuthor = Translations$seo$aboutAuthor$ru.internal(_root);
+	late final Translations$seo$catalog$ru catalog = Translations$seo$catalog$ru.internal(_root);
+	late final Translations$seo$news$ru news = Translations$seo$news$ru.internal(_root);
+	late final Translations$seo$films$ru films = Translations$seo$films$ru.internal(_root);
+	late final Translations$seo$archive$ru archive = Translations$seo$archive$ru.internal(_root);
+	late final Translations$seo$contacts$ru contacts = Translations$seo$contacts$ru.internal(_root);
 }
 
 // Path: catalog.decade
-class TranslationsCatalogDecadeRu {
-	TranslationsCatalogDecadeRu.internal(this._root);
+class Translations$catalog$decade$ru {
+	Translations$catalog$decade$ru.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
@@ -402,8 +424,8 @@ class TranslationsCatalogDecadeRu {
 }
 
 // Path: catalog.paintingNames
-class TranslationsCatalogPaintingNamesRu {
-	TranslationsCatalogPaintingNamesRu.internal(this._root);
+class Translations$catalog$paintingNames$ru {
+	Translations$catalog$paintingNames$ru.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
@@ -894,8 +916,8 @@ class TranslationsCatalogPaintingNamesRu {
 }
 
 // Path: catalog.paintingMediums
-class TranslationsCatalogPaintingMediumsRu {
-	TranslationsCatalogPaintingMediumsRu.internal(this._root);
+class Translations$catalog$paintingMediums$ru {
+	Translations$catalog$paintingMediums$ru.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
@@ -915,8 +937,8 @@ class TranslationsCatalogPaintingMediumsRu {
 }
 
 // Path: common.video
-class TranslationsCommonVideoRu {
-	TranslationsCommonVideoRu.internal(this._root);
+class Translations$common$video$ru {
+	Translations$common$video$ru.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
@@ -930,23 +952,23 @@ class TranslationsCommonVideoRu {
 }
 
 // Path: archiveFeed.items
-class TranslationsArchiveFeedItemsRu {
-	TranslationsArchiveFeedItemsRu.internal(this._root);
+class Translations$archiveFeed$items$ru {
+	Translations$archiveFeed$items$ru.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
 	// Translations
-	late final TranslationsArchiveFeedItemsBoguchar2026Ru boguchar2026 = TranslationsArchiveFeedItemsBoguchar2026Ru.internal(_root);
-	late final TranslationsArchiveFeedItemsPriorbankChtobyChuvstvovatRu priorbankChtobyChuvstvovat = TranslationsArchiveFeedItemsPriorbankChtobyChuvstvovatRu.internal(_root);
-	late final TranslationsArchiveFeedItemsNitiSudbyRu nitiSudby = TranslationsArchiveFeedItemsNitiSudbyRu.internal(_root);
-	late final TranslationsArchiveFeedItemsBoguchar2024Ru boguchar2024 = TranslationsArchiveFeedItemsBoguchar2024Ru.internal(_root);
-	late final TranslationsArchiveFeedItemsBelgazprombankKraskiPobedyRu belgazprombankKraskiPobedy = TranslationsArchiveFeedItemsBelgazprombankKraskiPobedyRu.internal(_root);
-	late final TranslationsArchiveFeedItemsNebaZiamljaRu nebaZiamlja = TranslationsArchiveFeedItemsNebaZiamljaRu.internal(_root);
+	late final Translations$archiveFeed$items$boguchar2026$ru boguchar2026 = Translations$archiveFeed$items$boguchar2026$ru.internal(_root);
+	late final Translations$archiveFeed$items$priorbankChtobyChuvstvovat$ru priorbankChtobyChuvstvovat = Translations$archiveFeed$items$priorbankChtobyChuvstvovat$ru.internal(_root);
+	late final Translations$archiveFeed$items$nitiSudby$ru nitiSudby = Translations$archiveFeed$items$nitiSudby$ru.internal(_root);
+	late final Translations$archiveFeed$items$boguchar2024$ru boguchar2024 = Translations$archiveFeed$items$boguchar2024$ru.internal(_root);
+	late final Translations$archiveFeed$items$belgazprombankKraskiPobedy$ru belgazprombankKraskiPobedy = Translations$archiveFeed$items$belgazprombankKraskiPobedy$ru.internal(_root);
+	late final Translations$archiveFeed$items$nebaZiamlja$ru nebaZiamlja = Translations$archiveFeed$items$nebaZiamlja$ru.internal(_root);
 }
 
 // Path: films.watchOn
-class TranslationsFilmsWatchOnRu {
-	TranslationsFilmsWatchOnRu.internal(this._root);
+class Translations$films$watchOn$ru {
+	Translations$films$watchOn$ru.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
@@ -963,26 +985,26 @@ class TranslationsFilmsWatchOnRu {
 }
 
 // Path: films.items
-class TranslationsFilmsItemsRu {
-	TranslationsFilmsItemsRu.internal(this._root);
+class Translations$films$items$ru {
+	Translations$films$items$ru.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
 	// Translations
-	late final TranslationsFilmsItemsIspovedVremeniRu ispovedVremeni = TranslationsFilmsItemsIspovedVremeniRu.internal(_root);
-	late final TranslationsFilmsItemsAleksandrKishchenkoRu aleksandrKishchenko = TranslationsFilmsItemsAleksandrKishchenkoRu.internal(_root);
-	late final TranslationsFilmsItemsVoronezhKramskoyExhibitionRu voronezhKramskoyExhibition = TranslationsFilmsItemsVoronezhKramskoyExhibitionRu.internal(_root);
-	late final TranslationsFilmsItemsMastersOfSovietArt1988Ru mastersOfSovietArt1988 = TranslationsFilmsItemsMastersOfSovietArt1988Ru.internal(_root);
-	late final TranslationsFilmsItemsBogucharLectureRu bogucharLecture = TranslationsFilmsItemsBogucharLectureRu.internal(_root);
-	late final TranslationsFilmsItemsCulturalCodesTapestriesRu culturalCodesTapestries = TranslationsFilmsItemsCulturalCodesTapestriesRu.internal(_root);
-	late final TranslationsFilmsItemsTapestryOfCenturyMinskRu tapestryOfCenturyMinsk = TranslationsFilmsItemsTapestryOfCenturyMinskRu.internal(_root);
-	late final TranslationsFilmsItemsChernobylTapestryFactsRu chernobylTapestryFacts = TranslationsFilmsItemsChernobylTapestryFactsRu.internal(_root);
-	late final TranslationsFilmsItemsKishchenkoReel1Ru kishchenkoReel1 = TranslationsFilmsItemsKishchenkoReel1Ru.internal(_root);
+	late final Translations$films$items$ispovedVremeni$ru ispovedVremeni = Translations$films$items$ispovedVremeni$ru.internal(_root);
+	late final Translations$films$items$aleksandrKishchenko$ru aleksandrKishchenko = Translations$films$items$aleksandrKishchenko$ru.internal(_root);
+	late final Translations$films$items$voronezhKramskoyExhibition$ru voronezhKramskoyExhibition = Translations$films$items$voronezhKramskoyExhibition$ru.internal(_root);
+	late final Translations$films$items$mastersOfSovietArt1988$ru mastersOfSovietArt1988 = Translations$films$items$mastersOfSovietArt1988$ru.internal(_root);
+	late final Translations$films$items$bogucharLecture$ru bogucharLecture = Translations$films$items$bogucharLecture$ru.internal(_root);
+	late final Translations$films$items$culturalCodesTapestries$ru culturalCodesTapestries = Translations$films$items$culturalCodesTapestries$ru.internal(_root);
+	late final Translations$films$items$tapestryOfCenturyMinsk$ru tapestryOfCenturyMinsk = Translations$films$items$tapestryOfCenturyMinsk$ru.internal(_root);
+	late final Translations$films$items$chernobylTapestryFacts$ru chernobylTapestryFacts = Translations$films$items$chernobylTapestryFacts$ru.internal(_root);
+	late final Translations$films$items$kishchenkoReel1$ru kishchenkoReel1 = Translations$films$items$kishchenkoReel1$ru.internal(_root);
 }
 
 // Path: bio.feature
-class TranslationsBioFeatureRu {
-	TranslationsBioFeatureRu.internal(this._root);
+class Translations$bio$feature$ru {
+	Translations$bio$feature$ru.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
@@ -1014,11 +1036,17 @@ class TranslationsBioFeatureRu {
 
 	/// ru: 'Рекорд Гиннесса в искусстве'
 	String get guinnessLabel => 'Рекорд Гиннесса в искусстве';
+
+	/// ru: ''
+	String get unGiftValue => '';
+
+	/// ru: 'Подарок ООН'
+	String get unGiftLabel => 'Подарок ООН';
 }
 
 // Path: bio.universalRealism
-class TranslationsBioUniversalRealismRu {
-	TranslationsBioUniversalRealismRu.internal(this._root);
+class Translations$bio$universalRealism$ru {
+	Translations$bio$universalRealism$ru.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
@@ -1032,8 +1060,8 @@ class TranslationsBioUniversalRealismRu {
 }
 
 // Path: bio.tapestry
-class TranslationsBioTapestryRu {
-	TranslationsBioTapestryRu.internal(this._root);
+class Translations$bio$tapestry$ru {
+	Translations$bio$tapestry$ru.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
@@ -1065,8 +1093,8 @@ class TranslationsBioTapestryRu {
 }
 
 // Path: bio.chernobyl
-class TranslationsBioChernobylRu {
-	TranslationsBioChernobylRu.internal(this._root);
+class Translations$bio$chernobyl$ru {
+	Translations$bio$chernobyl$ru.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
@@ -1080,8 +1108,8 @@ class TranslationsBioChernobylRu {
 }
 
 // Path: bio.mosaic
-class TranslationsBioMosaicRu {
-	TranslationsBioMosaicRu.internal(this._root);
+class Translations$bio$mosaic$ru {
+	Translations$bio$mosaic$ru.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
@@ -1104,8 +1132,8 @@ class TranslationsBioMosaicRu {
 }
 
 // Path: bio.legacy
-class TranslationsBioLegacyRu {
-	TranslationsBioLegacyRu.internal(this._root);
+class Translations$bio$legacy$ru {
+	Translations$bio$legacy$ru.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
@@ -1119,8 +1147,8 @@ class TranslationsBioLegacyRu {
 }
 
 // Path: seo.aboutAuthor
-class TranslationsSeoAboutAuthorRu {
-	TranslationsSeoAboutAuthorRu.internal(this._root);
+class Translations$seo$aboutAuthor$ru {
+	Translations$seo$aboutAuthor$ru.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
@@ -1137,8 +1165,8 @@ class TranslationsSeoAboutAuthorRu {
 }
 
 // Path: seo.catalog
-class TranslationsSeoCatalogRu {
-	TranslationsSeoCatalogRu.internal(this._root);
+class Translations$seo$catalog$ru {
+	Translations$seo$catalog$ru.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
@@ -1155,8 +1183,8 @@ class TranslationsSeoCatalogRu {
 }
 
 // Path: seo.news
-class TranslationsSeoNewsRu {
-	TranslationsSeoNewsRu.internal(this._root);
+class Translations$seo$news$ru {
+	Translations$seo$news$ru.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
@@ -1173,8 +1201,8 @@ class TranslationsSeoNewsRu {
 }
 
 // Path: seo.films
-class TranslationsSeoFilmsRu {
-	TranslationsSeoFilmsRu.internal(this._root);
+class Translations$seo$films$ru {
+	Translations$seo$films$ru.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
@@ -1191,8 +1219,8 @@ class TranslationsSeoFilmsRu {
 }
 
 // Path: seo.archive
-class TranslationsSeoArchiveRu {
-	TranslationsSeoArchiveRu.internal(this._root);
+class Translations$seo$archive$ru {
+	Translations$seo$archive$ru.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
@@ -1209,8 +1237,8 @@ class TranslationsSeoArchiveRu {
 }
 
 // Path: seo.contacts
-class TranslationsSeoContactsRu {
-	TranslationsSeoContactsRu.internal(this._root);
+class Translations$seo$contacts$ru {
+	Translations$seo$contacts$ru.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
@@ -1227,8 +1255,8 @@ class TranslationsSeoContactsRu {
 }
 
 // Path: archiveFeed.items.boguchar2026
-class TranslationsArchiveFeedItemsBoguchar2026Ru {
-	TranslationsArchiveFeedItemsBoguchar2026Ru.internal(this._root);
+class Translations$archiveFeed$items$boguchar2026$ru {
+	Translations$archiveFeed$items$boguchar2026$ru.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
@@ -1242,8 +1270,8 @@ class TranslationsArchiveFeedItemsBoguchar2026Ru {
 }
 
 // Path: archiveFeed.items.priorbankChtobyChuvstvovat
-class TranslationsArchiveFeedItemsPriorbankChtobyChuvstvovatRu {
-	TranslationsArchiveFeedItemsPriorbankChtobyChuvstvovatRu.internal(this._root);
+class Translations$archiveFeed$items$priorbankChtobyChuvstvovat$ru {
+	Translations$archiveFeed$items$priorbankChtobyChuvstvovat$ru.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
@@ -1257,8 +1285,8 @@ class TranslationsArchiveFeedItemsPriorbankChtobyChuvstvovatRu {
 }
 
 // Path: archiveFeed.items.nitiSudby
-class TranslationsArchiveFeedItemsNitiSudbyRu {
-	TranslationsArchiveFeedItemsNitiSudbyRu.internal(this._root);
+class Translations$archiveFeed$items$nitiSudby$ru {
+	Translations$archiveFeed$items$nitiSudby$ru.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
@@ -1272,8 +1300,8 @@ class TranslationsArchiveFeedItemsNitiSudbyRu {
 }
 
 // Path: archiveFeed.items.boguchar2024
-class TranslationsArchiveFeedItemsBoguchar2024Ru {
-	TranslationsArchiveFeedItemsBoguchar2024Ru.internal(this._root);
+class Translations$archiveFeed$items$boguchar2024$ru {
+	Translations$archiveFeed$items$boguchar2024$ru.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
@@ -1287,8 +1315,8 @@ class TranslationsArchiveFeedItemsBoguchar2024Ru {
 }
 
 // Path: archiveFeed.items.belgazprombankKraskiPobedy
-class TranslationsArchiveFeedItemsBelgazprombankKraskiPobedyRu {
-	TranslationsArchiveFeedItemsBelgazprombankKraskiPobedyRu.internal(this._root);
+class Translations$archiveFeed$items$belgazprombankKraskiPobedy$ru {
+	Translations$archiveFeed$items$belgazprombankKraskiPobedy$ru.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
@@ -1302,8 +1330,8 @@ class TranslationsArchiveFeedItemsBelgazprombankKraskiPobedyRu {
 }
 
 // Path: archiveFeed.items.nebaZiamlja
-class TranslationsArchiveFeedItemsNebaZiamljaRu {
-	TranslationsArchiveFeedItemsNebaZiamljaRu.internal(this._root);
+class Translations$archiveFeed$items$nebaZiamlja$ru {
+	Translations$archiveFeed$items$nebaZiamlja$ru.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
@@ -1317,8 +1345,8 @@ class TranslationsArchiveFeedItemsNebaZiamljaRu {
 }
 
 // Path: films.items.ispovedVremeni
-class TranslationsFilmsItemsIspovedVremeniRu {
-	TranslationsFilmsItemsIspovedVremeniRu.internal(this._root);
+class Translations$films$items$ispovedVremeni$ru {
+	Translations$films$items$ispovedVremeni$ru.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
@@ -1332,8 +1360,8 @@ class TranslationsFilmsItemsIspovedVremeniRu {
 }
 
 // Path: films.items.aleksandrKishchenko
-class TranslationsFilmsItemsAleksandrKishchenkoRu {
-	TranslationsFilmsItemsAleksandrKishchenkoRu.internal(this._root);
+class Translations$films$items$aleksandrKishchenko$ru {
+	Translations$films$items$aleksandrKishchenko$ru.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
@@ -1347,8 +1375,8 @@ class TranslationsFilmsItemsAleksandrKishchenkoRu {
 }
 
 // Path: films.items.voronezhKramskoyExhibition
-class TranslationsFilmsItemsVoronezhKramskoyExhibitionRu {
-	TranslationsFilmsItemsVoronezhKramskoyExhibitionRu.internal(this._root);
+class Translations$films$items$voronezhKramskoyExhibition$ru {
+	Translations$films$items$voronezhKramskoyExhibition$ru.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
@@ -1362,8 +1390,8 @@ class TranslationsFilmsItemsVoronezhKramskoyExhibitionRu {
 }
 
 // Path: films.items.mastersOfSovietArt1988
-class TranslationsFilmsItemsMastersOfSovietArt1988Ru {
-	TranslationsFilmsItemsMastersOfSovietArt1988Ru.internal(this._root);
+class Translations$films$items$mastersOfSovietArt1988$ru {
+	Translations$films$items$mastersOfSovietArt1988$ru.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
@@ -1377,8 +1405,8 @@ class TranslationsFilmsItemsMastersOfSovietArt1988Ru {
 }
 
 // Path: films.items.bogucharLecture
-class TranslationsFilmsItemsBogucharLectureRu {
-	TranslationsFilmsItemsBogucharLectureRu.internal(this._root);
+class Translations$films$items$bogucharLecture$ru {
+	Translations$films$items$bogucharLecture$ru.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
@@ -1392,8 +1420,8 @@ class TranslationsFilmsItemsBogucharLectureRu {
 }
 
 // Path: films.items.culturalCodesTapestries
-class TranslationsFilmsItemsCulturalCodesTapestriesRu {
-	TranslationsFilmsItemsCulturalCodesTapestriesRu.internal(this._root);
+class Translations$films$items$culturalCodesTapestries$ru {
+	Translations$films$items$culturalCodesTapestries$ru.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
@@ -1407,8 +1435,8 @@ class TranslationsFilmsItemsCulturalCodesTapestriesRu {
 }
 
 // Path: films.items.tapestryOfCenturyMinsk
-class TranslationsFilmsItemsTapestryOfCenturyMinskRu {
-	TranslationsFilmsItemsTapestryOfCenturyMinskRu.internal(this._root);
+class Translations$films$items$tapestryOfCenturyMinsk$ru {
+	Translations$films$items$tapestryOfCenturyMinsk$ru.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
@@ -1422,8 +1450,8 @@ class TranslationsFilmsItemsTapestryOfCenturyMinskRu {
 }
 
 // Path: films.items.chernobylTapestryFacts
-class TranslationsFilmsItemsChernobylTapestryFactsRu {
-	TranslationsFilmsItemsChernobylTapestryFactsRu.internal(this._root);
+class Translations$films$items$chernobylTapestryFacts$ru {
+	Translations$films$items$chernobylTapestryFacts$ru.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
@@ -1437,8 +1465,8 @@ class TranslationsFilmsItemsChernobylTapestryFactsRu {
 }
 
 // Path: films.items.kishchenkoReel1
-class TranslationsFilmsItemsKishchenkoReel1Ru {
-	TranslationsFilmsItemsKishchenkoReel1Ru.internal(this._root);
+class Translations$films$items$kishchenkoReel1$ru {
+	Translations$films$items$kishchenkoReel1$ru.internal(this._root);
 
 	final Translations _root; // ignore: unused_field
 
@@ -1646,6 +1674,10 @@ extension on Translations {
 			'common.learnMore' => 'ПОДРОБНЕЕ',
 			'common.video.loadError' => 'Не удалось загрузить видео',
 			'common.video.openExternally' => 'Открыть во внешнем плеере',
+			'tour.next' => 'Далее',
+			'tour.gotIt' => 'Понятно',
+			'tour.back' => 'Назад',
+			'tour.chernobylBody' => 'Гобелен «Чернобыль» (1991) передан в дар ООН и сегодня украшает её штаб-квартиру в Нью-Йорке. Генеральный секретарь ООН сравнил его с «Герникой» Пикассо.',
 			'language.label' => 'Язык',
 			'language.russian' => 'Русский',
 			'language.english' => 'English',
@@ -1724,6 +1756,8 @@ extension on Translations {
 			'bio.feature.panelsLabel' => 'Монументальные панно в Минске',
 			'bio.feature.guinnessValue' => '1',
 			'bio.feature.guinnessLabel' => 'Рекорд Гиннесса в искусстве',
+			'bio.feature.unGiftValue' => '',
+			'bio.feature.unGiftLabel' => 'Подарок ООН',
 			'bio.universalRealism.title' => 'Родоначальник «Вселенского реализма»',
 			'bio.universalRealism.body' => 'Кищенко не просто отображал действительность — он создавал новую систему координат, которую назвал Вселенским реализмом. В основе его метода лежит убеждение, что художник — это «ткач времени», обязанный соединять прошлое и будущее. Его искусство вышло за рамки национальных границ, оперируя категориями глобальной человеческой драмы. Для Кищенко человек — это полубог, чьи поступки резонируют в масштабах Вселенной. В его работах тени становятся самостоятельными формами, а цвет — «космической музыкой», подчиненной строгому высшему порядку.',
 			'bio.tapestry.title' => '«Гобелен века»: Вершина мирового ткачества',

@@ -82,9 +82,9 @@ class CachedNetworkImageView extends StatelessWidget {
   // `CachedNetworkImage`, otherwise the network loader treats the relative path
   // as a URL and shows the broken-image fallback. Used by the About Author
   // fallback photos that ship in the bundle when Firebase is unreachable.
-  bool _isAssetPath(String raw) => raw.startsWith('assets/') || raw.startsWith('asset://');
+  static bool _isAssetPath(String raw) => raw.startsWith('assets/') || raw.startsWith('asset://');
 
-  String _resolveImageUrl(String raw) {
+  static String _resolveUrl(String raw, {required bool useImageKitEndpoint}) {
     final uri = Uri.tryParse(raw);
     final isAbsolute = uri != null && uri.hasScheme && uri.host.isNotEmpty;
 
@@ -93,5 +93,21 @@ class CachedNetworkImageView extends StatelessWidget {
     }
 
     return AppEnvironment.imagekitImageUrl(raw);
+  }
+
+  String _resolveImageUrl(String raw) => _resolveUrl(raw, useImageKitEndpoint: useImageKitEndpoint);
+
+  /// Provider matching what this widget renders for [imagePathOrUrl], backed
+  /// by the same [AppCacheManager] — lets callers `precacheImage` a photo so
+  /// it is already decoded when the widget appears (e.g. before the
+  /// onboarding tour highlights it).
+  static ImageProvider providerFor(String imagePathOrUrl, {bool useImageKitEndpoint = true}) {
+    if (_isAssetPath(imagePathOrUrl)) {
+      return AssetImage(imagePathOrUrl);
+    }
+    return CachedNetworkImageProvider(
+      _resolveUrl(imagePathOrUrl, useImageKitEndpoint: useImageKitEndpoint),
+      cacheManager: AppCacheManager(),
+    );
   }
 }

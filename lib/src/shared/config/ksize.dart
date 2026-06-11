@@ -378,4 +378,21 @@ class KSize {
 
   // Scaffolds
   static const double bottomBarPadding = 120.0;
+
+  // ── Onboarding tour (about-author guided tooltips) ──────────────────────
+
+  /// Maximum width of a tour tooltip bubble.
+  static const double tourTooltipMaxWidth = 360;
+
+  /// Fraction of the viewport height a tour tooltip may occupy before its
+  /// body starts scrolling internally. Kept below half the screen so the
+  /// highlighted widget stays visible even on small phones.
+  static const double tourTooltipMaxHeightFactor = 0.4;
+
+  /// Tooltip pointer triangle: base width and tip length.
+  static const double tourArrowWidth = 18;
+  static const double tourArrowLength = 10;
+
+  /// Pause after the first frame before the first-visit tour autoscrolls.
+  static const Duration durationTourStartDelay = Duration(milliseconds: 900);
 }

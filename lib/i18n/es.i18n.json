@@ -202,6 +202,12 @@
       "openExternally": "Abrir externamente"
     }
   },
+  "tour": {
+    "next": "Siguiente",
+    "gotIt": "Entendido",
+    "back": "Atrás",
+    "chernobylBody": "El tapiz «Chernóbil» (1991), donado a las Naciones Unidas, sigue adornando su sede de Nueva York. El Secretario General de la ONU lo comparó con el «Guernica» de Picasso."
+  },
   "language": {
     "label": "Idioma",
     "russian": "Ruso",
@@ -325,7 +331,9 @@
       "panelsValue": "6+",
       "panelsLabel": "Paneles monumentales en Minsk",
       "guinnessValue": "1",
-      "guinnessLabel": "Récord Guinness en el arte"
+      "guinnessLabel": "Récord Guinness en el arte",
+      "unGiftValue": "",
+      "unGiftLabel": "Un regalo a la ONU"
     },
     "universalRealism": {
       "title": "Fundador del Realismo Universal",

@@ -39,22 +39,23 @@ class TranslationsBe extends Translations with BaseTranslations<AppLocale, Trans
 	TranslationsBe $copyWith({TranslationMetadata<AppLocale, Translations>? meta}) => TranslationsBe(meta: meta ?? this.$meta);
 
 	// Translations
-	@override late final _TranslationsAppBe app = _TranslationsAppBe._(_root);
-	@override late final _TranslationsNavigationBe navigation = _TranslationsNavigationBe._(_root);
-	@override late final _TranslationsCatalogBe catalog = _TranslationsCatalogBe._(_root);
-	@override late final _TranslationsCommonBe common = _TranslationsCommonBe._(_root);
-	@override late final _TranslationsLanguageBe language = _TranslationsLanguageBe._(_root);
-	@override late final _TranslationsArchiveFeedBe archiveFeed = _TranslationsArchiveFeedBe._(_root);
-	@override late final _TranslationsFilmsBe films = _TranslationsFilmsBe._(_root);
-	@override late final _TranslationsNewsFeedBe newsFeed = _TranslationsNewsFeedBe._(_root);
-	@override late final _TranslationsBioBe bio = _TranslationsBioBe._(_root);
-	@override late final _TranslationsContactsBe contacts = _TranslationsContactsBe._(_root);
-	@override late final _TranslationsSeoBe seo = _TranslationsSeoBe._(_root);
+	@override late final _Translations$app$be app = _Translations$app$be._(_root);
+	@override late final _Translations$navigation$be navigation = _Translations$navigation$be._(_root);
+	@override late final _Translations$catalog$be catalog = _Translations$catalog$be._(_root);
+	@override late final _Translations$common$be common = _Translations$common$be._(_root);
+	@override late final _Translations$tour$be tour = _Translations$tour$be._(_root);
+	@override late final _Translations$language$be language = _Translations$language$be._(_root);
+	@override late final _Translations$archiveFeed$be archiveFeed = _Translations$archiveFeed$be._(_root);
+	@override late final _Translations$films$be films = _Translations$films$be._(_root);
+	@override late final _Translations$newsFeed$be newsFeed = _Translations$newsFeed$be._(_root);
+	@override late final _Translations$bio$be bio = _Translations$bio$be._(_root);
+	@override late final _Translations$contacts$be contacts = _Translations$contacts$be._(_root);
+	@override late final _Translations$seo$be seo = _Translations$seo$be._(_root);
 }
 
 // Path: app
-class _TranslationsAppBe extends TranslationsAppRu {
-	_TranslationsAppBe._(TranslationsBe root) : this._root = root, super.internal(root);
+class _Translations$app$be extends Translations$app$ru {
+	_Translations$app$be._(TranslationsBe root) : this._root = root, super.internal(root);
 
 	final TranslationsBe _root; // ignore: unused_field
 
@@ -65,8 +66,8 @@ class _TranslationsAppBe extends TranslationsAppRu {
 }
 
 // Path: navigation
-class _TranslationsNavigationBe extends TranslationsNavigationRu {
-	_TranslationsNavigationBe._(TranslationsBe root) : this._root = root, super.internal(root);
+class _Translations$navigation$be extends Translations$navigation$ru {
+	_Translations$navigation$be._(TranslationsBe root) : this._root = root, super.internal(root);
 
 	final TranslationsBe _root; // ignore: unused_field
 
@@ -80,8 +81,8 @@ class _TranslationsNavigationBe extends TranslationsNavigationRu {
 }
 
 // Path: catalog
-class _TranslationsCatalogBe extends TranslationsCatalogRu {
-	_TranslationsCatalogBe._(TranslationsBe root) : this._root = root, super.internal(root);
+class _Translations$catalog$be extends Translations$catalog$ru {
+	_Translations$catalog$be._(TranslationsBe root) : this._root = root, super.internal(root);
 
 	final TranslationsBe _root; // ignore: unused_field
 
@@ -89,14 +90,14 @@ class _TranslationsCatalogBe extends TranslationsCatalogRu {
 	@override String get workPrefix => 'Праца';
 	@override String get errorTitle => 'Не атрымалася загрузіць карціны';
 	@override String errorWithDetails({required Object message}) => 'Не атрымалася загрузіць карціны. ${message}';
-	@override late final _TranslationsCatalogDecadeBe decade = _TranslationsCatalogDecadeBe._(_root);
-	@override late final _TranslationsCatalogPaintingNamesBe paintingNames = _TranslationsCatalogPaintingNamesBe._(_root);
-	@override late final _TranslationsCatalogPaintingMediumsBe paintingMediums = _TranslationsCatalogPaintingMediumsBe._(_root);
+	@override late final _Translations$catalog$decade$be decade = _Translations$catalog$decade$be._(_root);
+	@override late final _Translations$catalog$paintingNames$be paintingNames = _Translations$catalog$paintingNames$be._(_root);
+	@override late final _Translations$catalog$paintingMediums$be paintingMediums = _Translations$catalog$paintingMediums$be._(_root);
 }
 
 // Path: common
-class _TranslationsCommonBe extends TranslationsCommonRu {
-	_TranslationsCommonBe._(TranslationsBe root) : this._root = root, super.internal(root);
+class _Translations$common$be extends Translations$common$ru {
+	_Translations$common$be._(TranslationsBe root) : this._root = root, super.internal(root);
 
 	final TranslationsBe _root; // ignore: unused_field
 
@@ -104,12 +105,25 @@ class _TranslationsCommonBe extends TranslationsCommonRu {
 	@override String get pageNotFound => 'Старонка не знойдзена';
 	@override String get viewCatalog => 'ПАГЛЯДЗЕЦЬ КАТАЛОГ';
 	@override String get learnMore => 'ПАДРАБЯЗНЕЙ';
-	@override late final _TranslationsCommonVideoBe video = _TranslationsCommonVideoBe._(_root);
+	@override late final _Translations$common$video$be video = _Translations$common$video$be._(_root);
+}
+
+// Path: tour
+class _Translations$tour$be extends Translations$tour$ru {
+	_Translations$tour$be._(TranslationsBe root) : this._root = root, super.internal(root);
+
+	final TranslationsBe _root; // ignore: unused_field
+
+	// Translations
+	@override String get next => 'Далей';
+	@override String get gotIt => 'Зразумела';
+	@override String get back => 'Назад';
+	@override String get chernobylBody => 'Габелен «Чарнобыль» (1991) перададзены ў дар ААН і сёння ўпрыгожвае яе штаб-кватэру ў Нью-Ёрку. Генеральны сакратар ААН параўнаў яго з «Гернікай» Пікаса.';
 }
 
 // Path: language
-class _TranslationsLanguageBe extends TranslationsLanguageRu {
-	_TranslationsLanguageBe._(TranslationsBe root) : this._root = root, super.internal(root);
+class _Translations$language$be extends Translations$language$ru {
+	_Translations$language$be._(TranslationsBe root) : this._root = root, super.internal(root);
 
 	final TranslationsBe _root; // ignore: unused_field
 
@@ -124,8 +138,8 @@ class _TranslationsLanguageBe extends TranslationsLanguageRu {
 }
 
 // Path: archiveFeed
-class _TranslationsArchiveFeedBe extends TranslationsArchiveFeedRu {
-	_TranslationsArchiveFeedBe._(TranslationsBe root) : this._root = root, super.internal(root);
+class _Translations$archiveFeed$be extends Translations$archiveFeed$ru {
+	_Translations$archiveFeed$be._(TranslationsBe root) : this._root = root, super.internal(root);
 
 	final TranslationsBe _root; // ignore: unused_field
 
@@ -136,12 +150,12 @@ class _TranslationsArchiveFeedBe extends TranslationsArchiveFeedRu {
 	@override String get openArticle => 'Адкрыць артыкул';
 	@override String get sourceLabel => 'Крыніца';
 	@override String yearLabel({required Object year}) => '${year} год';
-	@override late final _TranslationsArchiveFeedItemsBe items = _TranslationsArchiveFeedItemsBe._(_root);
+	@override late final _Translations$archiveFeed$items$be items = _Translations$archiveFeed$items$be._(_root);
 }
 
 // Path: films
-class _TranslationsFilmsBe extends TranslationsFilmsRu {
-	_TranslationsFilmsBe._(TranslationsBe root) : this._root = root, super.internal(root);
+class _Translations$films$be extends Translations$films$ru {
+	_Translations$films$be._(TranslationsBe root) : this._root = root, super.internal(root);
 
 	final TranslationsBe _root; // ignore: unused_field
 
@@ -152,13 +166,13 @@ class _TranslationsFilmsBe extends TranslationsFilmsRu {
 	@override String get sourceLabel => 'Крыніца';
 	@override String get instagramTitle => 'Instagram';
 	@override String get instagramSubtitle => 'Кароткія відэа і гісторыі';
-	@override late final _TranslationsFilmsWatchOnBe watchOn = _TranslationsFilmsWatchOnBe._(_root);
-	@override late final _TranslationsFilmsItemsBe items = _TranslationsFilmsItemsBe._(_root);
+	@override late final _Translations$films$watchOn$be watchOn = _Translations$films$watchOn$be._(_root);
+	@override late final _Translations$films$items$be items = _Translations$films$items$be._(_root);
 }
 
 // Path: newsFeed
-class _TranslationsNewsFeedBe extends TranslationsNewsFeedRu {
-	_TranslationsNewsFeedBe._(TranslationsBe root) : this._root = root, super.internal(root);
+class _Translations$newsFeed$be extends Translations$newsFeed$ru {
+	_Translations$newsFeed$be._(TranslationsBe root) : this._root = root, super.internal(root);
 
 	final TranslationsBe _root; // ignore: unused_field
 
@@ -177,8 +191,8 @@ class _TranslationsNewsFeedBe extends TranslationsNewsFeedRu {
 }
 
 // Path: bio
-class _TranslationsBioBe extends TranslationsBioRu {
-	_TranslationsBioBe._(TranslationsBe root) : this._root = root, super.internal(root);
+class _Translations$bio$be extends Translations$bio$ru {
+	_Translations$bio$be._(TranslationsBe root) : this._root = root, super.internal(root);
 
 	final TranslationsBe _root; // ignore: unused_field
 
@@ -189,20 +203,20 @@ class _TranslationsBioBe extends TranslationsBioRu {
 	@override String get name => 'Аляксандр Міхайлавіч Кішчанка (1933–1997)';
 	@override String get tagline => 'Жывапісец. Філосаф. Манументаліст. Заснавальнік «Сусветнага рэалізму».';
 	@override String get intro => 'Аляксандр Кішчанка — постаць рэнесансавага маштабу ў мастацтве XX стагоддзя. Чалавек, якому ўдалося ператварыць мяккую нітку гобелена ў магутнае архітэктурнае выказванне, а сцены гарадоў — у адкрытыя кнігі філасофскіх сэнсаў. Яго творчасць — гэта мост паміж архаікай і космасам, паміж болем зямлі і святлом далёкіх галактык.';
-	@override late final _TranslationsBioFeatureBe feature = _TranslationsBioFeatureBe._(_root);
-	@override late final _TranslationsBioUniversalRealismBe universalRealism = _TranslationsBioUniversalRealismBe._(_root);
-	@override late final _TranslationsBioTapestryBe tapestry = _TranslationsBioTapestryBe._(_root);
-	@override late final _TranslationsBioChernobylBe chernobyl = _TranslationsBioChernobylBe._(_root);
-	@override late final _TranslationsBioMosaicBe mosaic = _TranslationsBioMosaicBe._(_root);
-	@override late final _TranslationsBioLegacyBe legacy = _TranslationsBioLegacyBe._(_root);
+	@override late final _Translations$bio$feature$be feature = _Translations$bio$feature$be._(_root);
+	@override late final _Translations$bio$universalRealism$be universalRealism = _Translations$bio$universalRealism$be._(_root);
+	@override late final _Translations$bio$tapestry$be tapestry = _Translations$bio$tapestry$be._(_root);
+	@override late final _Translations$bio$chernobyl$be chernobyl = _Translations$bio$chernobyl$be._(_root);
+	@override late final _Translations$bio$mosaic$be mosaic = _Translations$bio$mosaic$be._(_root);
+	@override late final _Translations$bio$legacy$be legacy = _Translations$bio$legacy$be._(_root);
 	@override String get quote => 'Мастацтва — гэта боская з\'ява. Толькі яно можа спыніць час. Мастацтва здольнае разгадаць таямніцу будучыні, а таксама аднавіць страчанае мінулае.';
 	@override String get quoteAuthor => '— Аляксандр Кішчанка';
 	@override String get wikipediaLinkLabel => 'ЧЫТАЦЬ У ВІКІПЕДЫІ';
 }
 
 // Path: contacts
-class _TranslationsContactsBe extends TranslationsContactsRu {
-	_TranslationsContactsBe._(TranslationsBe root) : this._root = root, super.internal(root);
+class _Translations$contacts$be extends Translations$contacts$ru {
+	_Translations$contacts$be._(TranslationsBe root) : this._root = root, super.internal(root);
 
 	final TranslationsBe _root; // ignore: unused_field
 
@@ -223,23 +237,23 @@ class _TranslationsContactsBe extends TranslationsContactsRu {
 }
 
 // Path: seo
-class _TranslationsSeoBe extends TranslationsSeoRu {
-	_TranslationsSeoBe._(TranslationsBe root) : this._root = root, super.internal(root);
+class _Translations$seo$be extends Translations$seo$ru {
+	_Translations$seo$be._(TranslationsBe root) : this._root = root, super.internal(root);
 
 	final TranslationsBe _root; // ignore: unused_field
 
 	// Translations
-	@override late final _TranslationsSeoAboutAuthorBe aboutAuthor = _TranslationsSeoAboutAuthorBe._(_root);
-	@override late final _TranslationsSeoCatalogBe catalog = _TranslationsSeoCatalogBe._(_root);
-	@override late final _TranslationsSeoNewsBe news = _TranslationsSeoNewsBe._(_root);
-	@override late final _TranslationsSeoFilmsBe films = _TranslationsSeoFilmsBe._(_root);
-	@override late final _TranslationsSeoArchiveBe archive = _TranslationsSeoArchiveBe._(_root);
-	@override late final _TranslationsSeoContactsBe contacts = _TranslationsSeoContactsBe._(_root);
+	@override late final _Translations$seo$aboutAuthor$be aboutAuthor = _Translations$seo$aboutAuthor$be._(_root);
+	@override late final _Translations$seo$catalog$be catalog = _Translations$seo$catalog$be._(_root);
+	@override late final _Translations$seo$news$be news = _Translations$seo$news$be._(_root);
+	@override late final _Translations$seo$films$be films = _Translations$seo$films$be._(_root);
+	@override late final _Translations$seo$archive$be archive = _Translations$seo$archive$be._(_root);
+	@override late final _Translations$seo$contacts$be contacts = _Translations$seo$contacts$be._(_root);
 }
 
 // Path: catalog.decade
-class _TranslationsCatalogDecadeBe extends TranslationsCatalogDecadeRu {
-	_TranslationsCatalogDecadeBe._(TranslationsBe root) : this._root = root, super.internal(root);
+class _Translations$catalog$decade$be extends Translations$catalog$decade$ru {
+	_Translations$catalog$decade$be._(TranslationsBe root) : this._root = root, super.internal(root);
 
 	final TranslationsBe _root; // ignore: unused_field
 
@@ -252,8 +266,8 @@ class _TranslationsCatalogDecadeBe extends TranslationsCatalogDecadeRu {
 }
 
 // Path: catalog.paintingNames
-class _TranslationsCatalogPaintingNamesBe extends TranslationsCatalogPaintingNamesRu {
-	_TranslationsCatalogPaintingNamesBe._(TranslationsBe root) : this._root = root, super.internal(root);
+class _Translations$catalog$paintingNames$be extends Translations$catalog$paintingNames$ru {
+	_Translations$catalog$paintingNames$be._(TranslationsBe root) : this._root = root, super.internal(root);
 
 	final TranslationsBe _root; // ignore: unused_field
 
@@ -422,8 +436,8 @@ class _TranslationsCatalogPaintingNamesBe extends TranslationsCatalogPaintingNam
 }
 
 // Path: catalog.paintingMediums
-class _TranslationsCatalogPaintingMediumsBe extends TranslationsCatalogPaintingMediumsRu {
-	_TranslationsCatalogPaintingMediumsBe._(TranslationsBe root) : this._root = root, super.internal(root);
+class _Translations$catalog$paintingMediums$be extends Translations$catalog$paintingMediums$ru {
+	_Translations$catalog$paintingMediums$be._(TranslationsBe root) : this._root = root, super.internal(root);
 
 	final TranslationsBe _root; // ignore: unused_field
 
@@ -435,8 +449,8 @@ class _TranslationsCatalogPaintingMediumsBe extends TranslationsCatalogPaintingM
 }
 
 // Path: common.video
-class _TranslationsCommonVideoBe extends TranslationsCommonVideoRu {
-	_TranslationsCommonVideoBe._(TranslationsBe root) : this._root = root, super.internal(root);
+class _Translations$common$video$be extends Translations$common$video$ru {
+	_Translations$common$video$be._(TranslationsBe root) : this._root = root, super.internal(root);
 
 	final TranslationsBe _root; // ignore: unused_field
 
@@ -446,23 +460,23 @@ class _TranslationsCommonVideoBe extends TranslationsCommonVideoRu {
 }
 
 // Path: archiveFeed.items
-class _TranslationsArchiveFeedItemsBe extends TranslationsArchiveFeedItemsRu {
-	_TranslationsArchiveFeedItemsBe._(TranslationsBe root) : this._root = root, super.internal(root);
+class _Translations$archiveFeed$items$be extends Translations$archiveFeed$items$ru {
+	_Translations$archiveFeed$items$be._(TranslationsBe root) : this._root = root, super.internal(root);
 
 	final TranslationsBe _root; // ignore: unused_field
 
 	// Translations
-	@override late final _TranslationsArchiveFeedItemsBoguchar2026Be boguchar2026 = _TranslationsArchiveFeedItemsBoguchar2026Be._(_root);
-	@override late final _TranslationsArchiveFeedItemsPriorbankChtobyChuvstvovatBe priorbankChtobyChuvstvovat = _TranslationsArchiveFeedItemsPriorbankChtobyChuvstvovatBe._(_root);
-	@override late final _TranslationsArchiveFeedItemsNitiSudbyBe nitiSudby = _TranslationsArchiveFeedItemsNitiSudbyBe._(_root);
-	@override late final _TranslationsArchiveFeedItemsBoguchar2024Be boguchar2024 = _TranslationsArchiveFeedItemsBoguchar2024Be._(_root);
-	@override late final _TranslationsArchiveFeedItemsBelgazprombankKraskiPobedyBe belgazprombankKraskiPobedy = _TranslationsArchiveFeedItemsBelgazprombankKraskiPobedyBe._(_root);
-	@override late final _TranslationsArchiveFeedItemsNebaZiamljaBe nebaZiamlja = _TranslationsArchiveFeedItemsNebaZiamljaBe._(_root);
+	@override late final _Translations$archiveFeed$items$boguchar2026$be boguchar2026 = _Translations$archiveFeed$items$boguchar2026$be._(_root);
+	@override late final _Translations$archiveFeed$items$priorbankChtobyChuvstvovat$be priorbankChtobyChuvstvovat = _Translations$archiveFeed$items$priorbankChtobyChuvstvovat$be._(_root);
+	@override late final _Translations$archiveFeed$items$nitiSudby$be nitiSudby = _Translations$archiveFeed$items$nitiSudby$be._(_root);
+	@override late final _Translations$archiveFeed$items$boguchar2024$be boguchar2024 = _Translations$archiveFeed$items$boguchar2024$be._(_root);
+	@override late final _Translations$archiveFeed$items$belgazprombankKraskiPobedy$be belgazprombankKraskiPobedy = _Translations$archiveFeed$items$belgazprombankKraskiPobedy$be._(_root);
+	@override late final _Translations$archiveFeed$items$nebaZiamlja$be nebaZiamlja = _Translations$archiveFeed$items$nebaZiamlja$be._(_root);
 }
 
 // Path: films.watchOn
-class _TranslationsFilmsWatchOnBe extends TranslationsFilmsWatchOnRu {
-	_TranslationsFilmsWatchOnBe._(TranslationsBe root) : this._root = root, super.internal(root);
+class _Translations$films$watchOn$be extends Translations$films$watchOn$ru {
+	_Translations$films$watchOn$be._(TranslationsBe root) : this._root = root, super.internal(root);
 
 	final TranslationsBe _root; // ignore: unused_field
 
@@ -473,26 +487,26 @@ class _TranslationsFilmsWatchOnBe extends TranslationsFilmsWatchOnRu {
 }
 
 // Path: films.items
-class _TranslationsFilmsItemsBe extends TranslationsFilmsItemsRu {
-	_TranslationsFilmsItemsBe._(TranslationsBe root) : this._root = root, super.internal(root);
+class _Translations$films$items$be extends Translations$films$items$ru {
+	_Translations$films$items$be._(TranslationsBe root) : this._root = root, super.internal(root);
 
 	final TranslationsBe _root; // ignore: unused_field
 
 	// Translations
-	@override late final _TranslationsFilmsItemsIspovedVremeniBe ispovedVremeni = _TranslationsFilmsItemsIspovedVremeniBe._(_root);
-	@override late final _TranslationsFilmsItemsAleksandrKishchenkoBe aleksandrKishchenko = _TranslationsFilmsItemsAleksandrKishchenkoBe._(_root);
-	@override late final _TranslationsFilmsItemsVoronezhKramskoyExhibitionBe voronezhKramskoyExhibition = _TranslationsFilmsItemsVoronezhKramskoyExhibitionBe._(_root);
-	@override late final _TranslationsFilmsItemsMastersOfSovietArt1988Be mastersOfSovietArt1988 = _TranslationsFilmsItemsMastersOfSovietArt1988Be._(_root);
-	@override late final _TranslationsFilmsItemsBogucharLectureBe bogucharLecture = _TranslationsFilmsItemsBogucharLectureBe._(_root);
-	@override late final _TranslationsFilmsItemsCulturalCodesTapestriesBe culturalCodesTapestries = _TranslationsFilmsItemsCulturalCodesTapestriesBe._(_root);
-	@override late final _TranslationsFilmsItemsTapestryOfCenturyMinskBe tapestryOfCenturyMinsk = _TranslationsFilmsItemsTapestryOfCenturyMinskBe._(_root);
-	@override late final _TranslationsFilmsItemsChernobylTapestryFactsBe chernobylTapestryFacts = _TranslationsFilmsItemsChernobylTapestryFactsBe._(_root);
-	@override late final _TranslationsFilmsItemsKishchenkoReel1Be kishchenkoReel1 = _TranslationsFilmsItemsKishchenkoReel1Be._(_root);
+	@override late final _Translations$films$items$ispovedVremeni$be ispovedVremeni = _Translations$films$items$ispovedVremeni$be._(_root);
+	@override late final _Translations$films$items$aleksandrKishchenko$be aleksandrKishchenko = _Translations$films$items$aleksandrKishchenko$be._(_root);
+	@override late final _Translations$films$items$voronezhKramskoyExhibition$be voronezhKramskoyExhibition = _Translations$films$items$voronezhKramskoyExhibition$be._(_root);
+	@override late final _Translations$films$items$mastersOfSovietArt1988$be mastersOfSovietArt1988 = _Translations$films$items$mastersOfSovietArt1988$be._(_root);
+	@override late final _Translations$films$items$bogucharLecture$be bogucharLecture = _Translations$films$items$bogucharLecture$be._(_root);
+	@override late final _Translations$films$items$culturalCodesTapestries$be culturalCodesTapestries = _Translations$films$items$culturalCodesTapestries$be._(_root);
+	@override late final _Translations$films$items$tapestryOfCenturyMinsk$be tapestryOfCenturyMinsk = _Translations$films$items$tapestryOfCenturyMinsk$be._(_root);
+	@override late final _Translations$films$items$chernobylTapestryFacts$be chernobylTapestryFacts = _Translations$films$items$chernobylTapestryFacts$be._(_root);
+	@override late final _Translations$films$items$kishchenkoReel1$be kishchenkoReel1 = _Translations$films$items$kishchenkoReel1$be._(_root);
 }
 
 // Path: bio.feature
-class _TranslationsBioFeatureBe extends TranslationsBioFeatureRu {
-	_TranslationsBioFeatureBe._(TranslationsBe root) : this._root = root, super.internal(root);
+class _Translations$bio$feature$be extends Translations$bio$feature$ru {
+	_Translations$bio$feature$be._(TranslationsBe root) : this._root = root, super.internal(root);
 
 	final TranslationsBe _root; // ignore: unused_field
 
@@ -506,11 +520,13 @@ class _TranslationsBioFeatureBe extends TranslationsBioFeatureRu {
 	@override String get panelsLabel => 'Манументальныя пано ў Мінску';
 	@override String get guinnessValue => '1';
 	@override String get guinnessLabel => 'Рэкорд Гінеса ў мастацтве';
+	@override String get unGiftValue => '';
+	@override String get unGiftLabel => 'Падарунак ААН';
 }
 
 // Path: bio.universalRealism
-class _TranslationsBioUniversalRealismBe extends TranslationsBioUniversalRealismRu {
-	_TranslationsBioUniversalRealismBe._(TranslationsBe root) : this._root = root, super.internal(root);
+class _Translations$bio$universalRealism$be extends Translations$bio$universalRealism$ru {
+	_Translations$bio$universalRealism$be._(TranslationsBe root) : this._root = root, super.internal(root);
 
 	final TranslationsBe _root; // ignore: unused_field
 
@@ -520,8 +536,8 @@ class _TranslationsBioUniversalRealismBe extends TranslationsBioUniversalRealism
 }
 
 // Path: bio.tapestry
-class _TranslationsBioTapestryBe extends TranslationsBioTapestryRu {
-	_TranslationsBioTapestryBe._(TranslationsBe root) : this._root = root, super.internal(root);
+class _Translations$bio$tapestry$be extends Translations$bio$tapestry$ru {
+	_Translations$bio$tapestry$be._(TranslationsBe root) : this._root = root, super.internal(root);
 
 	final TranslationsBe _root; // ignore: unused_field
 
@@ -537,8 +553,8 @@ class _TranslationsBioTapestryBe extends TranslationsBioTapestryRu {
 }
 
 // Path: bio.chernobyl
-class _TranslationsBioChernobylBe extends TranslationsBioChernobylRu {
-	_TranslationsBioChernobylBe._(TranslationsBe root) : this._root = root, super.internal(root);
+class _Translations$bio$chernobyl$be extends Translations$bio$chernobyl$ru {
+	_Translations$bio$chernobyl$be._(TranslationsBe root) : this._root = root, super.internal(root);
 
 	final TranslationsBe _root; // ignore: unused_field
 
@@ -548,8 +564,8 @@ class _TranslationsBioChernobylBe extends TranslationsBioChernobylRu {
 }
 
 // Path: bio.mosaic
-class _TranslationsBioMosaicBe extends TranslationsBioMosaicRu {
-	_TranslationsBioMosaicBe._(TranslationsBe root) : this._root = root, super.internal(root);
+class _Translations$bio$mosaic$be extends Translations$bio$mosaic$ru {
+	_Translations$bio$mosaic$be._(TranslationsBe root) : this._root = root, super.internal(root);
 
 	final TranslationsBe _root; // ignore: unused_field
 
@@ -562,8 +578,8 @@ class _TranslationsBioMosaicBe extends TranslationsBioMosaicRu {
 }
 
 // Path: bio.legacy
-class _TranslationsBioLegacyBe extends TranslationsBioLegacyRu {
-	_TranslationsBioLegacyBe._(TranslationsBe root) : this._root = root, super.internal(root);
+class _Translations$bio$legacy$be extends Translations$bio$legacy$ru {
+	_Translations$bio$legacy$be._(TranslationsBe root) : this._root = root, super.internal(root);
 
 	final TranslationsBe _root; // ignore: unused_field
 
@@ -573,8 +589,8 @@ class _TranslationsBioLegacyBe extends TranslationsBioLegacyRu {
 }
 
 // Path: seo.aboutAuthor
-class _TranslationsSeoAboutAuthorBe extends TranslationsSeoAboutAuthorRu {
-	_TranslationsSeoAboutAuthorBe._(TranslationsBe root) : this._root = root, super.internal(root);
+class _Translations$seo$aboutAuthor$be extends Translations$seo$aboutAuthor$ru {
+	_Translations$seo$aboutAuthor$be._(TranslationsBe root) : this._root = root, super.internal(root);
 
 	final TranslationsBe _root; // ignore: unused_field
 
@@ -585,8 +601,8 @@ class _TranslationsSeoAboutAuthorBe extends TranslationsSeoAboutAuthorRu {
 }
 
 // Path: seo.catalog
-class _TranslationsSeoCatalogBe extends TranslationsSeoCatalogRu {
-	_TranslationsSeoCatalogBe._(TranslationsBe root) : this._root = root, super.internal(root);
+class _Translations$seo$catalog$be extends Translations$seo$catalog$ru {
+	_Translations$seo$catalog$be._(TranslationsBe root) : this._root = root, super.internal(root);
 
 	final TranslationsBe _root; // ignore: unused_field
 
@@ -597,8 +613,8 @@ class _TranslationsSeoCatalogBe extends TranslationsSeoCatalogRu {
 }
 
 // Path: seo.news
-class _TranslationsSeoNewsBe extends TranslationsSeoNewsRu {
-	_TranslationsSeoNewsBe._(TranslationsBe root) : this._root = root, super.internal(root);
+class _Translations$seo$news$be extends Translations$seo$news$ru {
+	_Translations$seo$news$be._(TranslationsBe root) : this._root = root, super.internal(root);
 
 	final TranslationsBe _root; // ignore: unused_field
 
@@ -609,8 +625,8 @@ class _TranslationsSeoNewsBe extends TranslationsSeoNewsRu {
 }
 
 // Path: seo.films
-class _TranslationsSeoFilmsBe extends TranslationsSeoFilmsRu {
-	_TranslationsSeoFilmsBe._(TranslationsBe root) : this._root = root, super.internal(root);
+class _Translations$seo$films$be extends Translations$seo$films$ru {
+	_Translations$seo$films$be._(TranslationsBe root) : this._root = root, super.internal(root);
 
 	final TranslationsBe _root; // ignore: unused_field
 
@@ -621,8 +637,8 @@ class _TranslationsSeoFilmsBe extends TranslationsSeoFilmsRu {
 }
 
 // Path: seo.archive
-class _TranslationsSeoArchiveBe extends TranslationsSeoArchiveRu {
-	_TranslationsSeoArchiveBe._(TranslationsBe root) : this._root = root, super.internal(root);
+class _Translations$seo$archive$be extends Translations$seo$archive$ru {
+	_Translations$seo$archive$be._(TranslationsBe root) : this._root = root, super.internal(root);
 
 	final TranslationsBe _root; // ignore: unused_field
 
@@ -633,8 +649,8 @@ class _TranslationsSeoArchiveBe extends TranslationsSeoArchiveRu {
 }
 
 // Path: seo.contacts
-class _TranslationsSeoContactsBe extends TranslationsSeoContactsRu {
-	_TranslationsSeoContactsBe._(TranslationsBe root) : this._root = root, super.internal(root);
+class _Translations$seo$contacts$be extends Translations$seo$contacts$ru {
+	_Translations$seo$contacts$be._(TranslationsBe root) : this._root = root, super.internal(root);
 
 	final TranslationsBe _root; // ignore: unused_field
 
@@ -645,8 +661,8 @@ class _TranslationsSeoContactsBe extends TranslationsSeoContactsRu {
 }
 
 // Path: archiveFeed.items.boguchar2026
-class _TranslationsArchiveFeedItemsBoguchar2026Be extends TranslationsArchiveFeedItemsBoguchar2026Ru {
-	_TranslationsArchiveFeedItemsBoguchar2026Be._(TranslationsBe root) : this._root = root, super.internal(root);
+class _Translations$archiveFeed$items$boguchar2026$be extends Translations$archiveFeed$items$boguchar2026$ru {
+	_Translations$archiveFeed$items$boguchar2026$be._(TranslationsBe root) : this._root = root, super.internal(root);
 
 	final TranslationsBe _root; // ignore: unused_field
 
@@ -656,8 +672,8 @@ class _TranslationsArchiveFeedItemsBoguchar2026Be extends TranslationsArchiveFee
 }
 
 // Path: archiveFeed.items.priorbankChtobyChuvstvovat
-class _TranslationsArchiveFeedItemsPriorbankChtobyChuvstvovatBe extends TranslationsArchiveFeedItemsPriorbankChtobyChuvstvovatRu {
-	_TranslationsArchiveFeedItemsPriorbankChtobyChuvstvovatBe._(TranslationsBe root) : this._root = root, super.internal(root);
+class _Translations$archiveFeed$items$priorbankChtobyChuvstvovat$be extends Translations$archiveFeed$items$priorbankChtobyChuvstvovat$ru {
+	_Translations$archiveFeed$items$priorbankChtobyChuvstvovat$be._(TranslationsBe root) : this._root = root, super.internal(root);
 
 	final TranslationsBe _root; // ignore: unused_field
 
@@ -667,8 +683,8 @@ class _TranslationsArchiveFeedItemsPriorbankChtobyChuvstvovatBe extends Translat
 }
 
 // Path: archiveFeed.items.nitiSudby
-class _TranslationsArchiveFeedItemsNitiSudbyBe extends TranslationsArchiveFeedItemsNitiSudbyRu {
-	_TranslationsArchiveFeedItemsNitiSudbyBe._(TranslationsBe root) : this._root = root, super.internal(root);
+class _Translations$archiveFeed$items$nitiSudby$be extends Translations$archiveFeed$items$nitiSudby$ru {
+	_Translations$archiveFeed$items$nitiSudby$be._(TranslationsBe root) : this._root = root, super.internal(root);
 
 	final TranslationsBe _root; // ignore: unused_field
 
@@ -678,8 +694,8 @@ class _TranslationsArchiveFeedItemsNitiSudbyBe extends TranslationsArchiveFeedIt
 }
 
 // Path: archiveFeed.items.boguchar2024
-class _TranslationsArchiveFeedItemsBoguchar2024Be extends TranslationsArchiveFeedItemsBoguchar2024Ru {
-	_TranslationsArchiveFeedItemsBoguchar2024Be._(TranslationsBe root) : this._root = root, super.internal(root);
+class _Translations$archiveFeed$items$boguchar2024$be extends Translations$archiveFeed$items$boguchar2024$ru {
+	_Translations$archiveFeed$items$boguchar2024$be._(TranslationsBe root) : this._root = root, super.internal(root);
 
 	final TranslationsBe _root; // ignore: unused_field
 
@@ -689,8 +705,8 @@ class _TranslationsArchiveFeedItemsBoguchar2024Be extends TranslationsArchiveFee
 }
 
 // Path: archiveFeed.items.belgazprombankKraskiPobedy
-class _TranslationsArchiveFeedItemsBelgazprombankKraskiPobedyBe extends TranslationsArchiveFeedItemsBelgazprombankKraskiPobedyRu {
-	_TranslationsArchiveFeedItemsBelgazprombankKraskiPobedyBe._(TranslationsBe root) : this._root = root, super.internal(root);
+class _Translations$archiveFeed$items$belgazprombankKraskiPobedy$be extends Translations$archiveFeed$items$belgazprombankKraskiPobedy$ru {
+	_Translations$archiveFeed$items$belgazprombankKraskiPobedy$be._(TranslationsBe root) : this._root = root, super.internal(root);
 
 	final TranslationsBe _root; // ignore: unused_field
 
@@ -700,8 +716,8 @@ class _TranslationsArchiveFeedItemsBelgazprombankKraskiPobedyBe extends Translat
 }
 
 // Path: archiveFeed.items.nebaZiamlja
-class _TranslationsArchiveFeedItemsNebaZiamljaBe extends TranslationsArchiveFeedItemsNebaZiamljaRu {
-	_TranslationsArchiveFeedItemsNebaZiamljaBe._(TranslationsBe root) : this._root = root, super.internal(root);
+class _Translations$archiveFeed$items$nebaZiamlja$be extends Translations$archiveFeed$items$nebaZiamlja$ru {
+	_Translations$archiveFeed$items$nebaZiamlja$be._(TranslationsBe root) : this._root = root, super.internal(root);
 
 	final TranslationsBe _root; // ignore: unused_field
 
@@ -711,8 +727,8 @@ class _TranslationsArchiveFeedItemsNebaZiamljaBe extends TranslationsArchiveFeed
 }
 
 // Path: films.items.ispovedVremeni
-class _TranslationsFilmsItemsIspovedVremeniBe extends TranslationsFilmsItemsIspovedVremeniRu {
-	_TranslationsFilmsItemsIspovedVremeniBe._(TranslationsBe root) : this._root = root, super.internal(root);
+class _Translations$films$items$ispovedVremeni$be extends Translations$films$items$ispovedVremeni$ru {
+	_Translations$films$items$ispovedVremeni$be._(TranslationsBe root) : this._root = root, super.internal(root);
 
 	final TranslationsBe _root; // ignore: unused_field
 
@@ -722,8 +738,8 @@ class _TranslationsFilmsItemsIspovedVremeniBe extends TranslationsFilmsItemsIspo
 }
 
 // Path: films.items.aleksandrKishchenko
-class _TranslationsFilmsItemsAleksandrKishchenkoBe extends TranslationsFilmsItemsAleksandrKishchenkoRu {
-	_TranslationsFilmsItemsAleksandrKishchenkoBe._(TranslationsBe root) : this._root = root, super.internal(root);
+class _Translations$films$items$aleksandrKishchenko$be extends Translations$films$items$aleksandrKishchenko$ru {
+	_Translations$films$items$aleksandrKishchenko$be._(TranslationsBe root) : this._root = root, super.internal(root);
 
 	final TranslationsBe _root; // ignore: unused_field
 
@@ -733,8 +749,8 @@ class _TranslationsFilmsItemsAleksandrKishchenkoBe extends TranslationsFilmsItem
 }
 
 // Path: films.items.voronezhKramskoyExhibition
-class _TranslationsFilmsItemsVoronezhKramskoyExhibitionBe extends TranslationsFilmsItemsVoronezhKramskoyExhibitionRu {
-	_TranslationsFilmsItemsVoronezhKramskoyExhibitionBe._(TranslationsBe root) : this._root = root, super.internal(root);
+class _Translations$films$items$voronezhKramskoyExhibition$be extends Translations$films$items$voronezhKramskoyExhibition$ru {
+	_Translations$films$items$voronezhKramskoyExhibition$be._(TranslationsBe root) : this._root = root, super.internal(root);
 
 	final TranslationsBe _root; // ignore: unused_field
 
@@ -744,8 +760,8 @@ class _TranslationsFilmsItemsVoronezhKramskoyExhibitionBe extends TranslationsFi
 }
 
 // Path: films.items.mastersOfSovietArt1988
-class _TranslationsFilmsItemsMastersOfSovietArt1988Be extends TranslationsFilmsItemsMastersOfSovietArt1988Ru {
-	_TranslationsFilmsItemsMastersOfSovietArt1988Be._(TranslationsBe root) : this._root = root, super.internal(root);
+class _Translations$films$items$mastersOfSovietArt1988$be extends Translations$films$items$mastersOfSovietArt1988$ru {
+	_Translations$films$items$mastersOfSovietArt1988$be._(TranslationsBe root) : this._root = root, super.internal(root);
 
 	final TranslationsBe _root; // ignore: unused_field
 
@@ -755,8 +771,8 @@ class _TranslationsFilmsItemsMastersOfSovietArt1988Be extends TranslationsFilmsI
 }
 
 // Path: films.items.bogucharLecture
-class _TranslationsFilmsItemsBogucharLectureBe extends TranslationsFilmsItemsBogucharLectureRu {
-	_TranslationsFilmsItemsBogucharLectureBe._(TranslationsBe root) : this._root = root, super.internal(root);
+class _Translations$films$items$bogucharLecture$be extends Translations$films$items$bogucharLecture$ru {
+	_Translations$films$items$bogucharLecture$be._(TranslationsBe root) : this._root = root, super.internal(root);
 
 	final TranslationsBe _root; // ignore: unused_field
 
@@ -766,8 +782,8 @@ class _TranslationsFilmsItemsBogucharLectureBe extends TranslationsFilmsItemsBog
 }
 
 // Path: films.items.culturalCodesTapestries
-class _TranslationsFilmsItemsCulturalCodesTapestriesBe extends TranslationsFilmsItemsCulturalCodesTapestriesRu {
-	_TranslationsFilmsItemsCulturalCodesTapestriesBe._(TranslationsBe root) : this._root = root, super.internal(root);
+class _Translations$films$items$culturalCodesTapestries$be extends Translations$films$items$culturalCodesTapestries$ru {
+	_Translations$films$items$culturalCodesTapestries$be._(TranslationsBe root) : this._root = root, super.internal(root);
 
 	final TranslationsBe _root; // ignore: unused_field
 
@@ -777,8 +793,8 @@ class _TranslationsFilmsItemsCulturalCodesTapestriesBe extends TranslationsFilms
 }
 
 // Path: films.items.tapestryOfCenturyMinsk
-class _TranslationsFilmsItemsTapestryOfCenturyMinskBe extends TranslationsFilmsItemsTapestryOfCenturyMinskRu {
-	_TranslationsFilmsItemsTapestryOfCenturyMinskBe._(TranslationsBe root) : this._root = root, super.internal(root);
+class _Translations$films$items$tapestryOfCenturyMinsk$be extends Translations$films$items$tapestryOfCenturyMinsk$ru {
+	_Translations$films$items$tapestryOfCenturyMinsk$be._(TranslationsBe root) : this._root = root, super.internal(root);
 
 	final TranslationsBe _root; // ignore: unused_field
 
@@ -788,8 +804,8 @@ class _TranslationsFilmsItemsTapestryOfCenturyMinskBe extends TranslationsFilmsI
 }
 
 // Path: films.items.chernobylTapestryFacts
-class _TranslationsFilmsItemsChernobylTapestryFactsBe extends TranslationsFilmsItemsChernobylTapestryFactsRu {
-	_TranslationsFilmsItemsChernobylTapestryFactsBe._(TranslationsBe root) : this._root = root, super.internal(root);
+class _Translations$films$items$chernobylTapestryFacts$be extends Translations$films$items$chernobylTapestryFacts$ru {
+	_Translations$films$items$chernobylTapestryFacts$be._(TranslationsBe root) : this._root = root, super.internal(root);
 
 	final TranslationsBe _root; // ignore: unused_field
 
@@ -799,8 +815,8 @@ class _TranslationsFilmsItemsChernobylTapestryFactsBe extends TranslationsFilmsI
 }
 
 // Path: films.items.kishchenkoReel1
-class _TranslationsFilmsItemsKishchenkoReel1Be extends TranslationsFilmsItemsKishchenkoReel1Ru {
-	_TranslationsFilmsItemsKishchenkoReel1Be._(TranslationsBe root) : this._root = root, super.internal(root);
+class _Translations$films$items$kishchenkoReel1$be extends Translations$films$items$kishchenkoReel1$ru {
+	_Translations$films$items$kishchenkoReel1$be._(TranslationsBe root) : this._root = root, super.internal(root);
 
 	final TranslationsBe _root; // ignore: unused_field
 
@@ -1004,6 +1020,10 @@ extension on TranslationsBe {
 			'common.learnMore' => 'ПАДРАБЯЗНЕЙ',
 			'common.video.loadError' => 'Не атрымалася загрузіць відэа',
 			'common.video.openExternally' => 'Адкрыць у знешнім плэеры',
+			'tour.next' => 'Далей',
+			'tour.gotIt' => 'Зразумела',
+			'tour.back' => 'Назад',
+			'tour.chernobylBody' => 'Габелен «Чарнобыль» (1991) перададзены ў дар ААН і сёння ўпрыгожвае яе штаб-кватэру ў Нью-Ёрку. Генеральны сакратар ААН параўнаў яго з «Гернікай» Пікаса.',
 			'language.label' => 'Мова',
 			'language.russian' => 'Рускі',
 			'language.english' => 'Англійская',
@@ -1082,6 +1102,8 @@ extension on TranslationsBe {
 			'bio.feature.panelsLabel' => 'Манументальныя пано ў Мінску',
 			'bio.feature.guinnessValue' => '1',
 			'bio.feature.guinnessLabel' => 'Рэкорд Гінеса ў мастацтве',
+			'bio.feature.unGiftValue' => '',
+			'bio.feature.unGiftLabel' => 'Падарунак ААН',
 			'bio.universalRealism.title' => 'Заснавальнік «Сусветнага рэалізму»',
 			'bio.universalRealism.body' => 'Кішчанка не проста адлюстроўваў рэчаіснасць — ён ствараў новую сістэму каардынат, якую назваў Сусветным рэалізмам. Аснову яго метаду складае перакананне, што мастак — гэта «ткач часу», абавязаны злучаць мінулае і будучыню. Яго мастацтва выйшла за межы нацыянальных граніц, аперыруючы катэгорыямі глабальнай чалавечай драмы. Для Кішчанкі чалавек — гэта паўбог, чые ўчынкі рэзаніруюць у маштабах Сусвету. У яго работах цені становяцца самастойнымі формамі, а колер — «касмічнай музыкай», падначаленай строгаму вышэйшаму парадку.',
 			'bio.tapestry.title' => '«Гобелен стагоддзя»: Вяршыня сусветнага ткацтва',

@@ -11,6 +11,7 @@ import 'package:web_art_galery/i18n/strings.g.dart';
 import 'package:web_art_galery/src/features/about_author/data/api/about_author_api_controller.dart';
 import 'package:web_art_galery/src/features/about_author/data/repository/about_author_repository_firebase.dart';
 import 'package:web_art_galery/src/features/about_author/presentation/cubits/about_author_cubit.dart';
+import 'package:web_art_galery/src/features/about_author/presentation/cubits/onboarding_tour_cubit.dart';
 import 'package:web_art_galery/src/features/archive/data/repository/archive_repository_local.dart';
 import 'package:web_art_galery/src/features/archive/presentation/cubits/archive_cubit.dart';
 import 'package:web_art_galery/src/features/catalog_of_works/data/api/catalog_of_works_api_controller.dart';
@@ -143,6 +144,7 @@ void main() {
                   repository: NewsRepositoryFirebase(apiController: NewsApiController()),
                 )..load(),
               ),
+              BlocProvider<OnboardingTourCubit>(create: (_) => OnboardingTourCubit()),
               BlocProvider<AboutAuthorCubit>(
                 create: (_) => AboutAuthorCubit(
                   repository: AboutAuthorRepositoryFirebase(

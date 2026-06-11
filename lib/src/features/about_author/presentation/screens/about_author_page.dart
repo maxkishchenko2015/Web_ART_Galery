@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -5,8 +7,10 @@ import 'package:meta_seo/meta_seo.dart';
 import 'package:go_router/go_router.dart';
 import 'package:web_art_galery/i18n/strings.g.dart';
 import 'package:web_art_galery/src/features/about_author/presentation/cubits/about_author_cubit.dart';
+import 'package:web_art_galery/src/features/about_author/presentation/cubits/onboarding_tour_cubit.dart';
 import 'package:web_art_galery/src/features/about_author/presentation/screens/about_author_page_constants.dart';
 import 'package:web_art_galery/src/features/about_author/presentation/widgets/author_films_strip.dart';
+import 'package:web_art_galery/src/features/about_author/presentation/widgets/onboarding_tour_overlay.dart';
 import 'package:web_art_galery/src/navigation/presentation/router/app_routes.dart';
 import 'package:web_art_galery/src/shared/config/app_context_extensions.dart';
 import 'package:web_art_galery/src/shared/config/ksize.dart';
@@ -37,8 +41,92 @@ class _AboutAuthorView extends StatefulWidget {
   State<_AboutAuthorView> createState() => _AboutAuthorViewState();
 }
 
-class _AboutAuthorViewState extends State<_AboutAuthorView> {
+class _AboutAuthorViewState extends State<_AboutAuthorView> with OnboardingTourHostMixin {
   final _bioKey = GlobalKey();
+  final _tapestryMediaKey = GlobalKey();
+  final _chernobylMediaKey = GlobalKey();
+
+  @override
+  void initState() {
+    super.initState();
+    attachOnboardingTour();
+    scheduleOnboardingTourStart();
+  }
+
+  @override
+  void dispose() {
+    detachOnboardingTour();
+    super.dispose();
+  }
+
+  @override
+  GlobalKey onboardingTourTargetKey(int step) => switch (step) {
+    OnboardingTourSteps.chernobyl => _chernobylMediaKey,
+    _ => _tapestryMediaKey,
+  };
+
+  // Tooltip copy reuses the matching biography strings, so the tour stays in
+  // sync with the section texts across all locales.
+  @override
+  OnboardingTourTooltipData onboardingTourTooltipData(BuildContext context, int step) {
+    final t = context.t;
+    final stepLabel = '${step + 1}/${OnboardingTourSteps.count}';
+
+    return switch (step) {
+      OnboardingTourSteps.chernobyl => OnboardingTourTooltipData(
+        stepLabel: stepLabel,
+        title: t.bio.chernobyl.title,
+        body: t.tour.chernobylBody,
+        buttonLabel: t.tour.gotIt,
+        backLabel: t.tour.back,
+      ),
+      // First step (tapestry scale) — no back button.
+      _ => OnboardingTourTooltipData(
+        stepLabel: stepLabel,
+        title: t.bio.tapestry.scaleLabel,
+        body: t.bio.tapestry.scale,
+        buttonLabel: t.tour.next,
+      ),
+    };
+  }
+
+  /// Holds the tour back until the section photos are loaded and decoded, so
+  /// the scrim never highlights a spinner mid-download.
+  @override
+  Future<void> prepareOnboardingTour() async {
+    final cubit = context.read<AboutAuthorCubit>();
+    var state = cubit.state;
+    if (state is AboutAuthorInitial || state is AboutAuthorLoading) {
+      try {
+        state = await cubit.stream
+            .firstWhere((s) => s is! AboutAuthorInitial && s is! AboutAuthorLoading)
+            .timeout(AboutAuthorPageConstants.tourPhotosWaitTimeout);
+      } on TimeoutException {
+        return; // Start anyway — the placeholder frame keeps its layout.
+      }
+    }
+    if (state is! AboutAuthorLoaded || !mounted) {
+      return;
+    }
+
+    final highlightedPhotos = [
+      state.photoAt(AboutAuthorPageConstants.tapestryPhotoIndex),
+      state.photoAt(AboutAuthorPageConstants.chernobylPhotoIndex),
+    ];
+    await Future.wait(
+      highlightedPhotos.map((photo) async {
+        if (photo == null || photo.isEmpty || !mounted) {
+          return;
+        }
+        try {
+          await precacheImage(CachedNetworkImageView.providerFor(photo.url), context)
+              .timeout(AboutAuthorPageConstants.tourPhotosWaitTimeout);
+        } catch (_) {
+          // Image fetch failures must not block the tour.
+        }
+      }),
+    );
+  }
 
   void _scrollToBio() {
     final ctx = _bioKey.currentContext;
@@ -58,7 +146,12 @@ class _AboutAuthorViewState extends State<_AboutAuthorView> {
           _HeroSection(isCompact: isCompact, onLearnMore: _scrollToBio),
           AuthorFilmsStrip(isCompact: isCompact),
           _FeatureSection(isCompact: isCompact),
-          _BiographySection(key: _bioKey, isCompact: isCompact),
+          _BiographySection(
+            key: _bioKey,
+            isCompact: isCompact,
+            tapestryMediaKey: _tapestryMediaKey,
+            chernobylMediaKey: _chernobylMediaKey,
+          ),
         ],
       ),
     );
@@ -282,17 +375,22 @@ class _FeatureStats extends StatelessWidget {
   Widget build(BuildContext context) {
     final feature = context.t.bio.feature;
 
+    // The record and the UN gift lead the legacy numbers.
     return Column(
       children: [
+        _StatItem(value: feature.guinnessValue, label: feature.guinnessLabel),
+        const SizedBox(height: KSize.margin8x),
+        const Divider(height: 1),
+        const SizedBox(height: KSize.margin8x),
+        _StatItem(value: feature.unGiftValue, label: feature.unGiftLabel),
+        const SizedBox(height: KSize.margin8x),
+        const Divider(height: 1),
+        const SizedBox(height: KSize.margin8x),
         _StatItem(value: feature.worksValue, label: feature.worksLabel),
         const SizedBox(height: KSize.margin8x),
         const Divider(height: 1),
         const SizedBox(height: KSize.margin8x),
         _StatItem(value: feature.panelsValue, label: feature.panelsLabel),
-        const SizedBox(height: KSize.margin8x),
-        const Divider(height: 1),
-        const SizedBox(height: KSize.margin8x),
-        _StatItem(value: feature.guinnessValue, label: feature.guinnessLabel),
       ],
     );
   }
@@ -306,6 +404,12 @@ class _StatItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // A stat without a leading number (e.g. the UN gift) shows just its label
+    // so there's no empty number column on the left.
+    if (value.isEmpty) {
+      return Text(label, style: context.textContent.statLabel);
+    }
+
     return Row(
       crossAxisAlignment: CrossAxisAlignment.baseline,
       textBaseline: TextBaseline.alphabetic,
@@ -326,9 +430,18 @@ class _StatItem extends StatelessWidget {
 // ─── Biography section ─────────────────────────────────────────────────────────────────────────────
 
 class _BiographySection extends StatelessWidget {
-  const _BiographySection({super.key, required this.isCompact});
+  const _BiographySection({
+    super.key,
+    required this.isCompact,
+    required this.tapestryMediaKey,
+    required this.chernobylMediaKey,
+  });
 
   final bool isCompact;
+
+  /// Onboarding-tour anchors on the tapestry / Chernobyl photos.
+  final GlobalKey tapestryMediaKey;
+  final GlobalKey chernobylMediaKey;
 
   @override
   Widget build(BuildContext context) {
@@ -367,12 +480,14 @@ class _BiographySection extends StatelessWidget {
           _BioSectionWithPhoto(
             isCompact: isCompact,
             photoIndex: AboutAuthorPageConstants.tapestryPhotoIndex,
+            mediaKey: tapestryMediaKey,
             child: _TapestryCopy(),
           ),
           const SizedBox(height: KSize.margin12x),
           _BioSectionWithPhoto(
             isCompact: isCompact,
             photoIndex: AboutAuthorPageConstants.chernobylPhotoIndex,
+            mediaKey: chernobylMediaKey,
             child: _ChernobylCopy(),
           ),
           const SizedBox(height: KSize.margin12x),
@@ -405,24 +520,32 @@ class _BioSectionWithPhoto extends StatelessWidget {
     required this.isCompact,
     required this.photoIndex,
     required this.child,
+    this.mediaKey,
   });
 
   final bool isCompact;
   final int photoIndex;
   final Widget child;
 
+  /// Optional anchor on the photo so the onboarding tour can scroll to it
+  /// and highlight it through the overlay scrim.
+  final GlobalKey? mediaKey;
+
   @override
   Widget build(BuildContext context) {
-    final media = _AuthorPhoto(
-      index: photoIndex,
-      aspectRatio: isCompact ? KSize.bioPhotoCompactAspectRatio : KSize.bioPhotoWideAspectRatio,
-      borderRadius: BorderRadius.circular(KSize.radiusLargeExtra),
-      placeholderBackground: context.colors.bioBg,
-      placeholderIcon: Icons.image_outlined,
-      placeholderIconColor: context.colors.onDarkPlaceholderIcon,
-      placeholderIconSize: KSize.iconHeroPlaceholder,
-      heroTag: 'about-author-photo-$photoIndex',
-      openFullscreenOnTap: true,
+    final media = KeyedSubtree(
+      key: mediaKey,
+      child: _AuthorPhoto(
+        index: photoIndex,
+        aspectRatio: isCompact ? KSize.bioPhotoCompactAspectRatio : KSize.bioPhotoWideAspectRatio,
+        borderRadius: BorderRadius.circular(KSize.radiusLargeExtra),
+        placeholderBackground: context.colors.bioBg,
+        placeholderIcon: Icons.image_outlined,
+        placeholderIconColor: context.colors.onDarkPlaceholderIcon,
+        placeholderIconSize: KSize.iconHeroPlaceholder,
+        heroTag: 'about-author-photo-$photoIndex',
+        openFullscreenOnTap: true,
+      ),
     );
 
     if (isCompact) {

@@ -379,4 +379,46 @@ class ContentTextTheme {
     letterSpacing: 0.5,
     color: _colors.forestGreen,
   );
+
+  // ── Onboarding tour tooltips ─────────────────────────────────────────────
+
+  /// Tour step counter ("1/3") — 11 px · w500 · ls 2 · [AppColors.contentMuted].
+  TextStyle get tourStepLabel => GoogleFonts.roboto(
+    fontSize: KSize.fontSize3XS,
+    fontWeight: FontWeight.w500,
+    letterSpacing: 2,
+    color: _colors.contentMuted,
+  );
+
+  /// Tour tooltip title — 16 px · w500 · h 1.3 · [AppTheme.darkOlive].
+  TextStyle get tourTitle => GoogleFonts.roboto(
+    fontSize: KSize.fontSizeS,
+    fontWeight: FontWeight.w500,
+    height: 1.3,
+    color: _colors.darkOlive,
+  );
+
+  /// Tour tooltip body — 14 px · w300 · h 1.6 · [AppColors.contentBody].
+  TextStyle get tourBody => GoogleFonts.roboto(
+    fontSize: KSize.fontSizeXS,
+    fontWeight: FontWeight.w300,
+    height: 1.6,
+    color: _colors.contentBody,
+  );
+
+  /// Tour action button label — 12 px · w500 · ls 1.5 · [AppColors.white].
+  TextStyle get tourButtonLabel => GoogleFonts.roboto(
+    fontSize: KSize.fontSize2XS,
+    fontWeight: FontWeight.w500,
+    letterSpacing: 1.5,
+    color: _colors.white,
+  );
+
+  /// Tour secondary (back) button label — 12 px · w500 · ls 1.5 · [AppTheme.forestGreen].
+  TextStyle get tourBackButtonLabel => GoogleFonts.roboto(
+    fontSize: KSize.fontSize2XS,
+    fontWeight: FontWeight.w500,
+    letterSpacing: 1.5,
+    color: _colors.forestGreen,
+  );
 }
