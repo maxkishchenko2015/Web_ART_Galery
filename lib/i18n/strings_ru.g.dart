@@ -1043,8 +1043,8 @@ class Translations$bio$feature$ru {
 	/// ru: 'Монументальные панно в Минске'
 	String get panelsLabel => 'Монументальные панно в Минске';
 
-	/// ru: '1'
-	String get guinnessValue => '1';
+	/// ru: ''
+	String get guinnessValue => '';
 
 	/// ru: 'Рекорд Гиннесса в искусстве'
 	String get guinnessLabel => 'Рекорд Гиннесса в искусстве';
@@ -1770,7 +1770,7 @@ extension on Translations {
 			'bio.feature.worksLabel' => 'Работ искусства по всему миру',
 			'bio.feature.panelsValue' => '6+',
 			'bio.feature.panelsLabel' => 'Монументальные панно в Минске',
-			'bio.feature.guinnessValue' => '1',
+			'bio.feature.guinnessValue' => '',
 			'bio.feature.guinnessLabel' => 'Рекорд Гиннесса в искусстве',
 			'bio.feature.unGiftValue' => '',
 			'bio.feature.unGiftLabel' => 'Подарок ООН от Республики Беларусь',

@@ -395,4 +395,7 @@ class KSize {
 
   /// Pause after the first frame before the first-visit tour autoscrolls.
   static const Duration durationTourStartDelay = Duration(milliseconds: 900);
+
+  /// Count-up animation for the legacy stat numbers (500+, 6+).
+  static const Duration durationStatCountUp = Duration(milliseconds: 1100);
 }

@@ -284,18 +284,19 @@ class ContentTextTheme {
 
   // ── Stats ────────────────────────────────────────────────────────────────────
 
-  /// Stat large value — 36 px · w300 · [AppTheme.forestGreen].
+  /// Stat large value — 36 px · w500 · [AppTheme.forestGreen].
   TextStyle get statValue => GoogleFonts.roboto(
     fontSize: KSize.br6fontSize4XLHalf,
-    fontWeight: FontWeight.w300,
+    fontWeight: FontWeight.w500,
     color: _colors.forestGreen,
   );
 
-  /// Stat description label — 14 px · w400 · [AppColors.contentMuted].
+  /// Stat description label — 16 px · w600 · [AppColors.darkText].
   TextStyle get statLabel => GoogleFonts.roboto(
-    fontSize: KSize.fontSizeXS,
-    fontWeight: FontWeight.w400,
-    color: _colors.contentMuted,
+    fontSize: KSize.fontSizeS,
+    fontWeight: FontWeight.w600,
+    letterSpacing: 0.2,
+    color: _colors.darkText,
   );
 
   // ── Biography ────────────────────────────────────────────────────────────────

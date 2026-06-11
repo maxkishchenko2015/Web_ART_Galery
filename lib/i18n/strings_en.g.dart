@@ -522,7 +522,7 @@ class _Translations$bio$feature$en extends Translations$bio$feature$ru {
 	@override String get worksLabel => 'Works of art around the world';
 	@override String get panelsValue => '6+';
 	@override String get panelsLabel => 'Monumental panels in Minsk';
-	@override String get guinnessValue => '1';
+	@override String get guinnessValue => '';
 	@override String get guinnessLabel => 'Guinness art record';
 	@override String get unGiftValue => '';
 	@override String get unGiftLabel => 'A gift to the UN from the Republic of Belarus';
@@ -1108,7 +1108,7 @@ extension on TranslationsEn {
 			'bio.feature.worksLabel' => 'Works of art around the world',
 			'bio.feature.panelsValue' => '6+',
 			'bio.feature.panelsLabel' => 'Monumental panels in Minsk',
-			'bio.feature.guinnessValue' => '1',
+			'bio.feature.guinnessValue' => '',
 			'bio.feature.guinnessLabel' => 'Guinness art record',
 			'bio.feature.unGiftValue' => '',
 			'bio.feature.unGiftLabel' => 'A gift to the UN from the Republic of Belarus',

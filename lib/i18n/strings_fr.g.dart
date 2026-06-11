@@ -522,7 +522,7 @@ class _Translations$bio$feature$fr extends Translations$bio$feature$ru {
 	@override String get worksLabel => 'Oeuvres d\'art à travers le monde';
 	@override String get panelsValue => '6+';
 	@override String get panelsLabel => 'Panneaux monumentaux à Minsk';
-	@override String get guinnessValue => '1';
+	@override String get guinnessValue => '';
 	@override String get guinnessLabel => 'Record Guinness dans l\'art';
 	@override String get unGiftValue => '';
 	@override String get unGiftLabel => 'Un cadeau à l\'ONU de la République du Bélarus';
@@ -1108,7 +1108,7 @@ extension on TranslationsFr {
 			'bio.feature.worksLabel' => 'Oeuvres d\'art à travers le monde',
 			'bio.feature.panelsValue' => '6+',
 			'bio.feature.panelsLabel' => 'Panneaux monumentaux à Minsk',
-			'bio.feature.guinnessValue' => '1',
+			'bio.feature.guinnessValue' => '',
 			'bio.feature.guinnessLabel' => 'Record Guinness dans l\'art',
 			'bio.feature.unGiftValue' => '',
 			'bio.feature.unGiftLabel' => 'Un cadeau à l\'ONU de la République du Bélarus',

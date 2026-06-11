@@ -522,7 +522,7 @@ class _Translations$bio$feature$be extends Translations$bio$feature$ru {
 	@override String get worksLabel => 'Твораў мастацтва па ўсім свеце';
 	@override String get panelsValue => '6+';
 	@override String get panelsLabel => 'Манументальныя пано ў Мінску';
-	@override String get guinnessValue => '1';
+	@override String get guinnessValue => '';
 	@override String get guinnessLabel => 'Рэкорд Гінеса ў мастацтве';
 	@override String get unGiftValue => '';
 	@override String get unGiftLabel => 'Падарунак ААН ад Рэспублікі Беларусь';
@@ -1108,7 +1108,7 @@ extension on TranslationsBe {
 			'bio.feature.worksLabel' => 'Твораў мастацтва па ўсім свеце',
 			'bio.feature.panelsValue' => '6+',
 			'bio.feature.panelsLabel' => 'Манументальныя пано ў Мінску',
-			'bio.feature.guinnessValue' => '1',
+			'bio.feature.guinnessValue' => '',
 			'bio.feature.guinnessLabel' => 'Рэкорд Гінеса ў мастацтве',
 			'bio.feature.unGiftValue' => '',
 			'bio.feature.unGiftLabel' => 'Падарунак ААН ад Рэспублікі Беларусь',

@@ -522,7 +522,7 @@ class _Translations$bio$feature$de extends Translations$bio$feature$ru {
 	@override String get worksLabel => 'Kunstwerke weltweit';
 	@override String get panelsValue => '6+';
 	@override String get panelsLabel => 'Monumentale Tafeln in Minsk';
-	@override String get guinnessValue => '1';
+	@override String get guinnessValue => '';
 	@override String get guinnessLabel => 'Guinness-Rekord der Kunst';
 	@override String get unGiftValue => '';
 	@override String get unGiftLabel => 'Ein Geschenk der Republik Belarus an die UNO';
@@ -1108,7 +1108,7 @@ extension on TranslationsDe {
 			'bio.feature.worksLabel' => 'Kunstwerke weltweit',
 			'bio.feature.panelsValue' => '6+',
 			'bio.feature.panelsLabel' => 'Monumentale Tafeln in Minsk',
-			'bio.feature.guinnessValue' => '1',
+			'bio.feature.guinnessValue' => '',
 			'bio.feature.guinnessLabel' => 'Guinness-Rekord der Kunst',
 			'bio.feature.unGiftValue' => '',
 			'bio.feature.unGiftLabel' => 'Ein Geschenk der Republik Belarus an die UNO',

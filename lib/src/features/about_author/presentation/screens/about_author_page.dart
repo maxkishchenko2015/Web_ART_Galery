@@ -407,6 +407,7 @@ class _FeatureStats extends StatelessWidget {
 
     // The record and the UN gift lead the legacy numbers.
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         _StatItem(value: feature.guinnessValue, label: feature.guinnessLabel),
         const SizedBox(height: KSize.margin8x),
@@ -444,13 +445,124 @@ class _StatItem extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.baseline,
       textBaseline: TextBaseline.alphabetic,
       children: [
-        Text(value, style: context.textContent.statValue),
+        _AnimatedStatValue(value: value, style: context.textContent.statValue),
         const SizedBox(width: KSize.margin4x),
         // Expanded so long localised labels (e.g. ru "Книга рекордов Гиннесса")
         // wrap onto a second line instead of overflowing the 3/7 column the
         // stat block lives in on narrower desktop widths.
         Expanded(child: Text(label, style: context.textContent.statLabel)),
       ],
+    );
+  }
+}
+
+/// Counts the numeric part of a stat value up from zero (e.g. "500+" animates
+/// 0 → 500, keeping the "+" suffix). The animation fires the first time the
+/// number scrolls into view, so visitors actually see it count rather than
+/// finding it already settled below the fold. Non-numeric values render as-is.
+class _AnimatedStatValue extends StatefulWidget {
+  const _AnimatedStatValue({required this.value, required this.style});
+
+  final String value;
+  final TextStyle style;
+
+  @override
+  State<_AnimatedStatValue> createState() => _AnimatedStatValueState();
+}
+
+class _AnimatedStatValueState extends State<_AnimatedStatValue>
+    with SingleTickerProviderStateMixin {
+  late final AnimationController _controller;
+  late final int _target;
+  late final String _prefix;
+  late final String _suffix;
+  late final bool _isNumeric;
+
+  ScrollPosition? _scrollPosition;
+  bool _started = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _parse(widget.value);
+    _controller = AnimationController(vsync: this, duration: KSize.durationStatCountUp);
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    if (!_isNumeric || _started) return;
+
+    // Track the enclosing scrollable so the count-up fires when the number
+    // first scrolls into view. Resolving here (rather than in a one-shot
+    // post-frame) re-binds correctly if the scrollable changes.
+    final position = Scrollable.maybeOf(context)?.position;
+    if (position != _scrollPosition) {
+      _scrollPosition?.removeListener(_maybeStart);
+      _scrollPosition = position;
+      _scrollPosition?.addListener(_maybeStart);
+    }
+    WidgetsBinding.instance.addPostFrameCallback((_) => _maybeStart());
+  }
+
+  void _parse(String raw) {
+    final match = RegExp(r'\d+').firstMatch(raw);
+    if (match == null) {
+      _isNumeric = false;
+      _target = 0;
+      _prefix = '';
+      _suffix = '';
+      return;
+    }
+    _isNumeric = true;
+    _target = int.parse(match.group(0)!);
+    _prefix = raw.substring(0, match.start);
+    _suffix = raw.substring(match.end);
+  }
+
+  void _maybeStart() {
+    if (_started || !mounted) return;
+
+    // No scrollable around us → everything is on screen already, just run.
+    if (_scrollPosition == null) {
+      _start();
+      return;
+    }
+
+    final box = context.findRenderObject() as RenderBox?;
+    if (box == null || !box.hasSize) return;
+    final topY = box.localToGlobal(Offset.zero).dy;
+    final screenHeight = MediaQuery.sizeOf(context).height;
+    // Any part of the number within the viewport triggers the count.
+    if (topY < screenHeight && topY + box.size.height > 0) {
+      _start();
+    }
+  }
+
+  void _start() {
+    _started = true;
+    _scrollPosition?.removeListener(_maybeStart);
+    _controller.forward();
+  }
+
+  @override
+  void dispose() {
+    _scrollPosition?.removeListener(_maybeStart);
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    if (!_isNumeric) {
+      return Text(widget.value, style: widget.style);
+    }
+    return AnimatedBuilder(
+      animation: _controller,
+      builder: (context, _) {
+        final current = (_target * Curves.easeOutCubic.transform(_controller.value)).round();
+        return Text('$_prefix$current$_suffix', style: widget.style);
+      },
     );
   }
 }
