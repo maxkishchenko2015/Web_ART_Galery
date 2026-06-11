@@ -409,11 +409,19 @@ class _FeatureStats extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        _StatItem(value: feature.guinnessValue, label: feature.guinnessLabel),
+        _StatItem(
+          value: feature.guinnessValue,
+          label: feature.guinnessLabel,
+          icon: Icons.emoji_events_outlined,
+        ),
         const SizedBox(height: KSize.margin8x),
         const Divider(height: 1),
         const SizedBox(height: KSize.margin8x),
-        _StatItem(value: feature.unGiftValue, label: feature.unGiftLabel),
+        _StatItem(
+          value: feature.unGiftValue,
+          label: feature.unGiftLabel,
+          icon: Icons.public_outlined,
+        ),
         const SizedBox(height: KSize.margin8x),
         const Divider(height: 1),
         const SizedBox(height: KSize.margin8x),
@@ -428,24 +436,35 @@ class _FeatureStats extends StatelessWidget {
 }
 
 class _StatItem extends StatelessWidget {
-  const _StatItem({required this.value, required this.label});
+  const _StatItem({required this.value, required this.label, this.icon});
 
   final String value;
   final String label;
 
+  /// Fills the value slot for rows that have no number (Guinness, UN gift).
+  final IconData? icon;
+
   @override
   Widget build(BuildContext context) {
-    // A stat without a leading number (e.g. the UN gift) shows just its label
-    // so there's no empty number column on the left.
-    if (value.isEmpty) {
+    final hasNumber = value.isNotEmpty;
+
+    // Leading slot: the animated number, or — when there's no number — an icon
+    // so the row isn't left lopsided. Numbers sit on the text baseline; icons
+    // centre against the label instead.
+    final Widget leading;
+    if (hasNumber) {
+      leading = _AnimatedStatValue(value: value, style: context.textContent.statValue);
+    } else if (icon != null) {
+      leading = Icon(icon, size: KSize.statIconSize, color: context.colors.forestGreen);
+    } else {
       return Text(label, style: context.textContent.statLabel);
     }
 
     return Row(
-      crossAxisAlignment: CrossAxisAlignment.baseline,
-      textBaseline: TextBaseline.alphabetic,
+      crossAxisAlignment: hasNumber ? CrossAxisAlignment.baseline : CrossAxisAlignment.center,
+      textBaseline: hasNumber ? TextBaseline.alphabetic : null,
       children: [
-        _AnimatedStatValue(value: value, style: context.textContent.statValue),
+        leading,
         const SizedBox(width: KSize.margin4x),
         // Expanded so long localised labels (e.g. ru "Книга рекордов Гиннесса")
         // wrap onto a second line instead of overflowing the 3/7 column the

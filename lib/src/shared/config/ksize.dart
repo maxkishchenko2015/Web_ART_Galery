@@ -398,4 +398,8 @@ class KSize {
 
   /// Count-up animation for the legacy stat numbers (500+, 6+).
   static const Duration durationStatCountUp = Duration(milliseconds: 1100);
+
+  /// Icon that fills the value slot of a stat row that has no number
+  /// (Guinness record, UN gift) — sized to match the big stat numbers.
+  static const double statIconSize = 36;
 }
