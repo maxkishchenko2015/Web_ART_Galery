@@ -32,7 +32,11 @@ class AppLocaleState {
 }
 
 class AppLocaleCubit extends HydratedCubit<AppLocaleState> {
-  AppLocaleCubit() : super(const AppLocaleState(locale: AppLocale.ru)) {
+  // First-visit default: match the browser/device preferred language against
+  // our supported locales, falling back to the base locale (ru) when none fit.
+  // A returning user's explicit choice is restored by [fromJson] and overrides
+  // this seed, so device detection only applies before any choice was saved.
+  AppLocaleCubit() : super(AppLocaleState(locale: AppLocaleUtils.findDeviceLocale())) {
     unawaited(LocaleSettings.setLocale(state.locale));
   }
 
@@ -70,13 +74,13 @@ class AppLocaleCubit extends HydratedCubit<AppLocaleState> {
   AppLocaleState fromJson(Map<String, dynamic> json) {
     final rawLocale = json['locale'] as String?;
     if (rawLocale == null) {
-      return const AppLocaleState(locale: AppLocale.ru);
+      return AppLocaleState(locale: AppLocaleUtils.findDeviceLocale());
     }
 
     try {
       return AppLocaleState(locale: AppLocaleUtils.parse(rawLocale));
     } catch (_) {
-      return const AppLocaleState(locale: AppLocale.ru);
+      return AppLocaleState(locale: AppLocaleUtils.findDeviceLocale());
     }
   }
 

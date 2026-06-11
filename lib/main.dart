@@ -123,7 +123,10 @@ void main() {
 
       _setDeviceFormFactorUserProperties();
 
-      LocaleSettings.setLocaleSync(AppLocale.ru);
+      // Resolve the browser/device locale for the first synchronous frame (page
+      // title etc.). AppLocaleCubit then restores any saved choice and re-applies
+      // it on construction, so a returning user's selection still wins.
+      await LocaleSettings.setLocale(AppLocaleUtils.findDeviceLocale());
 
       setPageTitle(t.app.title);
       LocaleSettings.getLocaleStream().listen((_) {
