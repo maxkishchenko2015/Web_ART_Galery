@@ -76,10 +76,11 @@ class _AboutAuthorViewState extends State<_AboutAuthorView> with OnboardingTourH
 
   @override
   double onboardingTourScrollAlignment(int step) => switch (step) {
-    // Tall portrait photos pin near the top so the tooltip has room below them
-    // and doesn't overlap the image on smaller screens.
+    // Pin every step's photo near the top so its tooltip sits below it and
+    // doesn't overlap the image on smaller screens.
     OnboardingTourSteps.origins => 0.04,
     OnboardingTourSteps.tapestryScale => 0.02,
+    OnboardingTourSteps.chernobyl => 0.06,
     _ => 0.5,
   };
 
@@ -671,6 +672,7 @@ class _BiographySection extends StatelessWidget {
             isCompact: isCompact,
             photoIndex: AboutAuthorPageConstants.chernobylPhotoIndex,
             mediaKey: chernobylMediaKey,
+            fitFullImage: true,
             child: _ChernobylCopy(),
           ),
           const SizedBox(height: KSize.margin12x),
@@ -706,6 +708,7 @@ class _BioSectionWithPhoto extends StatelessWidget {
     this.mediaKey,
     this.compactAspectRatio,
     this.wideAspectRatio,
+    this.fitFullImage = false,
   });
 
   final bool isCompact;
@@ -721,6 +724,10 @@ class _BioSectionWithPhoto extends StatelessWidget {
   final double? compactAspectRatio;
   final double? wideAspectRatio;
 
+  /// Size the frame to the image's own ratio so the whole image shows (used
+  /// for the landscape Chernobyl tapestry).
+  final bool fitFullImage;
+
   @override
   Widget build(BuildContext context) {
     final photo = _AuthorPhoto(
@@ -735,6 +742,7 @@ class _BioSectionWithPhoto extends StatelessWidget {
       placeholderIconSize: KSize.iconHeroPlaceholder,
       heroTag: 'about-author-photo-$photoIndex',
       openFullscreenOnTap: true,
+      fitFullImage: fitFullImage,
     );
     // Tour targets are wrapped in a RepaintBoundary so the onboarding overlay
     // can snapshot them; other sections render the photo directly.
@@ -838,6 +846,7 @@ class _AuthorPhoto extends StatelessWidget {
     required this.placeholderIconSize,
     this.heroTag,
     this.openFullscreenOnTap = false,
+    this.fitFullImage = false,
   });
 
   final int index;
@@ -849,6 +858,12 @@ class _AuthorPhoto extends StatelessWidget {
   final double placeholderIconSize;
   final Object? heroTag;
   final bool openFullscreenOnTap;
+
+  /// When true the frame matches the loaded image's own aspect ratio (so the
+  /// whole image shows with no crop and no letterbox), instead of [aspectRatio]
+  /// which is used only as the fallback until the image resolves. Used for the
+  /// landscape Chernobyl tapestry.
+  final bool fitFullImage;
 
   @override
   Widget build(BuildContext context) {
@@ -884,16 +899,27 @@ class _AuthorPhoto extends StatelessWidget {
           );
         }
 
-        final frame = ClipRRect(
-          borderRadius: borderRadius,
-          child: AspectRatio(
-            aspectRatio: aspectRatio,
-            child: DecoratedBox(
-              decoration: BoxDecoration(color: placeholderBackground, borderRadius: borderRadius),
-              child: inner,
+        final Widget frame;
+        if (hasPhoto && fitFullImage) {
+          frame = _IntrinsicAspectImage(
+            url: photo.url,
+            fallbackRatio: aspectRatio,
+            borderRadius: borderRadius,
+            background: placeholderBackground,
+            child: inner,
+          );
+        } else {
+          frame = ClipRRect(
+            borderRadius: borderRadius,
+            child: AspectRatio(
+              aspectRatio: aspectRatio,
+              child: DecoratedBox(
+                decoration: BoxDecoration(color: placeholderBackground, borderRadius: borderRadius),
+                child: inner,
+              ),
             ),
-          ),
-        );
+          );
+        }
 
         if (!hasPhoto || !openFullscreenOnTap) {
           return frame;
@@ -909,6 +935,100 @@ class _AuthorPhoto extends StatelessWidget {
           ),
         );
       },
+    );
+  }
+}
+
+/// Renders a photo in a frame sized to the image's own aspect ratio, so the
+/// whole image is shown (no crop, no letterbox) while the rounded corners are
+/// still clipped against the image edges. Uses [fallbackRatio] until the image
+/// resolves its intrinsic size.
+class _IntrinsicAspectImage extends StatefulWidget {
+  const _IntrinsicAspectImage({
+    required this.url,
+    required this.fallbackRatio,
+    required this.borderRadius,
+    required this.background,
+    required this.child,
+  });
+
+  final String url;
+  final double fallbackRatio;
+  final BorderRadius borderRadius;
+  final Color background;
+  final Widget child;
+
+  @override
+  State<_IntrinsicAspectImage> createState() => _IntrinsicAspectImageState();
+}
+
+class _IntrinsicAspectImageState extends State<_IntrinsicAspectImage> {
+  ImageStream? _stream;
+  ImageStreamListener? _listener;
+  double? _ratio;
+
+  @override
+  void initState() {
+    super.initState();
+    _resolveRatio();
+  }
+
+  @override
+  void didUpdateWidget(_IntrinsicAspectImage oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.url != widget.url) {
+      _ratio = null;
+      _resolveRatio();
+    }
+  }
+
+  void _resolveRatio() {
+    _detachStream();
+    final stream = CachedNetworkImageView.providerFor(widget.url).resolve(ImageConfiguration.empty);
+    final listener = ImageStreamListener(
+      (info, _) {
+        final width = info.image.width;
+        final height = info.image.height;
+        info.dispose();
+        if (mounted && height > 0) {
+          final ratio = width / height;
+          if (ratio != _ratio) {
+            setState(() => _ratio = ratio);
+          }
+        }
+      },
+      onError: (_, _) {},
+    );
+    stream.addListener(listener);
+    _stream = stream;
+    _listener = listener;
+  }
+
+  void _detachStream() {
+    if (_stream != null && _listener != null) {
+      _stream!.removeListener(_listener!);
+    }
+    _stream = null;
+    _listener = null;
+  }
+
+  @override
+  void dispose() {
+    _detachStream();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return ClipRRect(
+      borderRadius: widget.borderRadius,
+      child: AspectRatio(
+        aspectRatio: _ratio ?? widget.fallbackRatio,
+        child: DecoratedBox(
+          decoration: BoxDecoration(color: widget.background, borderRadius: widget.borderRadius),
+          child: widget.child,
+        ),
+      ),
     );
   }
 }
