@@ -76,7 +76,9 @@ class _AboutAuthorViewState extends State<_AboutAuthorView> with OnboardingTourH
 
   @override
   double onboardingTourScrollAlignment(int step) => switch (step) {
-    // The tall tapestry photo is pinned near the top so its tooltip sits below.
+    // Tall portrait photos pin near the top so the tooltip has room below them
+    // and doesn't overlap the image on smaller screens.
+    OnboardingTourSteps.origins => 0.04,
     OnboardingTourSteps.tapestryScale => 0.02,
     _ => 0.5,
   };
