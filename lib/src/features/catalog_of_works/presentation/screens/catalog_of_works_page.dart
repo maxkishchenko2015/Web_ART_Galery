@@ -13,6 +13,7 @@ import 'package:web_art_galery/src/features/catalog_of_works/presentation/widget
 import 'package:web_art_galery/src/shared/config/app_context_extensions.dart';
 import 'package:web_art_galery/src/shared/config/ksize.dart';
 import 'package:web_art_galery/src/shared/presentation/widgets/app_loader.dart';
+import 'package:web_art_galery/src/shared/presentation/widgets/cubit_initializer.dart';
 import 'package:web_art_galery/src/shared/presentation/widgets/fullscreen_image_viewer.dart';
 import 'package:web_art_galery/src/shared/telemetry/app_telemetry.dart';
 
@@ -27,7 +28,12 @@ class CatalogOfWorksPage extends StatelessWidget {
         ..description(description: context.t.seo.catalog.description)
         ..keywords(keywords: context.t.seo.catalog.keywords);
     }
-    return const _CatalogOfWorksContent();
+    // Kick off the first page load only when the catalog route is visited
+    // (the cubit's own `is Loaded` guard makes revisits a no-op).
+    return CubitInitializer(
+      onInit: (context) => context.read<CatalogOfWorksCubit>().loadInitial(),
+      child: const _CatalogOfWorksContent(),
+    );
   }
 }
 

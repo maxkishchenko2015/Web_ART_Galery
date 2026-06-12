@@ -10,6 +10,7 @@ import 'package:web_art_galery/src/shared/config/app_context_extensions.dart';
 import 'package:web_art_galery/src/shared/config/ksize.dart';
 import 'package:web_art_galery/src/shared/presentation/cubits/app_locale_cubit.dart';
 import 'package:web_art_galery/src/shared/presentation/widgets/app_loader.dart';
+import 'package:web_art_galery/src/shared/presentation/widgets/cubit_initializer.dart';
 import 'package:web_art_galery/src/shared/presentation/widgets/cached_network_image_view.dart';
 import 'package:web_art_galery/src/shared/utils/url_launcher_utils.dart';
 
@@ -23,7 +24,17 @@ class NewsDetailPage extends StatelessWidget {
   final String articleSlug;
 
   @override
-  Widget build(BuildContext context) => _NewsDetailView(articleSlug: articleSlug);
+  Widget build(BuildContext context) {
+    // A deep link straight to /news/<slug> can land here before the list has
+    // ever loaded (it is no longer fetched at app start), so ensure the list
+    // load is triggered — the cubit's `is Loaded` guard keeps it a no-op when
+    // the user arrived from the news list. Resolution still happens against the
+    // list state, so the detail screen issues no Firestore request of its own.
+    return CubitInitializer(
+      onInit: (context) => context.read<NewsListCubit>().load(),
+      child: _NewsDetailView(articleSlug: articleSlug),
+    );
+  }
 }
 
 class _NewsDetailView extends StatelessWidget {

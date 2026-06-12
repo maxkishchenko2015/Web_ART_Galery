@@ -47,14 +47,42 @@
   <!--
     Critical-path preload hints. flutter_bootstrap.js is the entry script
     (loaded async at end of body) — telling the browser to fetch it early
-    cuts LCP by roughly the bootstrap-roundtrip on cold connections. The
-    canvaskit.wasm preload is `as="fetch"` because <script type=module>
-    fetches WASM with credentials mode "omit", matching this `crossorigin`
-    attribute. Adjust if the canvaskit version path changes in a future
-    Flutter SDK upgrade.
+    cuts LCP by roughly the bootstrap-roundtrip on cold connections.
   -->
   <link rel="preload" href="flutter_bootstrap.js" as="script">
-  <link rel="preload" href="canvaskit/canvaskit.wasm" as="fetch" crossorigin type="application/wasm">
+
+  <!--
+    CanvasKit WASM preload. The engine picks a per-browser variant: Chromium
+    (blink + ImageDecoder + V8 break iterators) loads the smaller
+    `canvaskit/chromium/canvaskit.wasm`, while everyone else (iOS Safari,
+    Firefox) loads the full `canvaskit/canvaskit.wasm`. A static <link> can
+    only name one file, so on the wrong browser it would download a multi-MB
+    variant that is then discarded. We instead detect the variant the loader
+    will choose and inject the matching preload, so the wasm fetch overlaps
+    main.dart.js download on every browser. `as="fetch"` (not "script")
+    because <script type=module> fetches WASM with credentials mode "omit",
+    which this anonymous crossorigin matches. Mirror the variant test in
+    flutter_bootstrap.js if a future Flutter SDK upgrade changes it.
+  -->
+  <script>
+    (function () {
+      var usesChromiumVariant =
+        (navigator.vendor === 'Google Inc.' || navigator.userAgent.indexOf('Edg/') !== -1) &&
+        typeof ImageDecoder !== 'undefined' &&
+        typeof Intl.v8BreakIterator !== 'undefined' &&
+        typeof Intl.Segmenter !== 'undefined';
+      var href = usesChromiumVariant
+        ? 'canvaskit/chromium/canvaskit.wasm'
+        : 'canvaskit/canvaskit.wasm';
+      var link = document.createElement('link');
+      link.rel = 'preload';
+      link.as = 'fetch';
+      link.type = 'application/wasm';
+      link.crossOrigin = 'anonymous';
+      link.href = href;
+      document.head.appendChild(link);
+    })();
+  </script>
   <link rel="preconnect" href="https://www.unpkg.com" crossorigin>
   <link rel="dns-prefetch" href="https://firestore.googleapis.com">
   <link rel="dns-prefetch" href="https://firebasestorage.googleapis.com">

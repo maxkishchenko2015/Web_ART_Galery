@@ -89,40 +89,7 @@ void main() {
         deferredFirebaseError = (error: e, stack: s);
       }
 
-      try {
-        await AppTelemetry.instance.initialize().timeout(const Duration(seconds: 5));
-      } catch (e, s) {
-        AppLogger.instance.w('Telemetry init failed, continuing without', error: e, stackTrace: s);
-      }
-
-      if (deferredHydratedBlocError != null) {
-        unawaited(
-          AppTelemetry.instance.logHydratedBlocError(
-            deferredHydratedBlocError.error,
-            deferredHydratedBlocError.stack,
-          ),
-        );
-      }
-      if (deferredFirebaseError != null) {
-        unawaited(
-          AppTelemetry.instance.logFirebaseError(
-            deferredFirebaseError.error,
-            deferredFirebaseError.stack,
-          ),
-        );
-      } else if (!firebaseReady) {
-        unawaited(
-          AppTelemetry.instance.logFirebaseError(
-            StateError('Firebase not configured'),
-            StackTrace.current,
-            reason: 'tryInitialize_returned_false',
-          ),
-        );
-      }
-
       if (kIsWeb) MetaSEO().config();
-
-      _setDeviceFormFactorUserProperties();
 
       // Resolve the browser/device locale for the first synchronous frame (page
       // title etc.). AppLocaleCubit then restores any saved choice and re-applies
@@ -139,10 +106,17 @@ void main() {
           child: MultiBlocProvider(
             providers: [
               BlocProvider<AppLocaleCubit>(create: (_) => AppLocaleCubit()),
+              // Feature cubits are PROVIDED here but NOT loaded here. Each page
+              // triggers its own cubit's load() on mount (via CubitInitializer
+              // or page initState), so nothing fetches over the network until
+              // its route is actually visited. This keeps the first route
+              // (/about-author) from firing the news + catalog Firestore
+              // queries it never displays. The providers stay app-wide because
+              // the shell reads news/catalog state to show/hide their nav tabs.
               BlocProvider<NewsListCubit>(
                 create: (_) => NewsListCubit(
                   repository: NewsRepositoryFirebase(apiController: NewsApiController()),
-                )..load(),
+                ),
               ),
               BlocProvider<OnboardingTourCubit>(create: (_) => OnboardingTourCubit()),
               BlocProvider<AboutAuthorCubit>(
@@ -150,26 +124,41 @@ void main() {
                   repository: AboutAuthorRepositoryFirebase(
                     apiController: AboutAuthorApiController(),
                   ),
-                )..loadPhotos(),
+                ),
               ),
               BlocProvider<CatalogOfWorksCubit>(
                 create: (_) => CatalogOfWorksCubit(
                   repository: CatalogOfWorksRepositoryFirebase(
                     apiController: CatalogOfWorksApiController(),
                   ),
-                )..loadInitial(),
+                ),
               ),
               BlocProvider<FilmsCubit>(
-                create: (_) => FilmsCubit(repository: const FilmsRepositoryLocal())..load(),
+                create: (_) => FilmsCubit(repository: const FilmsRepositoryLocal()),
               ),
               BlocProvider<ArchiveCubit>(
-                create: (_) => ArchiveCubit(repository: const ArchiveRepositoryLocal())..load(),
+                create: (_) => ArchiveCubit(repository: const ArchiveRepositoryLocal()),
               ),
             ],
             child: const ArtGalleryApp(),
           ),
         ),
       );
+
+      // Telemetry init does network / platform-channel work that the first
+      // frame never needs, so it runs *after* runApp instead of blocking paint.
+      // Deferred Firebase / HydratedBloc errors captured above are flushed once
+      // telemetry is ready (telemetry depends on Firebase, so it can't be the
+      // receiver during the init steps).
+      unawaited(
+        _initTelemetry(
+          firebaseReady: firebaseReady,
+          deferredHydratedBlocError: deferredHydratedBlocError,
+          deferredFirebaseError: deferredFirebaseError,
+        ),
+      );
+
+      _setDeviceFormFactorUserProperties();
     },
     (error, stackTrace) {
       AppLogger.instance.f('Uncaught bootstrap zone error', error: error, stackTrace: stackTrace);
@@ -184,6 +173,45 @@ void main() {
       );
     },
   );
+}
+
+/// Initializes telemetry off the first-frame critical path and, once it is
+/// ready, flushes any Firebase / HydratedBloc errors deferred during bootstrap.
+Future<void> _initTelemetry({
+  required bool firebaseReady,
+  required ({Object error, StackTrace stack})? deferredHydratedBlocError,
+  required ({Object error, StackTrace stack})? deferredFirebaseError,
+}) async {
+  try {
+    await AppTelemetry.instance.initialize().timeout(const Duration(seconds: 5));
+  } catch (e, s) {
+    AppLogger.instance.w('Telemetry init failed, continuing without', error: e, stackTrace: s);
+  }
+
+  if (deferredHydratedBlocError != null) {
+    unawaited(
+      AppTelemetry.instance.logHydratedBlocError(
+        deferredHydratedBlocError.error,
+        deferredHydratedBlocError.stack,
+      ),
+    );
+  }
+  if (deferredFirebaseError != null) {
+    unawaited(
+      AppTelemetry.instance.logFirebaseError(
+        deferredFirebaseError.error,
+        deferredFirebaseError.stack,
+      ),
+    );
+  } else if (!firebaseReady) {
+    unawaited(
+      AppTelemetry.instance.logFirebaseError(
+        StateError('Firebase not configured'),
+        StackTrace.current,
+        reason: 'tryInitialize_returned_false',
+      ),
+    );
+  }
 }
 
 void _setDeviceFormFactorUserProperties() {

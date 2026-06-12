@@ -12,6 +12,7 @@ import 'package:web_art_galery/src/shared/config/app_context_extensions.dart';
 import 'package:web_art_galery/src/shared/config/ksize.dart';
 import 'package:web_art_galery/src/shared/presentation/cubits/app_locale_cubit.dart';
 import 'package:web_art_galery/src/shared/presentation/widgets/app_loader.dart';
+import 'package:web_art_galery/src/shared/presentation/widgets/cubit_initializer.dart';
 
 class NewsPage extends StatelessWidget {
   const NewsPage({super.key});
@@ -24,7 +25,12 @@ class NewsPage extends StatelessWidget {
         ..description(description: context.t.seo.news.description)
         ..keywords(keywords: context.t.seo.news.keywords);
     }
-    return const _NewsPageView();
+    // Load the article list only when the news route is visited (the cubit's
+    // own `is Loaded` guard makes revisits a no-op).
+    return CubitInitializer(
+      onInit: (context) => context.read<NewsListCubit>().load(),
+      child: const _NewsPageView(),
+    );
   }
 }
 

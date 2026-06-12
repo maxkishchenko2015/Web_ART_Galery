@@ -5,6 +5,18 @@ AddType application/wasm .wasm
 AddType application/javascript .js
 AddType application/json .json
 
+# Compression. Without this the ~3.8 MB main.dart.js and multi-MB
+# canvaskit.wasm ship uncompressed — the single biggest first-load cost on
+# mobile. Brotli (preferred, ~30% smaller than gzip on wasm/js) with a gzip
+# fallback for clients that don't advertise `br`. Both compress on the fly;
+# responses stay individually cacheable via the immutable headers below.
+<IfModule mod_brotli.c>
+  AddOutputFilterByType BROTLI_COMPRESS application/wasm application/javascript text/javascript application/json text/html text/css image/svg+xml application/xml
+</IfModule>
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE application/wasm application/javascript text/javascript application/json text/html text/css image/svg+xml application/xml
+</IfModule>
+
 # CORS for cross-origin checks
 <IfModule mod_headers.c>
   Header set Access-Control-Allow-Origin "*"

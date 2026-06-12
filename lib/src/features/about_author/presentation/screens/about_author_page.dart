@@ -11,6 +11,7 @@ import 'package:web_art_galery/src/features/about_author/presentation/cubits/onb
 import 'package:web_art_galery/src/features/about_author/presentation/screens/about_author_page_constants.dart';
 import 'package:web_art_galery/src/features/about_author/presentation/widgets/author_films_strip.dart';
 import 'package:web_art_galery/src/features/about_author/presentation/widgets/onboarding_tour_overlay.dart';
+import 'package:web_art_galery/src/features/films/presentation/cubits/films_cubit.dart';
 import 'package:web_art_galery/src/navigation/presentation/router/app_routes.dart';
 import 'package:web_art_galery/src/shared/config/app_context_extensions.dart';
 import 'package:web_art_galery/src/shared/config/ksize.dart';
@@ -50,6 +51,12 @@ class _AboutAuthorViewState extends State<_AboutAuthorView> with OnboardingTourH
   @override
   void initState() {
     super.initState();
+    // Trigger this route's data loads on mount instead of at app start, so the
+    // first frame is never blocked behind these queries. Cubit-side `is Loaded`
+    // guards make repeat visits no-ops. FilmsCubit feeds the author films strip
+    // rendered further down this page.
+    unawaited(context.read<AboutAuthorCubit>().loadPhotos());
+    unawaited(context.read<FilmsCubit>().load());
     attachOnboardingTour();
     scheduleOnboardingTourStart();
   }
