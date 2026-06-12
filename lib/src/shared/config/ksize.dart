@@ -327,6 +327,11 @@ class KSize {
   static const double bioPhotoCompactAspectRatio = 4 / 3;
   static const double bioPhotoWideAspectRatio = 5 / 4;
 
+  /// "Tapestry of the Century" is the centrepiece work, so its photo gets a
+  /// taller (full-bleed) frame than the other biography photos.
+  static const double tapestryPhotoCompactAspectRatio = 3 / 4;
+  static const double tapestryPhotoWideAspectRatio = 1;
+
   static const double disabledOpacity = 0.3;
   static const double disabledOpacity50 = 0.5;
   static const double enabledOpacity = 1;

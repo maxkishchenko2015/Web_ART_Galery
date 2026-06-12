@@ -72,6 +72,11 @@ mixin OnboardingTourHostMixin<T extends StatefulWidget> on State<T> {
   /// Localized copy for the tooltip shown at [step].
   OnboardingTourTooltipData onboardingTourTooltipData(BuildContext context, int step);
 
+  /// Where the target sits in the viewport after autoscroll: 0 = top,
+  /// 0.5 = centre, 1 = bottom. Override per step to pin a tall target near the
+  /// top so its tooltip has room below it.
+  double onboardingTourScrollAlignment(int step) => 0.5;
+
   /// Awaited before the tour starts — override to defer the first autoscroll
   /// until the highlighted content (e.g. photos) is actually on screen.
   Future<void> prepareOnboardingTour() async {}
@@ -146,7 +151,7 @@ mixin OnboardingTourHostMixin<T extends StatefulWidget> on State<T> {
     if (targetContext != null) {
       await Scrollable.ensureVisible(
         targetContext,
-        alignment: 0.5,
+        alignment: onboardingTourScrollAlignment(step),
         duration: KSize.durationScroll,
         curve: Curves.easeInOut,
       );

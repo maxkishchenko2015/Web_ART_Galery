@@ -74,6 +74,13 @@ class _AboutAuthorViewState extends State<_AboutAuthorView> with OnboardingTourH
     _ => _authorPhotoKey,
   };
 
+  @override
+  double onboardingTourScrollAlignment(int step) => switch (step) {
+    // The tall tapestry photo is pinned near the top so its tooltip sits below.
+    OnboardingTourSteps.tapestryScale => 0.02,
+    _ => 0.5,
+  };
+
   // Tooltip copy reuses biography strings where it can, so the tour stays in
   // sync with the section texts across all locales.
   @override
@@ -653,6 +660,8 @@ class _BiographySection extends StatelessWidget {
             isCompact: isCompact,
             photoIndex: AboutAuthorPageConstants.tapestryPhotoIndex,
             mediaKey: tapestryMediaKey,
+            compactAspectRatio: KSize.tapestryPhotoCompactAspectRatio,
+            wideAspectRatio: KSize.tapestryPhotoWideAspectRatio,
             child: _TapestryCopy(),
           ),
           const SizedBox(height: KSize.margin12x),
@@ -693,6 +702,8 @@ class _BioSectionWithPhoto extends StatelessWidget {
     required this.photoIndex,
     required this.child,
     this.mediaKey,
+    this.compactAspectRatio,
+    this.wideAspectRatio,
   });
 
   final bool isCompact;
@@ -703,11 +714,18 @@ class _BioSectionWithPhoto extends StatelessWidget {
   /// and highlight it through the overlay scrim.
   final GlobalKey? mediaKey;
 
+  /// Per-section aspect-ratio overrides; fall back to the shared bio-photo
+  /// ratios when null (used to give the tapestry a taller frame).
+  final double? compactAspectRatio;
+  final double? wideAspectRatio;
+
   @override
   Widget build(BuildContext context) {
     final photo = _AuthorPhoto(
       index: photoIndex,
-      aspectRatio: isCompact ? KSize.bioPhotoCompactAspectRatio : KSize.bioPhotoWideAspectRatio,
+      aspectRatio: isCompact
+          ? (compactAspectRatio ?? KSize.bioPhotoCompactAspectRatio)
+          : (wideAspectRatio ?? KSize.bioPhotoWideAspectRatio),
       borderRadius: BorderRadius.circular(KSize.radiusLargeExtra),
       placeholderBackground: context.colors.bioBg,
       placeholderIcon: Icons.image_outlined,
