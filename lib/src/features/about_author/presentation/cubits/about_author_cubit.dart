@@ -44,32 +44,15 @@ class AboutAuthorCubit extends Cubit<AboutAuthorState> {
 
   final AboutAuthorRepository _repository;
 
-  // About-Author always renders five photo slots (hero, universal realism,
-  // tapestry, chernobyl, mosaic). When Firebase is unreachable we fall back to
-  // these bundled assets so the page never shows an error state.
-  // Indexes intentionally match AboutAuthorPageConstants.*PhotoIndex so the
-  // existing rendering code keeps working without further changes.
-  static const List<AuthorPhoto> _fallbackPhotos = <AuthorPhoto>[
-    AuthorPhoto(url: 'assets/images/about_author_fallback/01.png'),
-    AuthorPhoto(url: 'assets/images/about_author_fallback/02.png'),
-    AuthorPhoto(url: 'assets/images/about_author_fallback/03.png'),
-    AuthorPhoto(url: 'assets/images/about_author_fallback/04.png'),
-    AuthorPhoto(url: 'assets/images/about_author_fallback/05.png'),
-  ];
-
   Future<void> loadPhotos() async {
     if (state is AboutAuthorLoaded) return;
     emit(const AboutAuthorLoading());
     try {
       final result = await _repository.fetchPhotos();
-      if (result.isEmpty) {
-        emit(const AboutAuthorLoaded(photos: _fallbackPhotos));
-        return;
-      }
-      emit(AboutAuthorLoaded(photos: _mergeWithFallbacks(result.photos)));
+      emit(AboutAuthorLoaded(photos: result.photos));
     } catch (error, stackTrace) {
       AppLogger.instance.e(
-        'About author photos fetch failed — using bundled fallback',
+        'About author photos fetch failed',
         error: error,
         stackTrace: stackTrace,
       );
@@ -78,28 +61,7 @@ class AboutAuthorCubit extends Cubit<AboutAuthorState> {
         stackTrace,
         reason: 'about_author_photos_fetch',
       );
-      emit(const AboutAuthorLoaded(photos: _fallbackPhotos));
+      emit(AboutAuthorError(error.toString()));
     }
-  }
-
-  /// Returns a photo list of at least [_fallbackPhotos].length entries where
-  /// every slot is guaranteed to have a usable URL: when Firestore omits or
-  /// blanks out a slot we substitute the matching bundled asset so each
-  /// biography section keeps its image instead of rendering a placeholder
-  /// icon.
-  static List<AuthorPhoto> _mergeWithFallbacks(List<AuthorPhoto> remote) {
-    final length = remote.length > _fallbackPhotos.length
-        ? remote.length
-        : _fallbackPhotos.length;
-    return List<AuthorPhoto>.generate(length, (index) {
-      final remotePhoto = index < remote.length ? remote[index] : null;
-      if (remotePhoto != null && !remotePhoto.isEmpty) {
-        return remotePhoto;
-      }
-      if (index < _fallbackPhotos.length) {
-        return _fallbackPhotos[index];
-      }
-      return remotePhoto ?? const AuthorPhoto(url: '');
-    }, growable: false);
   }
 }

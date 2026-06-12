@@ -80,8 +80,7 @@ class CachedNetworkImageView extends StatelessWidget {
 
   // Bundled `assets/...` paths must be rendered with `Image.asset`, not
   // `CachedNetworkImage`, otherwise the network loader treats the relative path
-  // as a URL and shows the broken-image fallback. Used by the About Author
-  // fallback photos that ship in the bundle when Firebase is unreachable.
+  // as a URL and shows the broken-image fallback.
   static bool _isAssetPath(String raw) => raw.startsWith('assets/') || raw.startsWith('asset://');
 
   static String _resolveUrl(String raw, {required bool useImageKitEndpoint}) {
