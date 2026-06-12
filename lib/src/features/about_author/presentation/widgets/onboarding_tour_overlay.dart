@@ -1,7 +1,9 @@
 import 'dart:async';
 import 'dart:math' as math;
+import 'dart:ui' as ui;
 
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:web_art_galery/src/features/about_author/presentation/cubits/onboarding_tour_cubit.dart';
 import 'package:web_art_galery/src/shared/config/app_context_extensions.dart';
@@ -37,8 +39,12 @@ class OnboardingTourTooltipData {
 /// Orchestrates the onboarding tour from a host screen state.
 ///
 /// Listens to [OnboardingTourCubit]; on each step it scrolls the step's
-/// target into view, then presents [OnboardingTourLayer] in the root
-/// [Overlay] with the target highlighted through a scrim cutout.
+/// target into view, snapshots it, then presents [OnboardingTourLayer] in the
+/// root [Overlay] — a blurred backdrop over the frozen page with the crisp
+/// target snapshot floating on top.
+///
+/// Targets must be wrapped in a [RepaintBoundary] keyed with the same key
+/// returned by [onboardingTourTargetKey], so the snapshot can be captured.
 ///
 /// Host contract:
 /// - call [attachOnboardingTour] in `initState` and [detachOnboardingTour]
@@ -51,19 +57,20 @@ mixin OnboardingTourHostMixin<T extends StatefulWidget> on State<T> {
   Timer? _tourStartTimer;
   int? _visibleStep;
 
+  /// Snapshot of the current step's target, shown sharp over the blurred page.
+  /// Owned here so it can be disposed when the step changes or the tour ends.
+  ui.Image? _snapshotImage;
+
   /// Set when the final step's primary button is tapped, so the end-of-tour
   /// teardown can tell "finished" (→ scroll back to top) apart from an early
   /// dismiss via the close button (→ stay put).
   bool _completedFully = false;
 
-  /// Widget the scrim cutout and tooltip should point at for [step].
+  /// [RepaintBoundary] key the snapshot and tooltip point at for [step].
   GlobalKey onboardingTourTargetKey(int step);
 
   /// Localized copy for the tooltip shown at [step].
   OnboardingTourTooltipData onboardingTourTooltipData(BuildContext context, int step);
-
-  /// Corner radius of the scrim cutout for [step]; override per target shape.
-  double onboardingTourHoleRadius(int step) => KSize.radiusLargeExtra;
 
   /// Awaited before the tour starts — override to defer the first autoscroll
   /// until the highlighted content (e.g. photos) is actually on screen.
@@ -83,7 +90,7 @@ mixin OnboardingTourHostMixin<T extends StatefulWidget> on State<T> {
     _tourStartTimer = null;
     _tourSubscription?.cancel();
     _tourSubscription = null;
-    _removeTourOverlay();
+    _teardownOverlay();
   }
 
   /// Starts the tour for first-time visitors once the page has settled on
@@ -118,7 +125,7 @@ mixin OnboardingTourHostMixin<T extends StatefulWidget> on State<T> {
 
   Future<void> _handleTourState(OnboardingTourState state) async {
     if (!mounted) {
-      _removeTourOverlay();
+      _teardownOverlay();
       return;
     }
 
@@ -132,9 +139,9 @@ mixin OnboardingTourHostMixin<T extends StatefulWidget> on State<T> {
     }
     _visibleStep = step;
 
-    // Bring the step's target into view before presenting the tooltip; the
-    // previous tooltip is removed first so it never points at a stale rect.
-    _removeTourOverlay();
+    // Bring the step's target into view before snapshotting it; the previous
+    // overlay is torn down first so it never points at a stale rect.
+    _teardownOverlay();
     final targetContext = onboardingTourTargetKey(step).currentContext;
     if (targetContext != null) {
       await Scrollable.ensureVisible(
@@ -148,18 +155,40 @@ mixin OnboardingTourHostMixin<T extends StatefulWidget> on State<T> {
     if (!mounted || _visibleStep != step) {
       return;
     }
-    _showTourOverlay(step);
+
+    final snapshot = await _captureTargetSnapshot(step);
+    if (!mounted || _visibleStep != step) {
+      snapshot?.dispose();
+      return;
+    }
+    _showTourOverlay(step, snapshot);
   }
 
-  void _showTourOverlay(int step) {
+  /// Rasterises the step's [RepaintBoundary] target. Returns null when the
+  /// boundary is missing or capture fails — the overlay then just blurs the
+  /// page without a sharp cut-out.
+  Future<ui.Image?> _captureTargetSnapshot(int step) async {
+    try {
+      final boundary = onboardingTourTargetKey(step).currentContext?.findRenderObject();
+      if (boundary is! RenderRepaintBoundary) {
+        return null;
+      }
+      return await boundary.toImage(pixelRatio: MediaQuery.devicePixelRatioOf(context));
+    } catch (_) {
+      return null;
+    }
+  }
+
+  void _showTourOverlay(int step, ui.Image? snapshot) {
+    _snapshotImage = snapshot;
     final cubit = context.read<OnboardingTourCubit>();
     final isLastStep = step >= OnboardingTourSteps.count - 1;
     final entry = OverlayEntry(
       builder: (overlayContext) => OnboardingTourLayer(
         key: ValueKey<int>(step),
         targetKey: onboardingTourTargetKey(step),
+        snapshot: snapshot,
         data: onboardingTourTooltipData(overlayContext, step),
-        holeRadius: onboardingTourHoleRadius(step),
         onNext: () {
           if (isLastStep) {
             _completedFully = true;
@@ -187,7 +216,7 @@ mixin OnboardingTourHostMixin<T extends StatefulWidget> on State<T> {
     final lastStep = _visibleStep;
     _visibleStep = null;
 
-    _removeTourOverlay();
+    _teardownOverlay();
 
     if (completedFully) {
       onOnboardingTourCompleted();
@@ -197,9 +226,7 @@ mixin OnboardingTourHostMixin<T extends StatefulWidget> on State<T> {
     final targetContext = lastStep == null
         ? null
         : onboardingTourTargetKey(lastStep).currentContext;
-    final position = targetContext == null
-        ? null
-        : Scrollable.maybeOf(targetContext)?.position;
+    final position = targetContext == null ? null : Scrollable.maybeOf(targetContext)?.position;
     if (position == null || !position.hasPixels) {
       return;
     }
@@ -209,21 +236,25 @@ mixin OnboardingTourHostMixin<T extends StatefulWidget> on State<T> {
         return;
       }
       if (position.pixels != offset) {
-        position.jumpTo(
-          offset.clamp(position.minScrollExtent, position.maxScrollExtent),
-        );
+        position.jumpTo(offset.clamp(position.minScrollExtent, position.maxScrollExtent));
       }
     });
   }
 
-  void _removeTourOverlay() {
+  /// Removes the overlay entry and releases the current snapshot image. The
+  /// entry is removed before the image is disposed so nothing paints a freed
+  /// image.
+  void _teardownOverlay() {
     _tourEntry?.remove();
     _tourEntry = null;
+    _snapshotImage?.dispose();
+    _snapshotImage = null;
   }
 }
 
-/// Full-screen tour layer: input-blocking scrim with a rounded cutout over
-/// the target widget, plus a tooltip bubble with an arrow pointing at it.
+/// Full-screen tour layer: an input-blocking, blurred backdrop over the frozen
+/// page with the crisp [snapshot] of the target floating on top (no frame),
+/// plus a tooltip bubble with an arrow pointing at it.
 ///
 /// The bubble is measured off-screen on the first frame, then positioned on
 /// whichever side of the target has room (below → above → beside → pinned to
@@ -232,18 +263,20 @@ class OnboardingTourLayer extends StatefulWidget {
   const OnboardingTourLayer({
     super.key,
     required this.targetKey,
+    required this.snapshot,
     required this.data,
-    required this.holeRadius,
     required this.onNext,
     required this.onClose,
     this.onBack,
   });
 
   final GlobalKey targetKey;
-  final OnboardingTourTooltipData data;
 
-  /// Corner radius of the scrim cutout (matches the highlighted widget).
-  final double holeRadius;
+  /// Rasterised target shown sharp over the blur. Null when capture failed —
+  /// the target then just stays blurred like the rest of the page.
+  final ui.Image? snapshot;
+
+  final OnboardingTourTooltipData data;
 
   final VoidCallback onNext;
   final VoidCallback onClose;
@@ -255,8 +288,7 @@ class OnboardingTourLayer extends StatefulWidget {
   State<OnboardingTourLayer> createState() => _OnboardingTourLayerState();
 }
 
-class _OnboardingTourLayerState extends State<OnboardingTourLayer>
-    with WidgetsBindingObserver {
+class _OnboardingTourLayerState extends State<OnboardingTourLayer> with WidgetsBindingObserver {
   final _bubbleKey = GlobalKey();
   Size? _bubbleSize;
 
@@ -328,8 +360,8 @@ class _OnboardingTourLayerState extends State<OnboardingTourLayer>
     }
     final placement = bubbleSize == null ? null : _resolvePlacement(screen, hole, bubbleSize);
 
-    // Opaque listener: absorbs taps and mouse-wheel scrolling everywhere
-    // (including the cutout) so the page underneath stays frozen mid-tour.
+    // Opaque listener: absorbs taps and mouse-wheel scrolling everywhere so
+    // the page underneath stays frozen mid-tour.
     return Listener(
       behavior: HitTestBehavior.opaque,
       child: GestureDetector(
@@ -343,17 +375,26 @@ class _OnboardingTourLayerState extends State<OnboardingTourLayer>
             child: Stack(
               fit: StackFit.expand,
               children: [
-                CustomPaint(
-                  painter: _TourScrimPainter(
-                    hole: hole,
-                    holeRadius: widget.holeRadius + KSize.margin2x,
-                    scrimColor: Colors.black.withValues(alpha: 0.6),
-                    borderColor: context.colors.onDark,
+                // Blur + dim the frozen page behind the overlay.
+                BackdropFilter(
+                  filter: ui.ImageFilter.blur(
+                    sigmaX: KSize.tourBackdropBlur,
+                    sigmaY: KSize.tourBackdropBlur,
                   ),
+                  child: ColoredBox(color: Colors.black.withValues(alpha: 0.15)),
                 ),
+                // The crisp target snapshot, framed only by its own rounded
+                // corners (the capture already includes them).
+                if (widget.snapshot != null)
+                  Positioned.fromRect(
+                    rect: targetRect,
+                    child: RawImage(image: widget.snapshot, fit: BoxFit.fill),
+                  ),
                 if (placement == null)
                   // Measure pass: lay the bubble out without painting it.
-                  Offstage(child: Align(alignment: Alignment.topLeft, child: bubble))
+                  Offstage(
+                    child: Align(alignment: Alignment.topLeft, child: bubble),
+                  )
                 else ...[
                   if (placement.arrowRect != null)
                     Positioned.fromRect(
@@ -396,8 +437,10 @@ _TourPlacement _resolvePlacement(Size screen, Rect hole, Size bubble) {
   // Keep the arrow clear of the bubble's rounded corners.
   const arrowInset = KSize.radiusMedium + KSize.tourArrowWidth / 2;
 
-  double clampX(double x) => x.clamp(edge, math.max(edge, screen.width - bubble.width - edge)).toDouble();
-  double clampY(double y) => y.clamp(edge, math.max(edge, screen.height - bubble.height - edge)).toDouble();
+  double clampX(double x) =>
+      x.clamp(edge, math.max(edge, screen.width - bubble.width - edge)).toDouble();
+  double clampY(double y) =>
+      y.clamp(edge, math.max(edge, screen.height - bubble.height - edge)).toDouble();
 
   final fitsBelow = hole.bottom + gap + bubble.height + edge <= screen.height;
   final fitsAbove = hole.top - gap - bubble.height - edge >= 0;
@@ -516,9 +559,7 @@ class _TourBubble extends StatelessWidget {
             // Long step copy (e.g. the Chernobyl story) scrolls inside the
             // bubble instead of growing past the viewport.
             Flexible(
-              child: SingleChildScrollView(
-                child: Text(data.body, style: text.tourBody),
-              ),
+              child: SingleChildScrollView(child: Text(data.body, style: text.tourBody)),
             ),
             if (data.linkLabel != null && data.linkUrl != null) ...[
               const SizedBox(height: KSize.margin3x),
@@ -529,11 +570,7 @@ class _TourBubble extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 if (onBack != null && data.backLabel != null) ...[
-                  _TourPillButton(
-                    label: data.backLabel!,
-                    filled: false,
-                    onTap: onBack!,
-                  ),
+                  _TourPillButton(label: data.backLabel!, filled: false, onTap: onBack!),
                   const SizedBox(width: KSize.margin2x),
                 ],
                 _TourPillButton(label: data.buttonLabel, filled: true, onTap: onNext),
@@ -597,10 +634,7 @@ class _TourPillButton extends StatelessWidget {
       child: GestureDetector(
         onTap: onTap,
         child: Container(
-          padding: const EdgeInsets.symmetric(
-            horizontal: KSize.margin5x,
-            vertical: KSize.margin2x,
-          ),
+          padding: const EdgeInsets.symmetric(horizontal: KSize.margin5x, vertical: KSize.margin2x),
           decoration: BoxDecoration(
             color: filled ? colors.forestGreen : Colors.transparent,
             border: Border.all(color: colors.forestGreen),
@@ -614,47 +648,6 @@ class _TourPillButton extends StatelessWidget {
       ),
     );
   }
-}
-
-/// Paints the dimming scrim with a rounded-rect cutout over the target and a
-/// thin highlight border around the cutout.
-class _TourScrimPainter extends CustomPainter {
-  const _TourScrimPainter({
-    required this.hole,
-    required this.holeRadius,
-    required this.scrimColor,
-    required this.borderColor,
-  });
-
-  final Rect hole;
-  final double holeRadius;
-  final Color scrimColor;
-  final Color borderColor;
-
-  @override
-  void paint(Canvas canvas, Size size) {
-    final holeRRect = RRect.fromRectAndRadius(hole, Radius.circular(holeRadius));
-    final scrim = Path.combine(
-      PathOperation.difference,
-      Path()..addRect(Offset.zero & size),
-      Path()..addRRect(holeRRect),
-    );
-    canvas.drawPath(scrim, Paint()..color = scrimColor);
-    canvas.drawRRect(
-      holeRRect,
-      Paint()
-        ..style = PaintingStyle.stroke
-        ..strokeWidth = KSize.borderWidthSmall
-        ..color = borderColor,
-    );
-  }
-
-  @override
-  bool shouldRepaint(_TourScrimPainter oldDelegate) =>
-      hole != oldDelegate.hole ||
-      holeRadius != oldDelegate.holeRadius ||
-      scrimColor != oldDelegate.scrimColor ||
-      borderColor != oldDelegate.borderColor;
 }
 
 /// Solid triangle pointer attached to the tooltip bubble; [direction] is

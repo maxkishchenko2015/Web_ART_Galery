@@ -317,7 +317,8 @@ class _HeroImage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colors = context.colors;
-    return KeyedSubtree(
+    // RepaintBoundary so the onboarding overlay can snapshot the portrait.
+    return RepaintBoundary(
       key: photoKey,
       child: _AuthorPhoto(
         index: AboutAuthorPageConstants.heroPhotoIndex,
@@ -704,20 +705,20 @@ class _BioSectionWithPhoto extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final media = KeyedSubtree(
-      key: mediaKey,
-      child: _AuthorPhoto(
-        index: photoIndex,
-        aspectRatio: isCompact ? KSize.bioPhotoCompactAspectRatio : KSize.bioPhotoWideAspectRatio,
-        borderRadius: BorderRadius.circular(KSize.radiusLargeExtra),
-        placeholderBackground: context.colors.bioBg,
-        placeholderIcon: Icons.image_outlined,
-        placeholderIconColor: context.colors.onDarkPlaceholderIcon,
-        placeholderIconSize: KSize.iconHeroPlaceholder,
-        heroTag: 'about-author-photo-$photoIndex',
-        openFullscreenOnTap: true,
-      ),
+    final photo = _AuthorPhoto(
+      index: photoIndex,
+      aspectRatio: isCompact ? KSize.bioPhotoCompactAspectRatio : KSize.bioPhotoWideAspectRatio,
+      borderRadius: BorderRadius.circular(KSize.radiusLargeExtra),
+      placeholderBackground: context.colors.bioBg,
+      placeholderIcon: Icons.image_outlined,
+      placeholderIconColor: context.colors.onDarkPlaceholderIcon,
+      placeholderIconSize: KSize.iconHeroPlaceholder,
+      heroTag: 'about-author-photo-$photoIndex',
+      openFullscreenOnTap: true,
     );
+    // Tour targets are wrapped in a RepaintBoundary so the onboarding overlay
+    // can snapshot them; other sections render the photo directly.
+    final media = mediaKey == null ? photo : RepaintBoundary(key: mediaKey, child: photo);
 
     if (isCompact) {
       return Column(

@@ -393,6 +393,9 @@ class KSize {
   static const double tourArrowWidth = 18;
   static const double tourArrowLength = 10;
 
+  /// Gaussian blur sigma applied to the page behind the onboarding overlay.
+  static const double tourBackdropBlur = 10;
+
   /// Pause after the first frame before the first-visit tour autoscrolls.
   static const Duration durationTourStartDelay = Duration(milliseconds: 100);
 
