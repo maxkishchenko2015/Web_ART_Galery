@@ -310,16 +310,49 @@
       justify-content: center;
       background: #F5F0E8;
       z-index: 9999;
-      transition: opacity 0.4s ease;
+      transition: opacity 0.6s ease;
     }
     #flutter-loading.hidden { opacity: 0; pointer-events: none; }
+
+    /* Rotating multilingual quote — fades its opacity in and out. */
+    #flutter-loading-quote {
+      max-width: 600px;
+      min-height: 5.5em;
+      padding: 0 32px;
+      box-sizing: border-box;
+      font-family: Georgia, 'Times New Roman', serif;
+      font-style: italic;
+      font-size: 19px;
+      line-height: 1.75;
+      text-align: center;
+      color: #6B6359;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      margin-bottom: 52px;
+      animation: flutter-quote-rise 1.2s ease both;
+    }
+    #flutter-loading-quote::before {
+      content: '“';
+      display: block;
+      font-size: 44px;
+      line-height: 0.2;
+      color: #C3B9A8;
+      margin-bottom: 22px;
+    }
+
+    /* Brand block: progress bar + wordmark, gently rising into view. */
+    #flutter-loading-brand {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      animation: flutter-quote-rise 1.2s ease both;
+    }
     #flutter-loading-bar-track {
       width: 160px;
       height: 2px;
       background: #E0DBD4;
       border-radius: 2px;
       overflow: hidden;
-      margin-top: 24px;
     }
     #flutter-loading-bar {
       height: 100%;
@@ -340,19 +373,38 @@
       50%  { margin-left: 50%; width: 50%; }
       100% { margin-left: 100%; width: 50%; }
     }
+    @keyframes flutter-quote-rise {
+      from { transform: translateY(12px); }
+      to   { transform: translateY(0); }
+    }
+    @media (max-width: 600px) {
+      #flutter-loading-quote { font-size: 16px; line-height: 1.7; padding: 0 28px; }
+    }
   </style>
   <div id="flutter-loading">
-    <div id="flutter-loading-bar-track">
-      <div id="flutter-loading-bar"></div>
+    <div id="flutter-loading-quote"></div>
+    <div id="flutter-loading-brand">
+      <div id="flutter-loading-bar-track">
+        <div id="flutter-loading-bar"></div>
+      </div>
+      <div id="flutter-loading-title">КИЩЕНКО-АРТ</div>
     </div>
-    <div id="flutter-loading-title">КИЩЕНКО-АРТ</div>
   </div>
   <script>
+    (function () {
+      var QUOTE = "Счастлив тот художник, которому луч солнца осветил кисточку. Но прежде лучик пробежал по забору, заблестел на шерсти собаки, погулял с росою на траве, прокричал на гребешке петуха и только потом осветил кисточку.";
+      var el = document.getElementById('flutter-loading-quote');
+      if (!el) return;
+      el.textContent = QUOTE;
+      // Fade opacity 0 -> 1 over 300 ms (transition declared in CSS).
+      requestAnimationFrame(function () { el.style.opacity = '1'; });
+    })();
+
     window.addEventListener('flutter-first-frame', function() {
       var el = document.getElementById('flutter-loading');
       if (el) {
         el.classList.add('hidden');
-        setTimeout(function() { el.remove(); }, 500);
+        setTimeout(function() { el.remove(); }, 700);
       }
     });
   </script>
