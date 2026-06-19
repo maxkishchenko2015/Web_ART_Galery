@@ -118,11 +118,11 @@ class _AboutAuthorViewState extends State<_AboutAuthorView> with OnboardingTourH
     };
   }
 
-  /// Finishing the final step sends the visitor on to the Films page.
+  /// Finishing the final step scrolls down to the biography section.
   @override
   void onOnboardingTourCompleted() {
     if (!mounted) return;
-    context.go(AppRoutes.films);
+    _scrollToBio();
   }
 
   /// Holds the tour back until the section photos are loaded and decoded, so

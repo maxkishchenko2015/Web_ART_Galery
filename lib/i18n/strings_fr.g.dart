@@ -118,11 +118,11 @@ class _Translations$tour$fr extends Translations$tour$ru {
 	@override String get next => 'Suivant';
 	@override String get gotIt => 'Compris';
 	@override String get back => 'Retour';
-	@override String get chernobylBody => 'Offerte aux Nations unies, la tapisserie « Tchernobyl » (1991) orne toujours leur siège à New York. Le Secrétaire général de l\'ONU l\'a comparée à « Guernica » de Picasso.';
+	@override String get chernobylBody => 'Kichtchanka est également l\'auteur de la tapisserie « Tchernobyl » (1991), offerte aux Nations unies et qui orne toujours leur siège à New York. Le Secrétaire général de l\'ONU l\'a comparée à « Guernica » de Picasso.';
 	@override String get originsTitle => 'Aux origines du « réalisme universel »';
-	@override String get originsBody => 'Alexandre Mikhaïlovitch Kichtchanka (1933–1997). Peintre. Philosophe. Monumentaliste. Né au hameau de Bely Kolodez (aujourd\'hui district de Boutchar, oblast de Voronej), il a acquis une renommée mondiale.';
+	@override String get originsBody => 'Alexandre Mikhaïlovitch Kichtchanka (1933–1997). Peintre. Philosophe. Monumentaliste. Né au hameau de Bely Kolodez (aujourd\'hui district de Boutchar, oblast de Voronej), il a acquis une renommée mondiale comme auteur de la plus grande tapisserie du monde, la « Tapisserie du siècle ».';
 	@override String get scaleTitle => 'L’échelle de la Tapisserie du siècle';
-	@override String get scaleBody => 'Une toile de 19 × 14 mètres (environ 300 m²), pesant plus d\'une tonne — la hauteur d\'un immeuble de cinq étages. Inscrite au Livre Guinness des records.';
+	@override String get scaleBody => 'La « Tapisserie du siècle » est une toile tissée à la main de 19 × 14 mètres (la hauteur d\'un immeuble de cinq étages) et pesant plus d\'une tonne. En 1999, elle a été inscrite au Livre Guinness des records comme la plus grande tapisserie du monde.';
 }
 
 // Path: language
@@ -1027,11 +1027,11 @@ extension on TranslationsFr {
 			'tour.next' => 'Suivant',
 			'tour.gotIt' => 'Compris',
 			'tour.back' => 'Retour',
-			'tour.chernobylBody' => 'Offerte aux Nations unies, la tapisserie « Tchernobyl » (1991) orne toujours leur siège à New York. Le Secrétaire général de l\'ONU l\'a comparée à « Guernica » de Picasso.',
+			'tour.chernobylBody' => 'Kichtchanka est également l\'auteur de la tapisserie « Tchernobyl » (1991), offerte aux Nations unies et qui orne toujours leur siège à New York. Le Secrétaire général de l\'ONU l\'a comparée à « Guernica » de Picasso.',
 			'tour.originsTitle' => 'Aux origines du « réalisme universel »',
-			'tour.originsBody' => 'Alexandre Mikhaïlovitch Kichtchanka (1933–1997). Peintre. Philosophe. Monumentaliste. Né au hameau de Bely Kolodez (aujourd\'hui district de Boutchar, oblast de Voronej), il a acquis une renommée mondiale.',
+			'tour.originsBody' => 'Alexandre Mikhaïlovitch Kichtchanka (1933–1997). Peintre. Philosophe. Monumentaliste. Né au hameau de Bely Kolodez (aujourd\'hui district de Boutchar, oblast de Voronej), il a acquis une renommée mondiale comme auteur de la plus grande tapisserie du monde, la « Tapisserie du siècle ».',
 			'tour.scaleTitle' => 'L’échelle de la Tapisserie du siècle',
-			'tour.scaleBody' => 'Une toile de 19 × 14 mètres (environ 300 m²), pesant plus d\'une tonne — la hauteur d\'un immeuble de cinq étages. Inscrite au Livre Guinness des records.',
+			'tour.scaleBody' => 'La « Tapisserie du siècle » est une toile tissée à la main de 19 × 14 mètres (la hauteur d\'un immeuble de cinq étages) et pesant plus d\'une tonne. En 1999, elle a été inscrite au Livre Guinness des records comme la plus grande tapisserie du monde.',
 			'language.label' => 'Langue',
 			'language.russian' => 'Russe',
 			'language.english' => 'Anglais',

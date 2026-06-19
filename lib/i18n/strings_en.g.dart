@@ -118,11 +118,11 @@ class _Translations$tour$en extends Translations$tour$ru {
 	@override String get next => 'Next';
 	@override String get gotIt => 'Got it';
 	@override String get back => 'Back';
-	@override String get chernobylBody => 'The Chernobyl tapestry (1991) was gifted to the United Nations and still adorns its New York headquarters. The UN Secretary-General compared it to Picasso\'s Guernica.';
+	@override String get chernobylBody => 'Kishchanka is also the author of the "Chernobyl" tapestry (1991), which was gifted to the United Nations and still adorns its New York headquarters. The UN Secretary-General compared it to Picasso\'s Guernica.';
 	@override String get originsTitle => 'At the origins of "Universal Realism"';
-	@override String get originsBody => 'Alexander Mikhailovich Kishchanka (1933–1997). Painter. Philosopher. Monumentalist. Born in the hamlet of Bely Kolodez (today the Boguchar District, Voronezh Region), he went on to win worldwide renown.';
+	@override String get originsBody => 'Alexander Mikhailovich Kishchanka (1933–1997). Painter. Philosopher. Monumentalist. Born in the hamlet of Bely Kolodez (today the Boguchar District, Voronezh Region), he won worldwide renown as the author of the world\'s largest tapestry — the "Tapestry of the Century".';
 	@override String get scaleTitle => 'Scale of the Tapestry of the Century';
-	@override String get scaleBody => 'A canvas measuring 19 × 14 metres (about 300 sq. m), weighing over a tonne — as tall as a five-storey building. Listed in the Guinness Book of Records.';
+	@override String get scaleBody => 'The "Tapestry of the Century" is a hand-woven canvas measuring 19 × 14 metres (as tall as a five-storey building) and weighing over a tonne. In 1999 it was entered into the Guinness Book of Records as the largest tapestry in the world.';
 }
 
 // Path: language
@@ -1027,11 +1027,11 @@ extension on TranslationsEn {
 			'tour.next' => 'Next',
 			'tour.gotIt' => 'Got it',
 			'tour.back' => 'Back',
-			'tour.chernobylBody' => 'The Chernobyl tapestry (1991) was gifted to the United Nations and still adorns its New York headquarters. The UN Secretary-General compared it to Picasso\'s Guernica.',
+			'tour.chernobylBody' => 'Kishchanka is also the author of the "Chernobyl" tapestry (1991), which was gifted to the United Nations and still adorns its New York headquarters. The UN Secretary-General compared it to Picasso\'s Guernica.',
 			'tour.originsTitle' => 'At the origins of "Universal Realism"',
-			'tour.originsBody' => 'Alexander Mikhailovich Kishchanka (1933–1997). Painter. Philosopher. Monumentalist. Born in the hamlet of Bely Kolodez (today the Boguchar District, Voronezh Region), he went on to win worldwide renown.',
+			'tour.originsBody' => 'Alexander Mikhailovich Kishchanka (1933–1997). Painter. Philosopher. Monumentalist. Born in the hamlet of Bely Kolodez (today the Boguchar District, Voronezh Region), he won worldwide renown as the author of the world\'s largest tapestry — the "Tapestry of the Century".',
 			'tour.scaleTitle' => 'Scale of the Tapestry of the Century',
-			'tour.scaleBody' => 'A canvas measuring 19 × 14 metres (about 300 sq. m), weighing over a tonne — as tall as a five-storey building. Listed in the Guinness Book of Records.',
+			'tour.scaleBody' => 'The "Tapestry of the Century" is a hand-woven canvas measuring 19 × 14 metres (as tall as a five-storey building) and weighing over a tonne. In 1999 it was entered into the Guinness Book of Records as the largest tapestry in the world.',
 			'language.label' => 'Language',
 			'language.russian' => 'Russian',
 			'language.english' => 'English',

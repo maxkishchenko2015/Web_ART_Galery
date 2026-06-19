@@ -118,11 +118,11 @@ class _Translations$tour$de extends Translations$tour$ru {
 	@override String get next => 'Weiter';
 	@override String get gotIt => 'Verstanden';
 	@override String get back => 'Zurück';
-	@override String get chernobylBody => 'Der Wandteppich „Tschernobyl“ (1991) wurde den Vereinten Nationen geschenkt und schmückt bis heute deren Hauptquartier in New York. Der UN-Generalsekretär verglich ihn mit Picassos „Guernica“.';
+	@override String get chernobylBody => 'Kischtschanka ist auch der Schöpfer des Wandteppichs „Tschernobyl“ (1991), der den Vereinten Nationen geschenkt wurde und bis heute deren Hauptquartier in New York schmückt. Der UN-Generalsekretär verglich ihn mit Picassos „Guernica“.';
 	@override String get originsTitle => 'Am Ursprung des „universellen Realismus“';
-	@override String get originsBody => 'Alexander Michailowitsch Kischtschanka (1933–1997). Maler. Philosoph. Monumentalist. Geboren im Weiler Bely Kolodez (heute Rajon Botschar, Oblast Woronesch), erlangte er Weltruhm.';
+	@override String get originsBody => 'Alexander Michailowitsch Kischtschanka (1933–1997). Maler. Philosoph. Monumentalist. Geboren im Weiler Bely Kolodez (heute Rajon Botschar, Oblast Woronesch), erlangte er als Schöpfer des weltgrößten „Wandteppichs des Jahrhunderts“ Weltruhm.';
 	@override String get scaleTitle => 'Maßstab des Wandteppichs des Jahrhunderts';
-	@override String get scaleBody => 'Eine Leinwand von 19 × 14 Metern (rund 300 m²), über eine Tonne schwer — so hoch wie ein fünfstöckiges Gebäude. Eingetragen im Guinness-Buch der Rekorde.';
+	@override String get scaleBody => 'Der „Wandteppich des Jahrhunderts“ ist eine handgewebte Leinwand von 19 × 14 Metern (so hoch wie ein fünfstöckiges Gebäude) und über eine Tonne schwer. 1999 wurde er als größter Wandteppich der Welt ins Guinness-Buch der Rekorde eingetragen.';
 }
 
 // Path: language
@@ -1027,11 +1027,11 @@ extension on TranslationsDe {
 			'tour.next' => 'Weiter',
 			'tour.gotIt' => 'Verstanden',
 			'tour.back' => 'Zurück',
-			'tour.chernobylBody' => 'Der Wandteppich „Tschernobyl“ (1991) wurde den Vereinten Nationen geschenkt und schmückt bis heute deren Hauptquartier in New York. Der UN-Generalsekretär verglich ihn mit Picassos „Guernica“.',
+			'tour.chernobylBody' => 'Kischtschanka ist auch der Schöpfer des Wandteppichs „Tschernobyl“ (1991), der den Vereinten Nationen geschenkt wurde und bis heute deren Hauptquartier in New York schmückt. Der UN-Generalsekretär verglich ihn mit Picassos „Guernica“.',
 			'tour.originsTitle' => 'Am Ursprung des „universellen Realismus“',
-			'tour.originsBody' => 'Alexander Michailowitsch Kischtschanka (1933–1997). Maler. Philosoph. Monumentalist. Geboren im Weiler Bely Kolodez (heute Rajon Botschar, Oblast Woronesch), erlangte er Weltruhm.',
+			'tour.originsBody' => 'Alexander Michailowitsch Kischtschanka (1933–1997). Maler. Philosoph. Monumentalist. Geboren im Weiler Bely Kolodez (heute Rajon Botschar, Oblast Woronesch), erlangte er als Schöpfer des weltgrößten „Wandteppichs des Jahrhunderts“ Weltruhm.',
 			'tour.scaleTitle' => 'Maßstab des Wandteppichs des Jahrhunderts',
-			'tour.scaleBody' => 'Eine Leinwand von 19 × 14 Metern (rund 300 m²), über eine Tonne schwer — so hoch wie ein fünfstöckiges Gebäude. Eingetragen im Guinness-Buch der Rekorde.',
+			'tour.scaleBody' => 'Der „Wandteppich des Jahrhunderts“ ist eine handgewebte Leinwand von 19 × 14 Metern (so hoch wie ein fünfstöckiges Gebäude) und über eine Tonne schwer. 1999 wurde er als größter Wandteppich der Welt ins Guinness-Buch der Rekorde eingetragen.',
 			'language.label' => 'Sprache',
 			'language.russian' => 'Russisch',
 			'language.english' => 'Englisch',

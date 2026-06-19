@@ -118,11 +118,11 @@ class _Translations$tour$es extends Translations$tour$ru {
 	@override String get next => 'Siguiente';
 	@override String get gotIt => 'Entendido';
 	@override String get back => 'Atrás';
-	@override String get chernobylBody => 'El tapiz «Chernóbil» (1991), donado a las Naciones Unidas, sigue adornando su sede de Nueva York. El Secretario General de la ONU lo comparó con el «Guernica» de Picasso.';
+	@override String get chernobylBody => 'Kishchanka es también el autor del tapiz «Chernóbil» (1991), donado a las Naciones Unidas, que sigue adornando su sede de Nueva York. El Secretario General de la ONU lo comparó con el «Guernica» de Picasso.';
 	@override String get originsTitle => 'En los orígenes del «realismo universal»';
-	@override String get originsBody => 'Alexánder Mijáilovich Kishchanka (1933–1997). Pintor. Filósofo. Monumentalista. Nació en la aldea de Bely Kolodez (hoy distrito de Boguchar, óblast de Vorónezh) y alcanzó renombre mundial.';
+	@override String get originsBody => 'Alexánder Mijáilovich Kishchanka (1933–1997). Pintor. Filósofo. Monumentalista. Nació en la aldea de Bely Kolodez (hoy distrito de Boguchar, óblast de Vorónezh) y alcanzó renombre mundial como autor del mayor tapiz del mundo, el «Tapiz del Siglo».';
 	@override String get scaleTitle => 'Escala del Tapiz del Siglo';
-	@override String get scaleBody => 'Un lienzo de 19 × 14 metros (unos 300 m²), de más de una tonelada — la altura de un edificio de cinco pisos. Inscrito en el Libro Guinness de los Récords.';
+	@override String get scaleBody => 'El «Tapiz del Siglo» es un lienzo tejido a mano de 19 × 14 metros (la altura de un edificio de cinco pisos) y de más de una tonelada de peso. En 1999 fue inscrito en el Libro Guinness de los Récords como el mayor tapiz del mundo.';
 }
 
 // Path: language
@@ -1027,11 +1027,11 @@ extension on TranslationsEs {
 			'tour.next' => 'Siguiente',
 			'tour.gotIt' => 'Entendido',
 			'tour.back' => 'Atrás',
-			'tour.chernobylBody' => 'El tapiz «Chernóbil» (1991), donado a las Naciones Unidas, sigue adornando su sede de Nueva York. El Secretario General de la ONU lo comparó con el «Guernica» de Picasso.',
+			'tour.chernobylBody' => 'Kishchanka es también el autor del tapiz «Chernóbil» (1991), donado a las Naciones Unidas, que sigue adornando su sede de Nueva York. El Secretario General de la ONU lo comparó con el «Guernica» de Picasso.',
 			'tour.originsTitle' => 'En los orígenes del «realismo universal»',
-			'tour.originsBody' => 'Alexánder Mijáilovich Kishchanka (1933–1997). Pintor. Filósofo. Monumentalista. Nació en la aldea de Bely Kolodez (hoy distrito de Boguchar, óblast de Vorónezh) y alcanzó renombre mundial.',
+			'tour.originsBody' => 'Alexánder Mijáilovich Kishchanka (1933–1997). Pintor. Filósofo. Monumentalista. Nació en la aldea de Bely Kolodez (hoy distrito de Boguchar, óblast de Vorónezh) y alcanzó renombre mundial como autor del mayor tapiz del mundo, el «Tapiz del Siglo».',
 			'tour.scaleTitle' => 'Escala del Tapiz del Siglo',
-			'tour.scaleBody' => 'Un lienzo de 19 × 14 metros (unos 300 m²), de más de una tonelada — la altura de un edificio de cinco pisos. Inscrito en el Libro Guinness de los Récords.',
+			'tour.scaleBody' => 'El «Tapiz del Siglo» es un lienzo tejido a mano de 19 × 14 metros (la altura de un edificio de cinco pisos) y de más de una tonelada de peso. En 1999 fue inscrito en el Libro Guinness de los Récords como el mayor tapiz del mundo.',
 			'language.label' => 'Idioma',
 			'language.russian' => 'Ruso',
 			'language.english' => 'Ingles',
