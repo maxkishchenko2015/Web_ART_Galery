@@ -11,6 +11,7 @@ import 'package:web_art_galery/src/features/about_author/presentation/cubits/onb
 import 'package:web_art_galery/src/features/about_author/presentation/screens/about_author_page_constants.dart';
 import 'package:web_art_galery/src/features/about_author/presentation/widgets/author_films_strip.dart';
 import 'package:web_art_galery/src/features/about_author/presentation/widgets/onboarding_tour_overlay.dart';
+import 'package:web_art_galery/src/features/about_author/presentation/widgets/stat_icons.dart';
 import 'package:web_art_galery/src/features/films/presentation/cubits/films_cubit.dart';
 import 'package:web_art_galery/src/navigation/presentation/router/app_routes.dart';
 import 'package:web_art_galery/src/shared/config/app_context_extensions.dart';
@@ -430,7 +431,10 @@ class _FeatureStats extends StatelessWidget {
         _StatItem(
           value: feature.guinnessValue,
           label: feature.guinnessLabel,
-          icon: Icons.emoji_events_outlined,
+          iconWidget: TrophyOutlineIcon(
+            color: context.colors.forestGreen,
+            size: KSize.statIconSize,
+          ),
         ),
         const SizedBox(height: KSize.margin8x),
         const Divider(height: 1),
@@ -438,7 +442,10 @@ class _FeatureStats extends StatelessWidget {
         _StatItem(
           value: feature.unGiftValue,
           label: feature.unGiftLabel,
-          icon: Icons.public_outlined,
+          iconWidget: GlobeOutlineIcon(
+            color: context.colors.forestGreen,
+            size: KSize.statIconSize,
+          ),
         ),
         const SizedBox(height: KSize.margin8x),
         const Divider(height: 1),
@@ -454,13 +461,15 @@ class _FeatureStats extends StatelessWidget {
 }
 
 class _StatItem extends StatelessWidget {
-  const _StatItem({required this.value, required this.label, this.icon});
+  const _StatItem({required this.value, required this.label, this.iconWidget});
 
   final String value;
   final String label;
 
-  /// Fills the value slot for rows that have no number (Guinness, UN gift).
-  final IconData? icon;
+  /// Fills the value slot for rows that have no number (Guinness, UN gift) —
+  /// a CustomPainter icon ([TrophyOutlineIcon] / [GlobeOutlineIcon]) rather
+  /// than a font glyph, so it always renders.
+  final Widget? iconWidget;
 
   @override
   Widget build(BuildContext context) {
@@ -472,8 +481,8 @@ class _StatItem extends StatelessWidget {
     final Widget leading;
     if (hasNumber) {
       leading = _AnimatedStatValue(value: value, style: context.textContent.statValue);
-    } else if (icon != null) {
-      leading = Icon(icon, size: KSize.statIconSize, color: context.colors.forestGreen);
+    } else if (iconWidget != null) {
+      leading = iconWidget!;
     } else {
       return Text(label, style: context.textContent.statLabel);
     }

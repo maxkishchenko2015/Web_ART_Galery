@@ -15,8 +15,14 @@ set -euo pipefail
 
 cd "$(dirname "$0")/.."
 
-echo "==> flutter build web --release --pwa-strategy=none"
-flutter build web --release --pwa-strategy=none
+# --no-tree-shake-icons: the icon subsetter (const_finder) silently drops icons
+# that reach an `Icon(...)` only through a field/variable rather than a direct
+# `Icon(Icons.x)` literal — e.g. the Guinness/UN stat rows on the about-author
+# page (icon passed via _StatItem.icon). That shipped a 12 KB subset font with
+# those glyphs missing → blank icons. Bundling the full MaterialIcons font
+# guarantees every icon renders; it gzips small and is cached for a year.
+echo "==> flutter build web --release --pwa-strategy=none --no-tree-shake-icons"
+flutter build web --release --pwa-strategy=none --no-tree-shake-icons
 
 echo "==> dart run tool/generate_seo.dart"
 dart run tool/generate_seo.dart
