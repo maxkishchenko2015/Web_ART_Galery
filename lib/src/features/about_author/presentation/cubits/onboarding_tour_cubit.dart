@@ -52,6 +52,19 @@ class OnboardingTourState {
 class OnboardingTourCubit extends HydratedCubit<OnboardingTourState> {
   OnboardingTourCubit() : super(const OnboardingTourState(completed: false));
 
+  /// Clears the persisted "seen" flag so the tour runs again on this load.
+  ///
+  /// Triggered by the `?tour=1` deep link. Also the reliable way to re-trigger
+  /// the tour inside an in-app WebView (Telegram / Threads), where IndexedDB
+  /// may have persisted `completed:true` from an earlier session and there's no
+  /// easy way to clear site data.
+  void replay() {
+    if (state.isActive) {
+      return;
+    }
+    emit(const OnboardingTourState(completed: false));
+  }
+
   /// Starts the tour. No-op for returning visitors or when already running.
   void start() {
     if (state.completed || state.isActive) {

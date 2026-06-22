@@ -178,7 +178,14 @@ mixin OnboardingTourHostMixin<T extends StatefulWidget> on State<T> {
       if (boundary is! RenderRepaintBoundary) {
         return null;
       }
-      return await boundary.toImage(pixelRatio: MediaQuery.devicePixelRatioOf(context));
+      // Time-boxed: toImage() does an async GPU readback that can stall inside
+      // constrained in-app WebViews (Telegram / Threads). A hang here would
+      // freeze the step before the tooltip is ever shown — so on timeout we
+      // fall through to a null snapshot (overlay just blurs, bubble still
+      // appears) instead of waiting forever.
+      return await boundary
+          .toImage(pixelRatio: MediaQuery.devicePixelRatioOf(context))
+          .timeout(const Duration(seconds: 2));
     } catch (_) {
       return null;
     }
@@ -297,6 +304,12 @@ class _OnboardingTourLayerState extends State<OnboardingTourLayer> with WidgetsB
   final _bubbleKey = GlobalKey();
   Size? _bubbleSize;
 
+  /// Re-measure attempts when the target isn't laid out yet. Guards against a
+  /// target that mounts a frame or two after the overlay (common in a WebView
+  /// where the highlighted photo is still settling) — without this the layer
+  /// would render nothing and silently give up.
+  int _measureTries = 0;
+
   @override
   void initState() {
     super.initState();
@@ -345,6 +358,16 @@ class _OnboardingTourLayerState extends State<OnboardingTourLayer> with WidgetsB
     final screen = MediaQuery.sizeOf(context);
     final targetRect = _measureTargetRect();
     if (targetRect == null) {
+      // Target not laid out yet — retry for ~30 frames (~0.5 s) before giving
+      // up, so a late-mounting target still gets its tooltip.
+      if (_measureTries < 30) {
+        _measureTries++;
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          if (mounted) {
+            setState(() {});
+          }
+        });
+      }
       return const SizedBox.shrink();
     }
 

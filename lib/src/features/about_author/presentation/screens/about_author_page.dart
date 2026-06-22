@@ -59,6 +59,12 @@ class _AboutAuthorViewState extends State<_AboutAuthorView> with OnboardingTourH
     unawaited(context.read<AboutAuthorCubit>().loadPhotos());
     unawaited(context.read<FilmsCubit>().load());
     attachOnboardingTour();
+    // `?tour=1` re-triggers the tour on demand — clears any persisted "seen"
+    // flag first. The reliable way to replay it inside an in-app WebView
+    // (Telegram / Threads), where IndexedDB can't be cleared by the user.
+    if (Uri.base.queryParameters['tour'] == '1') {
+      context.read<OnboardingTourCubit>().replay();
+    }
     scheduleOnboardingTourStart();
   }
 
