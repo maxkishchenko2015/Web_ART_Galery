@@ -89,7 +89,17 @@ void main() {
         deferredFirebaseError = (error: e, stack: s);
       }
 
-      if (kIsWeb) MetaSEO().config();
+      // Guarded: MetaSEO touches document/web APIs and must never be able to
+      // throw synchronously here — a throw before runApp() leaves the page
+      // stuck on the loading splash forever (the zone catches it, but the app
+      // never starts). SEO meta tags are non-critical, so swallow + log.
+      if (kIsWeb) {
+        try {
+          MetaSEO().config();
+        } catch (e, s) {
+          AppLogger.instance.w('MetaSEO config failed, continuing', error: e, stackTrace: s);
+        }
+      }
 
       // Resolve the browser/device locale for the first synchronous frame (page
       // title etc.). AppLocaleCubit then restores any saved choice and re-applies

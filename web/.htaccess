@@ -5,17 +5,35 @@ AddType application/wasm .wasm
 AddType application/javascript .js
 AddType application/json .json
 
-# Compression. Without this the ~3.8 MB main.dart.js and multi-MB
-# canvaskit.wasm ship uncompressed — the single biggest first-load cost on
-# mobile. Brotli (preferred, ~30% smaller than gzip on wasm/js) with a gzip
-# fallback for clients that don't advertise `br`. Both compress on the fly;
-# responses stay individually cacheable via the immutable headers below.
+# Compression. Without this the ~3.8 MB main.dart.js ships uncompressed — a
+# large first-load cost on mobile. Brotli (preferred) with a gzip fallback for
+# clients that don't advertise `br`. Both compress on the fly; responses stay
+# individually cacheable via the immutable headers below.
+#
+# IMPORTANT: application/wasm is deliberately NOT compressed here. Serving
+# canvaskit.wasm with `Content-Encoding: br` breaks the Flutter engine inside
+# constrained in-app WebViews (Threads / Telegram on iOS WKWebView): the
+# brotli-encoded WASM is mishandled on that network path, WebAssembly init
+# never completes, and the app hangs forever on the loading splash. Normal
+# desktop/mobile browsers decode it fine, which is why the bug only showed up
+# in in-app browsers. The pre-.htaccess (stable) build shipped wasm
+# uncompressed and worked everywhere — we keep that behaviour for wasm.
 <IfModule mod_brotli.c>
-  AddOutputFilterByType BROTLI_COMPRESS application/wasm application/javascript text/javascript application/json text/html text/css image/svg+xml application/xml
+  AddOutputFilterByType BROTLI_COMPRESS application/javascript text/javascript application/json text/html text/css image/svg+xml application/xml
 </IfModule>
 <IfModule mod_deflate.c>
-  AddOutputFilterByType DEFLATE application/wasm application/javascript text/javascript application/json text/html text/css image/svg+xml application/xml
+  AddOutputFilterByType DEFLATE application/javascript text/javascript application/json text/html text/css image/svg+xml application/xml
 </IfModule>
+
+# Belt-and-braces: force *.wasm to be served with NO content-encoding even if a
+# host-global Apache config (httpd.conf / vhost) enables brotli/gzip for it.
+# `no-gzip` / `no-brotli` are request env flags honoured by mod_deflate /
+# mod_brotli respectively. This is what actually guarantees the in-app WebView
+# fix sticks regardless of server-wide compression settings we can't see.
+<FilesMatch "\.wasm$">
+  SetEnv no-gzip 1
+  SetEnv no-brotli 1
+</FilesMatch>
 
 # CORS for cross-origin checks
 <IfModule mod_headers.c>

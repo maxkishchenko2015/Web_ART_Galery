@@ -17,6 +17,50 @@
   <base href="$FLUTTER_BASE_HREF">
 
   <!--
+    Boot error capture. Runs first so it catches engine/CanvasKit/WASM/WebGL
+    failures that happen before Dart main(). Collected messages are shown by the
+    loading-screen timeout fallback below if `flutter-first-frame` never fires —
+    so a stuck in-app WebView (Threads/Telegram) surfaces the real cause on
+    screen instead of spinning forever.
+  -->
+  <script>
+    window.__bootErrors = [];
+    (function () {
+      function push(label, msg) {
+        try { window.__bootErrors.push(label + ': ' + msg); } catch (e) {}
+      }
+      // Keep the first stack — its top frames name the .js file at fault
+      // (main.dart.js vs flutter.js vs canvaskit.js vs a gstatic Firebase
+      // script), which is what localizes a minified `a.length` error.
+      function topFrames(stack) {
+        if (!stack) return '(no stack)';
+        return String(stack).split('\n').slice(0, 4).join('\n');
+      }
+      window.addEventListener('error', function (e) {
+        if (e && e.target && (e.target.src || e.target.href)) {
+          push('resource', (e.target.src || e.target.href));   // failed <script>/<link>/wasm fetch
+        } else {
+          push('error', (e && e.message ? e.message : 'unknown') +
+            (e && e.filename ? ' @ ' + e.filename + ':' + e.lineno : '') +
+            (e && e.error && e.error.stack ? '\n' + topFrames(e.error.stack) : ''));
+        }
+      }, true);
+      window.addEventListener('unhandledrejection', function (e) {
+        var r = e && e.reason;
+        push('promise', String(r) +
+          (r && r.stack ? '\n' + topFrames(r.stack) : ''));
+      });
+      // Probe WebGL up front — CanvasKit cannot start without it, and some
+      // in-app WebViews disable/break it. Record the result for the fallback.
+      try {
+        var c = document.createElement('canvas');
+        var gl = c.getContext('webgl2') || c.getContext('webgl') || c.getContext('experimental-webgl');
+        push('webgl', gl ? 'available' : 'UNAVAILABLE (CanvasKit cannot render)');
+      } catch (e) { push('webgl', 'threw: ' + e); }
+    })();
+  </script>
+
+  <!--
     Service-worker kill-switch. Older deploys registered flutter_service_worker.js
     against this origin; on a redeploy with different asset hashes those cached
     workers serve stale (now-404) URLs, leaving the page stuck on the loading
@@ -52,37 +96,15 @@
   <link rel="preload" href="flutter_bootstrap.js" as="script">
 
   <!--
-    CanvasKit WASM preload. The engine picks a per-browser variant: Chromium
-    (blink + ImageDecoder + V8 break iterators) loads the smaller
-    `canvaskit/chromium/canvaskit.wasm`, while everyone else (iOS Safari,
-    Firefox) loads the full `canvaskit/canvaskit.wasm`. A static <link> can
-    only name one file, so on the wrong browser it would download a multi-MB
-    variant that is then discarded. We instead detect the variant the loader
-    will choose and inject the matching preload, so the wasm fetch overlaps
-    main.dart.js download on every browser. `as="fetch"` (not "script")
-    because <script type=module> fetches WASM with credentials mode "omit",
-    which this anonymous crossorigin matches. Mirror the variant test in
-    flutter_bootstrap.js if a future Flutter SDK upgrade changes it.
+    NOTE: a manual CanvasKit WASM `<link rel=preload as=fetch crossorigin>` was
+    removed here. Its credentials mode ("omit", from crossorigin=anonymous) did
+    not match the engine's same-origin fetch of canvaskit.wasm, so the preload
+    was never reused — the browser fetched the multi-MB wasm twice. On a
+    memory-constrained in-app WebView (Threads / Telegram on iOS) the duplicate
+    6.8 MB fetch contributed to the engine stalling on the loading splash. The
+    engine fetches the correct per-browser variant on its own, so the preload
+    was a pure perf nicety; dropping it removes the double fetch.
   -->
-  <script>
-    (function () {
-      var usesChromiumVariant =
-        (navigator.vendor === 'Google Inc.' || navigator.userAgent.indexOf('Edg/') !== -1) &&
-        typeof ImageDecoder !== 'undefined' &&
-        typeof Intl.v8BreakIterator !== 'undefined' &&
-        typeof Intl.Segmenter !== 'undefined';
-      var href = usesChromiumVariant
-        ? 'canvaskit/chromium/canvaskit.wasm'
-        : 'canvaskit/canvaskit.wasm';
-      var link = document.createElement('link');
-      link.rel = 'preload';
-      link.as = 'fetch';
-      link.type = 'application/wasm';
-      link.crossOrigin = 'anonymous';
-      link.href = href;
-      document.head.appendChild(link);
-    })();
-  </script>
   <link rel="preconnect" href="https://www.unpkg.com" crossorigin>
   <link rel="dns-prefetch" href="https://firestore.googleapis.com">
   <link rel="dns-prefetch" href="https://firebasestorage.googleapis.com">
@@ -394,19 +416,48 @@
     (function () {
       var QUOTE = "Счастлив тот художник, которому луч солнца осветил кисточку. Но прежде лучик пробежал по забору, заблестел на шерсти собаки, погулял с росою на траве, прокричал на гребешке петуха и только потом осветил кисточку.";
       var el = document.getElementById('flutter-loading-quote');
-      if (!el) return;
-      el.textContent = QUOTE;
-      // Fade opacity 0 -> 1 over 300 ms (transition declared in CSS).
-      requestAnimationFrame(function () { el.style.opacity = '1'; });
+      if (el) {
+        el.textContent = QUOTE;
+        // Fade opacity 0 -> 1 over 300 ms (transition declared in CSS).
+        requestAnimationFrame(function () { el.style.opacity = '1'; });
+      }
     })();
 
+    var firstFrameFired = false;
     window.addEventListener('flutter-first-frame', function() {
+      firstFrameFired = true;
       var el = document.getElementById('flutter-loading');
       if (el) {
         el.classList.add('hidden');
         setTimeout(function() { el.remove(); }, 700);
       }
     });
+
+    // Timeout fallback. main.dart time-boxes every init step (HydratedBloc 5 s,
+    // Firebase 8 s) so a healthy boot paints well under 12 s. If nothing painted
+    // by then the engine itself is stuck (CanvasKit/WASM/WebGL) — show the
+    // captured cause + a retry instead of an endless spinner. This is the
+    // primary diagnostic for the Threads/Telegram in-app WebView hang.
+    setTimeout(function () {
+      if (firstFrameFired) return;
+      var host = document.getElementById('flutter-loading');
+      if (!host) return;
+      var diag = (window.__bootErrors && window.__bootErrors.length)
+        ? window.__bootErrors.join('\n')
+        : 'no JS error captured — engine likely stalled silently (WebGL/WASM init or a blocked gstatic resource).';
+      host.innerHTML =
+        '<div style="max-width:520px;padding:0 28px;text-align:center;font-family:sans-serif;color:#6B6359">' +
+          '<div style="font-size:18px;margin-bottom:14px;color:#475F45">Не удалось загрузить приложение</div>' +
+          '<div style="font-size:14px;line-height:1.6;margin-bottom:22px">Похоже, встроенный браузер блокирует запуск. Откройте ссылку в Safari или Chrome.</div>' +
+          '<button id="boot-retry" style="font:inherit;font-size:14px;padding:10px 22px;border:0;border-radius:6px;background:#475F45;color:#fff">Повторить</button>' +
+          '<pre style="margin-top:22px;text-align:left;white-space:pre-wrap;word-break:break-word;font-size:11px;color:#9A9388;background:#EFE9DF;padding:12px;border-radius:6px;max-height:40vh;overflow:auto">' +
+            diag.replace(/[<&]/g, function (c) { return c === '<' ? '&lt;' : '&amp;'; }) +
+          '</pre>' +
+        '</div>';
+      host.classList.remove('hidden');
+      var btn = document.getElementById('boot-retry');
+      if (btn) btn.addEventListener('click', function () { location.reload(); });
+    }, 12000);
   </script>
 
   <!--
