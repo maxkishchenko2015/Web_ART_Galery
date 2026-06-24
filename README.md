@@ -11,13 +11,13 @@ flutter run -d chrome
 ```
 
 For wider Flutter Web background see
-[`agent_skills/flutter-web-environment/SKILL.md`](agent_skills/flutter-web-environment/SKILL.md).
+[`.agents/skills/flutter-web-environment/SKILL.md`](.agents/skills/flutter-web-environment/SKILL.md).
 
 ## Production build (with SEO deep-link stubs)
 
 The production pipeline runs the Flutter build, then enriches it with
 per-painting and per-news HTML stubs and a deep-link sitemap. See
-[`agent_skills/flutter-web-seo/SKILL.md`](agent_skills/flutter-web-seo/SKILL.md)
+[`.agents/skills/flutter-web-seo/SKILL.md`](.agents/skills/flutter-web-seo/SKILL.md)
 for the architecture and per-route conventions.
 
 ```bash

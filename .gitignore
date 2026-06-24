@@ -1,3 +1,10 @@
+# Vendor-specific agent folders — GENERATED from .agents/ by .agents/setup.
+# Source of truth is .agents/ (tracked). Do not edit these by hand.
+/CLAUDE.md
+/.claude/
+/.codex/
+/.cursor/
+
 # Miscellaneous
 *.class
 *.log
