@@ -165,6 +165,15 @@ class AppTelemetry {
     if (message.contains('Failed to fetch') || message.contains('tile.openstreetmap.org')) {
       return true;
     }
+    // Transient client-network noise, not an app bug:
+    // - 'client is offline' — Firestore `unavailable` while the user briefly
+    //   lost connectivity (the fetch already retries via withFirestoreRetry).
+    // - 'Deferred library archive was not loaded' — a stale tab requesting a
+    //   redeployed code-split chunk; handled by a one-shot reload in
+    //   _DeferredScreen.
+    if (message.contains('client is offline') || message.contains('Deferred library')) {
+      return true;
+    }
     return false;
   }
 

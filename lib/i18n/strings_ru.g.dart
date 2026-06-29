@@ -132,6 +132,12 @@ class Translations$common$ru {
 	/// ru: 'Страница не найдена'
 	String get pageNotFound => 'Страница не найдена';
 
+	/// ru: 'Повторить'
+	String get retry => 'Повторить';
+
+	/// ru: 'Что-то пошло не так'
+	String get errorTitle => 'Что-то пошло не так';
+
 	/// ru: 'СМОТРЕТЬ КАТАЛОГ'
 	String get viewCatalog => 'СМОТРЕТЬ КАТАЛОГ';
 
@@ -1682,6 +1688,8 @@ extension on Translations {
 			'catalog.paintingMediums.cardboard' => 'Картон',
 			'catalog.paintingMediums.woolLinenWeaving' => 'Шерсть, лён, ткачество',
 			'common.pageNotFound' => 'Страница не найдена',
+			'common.retry' => 'Повторить',
+			'common.errorTitle' => 'Что-то пошло не так',
 			'common.viewCatalog' => 'СМОТРЕТЬ КАТАЛОГ',
 			'common.learnMore' => 'ПОДРОБНЕЕ',
 			'common.video.loadError' => 'Не удалось загрузить видео',

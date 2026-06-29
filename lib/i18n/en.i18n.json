@@ -195,6 +195,8 @@
   },
   "common": {
     "pageNotFound": "Page not found",
+    "retry": "Retry",
+    "errorTitle": "Something went wrong",
     "viewCatalog": "VIEW CATALOG",
     "learnMore": "LEARN MORE",
     "video": {

@@ -195,6 +195,8 @@
   },
   "common": {
     "pageNotFound": "Página no encontrada",
+    "retry": "Reintentar",
+    "errorTitle": "Algo salió mal",
     "viewCatalog": "VER CATÁLOGO",
     "learnMore": "SABER MÁS",
     "video": {

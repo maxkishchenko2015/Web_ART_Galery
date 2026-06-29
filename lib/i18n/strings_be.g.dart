@@ -103,6 +103,8 @@ class _Translations$common$be extends Translations$common$ru {
 
 	// Translations
 	@override String get pageNotFound => 'Старонка не знойдзена';
+	@override String get retry => 'Паўтарыць';
+	@override String get errorTitle => 'Нешта пайшло не так';
 	@override String get viewCatalog => 'ПАГЛЯДЗЕЦЬ КАТАЛОГ';
 	@override String get learnMore => 'ПАДРАБЯЗНЕЙ';
 	@override late final _Translations$common$video$be video = _Translations$common$video$be._(_root);
@@ -1020,6 +1022,8 @@ extension on TranslationsBe {
 			'catalog.paintingMediums.cardboard' => 'Кардон',
 			'catalog.paintingMediums.woolLinenWeaving' => 'Воўна, лён, ткацтва',
 			'common.pageNotFound' => 'Старонка не знойдзена',
+			'common.retry' => 'Паўтарыць',
+			'common.errorTitle' => 'Нешта пайшло не так',
 			'common.viewCatalog' => 'ПАГЛЯДЗЕЦЬ КАТАЛОГ',
 			'common.learnMore' => 'ПАДРАБЯЗНЕЙ',
 			'common.video.loadError' => 'Не атрымалася загрузіць відэа',

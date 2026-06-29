@@ -195,6 +195,8 @@
   },
   "common": {
     "pageNotFound": "Старонка не знойдзена",
+    "retry": "Паўтарыць",
+    "errorTitle": "Нешта пайшло не так",
     "viewCatalog": "ПАГЛЯДЗЕЦЬ КАТАЛОГ",
     "learnMore": "ПАДРАБЯЗНЕЙ",
     "video": {

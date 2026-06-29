@@ -103,6 +103,8 @@ class _Translations$common$de extends Translations$common$ru {
 
 	// Translations
 	@override String get pageNotFound => 'Seite nicht gefunden';
+	@override String get retry => 'Erneut versuchen';
+	@override String get errorTitle => 'Etwas ist schiefgelaufen';
 	@override String get viewCatalog => 'KATALOG ANSEHEN';
 	@override String get learnMore => 'MEHR ERFAHREN';
 	@override late final _Translations$common$video$de video = _Translations$common$video$de._(_root);
@@ -1020,6 +1022,8 @@ extension on TranslationsDe {
 			'catalog.paintingMediums.cardboard' => 'Karton',
 			'catalog.paintingMediums.woolLinenWeaving' => 'Wolle, Leinen, Weberei',
 			'common.pageNotFound' => 'Seite nicht gefunden',
+			'common.retry' => 'Erneut versuchen',
+			'common.errorTitle' => 'Etwas ist schiefgelaufen',
 			'common.viewCatalog' => 'KATALOG ANSEHEN',
 			'common.learnMore' => 'MEHR ERFAHREN',
 			'common.video.loadError' => 'Videostream konnte nicht geladen werden',

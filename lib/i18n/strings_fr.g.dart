@@ -103,6 +103,8 @@ class _Translations$common$fr extends Translations$common$ru {
 
 	// Translations
 	@override String get pageNotFound => 'Page introuvable';
+	@override String get retry => 'Reessayer';
+	@override String get errorTitle => 'Une erreur est survenue';
 	@override String get viewCatalog => 'VOIR LE CATALOGUE';
 	@override String get learnMore => 'EN SAVOIR PLUS';
 	@override late final _Translations$common$video$fr video = _Translations$common$video$fr._(_root);
@@ -1020,6 +1022,8 @@ extension on TranslationsFr {
 			'catalog.paintingMediums.cardboard' => 'Carton',
 			'catalog.paintingMediums.woolLinenWeaving' => 'Laine, lin, tissage',
 			'common.pageNotFound' => 'Page introuvable',
+			'common.retry' => 'Reessayer',
+			'common.errorTitle' => 'Une erreur est survenue',
 			'common.viewCatalog' => 'VOIR LE CATALOGUE',
 			'common.learnMore' => 'EN SAVOIR PLUS',
 			'common.video.loadError' => 'Echec du chargement du flux vidéo',

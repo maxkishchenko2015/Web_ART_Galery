@@ -8,6 +8,7 @@ import 'package:web_art_galery/src/features/news/presentation/screens/news_page.
 import 'package:web_art_galery/src/navigation/presentation/router/app_routes.dart';
 import 'package:web_art_galery/src/navigation/presentation/router/screen_name_resolver.dart';
 import 'package:web_art_galery/src/navigation/presentation/screens/app_shell_page.dart';
+import 'package:web_art_galery/src/shared/platform/page_reload/page_reload.dart';
 import 'package:web_art_galery/src/shared/presentation/screens/placeholder_page.dart';
 import 'package:web_art_galery/src/shared/presentation/widgets/app_loader.dart';
 import 'package:web_art_galery/src/shared/telemetry/app_telemetry.dart';
@@ -71,7 +72,8 @@ final List<RouteBase> _routes = [
               final slug = state.pathParameters[AppRoutes.articleSlugParam] ?? '';
               return NoTransitionPage<void>(
                 child: _DeferredScreen(
-                  loader: news_detail.loadLibrary,
+                  routeKey: 'news_detail',
+                  loader: () => news_detail.loadLibrary(),
                   builder: () => news_detail.NewsDetailPage(articleSlug: slug),
                 ),
               );
@@ -90,7 +92,8 @@ final List<RouteBase> _routes = [
                   state.pathParameters[AppRoutes.workIdParam] ?? 'unknown';
               return NoTransitionPage<void>(
                 child: _DeferredScreen(
-                  loader: catalog_detail.loadLibrary,
+                  routeKey: 'catalog_detail',
+                  loader: () => catalog_detail.loadLibrary(),
                   builder: () => catalog_detail.CatalogWorkDetailPage(workId: workId),
                 ),
               );
@@ -102,7 +105,8 @@ final List<RouteBase> _routes = [
         path: AppRoutes.films,
         pageBuilder: (context, state) => NoTransitionPage<void>(
           child: _DeferredScreen(
-            loader: films.loadLibrary,
+            routeKey: 'films',
+            loader: () => films.loadLibrary(),
             builder: () => films.FilmsPage(),
           ),
         ),
@@ -111,7 +115,8 @@ final List<RouteBase> _routes = [
         path: AppRoutes.archive,
         pageBuilder: (context, state) => NoTransitionPage<void>(
           child: _DeferredScreen(
-            loader: archive.loadLibrary,
+            routeKey: 'archive',
+            loader: () => archive.loadLibrary(),
             builder: () => archive.ArchivePage(),
           ),
         ),
@@ -129,9 +134,22 @@ final List<RouteBase> _routes = [
 /// [AppLoader] placeholder fills the shell content area.
 /// The Future is cached at the FutureBuilder level so repeat visits to the
 /// same route do not trigger another network round-trip.
+///
+/// When `loadLibrary()` rejects (most commonly a stale tab requesting a
+/// content-hashed chunk that no longer exists after a redeploy → 404,
+/// surfacing as "Deferred library archive was not loaded"), the screen
+/// hard-reloads the page once to pull the fresh `main.dart.js` + manifest.
+/// If the reload already happened (or on a non-web platform), it falls back
+/// to an inline error with a Retry button instead of crashing the route.
 class _DeferredScreen extends StatefulWidget {
-  const _DeferredScreen({required this.loader, required this.builder});
+  const _DeferredScreen({
+    required this.routeKey,
+    required this.loader,
+    required this.builder,
+  });
 
+  /// Stable per-route identifier for the one-shot reload guard.
+  final String routeKey;
   final Future<void> Function() loader;
   final Widget Function() builder;
 
@@ -140,22 +158,52 @@ class _DeferredScreen extends StatefulWidget {
 }
 
 class _DeferredScreenState extends State<_DeferredScreen> {
-  late final Future<void> _ready = widget.loader();
+  late Future<Widget> _page = _load();
+
+  // Construct the deferred widget INSIDE the async gap, immediately after the
+  // load completes. Accessing a `deferred as` symbol must happen in the same
+  // continuation as its confirmed load — doing it later in a FutureBuilder
+  // rebuild can throw "Deferred library <x> was not loaded" synchronously
+  // during build (crashing the frame). Routing the access through this Future
+  // turns any such failure into a normal FutureBuilder error we can recover
+  // from below.
+  Future<Widget> _load() async {
+    await widget.loader();
+    return widget.builder();
+  }
+
+  void _retry() => setState(() => _page = _load());
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<void>(
-      future: _ready,
+    return FutureBuilder<Widget>(
+      future: _page,
       builder: (context, snapshot) {
         if (snapshot.connectionState != ConnectionState.done) {
           return const Center(child: AppLoader());
         }
         if (snapshot.hasError) {
+          // A stale-deploy chunk 404 is fixed by a single hard reload; the
+          // sessionStorage guard inside the helper prevents a reload loop.
+          if (tryReloadOnceForStaleChunk('deferred_reload_${widget.routeKey}')) {
+            return const Center(child: AppLoader());
+          }
           return Center(
-            child: Text(context.t.common.pageNotFound),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(context.t.common.pageNotFound),
+                const SizedBox(height: 16),
+                OutlinedButton.icon(
+                  onPressed: _retry,
+                  icon: const Icon(Icons.refresh),
+                  label: Text(context.t.common.retry),
+                ),
+              ],
+            ),
           );
         }
-        return widget.builder();
+        return snapshot.data!;
       },
     );
   }

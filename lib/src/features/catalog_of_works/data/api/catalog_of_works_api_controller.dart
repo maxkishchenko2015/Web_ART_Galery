@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:web_art_galery/src/features/catalog_of_works/data/models/painting_firebase_object.dart';
 import 'package:web_art_galery/src/shared/config/firebase/firestore_collections.dart';
+import 'package:web_art_galery/src/shared/utils/firestore_retry.dart';
 
 /// Value returned by [CatalogOfWorksApiController.fetchPaintingsPage].
 class PaintingsFirebasePage {
@@ -48,7 +49,7 @@ class CatalogOfWorksApiController {
       query = query.startAfter(<Object>[afterCursorId]);
     }
 
-    final snapshot = await query.get();
+    final snapshot = await withFirestoreRetry(query.get);
     final items = snapshot.docs
         .map((doc) {
           final data = doc.data();

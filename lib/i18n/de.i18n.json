@@ -195,6 +195,8 @@
   },
   "common": {
     "pageNotFound": "Seite nicht gefunden",
+    "retry": "Erneut versuchen",
+    "errorTitle": "Etwas ist schiefgelaufen",
     "viewCatalog": "KATALOG ANSEHEN",
     "learnMore": "MEHR ERFAHREN",
     "video": {

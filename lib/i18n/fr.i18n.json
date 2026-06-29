@@ -195,6 +195,8 @@
   },
   "common": {
     "pageNotFound": "Page introuvable",
+    "retry": "Reessayer",
+    "errorTitle": "Une erreur est survenue",
     "viewCatalog": "VOIR LE CATALOGUE",
     "learnMore": "EN SAVOIR PLUS",
     "video": {

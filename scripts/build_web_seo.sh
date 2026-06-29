@@ -15,6 +15,21 @@ set -euo pipefail
 
 cd "$(dirname "$0")/.."
 
+# Version guard: pubspec is the single source of truth (version-bumper skill).
+# Fail loudly if the version wasn't bumped to today's calendar date so a stale
+# version never ships. Format: YY.M.D+B (no leading zeros), e.g. 26.6.29+1.
+TODAY=$(date +%y.%-m.%-d)
+CURRENT=$(awk -F'[: +]' '/^version:/{print $2}' pubspec.yaml)
+if [[ "$CURRENT" != "$TODAY"* ]]; then
+  echo "ERROR: pubspec version $CURRENT is not for today ($TODAY)." >&2
+  echo "       Bump the version: line in pubspec.yaml and re-run." >&2
+  exit 1
+fi
+
+# Sync the analytics app_version constant from pubspec so it never drifts.
+echo "==> dart run tool/sync_app_version.dart"
+dart run tool/sync_app_version.dart
+
 # --no-tree-shake-icons: the icon subsetter (const_finder) silently drops icons
 # that reach an `Icon(...)` only through a field/variable rather than a direct
 # `Icon(Icons.x)` literal — e.g. the Guinness/UN stat rows on the about-author

@@ -29,6 +29,7 @@ import 'package:web_art_galery/src/shared/config/firebase/firebase_bootstrap.dar
 import 'package:web_art_galery/src/shared/config/ksize.dart';
 import 'package:web_art_galery/src/shared/platform/page_title/page_title.dart';
 import 'package:web_art_galery/src/shared/presentation/cubits/app_locale_cubit.dart';
+import 'package:web_art_galery/src/shared/presentation/widgets/app_error_fallback.dart';
 import 'package:web_art_galery/src/shared/telemetry/app_telemetry.dart';
 import 'package:web_art_galery/src/shared/utils/app_logger.dart';
 
@@ -74,6 +75,13 @@ void main() {
         AppTelemetry.instance.logFatal(details.exception, details.stack, reason: 'flutter_error');
         Zone.current.handleUncaughtError(details.exception, details.stack ?? StackTrace.current);
       };
+
+      // Replace Flutter's default grey/red error box in release with a neutral,
+      // self-contained fallback so a single widget-build throw can't leave the
+      // user staring at a blank grey screen. Debug keeps the verbose red box.
+      if (!kDebugMode) {
+        ErrorWidget.builder = (details) => AppErrorFallback(details: details);
+      }
 
       PlatformDispatcher.instance.onError = (error, stack) {
         AppLogger.instance.f('Platform dispatcher error', error: error, stackTrace: stack);
