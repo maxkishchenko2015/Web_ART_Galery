@@ -1,11 +1,9 @@
-import 'package:cached_network_image/cached_network_image.dart';
-import 'package:cached_network_image_platform_interface/cached_network_image_platform_interface.dart'
-    show ImageRenderMethodForWeb;
 import 'package:material_ui/material_ui.dart';
 import 'package:web_art_galery/src/features/films/domain/entities/film.dart';
 import 'package:web_art_galery/src/shared/config/app_colors.dart';
 import 'package:web_art_galery/src/shared/config/app_context_extensions.dart';
 import 'package:web_art_galery/src/shared/config/ksize.dart';
+import 'package:web_art_galery/src/shared/presentation/widgets/network_image/app_network_image_provider.dart';
 
 /// Video preview thumbnail shared across the Films page and the films strip
 /// on the About-the-author page.
@@ -51,19 +49,23 @@ class FilmThumbnail extends StatelessWidget {
               ),
             ),
             if (film.thumbnailUrl.isNotEmpty)
-              CachedNetworkImage(
-                imageUrl: film.thumbnailUrl,
+              Image(
+                // Pixel-owning web decode — see AppNetworkImageProvider.
+                image: AppNetworkImageProvider(film.thumbnailUrl),
                 fit: BoxFit.cover,
-                // Decode from bytes so CanvasKit doesn't choke on a revisited
-                // cross-origin <img> (ImageCodecException on tab return).
-                imageRenderMethodForWeb: ImageRenderMethodForWeb.HttpGet,
-                fadeInDuration: const Duration(milliseconds: 180),
                 // We deliberately render *no* widget while loading or on
                 // error: the gradient backdrop below keeps the box looking
                 // intentional, while tile failures stay silent (see also
                 // AppTelemetry._isIgnorableError).
-                placeholder: (context, _) => const SizedBox.shrink(),
-                errorWidget: (context, _, _) => const SizedBox.shrink(),
+                frameBuilder: (context, child, frame, wasSynchronouslyLoaded) =>
+                    wasSynchronouslyLoaded
+                    ? child
+                    : AnimatedOpacity(
+                        opacity: frame == null ? 0 : 1,
+                        duration: const Duration(milliseconds: 180),
+                        child: child,
+                      ),
+                errorBuilder: (context, _, _) => const SizedBox.shrink(),
               ),
             // Subtle scrim so the chip + play button stay legible on top of
             // any thumbnail content.

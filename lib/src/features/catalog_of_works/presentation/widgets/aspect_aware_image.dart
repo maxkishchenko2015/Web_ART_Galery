@@ -1,12 +1,9 @@
 import 'dart:async';
 
-import 'package:cached_network_image/cached_network_image.dart';
-import 'package:cached_network_image_platform_interface/cached_network_image_platform_interface.dart'
-    show ImageRenderMethodForWeb;
 import 'package:material_ui/material_ui.dart';
 import 'package:web_art_galery/src/shared/config/app_environment.dart';
-import 'package:web_art_galery/src/shared/config/cache/app_cache_manager.dart';
 import 'package:web_art_galery/src/shared/presentation/widgets/app_loader.dart';
+import 'package:web_art_galery/src/shared/presentation/widgets/network_image/app_network_image_provider.dart';
 
 /// Renders a network image at its intrinsic aspect ratio so the gallery
 /// never crops paintings.
@@ -101,13 +98,7 @@ class _AspectAwareImageState extends State<AspectAwareImage> {
   }
 
   void _attachStream() {
-    final url = _resolveImageUrl(widget.imageUrl);
-    final provider = CachedNetworkImageProvider(
-      url,
-      cacheManager: AppCacheManager(),
-      imageRenderMethodForWeb: ImageRenderMethodForWeb.HttpGet,
-    );
-    final stream = provider.resolve(ImageConfiguration.empty);
+    final stream = _provider.resolve(ImageConfiguration.empty);
     final listener = ImageStreamListener(
       _handleImage,
       onError: (Object error, StackTrace? _) {
@@ -145,8 +136,11 @@ class _AspectAwareImageState extends State<AspectAwareImage> {
     });
   }
 
-  String _resolveImageUrl(String raw) =>
-      AspectAwareImage.resolveUrl(raw, useImageKitEndpoint: widget.useImageKitEndpoint);
+  /// Shared by the size probe and the rendered image, so both hit one
+  /// ImageCache entry (pixel-owning web decode — see AppNetworkImageProvider).
+  AppNetworkImageProvider get _provider => AppNetworkImageProvider(
+    AspectAwareImage.resolveUrl(widget.imageUrl, useImageKitEndpoint: widget.useImageKitEndpoint),
+  );
 
   @override
   Widget build(BuildContext context) {
@@ -189,16 +183,14 @@ class _AspectAwareImageState extends State<AspectAwareImage> {
     if (_hasError) {
       return const Center(child: Icon(Icons.broken_image_outlined));
     }
-    return CachedNetworkImage(
-      imageUrl: _resolveImageUrl(widget.imageUrl),
-      cacheManager: AppCacheManager(),
-      imageRenderMethodForWeb: ImageRenderMethodForWeb.HttpGet,
+    return Image(
+      image: _provider,
       fit: BoxFit.contain,
       width: double.infinity,
       height: double.infinity,
-      progressIndicatorBuilder: (context, _, _) => const Center(child: AppLoader()),
-      errorWidget: (context, _, _) =>
-          const Center(child: Icon(Icons.broken_image_outlined)),
+      frameBuilder: (context, child, frame, _) =>
+          frame == null ? const Center(child: AppLoader()) : child,
+      errorBuilder: (context, _, _) => const Center(child: Icon(Icons.broken_image_outlined)),
     );
   }
 }

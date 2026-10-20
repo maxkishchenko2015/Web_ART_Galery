@@ -1,10 +1,7 @@
-import 'package:cached_network_image/cached_network_image.dart';
-import 'package:cached_network_image_platform_interface/cached_network_image_platform_interface.dart'
-    show ImageRenderMethodForWeb;
 import 'package:material_ui/material_ui.dart';
 import 'package:web_art_galery/src/shared/config/app_environment.dart';
-import 'package:web_art_galery/src/shared/config/cache/app_cache_manager.dart';
 import 'package:web_art_galery/src/shared/presentation/widgets/app_loader.dart';
+import 'package:web_art_galery/src/shared/presentation/widgets/network_image/app_network_image_provider.dart';
 import 'package:web_art_galery/src/shared/utils/url_launcher_utils.dart';
 
 class CachedNetworkImageView extends StatelessWidget {
@@ -48,18 +45,15 @@ class CachedNetworkImageView extends StatelessWidget {
       );
     } else {
       final imageUrl = _resolveImageUrl(imagePathOrUrl);
-      image = CachedNetworkImage(
-        imageUrl: imageUrl,
-        cacheManager: AppCacheManager(),
-        // Decode from fetched bytes, not an <img> element. The HtmlImage default
-        // makes CanvasKit rasterize a cross-origin <img>, which throws
-        // "Failed to create image from Image.decode" when the tab is revisited.
-        imageRenderMethodForWeb: ImageRenderMethodForWeb.HttpGet,
+      image = Image(
+        // Pixel-owning web decode — see AppNetworkImageProvider.
+        image: AppNetworkImageProvider(imageUrl),
         width: width,
         height: height,
         fit: fit,
-        progressIndicatorBuilder: (context, _, _) => const Center(child: AppLoader()),
-        errorWidget: (context, url, error) {
+        frameBuilder: (context, child, frame, _) =>
+            frame == null ? const Center(child: AppLoader()) : child,
+        errorBuilder: (context, error, stackTrace) {
           if (!openOriginalOnError) {
             return const Center(child: Icon(Icons.broken_image_outlined));
           }
@@ -84,8 +78,8 @@ class CachedNetworkImageView extends StatelessWidget {
     return Semantics(label: label, image: true, container: true, child: clipped);
   }
 
-  // Bundled `assets/...` paths must be rendered with `Image.asset`, not
-  // `CachedNetworkImage`, otherwise the network loader treats the relative path
+  // Bundled `assets/...` paths must be rendered with `Image.asset`, not the
+  // network provider, otherwise the network loader treats the relative path
   // as a URL and shows the broken-image fallback.
   static bool _isAssetPath(String raw) => raw.startsWith('assets/') || raw.startsWith('asset://');
 
@@ -102,18 +96,15 @@ class CachedNetworkImageView extends StatelessWidget {
 
   String _resolveImageUrl(String raw) => _resolveUrl(raw, useImageKitEndpoint: useImageKitEndpoint);
 
-  /// Provider matching what this widget renders for [imagePathOrUrl], backed
-  /// by the same [AppCacheManager] — lets callers `precacheImage` a photo so
-  /// it is already decoded when the widget appears (e.g. before the
-  /// onboarding tour highlights it).
+  /// Provider matching what this widget renders for [imagePathOrUrl] — lets
+  /// callers `precacheImage` a photo so it is already decoded when the widget
+  /// appears (e.g. before the onboarding tour highlights it).
   static ImageProvider providerFor(String imagePathOrUrl, {bool useImageKitEndpoint = true}) {
     if (_isAssetPath(imagePathOrUrl)) {
       return AssetImage(imagePathOrUrl);
     }
-    return CachedNetworkImageProvider(
+    return AppNetworkImageProvider(
       _resolveUrl(imagePathOrUrl, useImageKitEndpoint: useImageKitEndpoint),
-      cacheManager: AppCacheManager(),
-      imageRenderMethodForWeb: ImageRenderMethodForWeb.HttpGet,
     );
   }
 }
