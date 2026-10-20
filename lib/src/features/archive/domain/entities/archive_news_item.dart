@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:web_art_galery/i18n/strings.g.dart';
 
 /// A single archive (press / publication) entry rendered as a card on the

@@ -1,5 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flutter/material.dart';
+import 'package:cached_network_image_platform_interface/cached_network_image_platform_interface.dart'
+    show ImageRenderMethodForWeb;
+import 'package:material_ui/material_ui.dart';
 import 'package:web_art_galery/src/shared/config/app_environment.dart';
 import 'package:web_art_galery/src/shared/config/cache/app_cache_manager.dart';
 import 'package:web_art_galery/src/shared/presentation/widgets/app_loader.dart';
@@ -49,6 +51,10 @@ class CachedNetworkImageView extends StatelessWidget {
       image = CachedNetworkImage(
         imageUrl: imageUrl,
         cacheManager: AppCacheManager(),
+        // Decode from fetched bytes, not an <img> element. The HtmlImage default
+        // makes CanvasKit rasterize a cross-origin <img>, which throws
+        // "Failed to create image from Image.decode" when the tab is revisited.
+        imageRenderMethodForWeb: ImageRenderMethodForWeb.HttpGet,
         width: width,
         height: height,
         fit: fit,
@@ -107,6 +113,7 @@ class CachedNetworkImageView extends StatelessWidget {
     return CachedNetworkImageProvider(
       _resolveUrl(imagePathOrUrl, useImageKitEndpoint: useImageKitEndpoint),
       cacheManager: AppCacheManager(),
+      imageRenderMethodForWeb: ImageRenderMethodForWeb.HttpGet,
     );
   }
 }

@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:go_router/go_router.dart';
 import 'package:web_art_galery/i18n/strings.g.dart';
 import 'package:web_art_galery/src/features/about_author/presentation/screens/about_author_page.dart';
@@ -60,17 +60,20 @@ final List<RouteBase> _routes = [
     routes: [
       GoRoute(
         path: AppRoutes.aboutAuthor,
-        pageBuilder: (context, state) => const NoTransitionPage<void>(child: AboutAuthorPage()),
+        pageBuilder: (context, state) =>
+            NoTransitionPage<void>(key: state.pageKey, child: const AboutAuthorPage()),
       ),
       GoRoute(
         path: AppRoutes.news,
-        pageBuilder: (context, state) => const NoTransitionPage<void>(child: NewsPage()),
+        pageBuilder: (context, state) =>
+            NoTransitionPage<void>(key: state.pageKey, child: const NewsPage()),
         routes: [
           GoRoute(
             path: AppRoutes.newsArticleSegment,
             pageBuilder: (context, state) {
               final slug = state.pathParameters[AppRoutes.articleSlugParam] ?? '';
               return NoTransitionPage<void>(
+                key: state.pageKey,
                 child: _DeferredScreen(
                   routeKey: 'news_detail',
                   loader: () => news_detail.loadLibrary(),
@@ -83,7 +86,8 @@ final List<RouteBase> _routes = [
       ),
       GoRoute(
         path: AppRoutes.catalog,
-        pageBuilder: (context, state) => const NoTransitionPage<void>(child: CatalogOfWorksPage()),
+        pageBuilder: (context, state) =>
+            NoTransitionPage<void>(key: state.pageKey, child: const CatalogOfWorksPage()),
         routes: [
           GoRoute(
             path: AppRoutes.catalogWorkSegment,
@@ -91,6 +95,7 @@ final List<RouteBase> _routes = [
               final workId =
                   state.pathParameters[AppRoutes.workIdParam] ?? 'unknown';
               return NoTransitionPage<void>(
+                key: state.pageKey,
                 child: _DeferredScreen(
                   routeKey: 'catalog_detail',
                   loader: () => catalog_detail.loadLibrary(),
@@ -104,6 +109,7 @@ final List<RouteBase> _routes = [
       GoRoute(
         path: AppRoutes.films,
         pageBuilder: (context, state) => NoTransitionPage<void>(
+          key: state.pageKey,
           child: _DeferredScreen(
             routeKey: 'films',
             loader: () => films.loadLibrary(),
@@ -114,6 +120,7 @@ final List<RouteBase> _routes = [
       GoRoute(
         path: AppRoutes.archive,
         pageBuilder: (context, state) => NoTransitionPage<void>(
+          key: state.pageKey,
           child: _DeferredScreen(
             routeKey: 'archive',
             loader: () => archive.loadLibrary(),
@@ -123,7 +130,8 @@ final List<RouteBase> _routes = [
       ),
       GoRoute(
         path: AppRoutes.contacts,
-        pageBuilder: (context, state) => const NoTransitionPage<void>(child: ContactsPage()),
+        pageBuilder: (context, state) =>
+            NoTransitionPage<void>(key: state.pageKey, child: const ContactsPage()),
       ),
     ],
   ),

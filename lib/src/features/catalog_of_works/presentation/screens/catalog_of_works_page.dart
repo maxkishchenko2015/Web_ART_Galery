@@ -1,5 +1,5 @@
 import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:meta_seo/meta_seo.dart';
 import 'package:web_art_galery/i18n/strings.g.dart';
@@ -8,7 +8,7 @@ import 'package:web_art_galery/src/features/catalog_of_works/presentation/cubits
 import 'package:web_art_galery/src/features/catalog_of_works/presentation/localization/painting_medium_localization.dart';
 import 'package:web_art_galery/src/features/catalog_of_works/presentation/localization/painting_name_localization.dart';
 import 'package:web_art_galery/src/features/catalog_of_works/presentation/widgets/aspect_aware_image.dart';
-import 'package:web_art_galery/src/features/catalog_of_works/presentation/widgets/catalog_lazy_masonry_view.dart';
+import 'package:web_art_galery/src/features/catalog_of_works/presentation/widgets/catalog_lazy_grid_view.dart';
 import 'package:web_art_galery/src/features/catalog_of_works/presentation/widgets/decade_filter_bar.dart';
 import 'package:web_art_galery/src/shared/config/app_context_extensions.dart';
 import 'package:web_art_galery/src/shared/config/ksize.dart';
@@ -158,7 +158,7 @@ class _PaintingsGridState extends State<_PaintingsGrid> {
             ? 2
             : 3;
 
-        return CatalogLazyMasonryView(
+        return CatalogLazyGridView(
           itemCount: widget.paintings.length,
           isLoading: widget.isLoadingMore,
           hasReachedMax: widget.hasReachedMax,
@@ -170,6 +170,7 @@ class _PaintingsGridState extends State<_PaintingsGrid> {
             KSize.margin12x,
           ),
           crossAxisCount: crossAxisCount,
+          childAspectRatio: KSize.catalogCardAspectRatio,
           mainAxisSpacing: KSize.margin7x,
           crossAxisSpacing: KSize.margin4x,
           loadingWidget: const Padding(
@@ -206,18 +207,23 @@ class _PaintingCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          MouseRegion(
-            cursor: SystemMouseCursors.zoomIn,
-            child: GestureDetector(
-              behavior: HitTestBehavior.opaque,
-              onTap: () => onOpen(painting),
-              child: Hero(
-                tag: 'catalog_${painting.pictureId}',
-                child: AspectAwareImage(
-                  imageUrl: painting.imageUrl,
-                  semanticLabel:
-                      '$localizedName (${painting.yearOfCreation}) — '
-                      '${PaintingMediumLocalization.resolve(context.t, painting.paintedOnAndHow)}',
+          // Expanded so the image fills whatever space the fixed grid cell
+          // leaves after the caption below — the cell size never depends on
+          // the image's own decoded aspect ratio (see CatalogLazyGridView).
+          Expanded(
+            child: MouseRegion(
+              cursor: SystemMouseCursors.zoomIn,
+              child: GestureDetector(
+                behavior: HitTestBehavior.opaque,
+                onTap: () => onOpen(painting),
+                child: Hero(
+                  tag: 'catalog_${painting.pictureId}',
+                  child: AspectAwareImage(
+                    imageUrl: painting.imageUrl,
+                    semanticLabel:
+                        '$localizedName (${painting.yearOfCreation}) — '
+                        '${PaintingMediumLocalization.resolve(context.t, painting.paintedOnAndHow)}',
+                  ),
                 ),
               ),
             ),

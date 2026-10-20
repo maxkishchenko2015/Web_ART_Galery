@@ -26,6 +26,7 @@ Agent configuration is vendor-agnostic. The single source of truth is `.agents/`
 * [Flutter Drift](.agents/skills/flutter-drift/SKILL.md)
 * [Flutter DUIT BDUI](.agents/skills/flutter-duit-bdui/SKILL.md)
 * [Flutter Internationalization](.agents/skills/flutter-internationalization/SKILL.md)
+* [Flutter Material UI](.agents/skills/flutter-material-ui/SKILL.md)
 * [Flutter Navigation](.agents/skills/flutter-navigation/SKILL.md)
 * [Flutter Networking](.agents/skills/flutter-networking/SKILL.md)
 * [Flutter Result Cache](.agents/skills/flutter-result-cache/SKILL.md)

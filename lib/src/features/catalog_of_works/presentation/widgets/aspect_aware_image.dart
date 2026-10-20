@@ -1,7 +1,9 @@
 import 'dart:async';
 
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flutter/material.dart';
+import 'package:cached_network_image_platform_interface/cached_network_image_platform_interface.dart'
+    show ImageRenderMethodForWeb;
+import 'package:material_ui/material_ui.dart';
 import 'package:web_art_galery/src/shared/config/app_environment.dart';
 import 'package:web_art_galery/src/shared/config/cache/app_cache_manager.dart';
 import 'package:web_art_galery/src/shared/presentation/widgets/app_loader.dart';
@@ -100,7 +102,11 @@ class _AspectAwareImageState extends State<AspectAwareImage> {
 
   void _attachStream() {
     final url = _resolveImageUrl(widget.imageUrl);
-    final provider = CachedNetworkImageProvider(url, cacheManager: AppCacheManager());
+    final provider = CachedNetworkImageProvider(
+      url,
+      cacheManager: AppCacheManager(),
+      imageRenderMethodForWeb: ImageRenderMethodForWeb.HttpGet,
+    );
     final stream = provider.resolve(ImageConfiguration.empty);
     final listener = ImageStreamListener(
       _handleImage,
@@ -186,6 +192,7 @@ class _AspectAwareImageState extends State<AspectAwareImage> {
     return CachedNetworkImage(
       imageUrl: _resolveImageUrl(widget.imageUrl),
       cacheManager: AppCacheManager(),
+      imageRenderMethodForWeb: ImageRenderMethodForWeb.HttpGet,
       fit: BoxFit.contain,
       width: double.infinity,
       height: double.infinity,

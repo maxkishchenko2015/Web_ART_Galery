@@ -1,11 +1,12 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:material_ui/material_ui.dart';
 
-/// A lazy-loading masonry grid view.
+/// A lazy-loading fixed grid view.
 ///
-/// Uses [SliverMasonryGrid.count] so cards keep their natural height — each
-/// card grows to fit its content (used by the catalog to size each painting
-/// to its intrinsic aspect ratio without cropping).
+/// Every cell has the same size — [childAspectRatio] fixes the cell's
+/// width:height ratio up front, so layout never depends on a card's content
+/// (e.g. a network image's decoded size). This avoids the reflow/"jump"
+/// that a masonry layout suffers when a recycled card scrolls back into
+/// view and its content resolves to a different size than before.
 ///
 /// Manages its own [ScrollController] internally (or accepts an external one
 /// via [scrollController]). When the user scrolls within [_loadMoreThreshold]
@@ -14,8 +15,8 @@ import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 ///
 /// The loading indicator is rendered as a full-width row **below** the grid
 /// (via [SliverToBoxAdapter]) so it never occupies a grid cell.
-class CatalogLazyMasonryView extends StatefulWidget {
-  const CatalogLazyMasonryView({
+class CatalogLazyGridView extends StatefulWidget {
+  const CatalogLazyGridView({
     super.key,
     required this.itemCount,
     required this.isLoading,
@@ -23,6 +24,7 @@ class CatalogLazyMasonryView extends StatefulWidget {
     required this.onLoadMore,
     required this.itemBuilder,
     required this.crossAxisCount,
+    required this.childAspectRatio,
     required this.loadingWidget,
     this.mainAxisSpacing = 0,
     this.crossAxisSpacing = 0,
@@ -37,6 +39,7 @@ class CatalogLazyMasonryView extends StatefulWidget {
   final VoidCallback onLoadMore;
   final Widget Function(BuildContext context, int index) itemBuilder;
   final int crossAxisCount;
+  final double childAspectRatio;
   final double mainAxisSpacing;
   final double crossAxisSpacing;
   final Widget loadingWidget;
@@ -45,10 +48,10 @@ class CatalogLazyMasonryView extends StatefulWidget {
   final ScrollController? scrollController;
 
   @override
-  State<CatalogLazyMasonryView> createState() => _CatalogLazyMasonryViewState();
+  State<CatalogLazyGridView> createState() => _CatalogLazyGridViewState();
 }
 
-class _CatalogLazyMasonryViewState extends State<CatalogLazyMasonryView> {
+class _CatalogLazyGridViewState extends State<CatalogLazyGridView> {
   late final ScrollController _scrollController;
 
   @override
@@ -59,7 +62,7 @@ class _CatalogLazyMasonryViewState extends State<CatalogLazyMasonryView> {
   }
 
   @override
-  void didUpdateWidget(CatalogLazyMasonryView oldWidget) {
+  void didUpdateWidget(CatalogLazyGridView oldWidget) {
     super.didUpdateWidget(oldWidget);
     if (oldWidget.scrollController != widget.scrollController) {
       _scrollController.removeListener(_onScroll);
@@ -106,12 +109,17 @@ class _CatalogLazyMasonryViewState extends State<CatalogLazyMasonryView> {
       slivers: [
         SliverPadding(
           padding: widget.padding,
-          sliver: SliverMasonryGrid.count(
-            crossAxisCount: widget.crossAxisCount,
-            mainAxisSpacing: widget.mainAxisSpacing,
-            crossAxisSpacing: widget.crossAxisSpacing,
-            childCount: widget.itemCount,
-            itemBuilder: widget.itemBuilder,
+          sliver: SliverGrid(
+            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: widget.crossAxisCount,
+              mainAxisSpacing: widget.mainAxisSpacing,
+              crossAxisSpacing: widget.crossAxisSpacing,
+              childAspectRatio: widget.childAspectRatio,
+            ),
+            delegate: SliverChildBuilderDelegate(
+              widget.itemBuilder,
+              childCount: widget.itemCount,
+            ),
           ),
         ),
         if (widget.isLoading && !widget.hasReachedMax && !_shouldHideLoadingWidget)

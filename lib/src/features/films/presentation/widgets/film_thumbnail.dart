@@ -1,5 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flutter/material.dart';
+import 'package:cached_network_image_platform_interface/cached_network_image_platform_interface.dart'
+    show ImageRenderMethodForWeb;
+import 'package:material_ui/material_ui.dart';
 import 'package:web_art_galery/src/features/films/domain/entities/film.dart';
 import 'package:web_art_galery/src/shared/config/app_colors.dart';
 import 'package:web_art_galery/src/shared/config/app_context_extensions.dart';
@@ -52,6 +54,9 @@ class FilmThumbnail extends StatelessWidget {
               CachedNetworkImage(
                 imageUrl: film.thumbnailUrl,
                 fit: BoxFit.cover,
+                // Decode from bytes so CanvasKit doesn't choke on a revisited
+                // cross-origin <img> (ImageCodecException on tab return).
+                imageRenderMethodForWeb: ImageRenderMethodForWeb.HttpGet,
                 fadeInDuration: const Duration(milliseconds: 180),
                 // We deliberately render *no* widget while loading or on
                 // error: the gradient backdrop below keeps the box looking

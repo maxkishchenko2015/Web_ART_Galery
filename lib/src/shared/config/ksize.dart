@@ -1,4 +1,4 @@
-import 'package:flutter/cupertino.dart';
+import 'package:cupertino_ui/cupertino_ui.dart';
 
 /// Constants for margins, font sizes and other layout related parameters.
 class KSize {
@@ -321,6 +321,11 @@ class KSize {
 
   static const double archiveFeaturedAspectRatio = 1.22;
   static const double archiveRegularAspectRatio = 1.45;
+
+  /// Whole catalog card (image + caption) width:height ratio in the fixed
+  /// catalog grid — every cell is the same size regardless of each
+  /// painting's natural aspect ratio.
+  static const double catalogCardAspectRatio = 0.68;
   static const double filmCardAspectRatio = 16 / 9;
   static const double reelCardAspectRatio = 9 / 16;
   static const double heroPortraitAspectRatio = 0.75;

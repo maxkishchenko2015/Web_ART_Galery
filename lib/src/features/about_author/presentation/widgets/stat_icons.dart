@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 
 /// Vector stat icons drawn with [CustomPainter] instead of the MaterialIcons
 /// font.
