@@ -81,6 +81,13 @@
   </script>
 
   <meta charset="UTF-8">
+  <!--
+    Required for mobile layout. Without it iOS Safari / Android Chrome use a
+    980px default layout viewport, so Flutter sees a desktop-width window
+    (> adaptiveCompactBreakpoint 600) and the zoomed-out page renders the
+    desktop shell squeezed into the screen.
+  -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <meta content="IE=Edge" http-equiv="X-UA-Compatible">
   <meta name="theme-color" content="#F5F0E8">
 
