@@ -1,4 +1,5 @@
 import 'package:hydrated_bloc/hydrated_bloc.dart';
+import 'package:web_art_galery/src/shared/config/firebase/remote_config_service.dart';
 import 'package:web_art_galery/src/shared/telemetry/app_telemetry.dart';
 
 /// Step indices of the first-visit onboarding tour on the about-author page.
@@ -68,6 +69,10 @@ class OnboardingTourCubit extends HydratedCubit<OnboardingTourState> {
   /// Starts the tour. No-op for returning visitors or when already running.
   void start() {
     if (state.completed || state.isActive) {
+      return;
+    }
+    // Master switch from Firebase Remote Config (SHOW_TOOLTIPS). Off by default.
+    if (!RemoteConfigService.instance.showTooltips) {
       return;
     }
 

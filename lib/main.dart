@@ -25,6 +25,7 @@ import 'package:web_art_galery/src/navigation/presentation/router/app_router.dar
 import 'package:web_art_galery/src/shared/config/app_theme.dart';
 import 'package:web_art_galery/src/shared/config/app_version.dart';
 import 'package:web_art_galery/src/shared/config/firebase/firebase_bootstrap.dart';
+import 'package:web_art_galery/src/shared/config/firebase/remote_config_service.dart';
 import 'package:web_art_galery/src/shared/config/ksize.dart';
 import 'package:web_art_galery/src/shared/platform/page_title/page_title.dart';
 import 'package:web_art_galery/src/shared/presentation/cubits/app_locale_cubit.dart';
@@ -94,6 +95,12 @@ void main() {
       } catch (e, s) {
         AppLogger.instance.w('Firebase init failed, continuing without', error: e, stackTrace: s);
         deferredFirebaseError = (error: e, stack: s);
+      }
+
+      // Kick off the Remote Config fetch in parallel (never blocks first frame).
+      // Flags (e.g. SHOW_TOOLTIPS) stay at their defaults until it lands.
+      if (firebaseReady) {
+        unawaited(RemoteConfigService.instance.initialize());
       }
 
       // Guarded: MetaSEO touches document/web APIs and must never be able to
