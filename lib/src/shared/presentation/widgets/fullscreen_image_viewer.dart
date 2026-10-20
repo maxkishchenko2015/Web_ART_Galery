@@ -116,6 +116,8 @@ class _FullscreenImageOverlayState extends State<_FullscreenImageOverlay> {
       imagePathOrUrl: widget.imagePathOrUrl,
       fit: BoxFit.contain,
       useImageKitEndpoint: widget.useImageKitEndpoint,
+      // Pinch / double-tap zoom goes past the layout size — keep the original.
+      resizeToLayout: false,
     );
 
     return Focus(

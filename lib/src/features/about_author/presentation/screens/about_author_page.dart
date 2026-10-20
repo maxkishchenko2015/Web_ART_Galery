@@ -152,18 +152,30 @@ class _AboutAuthorViewState extends State<_AboutAuthorView> with OnboardingTourH
     }
 
     final highlightedPhotos = [
-      state.photoAt(AboutAuthorPageConstants.heroPhotoIndex),
-      state.photoAt(AboutAuthorPageConstants.tapestryPhotoIndex),
-      state.photoAt(AboutAuthorPageConstants.chernobylPhotoIndex),
+      (state.photoAt(AboutAuthorPageConstants.heroPhotoIndex), _authorPhotoKey),
+      (state.photoAt(AboutAuthorPageConstants.tapestryPhotoIndex), _tapestryMediaKey),
+      (state.photoAt(AboutAuthorPageConstants.chernobylPhotoIndex), _chernobylMediaKey),
     ];
+    final devicePixelRatio = MediaQuery.devicePixelRatioOf(context);
     await Future.wait(
-      highlightedPhotos.map((photo) async {
-        if (photo == null || photo.isEmpty || !mounted) {
+      highlightedPhotos.map((entry) async {
+        final (photo, frameKey) = entry;
+        // Precache the same sized rendition [_AuthorPhoto] requests for its
+        // frame width; another size would be a separate download.
+        final frameWidth = frameKey.currentContext?.size?.width;
+        if (photo == null || photo.isEmpty || frameWidth == null || !mounted) {
           return;
         }
         try {
           await precacheImage(
-            CachedNetworkImageView.providerFor(photo.url),
+            CachedNetworkImageView.providerFor(
+              photo.url,
+              requestWidth: CachedNetworkImageView.requestWidthFor(
+                frameWidth,
+                fit: BoxFit.cover,
+                devicePixelRatio: devicePixelRatio,
+              ),
+            ),
             context,
           ).timeout(AboutAuthorPageConstants.tourPhotosWaitTimeout);
         } catch (_) {
@@ -916,12 +928,22 @@ class _AuthorPhoto extends StatelessWidget {
 
         final Widget frame;
         if (hasPhoto && fitFullImage) {
-          frame = _IntrinsicAspectImage(
-            url: photo.url,
-            fallbackRatio: aspectRatio,
-            borderRadius: borderRadius,
-            background: placeholderBackground,
-            child: inner,
+          frame = LayoutBuilder(
+            builder: (context, constraints) => _IntrinsicAspectImage(
+              url: photo.url,
+              // Same rendition the inner image requests for this frame width.
+              requestWidth: constraints.maxWidth.isFinite
+                  ? CachedNetworkImageView.requestWidthFor(
+                      constraints.maxWidth,
+                      fit: BoxFit.cover,
+                      devicePixelRatio: MediaQuery.devicePixelRatioOf(context),
+                    )
+                  : null,
+              fallbackRatio: aspectRatio,
+              borderRadius: borderRadius,
+              background: placeholderBackground,
+              child: inner,
+            ),
           );
         } else {
           frame = ClipRRect(
@@ -961,6 +983,7 @@ class _AuthorPhoto extends StatelessWidget {
 class _IntrinsicAspectImage extends StatefulWidget {
   const _IntrinsicAspectImage({
     required this.url,
+    required this.requestWidth,
     required this.fallbackRatio,
     required this.borderRadius,
     required this.background,
@@ -968,6 +991,10 @@ class _IntrinsicAspectImage extends StatefulWidget {
   });
 
   final String url;
+
+  /// ImageKit width the ratio probe requests — must match what [child]
+  /// renders so both share one download.
+  final int? requestWidth;
   final double fallbackRatio;
   final BorderRadius borderRadius;
   final Color background;
@@ -994,12 +1021,17 @@ class _IntrinsicAspectImageState extends State<_IntrinsicAspectImage> {
     if (oldWidget.url != widget.url) {
       _ratio = null;
       _resolveRatio();
+    } else if (oldWidget.requestWidth != widget.requestWidth) {
+      _resolveRatio(); // Same image, other size — the ratio is unchanged.
     }
   }
 
   void _resolveRatio() {
     _detachStream();
-    final stream = CachedNetworkImageView.providerFor(widget.url).resolve(ImageConfiguration.empty);
+    final stream = CachedNetworkImageView.providerFor(
+      widget.url,
+      requestWidth: widget.requestWidth,
+    ).resolve(ImageConfiguration.empty);
     final listener = ImageStreamListener(
       (info, _) {
         final width = info.image.width;

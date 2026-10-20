@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:material_ui/material_ui.dart';
 import 'package:web_art_galery/src/shared/config/app_environment.dart';
 import 'package:web_art_galery/src/shared/presentation/widgets/app_loader.dart';
+import 'package:web_art_galery/src/shared/presentation/widgets/cached_network_image_view.dart';
 import 'package:web_art_galery/src/shared/presentation/widgets/network_image/app_network_image_provider.dart';
 
 /// Renders a network image at its intrinsic aspect ratio so the gallery
@@ -59,11 +60,17 @@ class AspectAwareImage extends StatefulWidget {
   /// Public mirror of the internal URL resolver so callers (overlay/full-screen
   /// viewer, telemetry, etc.) can route through the same ImageKit endpoint
   /// resolution.
-  static String resolveUrl(String raw, {bool useImageKitEndpoint = true}) {
+  static String resolveUrl(String raw, {bool useImageKitEndpoint = true, int? requestWidth}) {
     final uri = Uri.tryParse(raw);
     final isAbsolute = uri != null && uri.hasScheme && uri.host.isNotEmpty;
-    if (isAbsolute || !useImageKitEndpoint) return raw;
-    return AppEnvironment.imagekitImageUrl(raw);
+    if (isAbsolute) {
+      // Firestore stores absolute ImageKit URLs — size those too.
+      return requestWidth == null
+          ? raw
+          : AppEnvironment.imagekitSizedUrl(raw, width: requestWidth);
+    }
+    if (!useImageKitEndpoint) return raw;
+    return AppEnvironment.imagekitImageUrl(raw, width: requestWidth);
   }
 }
 
@@ -73,11 +80,10 @@ class _AspectAwareImageState extends State<AspectAwareImage> {
   ImageStream? _stream;
   ImageStreamListener? _listener;
 
-  @override
-  void initState() {
-    super.initState();
-    _attachStream();
-  }
+  /// ImageKit width the stream and the rendered image currently use. Known
+  /// only once laid out, so the stream attaches from [build], not initState —
+  /// both must request the same sized URL or the image downloads twice.
+  int? _requestWidth;
 
   @override
   void didUpdateWidget(AspectAwareImage oldWidget) {
@@ -87,8 +93,17 @@ class _AspectAwareImageState extends State<AspectAwareImage> {
       _detachStream();
       _resolvedSize = null;
       _hasError = false;
-      _attachStream();
+      _requestWidth = null; // Re-attached on the following build.
     }
+  }
+
+  /// (Re)attaches the size stream when the requested width changes. Safe from
+  /// build: both listener callbacks defer their setState to a microtask.
+  void _ensureStream(int requestWidth) {
+    if (_requestWidth == requestWidth && _stream != null) return;
+    _requestWidth = requestWidth;
+    _detachStream();
+    _attachStream();
   }
 
   @override
@@ -139,7 +154,11 @@ class _AspectAwareImageState extends State<AspectAwareImage> {
   /// Shared by the size probe and the rendered image, so both hit one
   /// ImageCache entry (pixel-owning web decode — see AppNetworkImageProvider).
   AppNetworkImageProvider get _provider => AppNetworkImageProvider(
-    AspectAwareImage.resolveUrl(widget.imageUrl, useImageKitEndpoint: widget.useImageKitEndpoint),
+    AspectAwareImage.resolveUrl(
+      widget.imageUrl,
+      useImageKitEndpoint: widget.useImageKitEndpoint,
+      requestWidth: _requestWidth,
+    ),
   );
 
   @override
@@ -149,6 +168,15 @@ class _AspectAwareImageState extends State<AspectAwareImage> {
         final cardWidth = constraints.maxWidth.isFinite
             ? constraints.maxWidth
             : widget.maxImageWidth;
+        // `contain` inside a box at most cardWidth wide never shows more than
+        // cardWidth logical pixels across.
+        _ensureStream(
+          CachedNetworkImageView.requestWidthFor(
+            cardWidth,
+            fit: BoxFit.contain,
+            devicePixelRatio: MediaQuery.devicePixelRatioOf(context),
+          ),
+        );
         final size = _resolvedSize;
 
         final aspectRatio = size == null || size.height == 0

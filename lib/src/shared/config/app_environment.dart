@@ -30,9 +30,41 @@ class AppEnvironment {
     }
 
     final endpoint = imagekitUrlEndpoint.replaceAll(RegExp(r'/$'), '');
-    final transforms = width != null && width > 0
-        ? '$_defaultTransforms,w-$width'
-        : _defaultTransforms;
-    return '$endpoint/$normalizedPath?tr=$transforms';
+    return '$endpoint/$normalizedPath?tr=${_transforms(width)}';
   }
+
+  /// Widths requested from ImageKit. Snapping to a few fixed sizes keeps the
+  /// number of distinct URLs — and so ImageKit / browser cache entries — small.
+  static const List<int> _imageWidthBuckets = [320, 480, 640, 800, 1080, 1280, 1600, 2048];
+
+  /// Smallest bucket that covers [physicalWidth], capped at the largest one.
+  static int imageWidthBucket(double physicalWidth) {
+    for (final bucket in _imageWidthBuckets) {
+      if (bucket >= physicalWidth) {
+        return bucket;
+      }
+    }
+    return _imageWidthBuckets.last;
+  }
+
+  /// Adds the default transform chain plus `w-[width]` to an absolute ImageKit
+  /// URL — the form Firestore stores (`https://ik.imagekit.io/<id>/<file>`,
+  /// sometimes with `?updatedAt=`). Other hosts and URLs that already carry a
+  /// transformation are returned unchanged.
+  static String imagekitSizedUrl(String url, {required int width}) {
+    final uri = Uri.tryParse(url);
+    if (uri == null || !uri.host.endsWith('imagekit.io')) {
+      return url;
+    }
+    if (uri.queryParameters.containsKey('tr') || uri.path.contains('/tr:')) {
+      return url;
+    }
+    // Appended by hand so the existing path / query encoding stays untouched.
+    final separator = uri.hasQuery ? '&' : '?';
+    return '$url${separator}tr=${_transforms(width)}';
+  }
+
+  /// `c-at_max` caps the width without upscaling smaller originals.
+  static String _transforms(int? width) =>
+      width != null && width > 0 ? '$_defaultTransforms,w-$width,c-at_max' : _defaultTransforms;
 }
