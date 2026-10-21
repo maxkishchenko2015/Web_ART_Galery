@@ -48,13 +48,19 @@ class _NewsDetailView extends StatelessWidget {
     final isCompact = width < KSize.adaptiveExpandedBreakpoint;
     final horizontalPadding = isCompact ? KSize.margin6x : KSize.margin12x * 2;
 
+    final verticalPadding = isCompact ? KSize.margin8x : KSize.margin12x;
+
     return Container(
       color: context.colors.white,
-      padding: EdgeInsets.symmetric(
-        horizontal: horizontalPadding,
-        vertical: isCompact ? KSize.margin8x : KSize.margin12x,
-      ),
+      padding: EdgeInsets.symmetric(horizontal: horizontalPadding),
       child: SingleChildScrollView(
+        // Vertical padding lives inside the scroll view so content can scroll
+        // under the mobile shell's floating app bar; the top inset clears it
+        // at rest (0 on desktop).
+        padding: EdgeInsets.only(
+          top: verticalPadding + MediaQuery.paddingOf(context).top,
+          bottom: verticalPadding,
+        ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [

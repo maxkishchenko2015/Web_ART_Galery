@@ -47,6 +47,8 @@ class _NewsPageView extends StatelessWidget {
     // page owns its own scrolling (see FilmsPage / AboutAuthorPage). Without
     // this the long news list overflows the viewport on small screens.
     return SingleChildScrollView(
+      // Top inset clears the mobile shell's floating app bar (0 on desktop).
+      padding: EdgeInsets.only(top: MediaQuery.paddingOf(context).top),
       child: Container(
         color: context.colors.white,
         padding: EdgeInsets.symmetric(

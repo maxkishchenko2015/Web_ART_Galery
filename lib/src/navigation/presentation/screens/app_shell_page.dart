@@ -1,3 +1,5 @@
+import 'dart:ui' show ImageFilter;
+
 import 'package:material_ui/material_ui.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -187,7 +189,13 @@ class _DesktopShell extends StatelessWidget {
 
 // ─── Mobile shell ─────────────────────────────────────────────────────────────
 
-class _MobileShell extends StatelessWidget {
+/// Full-height content under a frosted app bar that slides away while
+/// scrolling down and returns on scroll up (floating `SliverAppBar` feel,
+/// done at shell level so every page gets it). Pages offset their first
+/// content by `MediaQuery.paddingOf(context).top`, which the Scaffold sets to
+/// the bar height via `extendBodyBehindAppBar`. The copyright footer lives in
+/// the drawer here instead of permanently taking the bottom of the screen.
+class _MobileShell extends StatefulWidget {
   const _MobileShell({required this.child, required this.items, required this.selectedIndex});
 
   final Widget child;
@@ -195,35 +203,95 @@ class _MobileShell extends StatelessWidget {
   final int selectedIndex;
 
   @override
+  State<_MobileShell> createState() => _MobileShellState();
+}
+
+class _MobileShellState extends State<_MobileShell> {
+  bool _barVisible = true;
+
+  @override
+  void didUpdateWidget(_MobileShell oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    // A new page starts scrolled to the top — show the bar again.
+    if (oldWidget.child != widget.child) {
+      _barVisible = true;
+    }
+  }
+
+  bool _onScroll(ScrollUpdateNotification notification) {
+    // Only the page's own vertical scroll — not nested lists or carousels.
+    if (notification.depth != 0 || notification.metrics.axis != Axis.vertical) {
+      return false;
+    }
+    final delta = notification.scrollDelta ?? 0;
+    final bool visible;
+    if (notification.metrics.pixels <= KSize.mobileAppBarHeight) {
+      visible = true; // Never leave an empty strip above the first content.
+    } else if (delta > KSize.mobileAppBarToggleScrollDelta) {
+      visible = false;
+    } else if (delta < -KSize.mobileAppBarToggleScrollDelta) {
+      visible = true;
+    } else {
+      visible = _barVisible;
+    }
+    if (visible != _barVisible) {
+      setState(() => _barVisible = visible);
+    }
+    return false;
+  }
+
+  @override
   Widget build(BuildContext context) {
+    final colors = context.colors;
+
     return Scaffold(
-      appBar: AppBar(
-        toolbarHeight: KSize.mobileAppBarHeight,
-        title: Row(
-          children: [
-            const _GalleryLogo(size: KSize.logoSizeMedium),
-            const SizedBox(width: KSize.margin3x),
-            Text(context.t.app.title.toUpperCase(), style: context.textOnDark.brandTitle),
-          ],
+      extendBodyBehindAppBar: true,
+      appBar: PreferredSize(
+        preferredSize: const Size.fromHeight(KSize.mobileAppBarHeight),
+        child: AnimatedSlide(
+          offset: _barVisible ? Offset.zero : const Offset(0, -1),
+          duration: KSize.durationMedium,
+          curve: Curves.easeOut,
+          child: AppBar(
+            toolbarHeight: KSize.mobileAppBarHeight,
+            backgroundColor: Colors.transparent,
+            surfaceTintColor: Colors.transparent,
+            elevation: 0,
+            scrolledUnderElevation: 0,
+            // Frosted glass: blur whatever scrolls underneath, then tint it.
+            flexibleSpace: ClipRect(
+              child: BackdropFilter(
+                filter: ImageFilter.blur(
+                  sigmaX: KSize.mobileAppBarBlurSigma,
+                  sigmaY: KSize.mobileAppBarBlurSigma,
+                ),
+                child: ColoredBox(
+                  color: colors.forestGreen.withValues(alpha: KSize.mobileAppBarTintOpacity),
+                  child: const SizedBox.expand(),
+                ),
+              ),
+            ),
+            title: Row(
+              children: [
+                const _GalleryLogo(size: KSize.logoSizeMedium),
+                const SizedBox(width: KSize.margin3x),
+                Text(context.t.app.title.toUpperCase(), style: context.textOnDark.brandTitle),
+              ],
+            ),
+          ),
         ),
       ),
       drawer: _GalleryDrawer(
-        items: items,
-        selectedIndex: selectedIndex,
+        items: widget.items,
+        selectedIndex: widget.selectedIndex,
         onSelected: (i) {
           Navigator.pop(context);
-          context.go(items[i].location);
+          context.go(widget.items[i].location);
         },
       ),
-      body: Column(
-        children: [
-          Expanded(child: child),
-          _GalleryFooter(
-            items: items,
-            onSelected: (i) => context.go(items[i].location),
-            compact: true,
-          ),
-        ],
+      body: NotificationListener<ScrollUpdateNotification>(
+        onNotification: _onScroll,
+        child: widget.child,
       ),
     );
   }
@@ -501,6 +569,19 @@ class _GalleryDrawer extends StatelessWidget {
                 child: const LanguageSwitcher(),
               ),
             ),
+            // Copyright moved here from the always-visible mobile footer.
+            Padding(
+              padding: const EdgeInsets.fromLTRB(
+                KSize.margin6x,
+                0,
+                KSize.margin6x,
+                KSize.margin6x,
+              ),
+              child: Text(
+                '© ${DateTime.now().year} ${context.t.app.title}',
+                style: context.textOnDark.footerCopyright,
+              ),
+            ),
           ],
         ),
       ),
@@ -547,18 +628,13 @@ class _DrawerNavItem extends StatelessWidget {
 // ─── Gallery footer ───────────────────────────────────────────────────────────
 
 class _GalleryFooter extends StatelessWidget {
-  const _GalleryFooter({required this.items, required this.onSelected, this.compact = false});
+  const _GalleryFooter({required this.items, required this.onSelected});
 
   final List<_NavItem> items;
   final ValueChanged<int> onSelected;
-  final bool compact;
 
   @override
   Widget build(BuildContext context) {
-    return compact ? _buildCompact(context) : _buildFull(context);
-  }
-
-  Widget _buildFull(BuildContext context) {
     return Container(
       color: context.colors.darkOlive,
       padding: const EdgeInsets.symmetric(horizontal: KSize.margin12x, vertical: KSize.margin3x),
@@ -592,19 +668,6 @@ class _GalleryFooter extends StatelessWidget {
             style: context.textOnDark.footerCopyright,
           ),
         ],
-      ),
-    );
-  }
-
-  Widget _buildCompact(BuildContext context) {
-    return Container(
-      color: context.colors.darkOlive,
-      padding: const EdgeInsets.symmetric(horizontal: KSize.margin6x, vertical: KSize.margin4x),
-      child: Center(
-        child: Text(
-          '© ${DateTime.now().year} ${context.t.app.title}',
-          style: context.textOnDark.footerCopyright,
-        ),
       ),
     );
   }

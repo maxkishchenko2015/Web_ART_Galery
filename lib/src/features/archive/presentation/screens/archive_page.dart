@@ -20,7 +20,11 @@ class ArchivePage extends StatelessWidget {
     }
     return CubitInitializer(
       onInit: (context) => context.read<ArchiveCubit>().load(),
-      child: const SingleChildScrollView(child: ArchiveNewsSection()),
+      // Top inset clears the mobile shell's floating app bar (0 on desktop).
+      child: SingleChildScrollView(
+        padding: EdgeInsets.only(top: MediaQuery.paddingOf(context).top),
+        child: const ArchiveNewsSection(),
+      ),
     );
   }
 }

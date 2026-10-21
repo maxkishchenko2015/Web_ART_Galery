@@ -228,6 +228,17 @@ class KSize {
   /// Outer height of the mobile app bar.
   static const double mobileAppBarHeight = 64;
 
+  /// Blur strength of the frosted mobile app bar that content scrolls under.
+  static const double mobileAppBarBlurSigma = 16;
+
+  /// Opacity of the forest-green tint over the blurred mobile app bar — high
+  /// enough to read as the brand colour over white content.
+  static const double mobileAppBarTintOpacity = 0.88;
+
+  /// Scroll delta (logical px per update) that hides / reveals the mobile app
+  /// bar; smaller jitters are ignored.
+  static const double mobileAppBarToggleScrollDelta = 2;
+
   /// Outer height of the desktop navigation header.
   static const double desktopHeaderHeight = 80;
 

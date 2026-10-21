@@ -87,31 +87,31 @@ class _CatalogOfWorksLoadedView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: [
-        const DecadeFilterBar(),
-        Expanded(
-          child: _PaintingsGrid(
-            paintings: state.visiblePaintings,
-            isLoadingMore: state.isLoadingMore,
-            hasReachedMax: state.hasReachedMax,
-            isFiltered: state.selectedDecade != null,
-          ),
-        ),
-      ],
+    return _PaintingsGrid(
+      // Scrolls with the grid; the top inset clears the mobile shell's
+      // floating app bar (0 on desktop).
+      header: Padding(
+        padding: EdgeInsets.only(top: MediaQuery.paddingOf(context).top),
+        child: const DecadeFilterBar(),
+      ),
+      paintings: state.visiblePaintings,
+      isLoadingMore: state.isLoadingMore,
+      hasReachedMax: state.hasReachedMax,
+      isFiltered: state.selectedDecade != null,
     );
   }
 }
 
 class _PaintingsGrid extends StatefulWidget {
   const _PaintingsGrid({
+    required this.header,
     required this.paintings,
     required this.isLoadingMore,
     required this.hasReachedMax,
     required this.isFiltered,
   });
 
+  final Widget header;
   final List<Painting> paintings;
   final bool isLoadingMore;
   final bool hasReachedMax;
@@ -145,8 +145,15 @@ class _PaintingsGridState extends State<_PaintingsGrid> {
     // While a decade filter is active and no items match yet, the grid
     // would otherwise be empty during the auto-pager's catch-up phase.
     // Surface a centered spinner so the page doesn't look broken.
+    // Keep the filter visible above the spinner so the user can switch decade.
     if (widget.isFiltered && widget.paintings.isEmpty && !widget.hasReachedMax) {
-      return const Center(child: AppLoader());
+      return Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          widget.header,
+          const Expanded(child: Center(child: AppLoader())),
+        ],
+      );
     }
 
     return LayoutBuilder(
@@ -163,6 +170,7 @@ class _PaintingsGridState extends State<_PaintingsGrid> {
           isLoading: widget.isLoadingMore,
           hasReachedMax: widget.hasReachedMax,
           onLoadMore: cubit.loadMore,
+          header: widget.header,
           padding: const EdgeInsets.fromLTRB(
             KSize.margin4x,
             KSize.margin5x,

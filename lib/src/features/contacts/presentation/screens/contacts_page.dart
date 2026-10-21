@@ -47,6 +47,7 @@ class _ContactsHero extends StatelessWidget {
   Widget build(BuildContext context) {
     final hPad = isCompact ? KSize.margin6x : KSize.margin12x * 2;
     final headlineSize = isCompact ? KSize.heroHeadlineCompact : KSize.heroHeadlineWide;
+    final vPad = isCompact ? KSize.heroVerticalPaddingCompact : KSize.heroVerticalPaddingWide;
     final colors = context.colors;
 
     return Container(
@@ -57,10 +58,9 @@ class _ContactsHero extends StatelessWidget {
           colors: [colors.forestGreen, colors.darkOlive],
         ),
       ),
-      padding: EdgeInsets.symmetric(
-        horizontal: hPad,
-        vertical: isCompact ? KSize.heroVerticalPaddingCompact : KSize.heroVerticalPaddingWide,
-      ),
+      // The green hero runs up under the mobile shell's frosted bar
+      // (paddingOf.top = bar height there, 0 on desktop).
+      padding: EdgeInsets.fromLTRB(hPad, vPad + MediaQuery.paddingOf(context).top, hPad, vPad),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
