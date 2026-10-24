@@ -15,6 +15,8 @@ class CachedNetworkImageView extends StatelessWidget {
     this.useImageKitEndpoint = true,
     this.openOriginalOnError = false,
     this.resizeToLayout = true,
+    this.fallbackAssetPath,
+    this.onFallbackShown,
     this.semanticLabel,
   });
 
@@ -31,6 +33,16 @@ class CachedNetworkImageView extends StatelessWidget {
   /// pixels it shows. Turn off where the user can zoom past the layout size
   /// (fullscreen viewer).
   final bool resizeToLayout;
+
+  /// Bundled image shown instead of the broken-image icon when the network
+  /// image fails (e.g. ImageKit unreachable). Takes precedence over
+  /// [openOriginalOnError].
+  final String? fallbackAssetPath;
+
+  /// Called with the network error whenever [fallbackAssetPath] is shown
+  /// instead of the network image. Runs on every rebuild of the error state,
+  /// so callers that log it should de-duplicate.
+  final ValueChanged<Object>? onFallbackShown;
 
   /// Accessibility label. Also surfaces in CanvasKit's a11y DOM overlay so
   /// crawlers that read the accessibility tree (Googlebot mobile) can index
@@ -93,6 +105,17 @@ class CachedNetworkImageView extends StatelessWidget {
       frameBuilder: (context, child, frame, _) =>
           frame == null ? const Center(child: AppLoader()) : child,
       errorBuilder: (context, error, stackTrace) {
+        final fallback = fallbackAssetPath;
+        if (fallback != null) {
+          onFallbackShown?.call(error);
+          return Image.asset(
+            fallback,
+            width: width,
+            height: height,
+            fit: fit,
+            errorBuilder: (context, _, _) => const Center(child: Icon(Icons.broken_image_outlined)),
+          );
+        }
         if (!openOriginalOnError) {
           return const Center(child: Icon(Icons.broken_image_outlined));
         }

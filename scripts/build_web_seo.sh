@@ -42,6 +42,38 @@ flutter build web --release --pwa-strategy=none --no-tree-shake-icons
 echo "==> dart run tool/generate_seo.dart"
 dart run tool/generate_seo.dart
 
+# Cache-busting. Flutter web output has fixed file names, while the host caches
+# them: nginx serves *.js for 1 day, Apache serves *.wasm for a year. After an
+# engine upgrade a returning browser then pairs a fresh canvaskit.js with its
+# year-old canvaskit.wasm and dies on boot with
+# `LinkError: WebAssembly.instantiate(): Import #N "a" "xx": function import
+# requires a callable`. So:
+#   - CanvasKit moves under canvaskit/<engineRevision>/ — its JS and wasm can
+#     only ever be fetched as a matching pair (and may be cached forever);
+#   - flutter_bootstrap.js and main.dart.js get ?v=<version>, so each deploy is
+#     picked up at once instead of after the 1-day nginx cache.
+# The web/flutter_bootstrap.js template keeps plain paths for `flutter run`.
+echo "==> Versioning CanvasKit + entry scripts"
+BUILD_VERSION=$(awk '/^version:/{print $2}' pubspec.yaml | tr '+' '-')
+ENGINE_REV=$(grep -o '"engineRevision":"[0-9a-f]*"' build/web/flutter_bootstrap.js | cut -d'"' -f4)
+if [[ -z "$ENGINE_REV" ]]; then
+  echo "ERROR: engineRevision not found in build/web/flutter_bootstrap.js." >&2
+  exit 1
+fi
+mv build/web/canvaskit build/web/canvaskit_rev
+mkdir -p build/web/canvaskit
+mv build/web/canvaskit_rev "build/web/canvaskit/$ENGINE_REV"
+perl -pi -e "s#canvasKitBaseUrl: \"canvaskit/\"#canvasKitBaseUrl: \"canvaskit/$ENGINE_REV/\"#; \
+  s#\"mainJsPath\":\"main.dart.js\"#\"mainJsPath\":\"main.dart.js?v=$BUILD_VERSION\"#" \
+  build/web/flutter_bootstrap.js
+grep -q "canvaskit/$ENGINE_REV/" build/web/flutter_bootstrap.js \
+  && grep -q "main.dart.js?v=$BUILD_VERSION" build/web/flutter_bootstrap.js \
+  || { echo "ERROR: failed to patch build/web/flutter_bootstrap.js." >&2; exit 1; }
+# Root page + every SEO stub (all served no-cache) reference the bootstrap.
+find build/web -name index.html -exec perl -pi -e \
+  "s#flutter_bootstrap\.js\"#flutter_bootstrap.js?v=$BUILD_VERSION\"#g" {} +
+
 echo "==> Build complete: build/web/"
-echo "    Upload with hidden files (.htaccess), e.g.:"
-echo "    rsync -avz --delete build/web/ user@kishchanka-art.by:/var/www/kishchanka-art.by/"
+echo "    Upload with hidden files (.htaccess). Keep older canvaskit/<rev>/ dirs"
+echo "    so browsers still holding yesterday's bootstrap can boot, e.g.:"
+echo "    rsync -avz --delete --filter='P canvaskit/**' build/web/ user@kishchanka-art.by:/var/www/kishchanka-art.by/"

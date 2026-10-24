@@ -39,10 +39,20 @@ AddType application/json .json
 <IfModule mod_headers.c>
   Header set Access-Control-Allow-Origin "*"
 
-  # Aggressive cache for hashed Flutter assets (1 year)
+  # Flutter web assets keep the SAME file names across builds (main.dart.js,
+  # canvaskit.wasm, fonts…), so they must never be `immutable`: a year-old
+  # canvaskit.wasm paired with a newer canvaskit.js kills the app on boot
+  # (LinkError). 1 day matches what the host's nginx already applies to *.js.
   <FilesMatch "\.(wasm|js|otf|ttf|png|jpg|jpeg|gif|svg|woff2?)$">
-    Header set Cache-Control "public, max-age=31536000, immutable"
+    Header set Cache-Control "public, max-age=86400"
   </FilesMatch>
+
+  # CanvasKit is served from canvaskit/<engineRevision>/ (scripts/build_web_seo.sh)
+  # — a new engine means a new URL, so this part is safe to cache forever.
+  # <If> is evaluated after <FilesMatch>, so it wins.
+  <If "%{REQUEST_URI} =~ m#^/canvaskit/[0-9a-f]{40}/#">
+    Header set Cache-Control "public, max-age=31536000, immutable"
+  </If>
 
   # Never cache the entry HTML so users get the new build immediately
   <FilesMatch "(index\.html|flutter_bootstrap\.js|flutter_service_worker\.js)$">

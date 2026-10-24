@@ -23,6 +23,7 @@ class FullscreenImageViewer {
     required String imagePathOrUrl,
     Object? heroTag,
     bool useImageKitEndpoint = true,
+    String? fallbackAssetPath,
   }) {
     if (imagePathOrUrl.trim().isEmpty) {
       return Future<void>.value();
@@ -39,6 +40,7 @@ class FullscreenImageViewer {
           imagePathOrUrl: imagePathOrUrl,
           heroTag: heroTag,
           useImageKitEndpoint: useImageKitEndpoint,
+          fallbackAssetPath: fallbackAssetPath,
         );
       },
       transitionBuilder: (dialogContext, animation, secondaryAnimation, child) {
@@ -60,11 +62,15 @@ class _FullscreenImageOverlay extends StatefulWidget {
     required this.imagePathOrUrl,
     required this.heroTag,
     required this.useImageKitEndpoint,
+    required this.fallbackAssetPath,
   });
 
   final String imagePathOrUrl;
   final Object? heroTag;
   final bool useImageKitEndpoint;
+
+  /// Bundled copy shown when the network image fails.
+  final String? fallbackAssetPath;
 
   @override
   State<_FullscreenImageOverlay> createState() => _FullscreenImageOverlayState();
@@ -118,6 +124,7 @@ class _FullscreenImageOverlayState extends State<_FullscreenImageOverlay> {
       useImageKitEndpoint: widget.useImageKitEndpoint,
       // Pinch / double-tap zoom goes past the layout size — keep the original.
       resizeToLayout: false,
+      fallbackAssetPath: widget.fallbackAssetPath,
     );
 
     return Focus(

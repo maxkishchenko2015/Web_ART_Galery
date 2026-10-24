@@ -7,6 +7,7 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:web_art_galery/src/features/about_author/presentation/cubits/onboarding_tour_cubit.dart';
 import 'package:web_art_galery/src/shared/config/app_context_extensions.dart';
+import 'package:web_art_galery/src/shared/config/firebase/remote_config_service.dart';
 import 'package:web_art_galery/src/shared/config/ksize.dart';
 import 'package:web_art_galery/src/shared/utils/url_launcher_utils.dart';
 
@@ -107,9 +108,10 @@ mixin OnboardingTourHostMixin<T extends StatefulWidget> on State<T> {
         return;
       }
       final cubit = context.read<OnboardingTourCubit>();
-      // Skip the (potentially slow) preparation entirely for returning
-      // visitors — the cubit would ignore start() anyway.
-      if (cubit.state.completed) {
+      // Skip the (potentially slow) preparation — photo precaching — entirely
+      // for returning visitors or while SHOW_TOOLTIPS is off: the cubit would
+      // ignore start() anyway.
+      if (cubit.state.completed || !RemoteConfigService.instance.showTooltips) {
         return;
       }
       await prepareOnboardingTour();

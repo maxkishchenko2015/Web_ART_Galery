@@ -157,11 +157,16 @@ class AppTelemetry {
   /// third-party tile/image providers (OSM, ImageKit) which are already
   /// surfaced in DevTools and visible to the user as a missing tile.
   bool _isIgnorableError(Object error) {
+    final message = error.toString();
+    // Matched on the message too: in release builds dart2js minifies
+    // runtimeType (e.g. "minified:ra"), so the type check alone never fires.
     final type = error.runtimeType.toString();
-    if (type == 'ClientException' || type == 'NetworkImageLoadException') {
+    if (type == 'ClientException' ||
+        type == 'NetworkImageLoadException' ||
+        message.startsWith('ClientException') ||
+        message.startsWith('HTTP request failed')) {
       return true;
     }
-    final message = error.toString();
     if (message.contains('Failed to fetch') || message.contains('tile.openstreetmap.org')) {
       return true;
     }

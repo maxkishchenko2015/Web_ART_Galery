@@ -6,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:meta_seo/meta_seo.dart';
 import 'package:web_art_galery/i18n/strings.g.dart';
+import 'package:web_art_galery/src/features/about_author/data/local/about_author_local_photos.dart';
 import 'package:web_art_galery/src/features/about_author/presentation/cubits/about_author_cubit.dart';
 import 'package:web_art_galery/src/features/about_author/presentation/cubits/onboarding_tour_cubit.dart';
 import 'package:web_art_galery/src/features/about_author/presentation/screens/about_author_page_constants.dart';
@@ -19,6 +20,7 @@ import 'package:web_art_galery/src/shared/config/ksize.dart';
 import 'package:web_art_galery/src/shared/presentation/widgets/app_loader.dart';
 import 'package:web_art_galery/src/shared/presentation/widgets/cached_network_image_view.dart';
 import 'package:web_art_galery/src/shared/presentation/widgets/fullscreen_image_viewer.dart';
+import 'package:web_art_galery/src/shared/telemetry/app_telemetry.dart';
 import 'package:web_art_galery/src/shared/utils/url_launcher_utils.dart';
 
 class AboutAuthorPage extends StatelessWidget {
@@ -177,6 +179,9 @@ class _AboutAuthorViewState extends State<_AboutAuthorView> with OnboardingTourH
               ),
             ),
             context,
+            // Without onError a failed fetch is reported to FlutterError and
+            // lands in telemetry as a fatal app error.
+            onError: (_, _) {},
           ).timeout(AboutAuthorPageConstants.tourPhotosWaitTimeout);
         } catch (_) {
           // Image fetch failures must not block the tour.
@@ -892,6 +897,19 @@ class _AuthorPhoto extends StatelessWidget {
   /// landscape Chernobyl tapestry.
   final bool fitFullImage;
 
+  /// Photo indices whose bundled fallback was already reported this session —
+  /// the error state rebuilds (scroll, resize), the event should fire once.
+  static final Set<int> _reportedFallbacks = <int>{};
+
+  /// ImageKit couldn't deliver photo [index]; its bundled copy is shown.
+  static void _logPhotoFallback(int index, Object error) {
+    if (!_reportedFallbacks.add(index)) return;
+    AppTelemetry.instance.logEvent(
+      'about_author_photo_fallback',
+      params: {'photo_index': index, 'error': error.toString()},
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<AboutAuthorCubit, AboutAuthorState>(
@@ -904,6 +922,8 @@ class _AuthorPhoto extends StatelessWidget {
         };
         final isLoading = state is AboutAuthorInitial || state is AboutAuthorLoading;
         final hasPhoto = photo != null && !photo.isEmpty;
+        // Bundled copy shown when ImageKit can't deliver this photo.
+        final fallbackAsset = AboutAuthorLocalPhotos.assetAt(index);
 
         Widget inner;
         if (hasPhoto) {
@@ -912,6 +932,8 @@ class _AuthorPhoto extends StatelessWidget {
             fit: BoxFit.cover,
             width: double.infinity,
             height: double.infinity,
+            fallbackAssetPath: fallbackAsset,
+            onFallbackShown: (error) => _logPhotoFallback(index, error),
           );
           if (heroTag != null) {
             inner = Hero(tag: heroTag!, child: inner);
@@ -939,6 +961,7 @@ class _AuthorPhoto extends StatelessWidget {
                       devicePixelRatio: MediaQuery.devicePixelRatioOf(context),
                     )
                   : null,
+              fallbackAssetPath: fallbackAsset,
               fallbackRatio: aspectRatio,
               borderRadius: borderRadius,
               background: placeholderBackground,
@@ -966,8 +989,12 @@ class _AuthorPhoto extends StatelessWidget {
           cursor: SystemMouseCursors.click,
           child: GestureDetector(
             behavior: HitTestBehavior.opaque,
-            onTap: () =>
-                FullscreenImageViewer.show(context, imagePathOrUrl: photo.url, heroTag: heroTag),
+            onTap: () => FullscreenImageViewer.show(
+              context,
+              imagePathOrUrl: photo.url,
+              heroTag: heroTag,
+              fallbackAssetPath: fallbackAsset,
+            ),
             child: frame,
           ),
         );
@@ -984,6 +1011,7 @@ class _IntrinsicAspectImage extends StatefulWidget {
   const _IntrinsicAspectImage({
     required this.url,
     required this.requestWidth,
+    required this.fallbackAssetPath,
     required this.fallbackRatio,
     required this.borderRadius,
     required this.background,
@@ -995,6 +1023,9 @@ class _IntrinsicAspectImage extends StatefulWidget {
   /// ImageKit width the ratio probe requests — must match what [child]
   /// renders so both share one download.
   final int? requestWidth;
+
+  /// Bundled copy [child] falls back to; the frame then takes its ratio.
+  final String? fallbackAssetPath;
   final double fallbackRatio;
   final BorderRadius borderRadius;
   final Color background;
@@ -1027,11 +1058,22 @@ class _IntrinsicAspectImageState extends State<_IntrinsicAspectImage> {
   }
 
   void _resolveRatio() {
+    _listenForRatio(
+      CachedNetworkImageView.providerFor(widget.url, requestWidth: widget.requestWidth),
+      onError: () {
+        // Network photo failed and [child] shows the bundled copy — size the
+        // frame to that copy instead.
+        final fallback = widget.fallbackAssetPath;
+        if (mounted && fallback != null) {
+          _listenForRatio(AssetImage(fallback));
+        }
+      },
+    );
+  }
+
+  void _listenForRatio(ImageProvider provider, {VoidCallback? onError}) {
     _detachStream();
-    final stream = CachedNetworkImageView.providerFor(
-      widget.url,
-      requestWidth: widget.requestWidth,
-    ).resolve(ImageConfiguration.empty);
+    final stream = provider.resolve(ImageConfiguration.empty);
     final listener = ImageStreamListener(
       (info, _) {
         final width = info.image.width;
@@ -1044,7 +1086,9 @@ class _IntrinsicAspectImageState extends State<_IntrinsicAspectImage> {
           }
         }
       },
-      onError: (_, _) {},
+      // Deferred: errors can fire synchronously from addListener (cached
+      // failure), i.e. while this stream is still being attached.
+      onError: (_, _) => scheduleMicrotask(() => onError?.call()),
     );
     stream.addListener(listener);
     _stream = stream;

@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:web_art_galery/src/features/about_author/data/local/about_author_local_photos.dart';
 import 'package:web_art_galery/src/features/about_author/domain/entities/author_photo.dart';
 import 'package:web_art_galery/src/features/about_author/domain/repository/about_author_repository.dart';
 import 'package:web_art_galery/src/shared/telemetry/app_telemetry.dart';
@@ -31,12 +32,6 @@ class AboutAuthorLoaded extends AboutAuthorState {
   }
 }
 
-class AboutAuthorError extends AboutAuthorState {
-  const AboutAuthorError(this.message);
-
-  final String message;
-}
-
 class AboutAuthorCubit extends Cubit<AboutAuthorState> {
   AboutAuthorCubit({required AboutAuthorRepository repository})
     : _repository = repository,
@@ -49,7 +44,11 @@ class AboutAuthorCubit extends Cubit<AboutAuthorState> {
     emit(const AboutAuthorLoading());
     try {
       final result = await _repository.fetchPhotos();
-      emit(AboutAuthorLoaded(photos: result.photos));
+      final filled = AboutAuthorLocalPhotos.fallbackCount(result.photos);
+      if (filled > 0) {
+        _logPhotosFallback(reason: 'firestore_missing', filled: filled);
+      }
+      emit(AboutAuthorLoaded(photos: AboutAuthorLocalPhotos.withFallbacks(result.photos)));
     } catch (error, stackTrace) {
       AppLogger.instance.e(
         'About author photos fetch failed',
@@ -61,7 +60,20 @@ class AboutAuthorCubit extends Cubit<AboutAuthorState> {
         stackTrace,
         reason: 'about_author_photos_fetch',
       );
-      emit(AboutAuthorError(error.toString()));
+      // Firestore unreachable — show the bundled copies instead of empty frames.
+      _logPhotosFallback(
+        reason: 'firestore_error',
+        filled: AboutAuthorLocalPhotos.fallbackCount(const []),
+      );
+      emit(AboutAuthorLoaded(photos: AboutAuthorLocalPhotos.withFallbacks(const [])));
     }
+  }
+
+  /// Photo list (partly) served from the bundled copies instead of Firestore.
+  void _logPhotosFallback({required String reason, required int filled}) {
+    AppTelemetry.instance.logEvent(
+      'about_author_photos_fallback',
+      params: {'reason': reason, 'filled': filled},
+    );
   }
 }
