@@ -440,15 +440,80 @@
       }
     });
 
-    // Timeout fallback. main.dart time-boxes every init step (HydratedBloc 5 s,
-    // Firebase 8 s) so a healthy boot paints well under 12 s. If nothing painted
-    // by then the engine itself is stuck (CanvasKit/WASM/WebGL) — show the
-    // captured cause + a retry instead of an endless spinner. This is the
-    // primary diagnostic for the Threads/Telegram in-app WebView hang.
+    // Boot fallback — the primary diagnostic for the Threads/Telegram in-app
+    // WebView hang (engine stuck in CanvasKit/WASM/WebGL init).
+    //
+    // A cold first load downloads ~7 MB (canvaskit.wasm ~5.4 MB + main.dart.js
+    // ~1.2 MB): ~17 s on 4 Mbit/s, ~38 s on 1.6 Mbit/s. A plain 12 s cut-off
+    // therefore showed "failed to load" while the app was still loading fine,
+    // and Retry "fixed" it only because the files were cached by then. So:
+    //   - a real boot failure (critical file failed to download, JS error,
+    //     no WebGL) → error screen as soon as it is seen, from 12 s on;
+    //   - no error, just slow → a "slow connection" note at 12 s. The error
+    //     screen follows only for a genuinely stuck engine: nothing painted 60 s
+    //     in although main.dart.js and the wasm finished downloading 20+ s ago
+    //     (compile + Dart start-up need a few seconds after the download) — or,
+    //     whatever the network, nothing painted after 120 s.
+    var BOOT_SLOW_MS = 12000;
+    var BOOT_STUCK_MS = 60000;
+    var BOOT_STARTUP_GRACE_MS = 20000;
+    var BOOT_GIVE_UP_MS = 120000;
+    var bootErrorShown = false;
+
+    // Resource Timing lists a file only once it finished downloading.
+    function engineDownloaded() {
+      var names = (performance.getEntriesByType ? performance.getEntriesByType('resource') : [])
+        .map(function (e) { return e.name; });
+      var has = function (re) { return names.some(function (n) { return re.test(n); }); };
+      return has(/main\.dart\.js/) && has(/(canvaskit|skwasm[^/]*)\.wasm/);
+    }
+
+    // Failures that really stop the app. Non-critical resources (analytics
+    // blocked by an ad-blocker, a font, an image) are ignored.
+    function fatalBootErrors() {
+      return (window.__bootErrors || []).filter(function (e) {
+        if (e.indexOf('webgl: available') === 0) return false;
+        if (e.indexOf('resource: ') === 0) {
+          return /main\.dart|flutter_bootstrap|canvaskit|skwasm/.test(e);
+        }
+        return true;
+      });
+    }
+
+    function showSlowConnectionNote() {
+      var host = document.getElementById('flutter-loading');
+      if (!host || document.getElementById('flutter-loading-slow')) return;
+      var note = document.createElement('div');
+      note.id = 'flutter-loading-slow';
+      note.style.cssText = 'margin-top:18px;font-family:sans-serif;font-size:13px;color:#9A9388;text-align:center;padding:0 28px';
+      note.textContent = 'Медленное соединение — загрузка продолжается…';
+      host.appendChild(note);
+    }
+
     setTimeout(function () {
       if (firstFrameFired) return;
+      showSlowConnectionNote();
+      var waited = BOOT_SLOW_MS;
+      var downloadedAt = null;
+      var poll = setInterval(function () {
+        waited += 1000;
+        if (firstFrameFired || bootErrorShown) { clearInterval(poll); return; }
+        if (downloadedAt === null && engineDownloaded()) downloadedAt = waited;
+        var stuck = waited >= BOOT_STUCK_MS && downloadedAt !== null &&
+          waited - downloadedAt >= BOOT_STARTUP_GRACE_MS;
+        if (fatalBootErrors().length || stuck || waited >= BOOT_GIVE_UP_MS) {
+          clearInterval(poll);
+          showBootError();
+        }
+      }, 1000);
+      if (fatalBootErrors().length) showBootError();
+    }, BOOT_SLOW_MS);
+
+    function showBootError() {
+      if (firstFrameFired || bootErrorShown) return;
       var host = document.getElementById('flutter-loading');
       if (!host) return;
+      bootErrorShown = true;
       var diag = (window.__bootErrors && window.__bootErrors.length)
         ? window.__bootErrors.join('\n')
         : 'no JS error captured — engine likely stalled silently (WebGL/WASM init or a blocked gstatic resource).';
@@ -464,7 +529,7 @@
       host.classList.remove('hidden');
       var btn = document.getElementById('boot-retry');
       if (btn) btn.addEventListener('click', function () { location.reload(); });
-    }, 12000);
+    }
   </script>
 
   <!--
