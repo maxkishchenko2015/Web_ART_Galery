@@ -27,6 +27,7 @@ class CatalogLazyGridView extends StatefulWidget {
     required this.childAspectRatio,
     required this.loadingWidget,
     this.header,
+    this.footer,
     this.mainAxisSpacing = 0,
     this.crossAxisSpacing = 0,
     this.physics = const AlwaysScrollableScrollPhysics(),
@@ -48,6 +49,9 @@ class CatalogLazyGridView extends StatefulWidget {
   /// Optional full-width row above the grid that scrolls away with it (e.g.
   /// the decade filter), so the grid gets the whole viewport once scrolled.
   final Widget? header;
+
+  /// Optional full-width block after the grid (e.g. the site footer).
+  final Widget? footer;
   final ScrollPhysics physics;
   final EdgeInsets padding;
   final ScrollController? scrollController;
@@ -130,6 +134,7 @@ class _CatalogLazyGridViewState extends State<CatalogLazyGridView> {
         ),
         if (widget.isLoading && !widget.hasReachedMax && !_shouldHideLoadingWidget)
           SliverToBoxAdapter(child: widget.loadingWidget),
+        if (widget.footer != null) SliverToBoxAdapter(child: widget.footer),
       ],
     );
   }

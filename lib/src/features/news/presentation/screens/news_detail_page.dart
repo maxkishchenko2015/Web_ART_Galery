@@ -51,7 +51,7 @@ class _NewsDetailView extends StatelessWidget {
     final verticalPadding = isCompact ? KSize.margin8x : KSize.margin12x;
 
     return Container(
-      color: context.colors.white,
+      color: context.colors.parchment,
       padding: EdgeInsets.symmetric(horizontal: horizontalPadding),
       child: SingleChildScrollView(
         // Vertical padding lives inside the scroll view so content can scroll
@@ -87,10 +87,7 @@ class _NewsDetailView extends StatelessWidget {
     );
   }
 
-  Widget _resolve({
-    required List<NewsArticle> articles,
-    required bool isCompact,
-  }) {
+  Widget _resolve({required List<NewsArticle> articles, required bool isCompact}) {
     final match = _findArticle(articles, articleSlug);
     if (match == null) {
       return _MissingView(articleSlug: articleSlug);
@@ -133,15 +130,8 @@ class _BackButton extends StatelessWidget {
             context.go(AppRoutes.news);
           }
         },
-        icon: Icon(
-          Icons.arrow_back_rounded,
-          size: KSize.iconS,
-          color: context.colors.forestGreen,
-        ),
-        label: Text(
-          context.t.newsFeed.back.toUpperCase(),
-          style: context.textContent.archiveLink,
-        ),
+        icon: Icon(Icons.arrow_back_rounded, size: KSize.iconS, color: context.colors.terracotta),
+        label: Text(context.t.newsFeed.back.toUpperCase(), style: context.textContent.archiveLink),
       ),
     );
   }
@@ -172,15 +162,9 @@ class _MissingView extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Text(
-              context.t.common.pageNotFound,
-              style: context.textContent.archiveCardTitle,
-            ),
+            Text(context.t.common.pageNotFound, style: context.textContent.archiveCardTitle),
             const SizedBox(height: KSize.margin3x),
-            Text(
-              articleSlug,
-              style: context.textContent.archiveDate,
-            ),
+            Text(articleSlug, style: context.textContent.archiveDate),
           ],
         ),
       ),
@@ -206,9 +190,7 @@ class _ArticleBody extends StatelessWidget {
     // PRD point 4), then the remaining paragraphs. This keeps the reading
     // rhythm described in the mock: text → images → text → text → text.
     final leadingParagraph = paragraphs.isNotEmpty ? paragraphs.first : null;
-    final trailingParagraphs = paragraphs.length > 1
-        ? paragraphs.sublist(1)
-        : const <String>[];
+    final trailingParagraphs = paragraphs.length > 1 ? paragraphs.sublist(1) : const <String>[];
 
     return Center(
       child: ConstrainedBox(
@@ -223,25 +205,17 @@ class _ArticleBody extends StatelessWidget {
               ),
             ),
             const SizedBox(height: KSize.margin5x),
-            _ArticleStats(
-              article: article,
-              locale: locale,
-              isCompact: isCompact,
-            ),
+            _ArticleStats(article: article, locale: locale, isCompact: isCompact),
             if (excerpt.isNotEmpty) ...[
               const SizedBox(height: KSize.margin6x),
-              Text(
-                excerpt,
-                style: context.textContent.bioIntro,
-              ),
+              Text(excerpt, style: context.textContent.bioIntro),
             ],
             if (leadingParagraph != null) ...[
               const SizedBox(height: KSize.margin6x),
               Text(leadingParagraph, style: context.textContent.bioBody),
             ],
             const SizedBox(height: KSize.margin6x),
-            if (article.hasImage)
-              _ImageGallery(imageUrls: article.imageUrls, isCompact: isCompact),
+            if (article.hasImage) _ImageGallery(imageUrls: article.imageUrls, isCompact: isCompact),
             if (trailingParagraphs.isNotEmpty) ...[
               const SizedBox(height: KSize.margin6x),
               _Paragraphs(paragraphs: trailingParagraphs),
@@ -409,9 +383,7 @@ class _ImageStripState extends State<_ImageStrip> {
                     decoration: BoxDecoration(
                       borderRadius: radius,
                       border: Border.all(
-                        color: isSelected
-                            ? context.colors.forestGreen
-                            : Colors.transparent,
+                        color: isSelected ? context.colors.forestGreen : Colors.transparent,
                         width: KSize.borderWidthSmall,
                       ),
                     ),
@@ -461,10 +433,7 @@ class _ExpandedImagePanel extends StatelessWidget {
             Positioned.fill(
               child: ColoredBox(
                 color: context.colors.bioBg,
-                child: CachedNetworkImageView(
-                  imagePathOrUrl: imageUrl,
-                  fit: BoxFit.contain,
-                ),
+                child: CachedNetworkImageView(imagePathOrUrl: imageUrl, fit: BoxFit.contain),
               ),
             ),
             Positioned(
@@ -547,7 +516,7 @@ class _SourceLink extends StatelessWidget {
             Icon(
               Icons.arrow_outward_rounded,
               size: KSize.iconSPlus,
-              color: context.colors.forestGreen,
+              color: context.colors.terracotta,
             ),
           ],
         ),
@@ -560,11 +529,7 @@ class _SourceLink extends StatelessWidget {
 /// article body. View count is intentionally hardcoded for now; once a
 /// real analytics hook lands it should be sourced from [NewsArticle].
 class _ArticleStats extends StatelessWidget {
-  const _ArticleStats({
-    required this.article,
-    required this.locale,
-    required this.isCompact,
-  });
+  const _ArticleStats({required this.article, required this.locale, required this.isCompact});
 
   static const int _hardcodedViews = 135;
   static const int _wordsPerMinute = 200;
@@ -629,11 +594,7 @@ class _ArticleStats extends StatelessWidget {
 }
 
 class _StatCell extends StatelessWidget {
-  const _StatCell({
-    required this.icon,
-    required this.label,
-    required this.value,
-  });
+  const _StatCell({required this.icon, required this.label, required this.value});
 
   final IconData icon;
   final String label;
@@ -652,10 +613,7 @@ class _StatCell extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisSize: MainAxisSize.min,
             children: [
-              Text(
-                label.toUpperCase(),
-                style: context.textContent.archiveMeta,
-              ),
+              Text(label.toUpperCase(), style: context.textContent.archiveMeta),
               const SizedBox(height: KSize.margin1x),
               Text(
                 value,

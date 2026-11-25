@@ -6,23 +6,29 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:meta_seo/meta_seo.dart';
 import 'package:web_art_galery/i18n/strings.g.dart';
-import 'package:web_art_galery/src/features/about_author/data/local/about_author_local_photos.dart';
 import 'package:web_art_galery/src/features/about_author/presentation/cubits/about_author_cubit.dart';
-import 'package:web_art_galery/src/features/about_author/presentation/cubits/onboarding_tour_cubit.dart';
 import 'package:web_art_galery/src/features/about_author/presentation/screens/about_author_page_constants.dart';
 import 'package:web_art_galery/src/features/about_author/presentation/widgets/author_films_strip.dart';
-import 'package:web_art_galery/src/features/about_author/presentation/widgets/onboarding_tour_overlay.dart';
+import 'package:web_art_galery/src/features/about_author/presentation/widgets/author_photo_view.dart';
+import 'package:web_art_galery/src/shared/presentation/widgets/gallery_ui.dart';
+import 'package:web_art_galery/src/features/about_author/presentation/widgets/home/home_featured_works.dart';
+import 'package:web_art_galery/src/features/about_author/presentation/widgets/home/home_hero.dart';
+import 'package:web_art_galery/src/features/about_author/presentation/widgets/home/home_intro_cards.dart';
+import 'package:web_art_galery/src/features/about_author/presentation/widgets/home/home_quick_links.dart';
+import 'package:web_art_galery/src/features/about_author/presentation/widgets/home/home_start_band.dart';
 import 'package:web_art_galery/src/features/about_author/presentation/widgets/stat_icons.dart';
+import 'package:web_art_galery/src/features/catalog_of_works/presentation/cubits/catalog_of_works_cubit.dart';
 import 'package:web_art_galery/src/features/films/presentation/cubits/films_cubit.dart';
+import 'package:web_art_galery/src/features/news/presentation/cubits/news_list_cubit.dart';
 import 'package:web_art_galery/src/navigation/presentation/router/app_routes.dart';
+import 'package:web_art_galery/src/navigation/presentation/widgets/gallery_footer.dart';
 import 'package:web_art_galery/src/shared/config/app_context_extensions.dart';
 import 'package:web_art_galery/src/shared/config/ksize.dart';
-import 'package:web_art_galery/src/shared/presentation/widgets/app_loader.dart';
-import 'package:web_art_galery/src/shared/presentation/widgets/cached_network_image_view.dart';
-import 'package:web_art_galery/src/shared/presentation/widgets/fullscreen_image_viewer.dart';
-import 'package:web_art_galery/src/shared/telemetry/app_telemetry.dart';
 import 'package:web_art_galery/src/shared/utils/url_launcher_utils.dart';
 
+/// Home page (`/about-author`): hero, intro cards, section shortcuts,
+/// featured works, first-visit routes, films, legacy numbers, the full
+/// biography and the site footer.
 class AboutAuthorPage extends StatelessWidget {
   const AboutAuthorPage({super.key});
 
@@ -45,149 +51,20 @@ class _AboutAuthorView extends StatefulWidget {
   State<_AboutAuthorView> createState() => _AboutAuthorViewState();
 }
 
-class _AboutAuthorViewState extends State<_AboutAuthorView> with OnboardingTourHostMixin {
+class _AboutAuthorViewState extends State<_AboutAuthorView> {
   final _bioKey = GlobalKey();
-  final _authorPhotoKey = GlobalKey();
-  final _tapestryMediaKey = GlobalKey();
-  final _chernobylMediaKey = GlobalKey();
 
   @override
   void initState() {
     super.initState();
     // Trigger this route's data loads on mount instead of at app start, so the
     // first frame is never blocked behind these queries. Cubit-side `is Loaded`
-    // guards make repeat visits no-ops. FilmsCubit feeds the author films strip
-    // rendered further down this page.
+    // guards make repeat visits no-ops. The home page shows the author photos,
+    // the latest news story, featured catalog works and the films strip.
     unawaited(context.read<AboutAuthorCubit>().loadPhotos());
     unawaited(context.read<FilmsCubit>().load());
-    attachOnboardingTour();
-    // `?tour=1` re-triggers the tour on demand — clears any persisted "seen"
-    // flag first. The reliable way to replay it inside an in-app WebView
-    // (Telegram / Threads), where IndexedDB can't be cleared by the user.
-    if (Uri.base.queryParameters['tour'] == '1') {
-      context.read<OnboardingTourCubit>().replay();
-    }
-    scheduleOnboardingTourStart();
-  }
-
-  @override
-  void dispose() {
-    detachOnboardingTour();
-    super.dispose();
-  }
-
-  @override
-  GlobalKey onboardingTourTargetKey(int step) => switch (step) {
-    OnboardingTourSteps.tapestryScale => _tapestryMediaKey,
-    OnboardingTourSteps.chernobyl => _chernobylMediaKey,
-    _ => _authorPhotoKey,
-  };
-
-  @override
-  double onboardingTourScrollAlignment(int step) => switch (step) {
-    // Pin every step's photo near the top so its tooltip sits below it and
-    // doesn't overlap the image on smaller screens.
-    OnboardingTourSteps.origins => 0.04,
-    OnboardingTourSteps.tapestryScale => 0.02,
-    OnboardingTourSteps.chernobyl => 0.06,
-    _ => 0.5,
-  };
-
-  // Tooltip copy reuses biography strings where it can, so the tour stays in
-  // sync with the section texts across all locales.
-  @override
-  OnboardingTourTooltipData onboardingTourTooltipData(BuildContext context, int step) {
-    final t = context.t;
-    final stepLabel = '${step + 1}/${OnboardingTourSteps.count}';
-
-    return switch (step) {
-      OnboardingTourSteps.tapestryScale => OnboardingTourTooltipData(
-        stepLabel: stepLabel,
-        title: t.tour.scaleTitle,
-        body: t.tour.scaleBody,
-        buttonLabel: t.tour.next,
-        backLabel: t.tour.back,
-        linkLabel: t.common.learnMore,
-        linkUrl: AboutAuthorPageConstants.tapestryExternalUrl,
-      ),
-      OnboardingTourSteps.chernobyl => OnboardingTourTooltipData(
-        stepLabel: stepLabel,
-        title: t.bio.chernobyl.title,
-        body: t.tour.chernobylBody,
-        buttonLabel: t.tour.gotIt,
-        backLabel: t.tour.back,
-      ),
-      // First step (author origins) — no back button.
-      _ => OnboardingTourTooltipData(
-        stepLabel: stepLabel,
-        title: t.tour.originsTitle,
-        body: t.tour.originsBody,
-        buttonLabel: t.tour.next,
-      ),
-    };
-  }
-
-  /// Finishing the final step scrolls down to the biography section.
-  @override
-  void onOnboardingTourCompleted() {
-    if (!mounted) return;
-    _scrollToBio();
-  }
-
-  /// Holds the tour back until the section photos are loaded and decoded, so
-  /// the scrim never highlights a spinner mid-download.
-  @override
-  Future<void> prepareOnboardingTour() async {
-    final cubit = context.read<AboutAuthorCubit>();
-    var state = cubit.state;
-    if (state is AboutAuthorInitial || state is AboutAuthorLoading) {
-      try {
-        state = await cubit.stream
-            .firstWhere((s) => s is! AboutAuthorInitial && s is! AboutAuthorLoading)
-            .timeout(AboutAuthorPageConstants.tourPhotosWaitTimeout);
-      } on TimeoutException {
-        return; // Start anyway — the placeholder frame keeps its layout.
-      }
-    }
-    if (state is! AboutAuthorLoaded || !mounted) {
-      return;
-    }
-
-    final highlightedPhotos = [
-      (state.photoAt(AboutAuthorPageConstants.heroPhotoIndex), _authorPhotoKey),
-      (state.photoAt(AboutAuthorPageConstants.tapestryPhotoIndex), _tapestryMediaKey),
-      (state.photoAt(AboutAuthorPageConstants.chernobylPhotoIndex), _chernobylMediaKey),
-    ];
-    final devicePixelRatio = MediaQuery.devicePixelRatioOf(context);
-    await Future.wait(
-      highlightedPhotos.map((entry) async {
-        final (photo, frameKey) = entry;
-        // Precache the same sized rendition [_AuthorPhoto] requests for its
-        // frame width; another size would be a separate download.
-        final frameWidth = frameKey.currentContext?.size?.width;
-        if (photo == null || photo.isEmpty || frameWidth == null || !mounted) {
-          return;
-        }
-        try {
-          await precacheImage(
-            CachedNetworkImageView.providerFor(
-              photo.url,
-              requestWidth: CachedNetworkImageView.requestWidthFor(
-                frameWidth,
-                fit: BoxFit.cover,
-                devicePixelRatio: devicePixelRatio,
-              ),
-            ),
-            context,
-            // Without onError a failed fetch is reported to FlutterError and
-            // lands in telemetry as a fatal app error.
-            onError: (_, _) {},
-          ).timeout(AboutAuthorPageConstants.tourPhotosWaitTimeout);
-        } catch (_) {
-          // Image fetch failures must not block the tour.
-        }
-      }),
-    );
+    unawaited(context.read<NewsListCubit>().load());
+    unawaited(context.read<CatalogOfWorksCubit>().loadInitial());
   }
 
   void _scrollToBio() {
@@ -198,171 +75,45 @@ class _AboutAuthorViewState extends State<_AboutAuthorView> with OnboardingTourH
 
   @override
   Widget build(BuildContext context) {
-    final width = MediaQuery.sizeOf(context).width;
-    final isCompact = width < KSize.adaptiveExpandedBreakpoint;
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        final layout = PageLayout(constraints.maxWidth);
+        final isCompact = layout.width < KSize.adaptiveExpandedBreakpoint;
+        final gap = layout.sectionGap;
 
-    return SingleChildScrollView(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          _HeroSection(isCompact: isCompact, onLearnMore: _scrollToBio, photoKey: _authorPhotoKey),
-          AuthorFilmsStrip(isCompact: isCompact),
-          _FeatureSection(isCompact: isCompact),
-          _BiographySection(
-            key: _bioKey,
-            isCompact: isCompact,
-            tapestryMediaKey: _tapestryMediaKey,
-            chernobylMediaKey: _chernobylMediaKey,
+        return SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              HomeHero(layout: layout),
+              Padding(
+                padding: EdgeInsets.fromLTRB(layout.gutter, gap, layout.gutter, 0),
+                child: HomeIntroCards(layout: layout, onReadBiography: _scrollToBio),
+              ),
+              Padding(
+                padding: EdgeInsets.fromLTRB(layout.gutter, gap, layout.gutter, 0),
+                child: HomeQuickLinks(layout: layout),
+              ),
+              Padding(
+                // The phone / tablet carousel pads itself so cards can scroll
+                // edge to edge.
+                padding: EdgeInsets.fromLTRB(
+                  layout.isWide ? layout.gutter : 0,
+                  gap,
+                  layout.isWide ? layout.gutter : 0,
+                  gap + KSize.margin2x,
+                ),
+                child: HomeFeaturedWorks(layout: layout),
+              ),
+              HomeStartBand(layout: layout, onReadBiography: _scrollToBio),
+              AuthorFilmsStrip(isCompact: isCompact, gutter: layout.gutter),
+              _FeatureSection(isCompact: isCompact, gutter: layout.gutter),
+              _BiographySection(key: _bioKey, isCompact: isCompact, gutter: layout.gutter),
+              GalleryFooter(gutter: layout.gutter, isPhone: layout.isPhone),
+            ],
           ),
-        ],
-      ),
-    );
-  }
-}
-
-// ─── Hero section ─────────────────────────────────────────────────────────────
-
-class _HeroSection extends StatelessWidget {
-  const _HeroSection({required this.isCompact, required this.onLearnMore, required this.photoKey});
-
-  final bool isCompact;
-  final VoidCallback onLearnMore;
-
-  /// Onboarding-tour anchor on the author portrait.
-  final GlobalKey photoKey;
-
-  @override
-  Widget build(BuildContext context) {
-    final hPad = isCompact ? KSize.margin6x : KSize.margin12x * 2;
-    final headlineSize = isCompact ? KSize.heroHeadlineCompact : KSize.heroHeadlineWide;
-    final vPad = isCompact ? KSize.heroVerticalPaddingCompact : KSize.heroVerticalPaddingWide;
-
-    return Container(
-      color: context.colors.forestGreen,
-      // The green hero runs up under the mobile shell's frosted bar
-      // (paddingOf.top = bar height there, 0 on desktop).
-      padding: EdgeInsets.fromLTRB(hPad, vPad + MediaQuery.paddingOf(context).top, hPad, vPad),
-      child: isCompact
-          ? _buildCompactHero(context, headlineSize)
-          : _buildWideHero(context, headlineSize),
-    );
-  }
-
-  Widget _buildWideHero(BuildContext context, double headlineSize) {
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        Expanded(
-          flex: 5,
-          child: _HeroText(headlineSize: headlineSize, onLearnMore: onLearnMore),
-        ),
-        const SizedBox(width: KSize.margin12x),
-        Expanded(flex: 3, child: _HeroImage(photoKey: photoKey)),
-      ],
-    );
-  }
-
-  Widget _buildCompactHero(BuildContext context, double headlineSize) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        _HeroText(headlineSize: headlineSize, onLearnMore: onLearnMore),
-        const SizedBox(height: KSize.margin12x),
-        _HeroImage(photoKey: photoKey),
-      ],
-    );
-  }
-}
-
-class _HeroText extends StatelessWidget {
-  const _HeroText({required this.headlineSize, required this.onLearnMore});
-
-  final double headlineSize;
-  final VoidCallback onLearnMore;
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          context.t.navigation.aboutAuthor.toUpperCase(),
-          style: context.textOnDark.heroSectionLabel,
-        ),
-        const SizedBox(height: KSize.margin4x),
-        Text(context.t.bio.heroBrandName, style: context.textOnDark.heroHeadline(headlineSize)),
-        const SizedBox(height: KSize.margin3x),
-        Text(context.t.bio.heroTitle, style: context.textOnDark.heroSubtitle),
-        const SizedBox(height: KSize.margin4x),
-        Text(context.t.bio.heroSubtitle, style: context.textOnDark.heroBody),
-        const SizedBox(height: KSize.margin9x),
-        Wrap(
-          spacing: KSize.margin4x,
-          runSpacing: KSize.margin4x,
-          children: [
-            _HeroButton(
-              label: context.t.common.viewCatalog,
-              filled: true,
-              onTap: () => context.go(AppRoutes.catalog),
-            ),
-            _HeroButton(label: context.t.common.learnMore, filled: false, onTap: onLearnMore),
-          ],
-        ),
-      ],
-    );
-  }
-}
-
-class _HeroButton extends StatelessWidget {
-  const _HeroButton({required this.label, required this.filled, required this.onTap});
-
-  final String label;
-  final bool filled;
-  final VoidCallback onTap;
-
-  @override
-  Widget build(BuildContext context) {
-    final colors = context.colors;
-
-    return MouseRegion(
-      cursor: SystemMouseCursors.click,
-      child: GestureDetector(
-        onTap: onTap,
-        child: Container(
-          padding: const EdgeInsets.symmetric(horizontal: KSize.margin8x, vertical: KSize.margin4x),
-          decoration: BoxDecoration(
-            color: filled ? colors.onDark : Colors.transparent,
-            border: Border.all(color: colors.onDarkBody),
-            borderRadius: BorderRadius.circular(KSize.radiusOfRoundButton),
-          ),
-          child: Text(label, style: context.textOnDark.heroButtonLabel(filled)),
-        ),
-      ),
-    );
-  }
-}
-
-class _HeroImage extends StatelessWidget {
-  const _HeroImage({required this.photoKey});
-
-  /// Onboarding-tour anchor on the author portrait.
-  final GlobalKey photoKey;
-
-  @override
-  Widget build(BuildContext context) {
-    final colors = context.colors;
-    // RepaintBoundary so the onboarding overlay can snapshot the portrait.
-    return RepaintBoundary(
-      key: photoKey,
-      child: _AuthorPhoto(
-        index: AboutAuthorPageConstants.heroPhotoIndex,
-        aspectRatio: KSize.heroPortraitAspectRatio,
-        borderRadius: BorderRadius.circular(KSize.radius3XL),
-        placeholderBackground: colors.onDarkPlaceholder,
-        placeholderIcon: Icons.palette_outlined,
-        placeholderIconColor: colors.onDarkPlaceholderIcon,
-        placeholderIconSize: KSize.iconHeroPlaceholder,
-      ),
+        );
+      },
     );
   }
 }
@@ -370,18 +121,16 @@ class _HeroImage extends StatelessWidget {
 // ─── Feature section ──────────────────────────────────────────────────────────
 
 class _FeatureSection extends StatelessWidget {
-  const _FeatureSection({required this.isCompact});
+  const _FeatureSection({required this.isCompact, required this.gutter});
 
   final bool isCompact;
+  final double gutter;
 
   @override
   Widget build(BuildContext context) {
-    final hPad = isCompact ? KSize.margin6x : KSize.margin12x * 2;
-
-    return Container(
-      color: context.colors.white,
+    return Padding(
       padding: EdgeInsets.symmetric(
-        horizontal: hPad,
+        horizontal: gutter,
         vertical: isCompact ? KSize.heroVerticalPaddingCompact : KSize.heroVerticalPaddingWide,
       ),
       child: isCompact ? _buildCompact(context) : _buildWide(context),
@@ -432,7 +181,11 @@ class _FeatureDescription extends StatelessWidget {
               children: [
                 Text(feature.cta, style: context.textContent.featureCta),
                 const SizedBox(width: KSize.margin3x),
-                Icon(Icons.arrow_forward, size: KSize.iconSPlus, color: context.colors.forestGreen),
+                Icon(
+                  Icons.arrow_forward_rounded,
+                  size: KSize.iconMS,
+                  color: context.colors.terracotta,
+                ),
               ],
             ),
           ),
@@ -454,10 +207,7 @@ class _FeatureStats extends StatelessWidget {
         _StatItem(
           value: feature.guinnessValue,
           label: feature.guinnessLabel,
-          iconWidget: TrophyOutlineIcon(
-            color: context.colors.forestGreen,
-            size: KSize.statIconSize,
-          ),
+          iconWidget: TrophyOutlineIcon(color: context.colors.terracotta, size: KSize.statIconSize),
         ),
         const SizedBox(height: KSize.margin8x),
         const Divider(height: 1),
@@ -465,10 +215,7 @@ class _FeatureStats extends StatelessWidget {
         _StatItem(
           value: feature.unGiftValue,
           label: feature.unGiftLabel,
-          iconWidget: GlobeOutlineIcon(
-            color: context.colors.forestGreen,
-            size: KSize.statIconSize,
-          ),
+          iconWidget: GlobeOutlineIcon(color: context.colors.terracotta, size: KSize.statIconSize),
         ),
         const SizedBox(height: KSize.margin8x),
         const Divider(height: 1),
@@ -639,28 +386,19 @@ class _AnimatedStatValueState extends State<_AnimatedStatValue>
 // ─── Biography section ─────────────────────────────────────────────────────────────────────────────
 
 class _BiographySection extends StatelessWidget {
-  const _BiographySection({
-    super.key,
-    required this.isCompact,
-    required this.tapestryMediaKey,
-    required this.chernobylMediaKey,
-  });
+  const _BiographySection({super.key, required this.isCompact, required this.gutter});
 
   final bool isCompact;
-
-  /// Onboarding-tour anchors on the tapestry / Chernobyl photos.
-  final GlobalKey tapestryMediaKey;
-  final GlobalKey chernobylMediaKey;
+  final double gutter;
 
   @override
   Widget build(BuildContext context) {
-    final hPad = isCompact ? KSize.margin6x : KSize.margin12x * 2;
     final bio = context.t.bio;
 
     return Container(
       color: context.colors.bioBg,
       padding: EdgeInsets.symmetric(
-        horizontal: hPad,
+        horizontal: gutter,
         vertical: isCompact ? KSize.heroVerticalPaddingCompact : KSize.heroVerticalPaddingWide,
       ),
       child: Column(
@@ -694,7 +432,6 @@ class _BiographySection extends StatelessWidget {
           _BioSectionWithPhoto(
             isCompact: isCompact,
             photoIndex: AboutAuthorPageConstants.tapestryPhotoIndex,
-            mediaKey: tapestryMediaKey,
             compactAspectRatio: KSize.tapestryPhotoCompactAspectRatio,
             wideAspectRatio: KSize.tapestryPhotoWideAspectRatio,
             child: _TapestryCopy(),
@@ -703,7 +440,6 @@ class _BiographySection extends StatelessWidget {
           _BioSectionWithPhoto(
             isCompact: isCompact,
             photoIndex: AboutAuthorPageConstants.chernobylPhotoIndex,
-            mediaKey: chernobylMediaKey,
             fitFullImage: true,
             child: _ChernobylCopy(),
           ),
@@ -737,7 +473,6 @@ class _BioSectionWithPhoto extends StatelessWidget {
     required this.isCompact,
     required this.photoIndex,
     required this.child,
-    this.mediaKey,
     this.compactAspectRatio,
     this.wideAspectRatio,
     this.fitFullImage = false,
@@ -746,10 +481,6 @@ class _BioSectionWithPhoto extends StatelessWidget {
   final bool isCompact;
   final int photoIndex;
   final Widget child;
-
-  /// Optional anchor on the photo so the onboarding tour can scroll to it
-  /// and highlight it through the overlay scrim.
-  final GlobalKey? mediaKey;
 
   /// Per-section aspect-ratio overrides; fall back to the shared bio-photo
   /// ratios when null (used to give the tapestry a taller frame).
@@ -762,23 +493,17 @@ class _BioSectionWithPhoto extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final photo = _AuthorPhoto(
+    final media = AuthorPhotoView(
       index: photoIndex,
       aspectRatio: isCompact
           ? (compactAspectRatio ?? KSize.bioPhotoCompactAspectRatio)
           : (wideAspectRatio ?? KSize.bioPhotoWideAspectRatio),
-      borderRadius: BorderRadius.circular(KSize.radiusLargeExtra),
-      placeholderBackground: context.colors.bioBg,
-      placeholderIcon: Icons.image_outlined,
-      placeholderIconColor: context.colors.onDarkPlaceholderIcon,
-      placeholderIconSize: KSize.iconHeroPlaceholder,
+      borderRadius: BorderRadius.circular(KSize.homeCardRadius),
+      placeholderBackground: context.colors.parchmentLine,
       heroTag: 'about-author-photo-$photoIndex',
       openFullscreenOnTap: true,
       fitFullImage: fitFullImage,
     );
-    // Tour targets are wrapped in a RepaintBoundary so the onboarding overlay
-    // can snapshot them; other sections render the photo directly.
-    final media = mediaKey == null ? photo : RepaintBoundary(key: mediaKey, child: photo);
 
     if (isCompact) {
       return Column(
@@ -860,298 +585,6 @@ class _MosaicCopy extends StatelessWidget {
   }
 }
 
-// ─── Shared author-photo widget ──────────────────────────────────────────────
-//
-// Consumes [AboutAuthorCubit] and renders the photo pinned at [index]. When
-// the cubit is still loading it shows a spinner; when the index is missing or
-// the URL is empty it shows a configurable placeholder so each section can
-// match its own color palette.
-
-class _AuthorPhoto extends StatelessWidget {
-  const _AuthorPhoto({
-    required this.index,
-    required this.aspectRatio,
-    required this.borderRadius,
-    required this.placeholderBackground,
-    required this.placeholderIcon,
-    required this.placeholderIconColor,
-    required this.placeholderIconSize,
-    this.heroTag,
-    this.openFullscreenOnTap = false,
-    this.fitFullImage = false,
-  });
-
-  final int index;
-  final double aspectRatio;
-  final BorderRadius borderRadius;
-  final Color placeholderBackground;
-  final IconData placeholderIcon;
-  final Color placeholderIconColor;
-  final double placeholderIconSize;
-  final Object? heroTag;
-  final bool openFullscreenOnTap;
-
-  /// When true the frame matches the loaded image's own aspect ratio (so the
-  /// whole image shows with no crop and no letterbox), instead of [aspectRatio]
-  /// which is used only as the fallback until the image resolves. Used for the
-  /// landscape Chernobyl tapestry.
-  final bool fitFullImage;
-
-  /// Photo indices whose bundled fallback was already reported this session —
-  /// the error state rebuilds (scroll, resize), the event should fire once.
-  static final Set<int> _reportedFallbacks = <int>{};
-
-  /// ImageKit couldn't deliver photo [index]; its bundled copy is shown.
-  static void _logPhotoFallback(int index, Object error) {
-    if (!_reportedFallbacks.add(index)) return;
-    AppTelemetry.instance.logEvent(
-      'about_author_photo_fallback',
-      params: {'photo_index': index, 'error': error.toString()},
-    );
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return BlocBuilder<AboutAuthorCubit, AboutAuthorState>(
-      buildWhen: (previous, current) => previous.runtimeType != current.runtimeType,
-      builder: (context, state) {
-        final photo = switch (state) {
-          AboutAuthorLoaded(:final photos) =>
-            (index >= 0 && index < photos.length) ? photos[index] : null,
-          _ => null,
-        };
-        final isLoading = state is AboutAuthorInitial || state is AboutAuthorLoading;
-        final hasPhoto = photo != null && !photo.isEmpty;
-        // Bundled copy shown when ImageKit can't deliver this photo.
-        final fallbackAsset = AboutAuthorLocalPhotos.assetAt(index);
-
-        Widget inner;
-        if (hasPhoto) {
-          inner = CachedNetworkImageView(
-            imagePathOrUrl: photo.url,
-            fit: BoxFit.cover,
-            width: double.infinity,
-            height: double.infinity,
-            fallbackAssetPath: fallbackAsset,
-            onFallbackShown: (error) => _logPhotoFallback(index, error),
-          );
-          if (heroTag != null) {
-            inner = Hero(tag: heroTag!, child: inner);
-          }
-        } else if (isLoading) {
-          inner = const _AuthorPhotoLoading();
-        } else {
-          inner = _AuthorPhotoPlaceholder(
-            icon: placeholderIcon,
-            iconColor: placeholderIconColor,
-            iconSize: placeholderIconSize,
-          );
-        }
-
-        final Widget frame;
-        if (hasPhoto && fitFullImage) {
-          frame = LayoutBuilder(
-            builder: (context, constraints) => _IntrinsicAspectImage(
-              url: photo.url,
-              // Same rendition the inner image requests for this frame width.
-              requestWidth: constraints.maxWidth.isFinite
-                  ? CachedNetworkImageView.requestWidthFor(
-                      constraints.maxWidth,
-                      fit: BoxFit.cover,
-                      devicePixelRatio: MediaQuery.devicePixelRatioOf(context),
-                    )
-                  : null,
-              fallbackAssetPath: fallbackAsset,
-              fallbackRatio: aspectRatio,
-              borderRadius: borderRadius,
-              background: placeholderBackground,
-              child: inner,
-            ),
-          );
-        } else {
-          frame = ClipRRect(
-            borderRadius: borderRadius,
-            child: AspectRatio(
-              aspectRatio: aspectRatio,
-              child: DecoratedBox(
-                decoration: BoxDecoration(color: placeholderBackground, borderRadius: borderRadius),
-                child: inner,
-              ),
-            ),
-          );
-        }
-
-        if (!hasPhoto || !openFullscreenOnTap) {
-          return frame;
-        }
-
-        return MouseRegion(
-          cursor: SystemMouseCursors.click,
-          child: GestureDetector(
-            behavior: HitTestBehavior.opaque,
-            onTap: () => FullscreenImageViewer.show(
-              context,
-              imagePathOrUrl: photo.url,
-              heroTag: heroTag,
-              fallbackAssetPath: fallbackAsset,
-            ),
-            child: frame,
-          ),
-        );
-      },
-    );
-  }
-}
-
-/// Renders a photo in a frame sized to the image's own aspect ratio, so the
-/// whole image is shown (no crop, no letterbox) while the rounded corners are
-/// still clipped against the image edges. Uses [fallbackRatio] until the image
-/// resolves its intrinsic size.
-class _IntrinsicAspectImage extends StatefulWidget {
-  const _IntrinsicAspectImage({
-    required this.url,
-    required this.requestWidth,
-    required this.fallbackAssetPath,
-    required this.fallbackRatio,
-    required this.borderRadius,
-    required this.background,
-    required this.child,
-  });
-
-  final String url;
-
-  /// ImageKit width the ratio probe requests — must match what [child]
-  /// renders so both share one download.
-  final int? requestWidth;
-
-  /// Bundled copy [child] falls back to; the frame then takes its ratio.
-  final String? fallbackAssetPath;
-  final double fallbackRatio;
-  final BorderRadius borderRadius;
-  final Color background;
-  final Widget child;
-
-  @override
-  State<_IntrinsicAspectImage> createState() => _IntrinsicAspectImageState();
-}
-
-class _IntrinsicAspectImageState extends State<_IntrinsicAspectImage> {
-  ImageStream? _stream;
-  ImageStreamListener? _listener;
-  double? _ratio;
-
-  @override
-  void initState() {
-    super.initState();
-    _resolveRatio();
-  }
-
-  @override
-  void didUpdateWidget(_IntrinsicAspectImage oldWidget) {
-    super.didUpdateWidget(oldWidget);
-    if (oldWidget.url != widget.url) {
-      _ratio = null;
-      _resolveRatio();
-    } else if (oldWidget.requestWidth != widget.requestWidth) {
-      _resolveRatio(); // Same image, other size — the ratio is unchanged.
-    }
-  }
-
-  void _resolveRatio() {
-    _listenForRatio(
-      CachedNetworkImageView.providerFor(widget.url, requestWidth: widget.requestWidth),
-      onError: () {
-        // Network photo failed and [child] shows the bundled copy — size the
-        // frame to that copy instead.
-        final fallback = widget.fallbackAssetPath;
-        if (mounted && fallback != null) {
-          _listenForRatio(AssetImage(fallback));
-        }
-      },
-    );
-  }
-
-  void _listenForRatio(ImageProvider provider, {VoidCallback? onError}) {
-    _detachStream();
-    final stream = provider.resolve(ImageConfiguration.empty);
-    final listener = ImageStreamListener(
-      (info, _) {
-        final width = info.image.width;
-        final height = info.image.height;
-        info.dispose();
-        if (mounted && height > 0) {
-          final ratio = width / height;
-          if (ratio != _ratio) {
-            setState(() => _ratio = ratio);
-          }
-        }
-      },
-      // Deferred: errors can fire synchronously from addListener (cached
-      // failure), i.e. while this stream is still being attached.
-      onError: (_, _) => scheduleMicrotask(() => onError?.call()),
-    );
-    stream.addListener(listener);
-    _stream = stream;
-    _listener = listener;
-  }
-
-  void _detachStream() {
-    if (_stream != null && _listener != null) {
-      _stream!.removeListener(_listener!);
-    }
-    _stream = null;
-    _listener = null;
-  }
-
-  @override
-  void dispose() {
-    _detachStream();
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return ClipRRect(
-      borderRadius: widget.borderRadius,
-      child: AspectRatio(
-        aspectRatio: _ratio ?? widget.fallbackRatio,
-        child: DecoratedBox(
-          decoration: BoxDecoration(color: widget.background, borderRadius: widget.borderRadius),
-          child: widget.child,
-        ),
-      ),
-    );
-  }
-}
-
-class _AuthorPhotoLoading extends StatelessWidget {
-  const _AuthorPhotoLoading();
-
-  @override
-  Widget build(BuildContext context) {
-    return const Center(child: AppLoader());
-  }
-}
-
-class _AuthorPhotoPlaceholder extends StatelessWidget {
-  const _AuthorPhotoPlaceholder({
-    required this.icon,
-    required this.iconColor,
-    required this.iconSize,
-  });
-
-  final IconData icon;
-  final Color iconColor;
-  final double iconSize;
-
-  @override
-  Widget build(BuildContext context) {
-    return Center(
-      child: Icon(icon, size: iconSize, color: iconColor),
-    );
-  }
-}
-
 class _BioSubSection extends StatelessWidget {
   const _BioSubSection({required this.title, required this.body});
 
@@ -1166,7 +599,7 @@ class _BioSubSection extends StatelessWidget {
         Container(
           width: KSize.margin10x,
           height: KSize.borderWidthSmall,
-          color: context.colors.forestGreen,
+          color: context.colors.terracotta,
         ),
         const SizedBox(height: KSize.margin4x),
         Text(title, style: context.textContent.bioSectionTitle),
@@ -1194,7 +627,7 @@ class _BioHighlightRow extends StatelessWidget {
             width: KSize.bulletXS,
             height: KSize.bulletXS,
             margin: const EdgeInsets.only(top: 7, right: KSize.margin3x),
-            decoration: BoxDecoration(color: context.colors.forestGreen, shape: BoxShape.circle),
+            decoration: BoxDecoration(color: context.colors.terracotta, shape: BoxShape.circle),
           ),
           Expanded(
             child: RichText(
@@ -1217,7 +650,7 @@ class _BioHighlightRow extends StatelessWidget {
 /// Visually mirrors the "Open article" link used in the archive feed
 /// ([`_NewsMetaRow`](../../archive/presentation/widgets/news_section.dart)):
 /// uppercase label in `archiveLink` style + outward-arrow icon, all in
-/// [AppColors.forestGreen]. The URL opens in a new tab/window on web and in
+/// [AppColors.terracotta]. The URL opens in a new tab/window on web and in
 /// the system browser on native platforms.
 class _BioExternalLinkButton extends StatelessWidget {
   const _BioExternalLinkButton({required this.url, this.label});
@@ -1245,7 +678,7 @@ class _BioExternalLinkButton extends StatelessWidget {
             Icon(
               Icons.arrow_outward_rounded,
               size: KSize.iconSPlus,
-              color: context.colors.forestGreen,
+              color: context.colors.terracotta,
             ),
           ],
         ),
@@ -1267,7 +700,7 @@ class _BioQuote extends StatelessWidget {
       decoration: BoxDecoration(
         color: context.colors.quoteBg,
         border: Border(
-          left: BorderSide(color: context.colors.forestGreen, width: KSize.borderWidthMedium),
+          left: BorderSide(color: context.colors.terracotta, width: KSize.borderWidthMedium),
         ),
         borderRadius: const BorderRadius.only(
           topRight: Radius.circular(KSize.radiusDefault),

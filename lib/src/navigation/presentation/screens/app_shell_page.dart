@@ -6,7 +6,9 @@ import 'package:go_router/go_router.dart';
 import 'package:web_art_galery/i18n/strings.g.dart';
 import 'package:web_art_galery/src/features/catalog_of_works/presentation/cubits/catalog_of_works_cubit.dart';
 import 'package:web_art_galery/src/features/news/presentation/cubits/news_list_cubit.dart';
+import 'package:web_art_galery/src/navigation/presentation/nav_destinations.dart';
 import 'package:web_art_galery/src/navigation/presentation/router/app_routes.dart';
+import 'package:web_art_galery/src/navigation/presentation/widgets/gallery_brand.dart';
 import 'package:web_art_galery/src/shared/config/app_context_extensions.dart';
 import 'package:web_art_galery/src/shared/config/ksize.dart';
 import 'package:web_art_galery/src/shared/presentation/widgets/language_switcher.dart';
@@ -15,23 +17,6 @@ class AppShellMenu extends StatelessWidget {
   const AppShellMenu({super.key, required this.child});
 
   final Widget child;
-
-  // A tab counts as "having content" only once its cubit has settled into a
-  // Loaded state with a non-empty list. Initial/Loading keep the tab visible
-  // so cold-start ticks don't flicker the menu, and Error/empty-Loaded both
-  // hide the tab so users can't land on a blank page.
-  static bool _newsHasContent(NewsListState s) =>
-      s is NewsListLoaded && s.articles.isNotEmpty;
-
-  static bool _catalogHasContent(CatalogOfWorksState s) =>
-      s is CatalogOfWorksLoaded && s.paintings.isNotEmpty;
-
-  static bool _newsIsSettledEmpty(NewsListState s) =>
-      s is NewsListError || (s is NewsListLoaded && s.articles.isEmpty);
-
-  static bool _catalogIsSettledEmpty(CatalogOfWorksState s) =>
-      s is CatalogOfWorksError ||
-      (s is CatalogOfWorksLoaded && s.paintings.isEmpty);
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +28,8 @@ class AppShellMenu extends StatelessWidget {
         // tab whose menu entry just disappeared.
         BlocListener<NewsListCubit, NewsListState>(
           listenWhen: (previous, current) =>
-              !_newsIsSettledEmpty(previous) && _newsIsSettledEmpty(current),
+              !NavVisibility.newsIsSettledEmpty(previous) &&
+              NavVisibility.newsIsSettledEmpty(current),
           listener: (context, _) {
             final path = GoRouterState.of(context).uri.path;
             if (path.startsWith(AppRoutes.news)) {
@@ -53,7 +39,8 @@ class AppShellMenu extends StatelessWidget {
         ),
         BlocListener<CatalogOfWorksCubit, CatalogOfWorksState>(
           listenWhen: (previous, current) =>
-              !_catalogIsSettledEmpty(previous) && _catalogIsSettledEmpty(current),
+              !NavVisibility.catalogIsSettledEmpty(previous) &&
+              NavVisibility.catalogIsSettledEmpty(current),
           listener: (context, _) {
             final path = GoRouterState.of(context).uri.path;
             if (path.startsWith(AppRoutes.catalog)) {
@@ -67,35 +54,34 @@ class AppShellMenu extends StatelessWidget {
       // the has-content / no-content boundary.
       child: BlocBuilder<NewsListCubit, NewsListState>(
         buildWhen: (previous, current) =>
-            _newsHasContent(previous) != _newsHasContent(current) ||
-            _newsIsSettledEmpty(previous) != _newsIsSettledEmpty(current),
+            NavVisibility.newsHasContent(previous) != NavVisibility.newsHasContent(current) ||
+            NavVisibility.newsIsSettledEmpty(previous) != NavVisibility.newsIsSettledEmpty(current),
         builder: (context, newsState) {
           return BlocBuilder<CatalogOfWorksCubit, CatalogOfWorksState>(
             buildWhen: (previous, current) =>
-                _catalogHasContent(previous) != _catalogHasContent(current) ||
-                _catalogIsSettledEmpty(previous) != _catalogIsSettledEmpty(current),
+                NavVisibility.catalogHasContent(previous) !=
+                    NavVisibility.catalogHasContent(current) ||
+                NavVisibility.catalogIsSettledEmpty(previous) !=
+                    NavVisibility.catalogIsSettledEmpty(current),
             builder: (context, catalogState) {
-              final hideNews = _newsIsSettledEmpty(newsState);
-              final hideCatalog = _catalogIsSettledEmpty(catalogState);
               final width = MediaQuery.sizeOf(context).width;
               final currentPath = GoRouterState.of(context).uri.path;
-              final items = _buildNavItems(
+              final items = buildNavDestinations(
                 context,
-                hideNews: hideNews,
-                hideCatalog: hideCatalog,
+                hideNews: NavVisibility.newsIsSettledEmpty(newsState),
+                hideCatalog: NavVisibility.catalogIsSettledEmpty(catalogState),
               );
               final selectedIndex = _selectedIndex(items, currentPath);
 
               if (width < KSize.adaptiveCompactBreakpoint) {
-                return _MobileShell(
-                  items: items,
-                  selectedIndex: selectedIndex,
-                  child: child,
-                );
+                return _MobileShell(items: items, selectedIndex: selectedIndex, child: child);
               }
               return _DesktopShell(
                 items: items,
                 selectedIndex: selectedIndex,
+                // Section pages are full-bleed (they centre their own
+                // content) and end with the full gallery footer themselves.
+                isSectionPage: _sectionPaths.contains(currentPath),
                 child: child,
               );
             },
@@ -105,46 +91,19 @@ class AppShellMenu extends StatelessWidget {
     );
   }
 
-  List<_NavItem> _buildNavItems(
-    BuildContext context, {
-    required bool hideNews,
-    required bool hideCatalog,
-  }) => [
-    _NavItem(
-      label: context.t.navigation.aboutAuthor,
-      location: AppRoutes.aboutAuthor,
-      icon: Icons.person_outline,
-    ),
-    if (!hideNews)
-      _NavItem(
-        label: context.t.navigation.news,
-        location: AppRoutes.news,
-        icon: Icons.newspaper_outlined,
-      ),
-    if (!hideCatalog)
-      _NavItem(
-        label: context.t.navigation.catalogOfWorks,
-        location: AppRoutes.catalog,
-        icon: Icons.collections_bookmark_outlined,
-      ),
-    _NavItem(
-      label: context.t.navigation.films,
-      location: AppRoutes.films,
-      icon: Icons.movie_outlined,
-    ),
-    _NavItem(
-      label: context.t.navigation.archive,
-      location: AppRoutes.archive,
-      icon: Icons.archive_outlined,
-    ),
-    _NavItem(
-      label: context.t.navigation.contacts,
-      location: AppRoutes.contacts,
-      icon: Icons.contacts_outlined,
-    ),
-  ];
+  /// Top-level pages built with the full-bleed gallery layout + footer.
+  /// Detail routes (`/news/<slug>`, `/catalog/<id>`) keep the clamped
+  /// content width and the slim footer bar.
+  static const Set<String> _sectionPaths = {
+    AppRoutes.aboutAuthor,
+    AppRoutes.news,
+    AppRoutes.catalog,
+    AppRoutes.films,
+    AppRoutes.archive,
+    AppRoutes.contacts,
+  };
 
-  int _selectedIndex(List<_NavItem> items, String currentPath) {
+  int _selectedIndex(List<NavDestination> items, String currentPath) {
     final index = items.indexWhere(
       (item) => currentPath == item.location || currentPath.startsWith('${item.location}/'),
     );
@@ -155,11 +114,17 @@ class AppShellMenu extends StatelessWidget {
 // ─── Desktop shell ────────────────────────────────────────────────────────────
 
 class _DesktopShell extends StatelessWidget {
-  const _DesktopShell({required this.child, required this.items, required this.selectedIndex});
+  const _DesktopShell({
+    required this.child,
+    required this.items,
+    required this.selectedIndex,
+    required this.isSectionPage,
+  });
 
   final Widget child;
-  final List<_NavItem> items;
+  final List<NavDestination> items;
   final int selectedIndex;
+  final bool isSectionPage;
 
   @override
   Widget build(BuildContext context) {
@@ -172,15 +137,17 @@ class _DesktopShell extends StatelessWidget {
             onSelected: (i) => context.go(items[i].location),
           ),
           Expanded(
-            child: Align(
-              alignment: Alignment.topCenter,
-              child: ConstrainedBox(
-                constraints: const BoxConstraints(maxWidth: KSize.desktopMaxContentWidth),
-                child: child,
-              ),
-            ),
+            child: isSectionPage
+                ? child
+                : Align(
+                    alignment: Alignment.topCenter,
+                    child: ConstrainedBox(
+                      constraints: const BoxConstraints(maxWidth: KSize.desktopMaxContentWidth),
+                      child: child,
+                    ),
+                  ),
           ),
-          _GalleryFooter(items: items, onSelected: (i) => context.go(items[i].location)),
+          if (!isSectionPage) const _GalleryFooterBar(),
         ],
       ),
     );
@@ -193,13 +160,13 @@ class _DesktopShell extends StatelessWidget {
 /// scrolling down and returns on scroll up (floating `SliverAppBar` feel,
 /// done at shell level so every page gets it). Pages offset their first
 /// content by `MediaQuery.paddingOf(context).top`, which the Scaffold sets to
-/// the bar height via `extendBodyBehindAppBar`. The copyright footer lives in
-/// the drawer here instead of permanently taking the bottom of the screen.
+/// the bar height via `extendBodyBehindAppBar`. The menu opens from the right
+/// (burger on the right, as in the mobile design).
 class _MobileShell extends StatefulWidget {
   const _MobileShell({required this.child, required this.items, required this.selectedIndex});
 
   final Widget child;
-  final List<_NavItem> items;
+  final List<NavDestination> items;
   final int selectedIndex;
 
   @override
@@ -254,6 +221,8 @@ class _MobileShellState extends State<_MobileShell> {
           curve: Curves.easeOut,
           child: AppBar(
             toolbarHeight: KSize.mobileAppBarHeight,
+            automaticallyImplyLeading: false,
+            titleSpacing: KSize.margin4x,
             backgroundColor: Colors.transparent,
             surfaceTintColor: Colors.transparent,
             elevation: 0,
@@ -265,23 +234,32 @@ class _MobileShellState extends State<_MobileShell> {
                   sigmaX: KSize.mobileAppBarBlurSigma,
                   sigmaY: KSize.mobileAppBarBlurSigma,
                 ),
-                child: ColoredBox(
-                  color: colors.forestGreen.withValues(alpha: KSize.mobileAppBarTintOpacity),
+                child: DecoratedBox(
+                  decoration: BoxDecoration(
+                    color: colors.shell.withValues(alpha: KSize.mobileAppBarTintOpacity),
+                    border: Border(bottom: BorderSide(color: colors.onDarkOverlay)),
+                  ),
                   child: const SizedBox.expand(),
                 ),
               ),
             ),
-            title: Row(
-              children: [
-                const _GalleryLogo(size: KSize.logoSizeMedium),
-                const SizedBox(width: KSize.margin3x),
-                Text(context.t.app.title.toUpperCase(), style: context.textOnDark.brandTitle),
-              ],
+            title: GestureDetector(
+              onTap: () => context.go(AppRoutes.aboutAuthor),
+              child: const GalleryBrand(logoSize: KSize.avatarDefault, gap: KSize.margin3x),
             ),
+            actions: [
+              Builder(
+                builder: (context) => IconButton(
+                  onPressed: () => Scaffold.of(context).openEndDrawer(),
+                  icon: Icon(Icons.menu_rounded, size: KSize.iconL, color: colors.onDark),
+                ),
+              ),
+              const SizedBox(width: KSize.margin2x),
+            ],
           ),
         ),
       ),
-      drawer: _GalleryDrawer(
+      endDrawer: _GalleryDrawer(
         items: widget.items,
         selectedIndex: widget.selectedIndex,
         onSelected: (i) {
@@ -306,96 +284,84 @@ class _GalleryHeader extends StatelessWidget {
     required this.onSelected,
   });
 
-  final List<_NavItem> items;
+  final List<NavDestination> items;
   final int selectedIndex;
   final ValueChanged<int> onSelected;
 
   @override
   Widget build(BuildContext context) {
+    final colors = context.colors;
     final width = MediaQuery.sizeOf(context).width;
     final isMediumWidth = width < KSize.adaptiveDesktopHeaderBreakpoint;
     final contactsIndex = items.indexWhere((e) => e.location == AppRoutes.contacts);
     final navItems = items.where((e) => e.location != AppRoutes.contacts).toList();
 
     return Container(
-      color: context.colors.forestGreen,
       height: KSize.desktopHeaderHeight,
-      child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: isMediumWidth ? KSize.margin6x : KSize.margin12x),
-        child: Row(
-          children: [
-            // Logo + gallery name
-            GestureDetector(
+      decoration: BoxDecoration(
+        color: colors.shell,
+        border: Border(bottom: BorderSide(color: colors.onDarkOverlay)),
+      ),
+      padding: EdgeInsets.symmetric(
+        horizontal: isMediumWidth ? KSize.homeGutterMedium : KSize.homeGutterWide,
+      ),
+      child: Row(
+        children: [
+          // Logo + gallery name
+          MouseRegion(
+            cursor: SystemMouseCursors.click,
+            child: GestureDetector(
               onTap: () => onSelected(0),
-              child: MouseRegion(
-                cursor: SystemMouseCursors.click,
+              child: GalleryBrand(
+                logoSize: isMediumWidth ? KSize.logoSizeMedium : KSize.avatarDefault,
+                showTagline: !isMediumWidth,
+                gap: isMediumWidth ? KSize.margin3x : KSize.margin4x,
+              ),
+            ),
+          ),
+          SizedBox(width: isMediumWidth ? KSize.margin4x : KSize.margin8x),
+          // Navigation links (all except contacts)
+          Expanded(
+            child: Align(
+              alignment: Alignment.center,
+              child: SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                primary: false,
                 child: Row(
+                  mainAxisSize: MainAxisSize.min,
                   children: [
-                    _GalleryLogo(size: isMediumWidth ? KSize.logoSizeMedium : KSize.logoSizeLarge),
-                    SizedBox(width: isMediumWidth ? KSize.margin3x : KSize.margin4x),
-                    Column(
-                      mainAxisSize: MainAxisSize.min,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          context.t.app.title.toUpperCase(),
-                          style: context.textOnDark.brandTitle,
-                        ),
-                        if (!isMediumWidth)
-                          Text(
-                            context.t.app.brandTagline,
-                            style: context.textOnDark.brandSubtitle,
-                          ),
-                      ],
-                    ),
+                    for (final item in navItems)
+                      _HeaderNavItem(
+                        label: item.label,
+                        selected: items.indexOf(item) == selectedIndex,
+                        onTap: () => onSelected(items.indexOf(item)),
+                        compact: isMediumWidth,
+                      ),
                   ],
                 ),
               ),
             ),
-            SizedBox(width: isMediumWidth ? KSize.margin4x : KSize.margin8x),
-            // Navigation links (all except contacts)
-            Expanded(
-              child: Align(
-                alignment: Alignment.center,
-                child: SingleChildScrollView(
-                  scrollDirection: Axis.horizontal,
-                  primary: false,
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      for (final item in navItems)
-                        _HeaderNavItem(
-                          label: item.label,
-                          selected: items.indexOf(item) == selectedIndex,
-                          onTap: () => onSelected(items.indexOf(item)),
-                          compact: isMediumWidth,
-                        ),
-                    ],
-                  ),
-                ),
-              ),
+          ),
+          SizedBox(width: isMediumWidth ? KSize.margin3x : KSize.margin6x),
+          // Contacts CTA button
+          if (contactsIndex >= 0)
+            _ContactsButton(
+              label: items[contactsIndex].label,
+              selected: selectedIndex == contactsIndex,
+              onTap: () => onSelected(contactsIndex),
+              compact: isMediumWidth,
             ),
-            SizedBox(width: isMediumWidth ? KSize.margin3x : KSize.margin6x),
-            // Contacts CTA button
-            if (contactsIndex >= 0)
-              _ContactsButton(
-                label: items[contactsIndex].label,
-                selected: selectedIndex == contactsIndex,
-                onTap: () => onSelected(contactsIndex),
-                compact: isMediumWidth,
-              ),
-            SizedBox(width: isMediumWidth ? KSize.margin3x : KSize.margin6x),
-            // Language switcher themed for dark background
-            Theme(
-              data: Theme.of(context).copyWith(
-                canvasColor: context.colors.forestGreen,
-                textTheme: Theme.of(context).textTheme.apply(bodyColor: context.colors.onDark),
-                iconTheme: IconThemeData(color: context.colors.onDark),
-              ),
-              child: const LanguageSwitcher(),
+          SizedBox(width: isMediumWidth ? KSize.margin2x : KSize.margin6x),
+          // Language switcher themed for dark background
+          Theme(
+            data: Theme.of(context).copyWith(
+              canvasColor: colors.shell,
+              textTheme: Theme.of(context).textTheme.apply(bodyColor: colors.onDark),
+              iconTheme: IconThemeData(color: colors.onDark),
             ),
-          ],
-        ),
+            child: const LanguageSwitcher(),
+          ),
+        ],
       ),
     );
   }
@@ -425,16 +391,16 @@ class _HeaderNavItem extends StatelessWidget {
       child: GestureDetector(
         onTap: onTap,
         child: Container(
-          margin: EdgeInsets.only(right: compact ? KSize.margin4x : KSize.margin8x),
-          padding: EdgeInsets.symmetric(
-            vertical: KSize.margin3x,
-            horizontal: compact ? KSize.margin1x : KSize.margin2x,
-          ),
+          height: KSize.desktopHeaderHeight,
+          margin: EdgeInsets.symmetric(horizontal: compact ? KSize.margin2x : KSize.margin4x),
+          padding: EdgeInsets.symmetric(horizontal: compact ? KSize.margin1x : KSize.margin2x),
+          alignment: Alignment.center,
+          // Active section: a light underline flush with the header's edge.
           decoration: BoxDecoration(
             border: Border(
               bottom: BorderSide(
                 color: selected ? colors.onDark : Colors.transparent,
-                width: KSize.borderWidthSmallHalf,
+                width: KSize.borderWidthSmall,
               ),
             ),
           ),
@@ -474,7 +440,7 @@ class _ContactsButton extends StatelessWidget {
         child: AnimatedContainer(
           duration: KSize.durationFast,
           padding: EdgeInsets.symmetric(
-            horizontal: compact ? KSize.margin4x : KSize.margin6x,
+            horizontal: compact ? KSize.margin4x : KSize.margin7x,
             vertical: KSize.margin3x,
           ),
           decoration: BoxDecoration(
@@ -483,34 +449,6 @@ class _ContactsButton extends StatelessWidget {
             borderRadius: BorderRadius.circular(KSize.radiusOfRoundButton),
           ),
           child: Text(label.toUpperCase(), style: context.textOnDark.ctaLabel),
-        ),
-      ),
-    );
-  }
-}
-
-// ─── Logo mark ────────────────────────────────────────────────────────────────
-
-class _GalleryLogo extends StatelessWidget {
-  const _GalleryLogo({this.size = KSize.logoSizeLarge});
-
-  final double size;
-
-  @override
-  Widget build(BuildContext context) {
-    final colors = context.colors;
-
-    return Container(
-      width: size,
-      height: size,
-      decoration: BoxDecoration(
-        shape: BoxShape.circle,
-        border: Border.all(color: colors.onDarkSubtle, width: KSize.borderWidthVerySmall),
-      ),
-      child: Center(
-        child: Builder(
-          builder: (context) =>
-              Text(context.t.app.logoMark, style: context.textOnDark.logoMark(size)),
         ),
       ),
     );
@@ -526,57 +464,53 @@ class _GalleryDrawer extends StatelessWidget {
     required this.onSelected,
   });
 
-  final List<_NavItem> items;
+  final List<NavDestination> items;
   final int selectedIndex;
   final ValueChanged<int> onSelected;
 
   @override
   Widget build(BuildContext context) {
+    final colors = context.colors;
+
     return Drawer(
-      backgroundColor: context.colors.forestGreen,
+      backgroundColor: colors.shell,
       child: SafeArea(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Padding(
-              padding: const EdgeInsets.all(KSize.margin6x),
-              child: Row(
+            const Padding(
+              padding: EdgeInsets.all(KSize.margin6x),
+              child: GalleryBrand(logoSize: KSize.logoSizeLarge, showTagline: true),
+            ),
+            Divider(color: colors.onDarkDivider, height: KSize.borderWidthVerySmall),
+            const SizedBox(height: KSize.margin2x),
+            Expanded(
+              child: ListView(
+                padding: EdgeInsets.zero,
                 children: [
-                  const _GalleryLogo(size: KSize.logoSizeLarge),
-                  const SizedBox(width: KSize.margin4x),
-                  Text(context.t.app.title.toUpperCase(), style: context.textOnDark.brandTitle),
+                  for (int i = 0; i < items.length; i++)
+                    _DrawerNavItem(
+                      item: items[i],
+                      selected: i == selectedIndex,
+                      onTap: () => onSelected(i),
+                    ),
                 ],
               ),
             ),
-            Divider(color: context.colors.onDarkDivider, height: KSize.borderWidthVerySmall),
-            const SizedBox(height: KSize.margin2x),
-            for (int i = 0; i < items.length; i++)
-              _DrawerNavItem(
-                item: items[i],
-                selected: i == selectedIndex,
-                onTap: () => onSelected(i),
-              ),
-            const Spacer(),
-            Divider(color: context.colors.onDarkDivider, height: KSize.borderWidthVerySmall),
+            Divider(color: colors.onDarkDivider, height: KSize.borderWidthVerySmall),
             Padding(
               padding: const EdgeInsets.all(KSize.margin6x),
               child: Theme(
                 data: Theme.of(context).copyWith(
-                  canvasColor: context.colors.forestGreen,
-                  textTheme: Theme.of(context).textTheme.apply(bodyColor: context.colors.onDark),
-                  iconTheme: IconThemeData(color: context.colors.onDark),
+                  canvasColor: colors.shell,
+                  textTheme: Theme.of(context).textTheme.apply(bodyColor: colors.onDark),
+                  iconTheme: IconThemeData(color: colors.onDark),
                 ),
                 child: const LanguageSwitcher(),
               ),
             ),
-            // Copyright moved here from the always-visible mobile footer.
             Padding(
-              padding: const EdgeInsets.fromLTRB(
-                KSize.margin6x,
-                0,
-                KSize.margin6x,
-                KSize.margin6x,
-              ),
+              padding: const EdgeInsets.fromLTRB(KSize.margin6x, 0, KSize.margin6x, KSize.margin6x),
               child: Text(
                 '© ${DateTime.now().year} ${context.t.app.title}',
                 style: context.textOnDark.footerCopyright,
@@ -592,7 +526,7 @@ class _GalleryDrawer extends StatelessWidget {
 class _DrawerNavItem extends StatelessWidget {
   const _DrawerNavItem({required this.item, required this.selected, required this.onTap});
 
-  final _NavItem item;
+  final NavDestination item;
   final bool selected;
   final VoidCallback onTap;
 
@@ -604,19 +538,29 @@ class _DrawerNavItem extends StatelessWidget {
       onTap: onTap,
       child: Container(
         width: double.infinity,
-        padding: const EdgeInsets.symmetric(horizontal: KSize.margin6x, vertical: KSize.margin5x),
-        color: selected ? colors.onDarkOverlay : Colors.transparent,
+        padding: const EdgeInsets.symmetric(horizontal: KSize.margin6x, vertical: KSize.margin4x),
+        decoration: BoxDecoration(
+          color: selected ? colors.onDarkOverlay : Colors.transparent,
+          border: Border(
+            left: BorderSide(
+              color: selected ? colors.terracottaLight : Colors.transparent,
+              width: KSize.borderWidthMedium,
+            ),
+          ),
+        ),
         child: Row(
           children: [
             Icon(
               item.icon,
               color: selected ? colors.onDark : colors.onDarkMuted,
-              size: KSize.iconSMedium,
+              size: KSize.iconMS,
             ),
             const SizedBox(width: KSize.margin4x),
-            Text(
-              item.label,
-              style: selected ? context.textOnDark.drawerItem : context.textOnDarkDim.drawerItem,
+            Expanded(
+              child: Text(
+                item.label,
+                style: selected ? context.textOnDark.drawerItem : context.textOnDarkDim.drawerItem,
+              ),
             ),
           ],
         ),
@@ -625,44 +569,32 @@ class _DrawerNavItem extends StatelessWidget {
   }
 }
 
-// ─── Gallery footer ───────────────────────────────────────────────────────────
+// ─── Slim footer bar (desktop, inner pages) ───────────────────────────────────
 
-class _GalleryFooter extends StatelessWidget {
-  const _GalleryFooter({required this.items, required this.onSelected});
-
-  final List<_NavItem> items;
-  final ValueChanged<int> onSelected;
+class _GalleryFooterBar extends StatelessWidget {
+  const _GalleryFooterBar();
 
   @override
   Widget build(BuildContext context) {
+    final colors = context.colors;
+
     return Container(
-      color: context.colors.darkOlive,
-      padding: const EdgeInsets.symmetric(horizontal: KSize.margin12x, vertical: KSize.margin3x),
+      decoration: BoxDecoration(
+        color: colors.shell,
+        border: Border(top: BorderSide(color: colors.onDarkOverlay)),
+      ),
+      padding: const EdgeInsets.symmetric(
+        horizontal: KSize.homeGutterWide,
+        vertical: KSize.margin3x,
+      ),
       child: Row(
-        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          const _GalleryLogo(size: KSize.logoSizeCompact),
-          const SizedBox(width: KSize.margin3x),
-          Text(context.t.app.title.toUpperCase(), style: context.textOnDark.footerBrand),
-          const SizedBox(width: KSize.margin8x),
-          Expanded(
-            child: Wrap(
-              alignment: WrapAlignment.center,
-              spacing: KSize.margin5x,
-              runSpacing: KSize.margin1x,
-              children: [
-                for (int i = 0; i < items.length; i++)
-                  MouseRegion(
-                    cursor: SystemMouseCursors.click,
-                    child: GestureDetector(
-                      onTap: () => onSelected(i),
-                      child: Text(items[i].label, style: context.textOnDark.footerLink),
-                    ),
-                  ),
-              ],
-            ),
+          const GalleryBrand(
+            logoSize: KSize.logoSizeCompact,
+            showTagline: false,
+            gap: KSize.margin3x,
           ),
-          const SizedBox(width: KSize.margin8x),
+          const Spacer(),
           Text(
             '© ${DateTime.now().year} ${context.t.app.title}',
             style: context.textOnDark.footerCopyright,
@@ -671,14 +603,4 @@ class _GalleryFooter extends StatelessWidget {
       ),
     );
   }
-}
-
-// ─── Nav item data ────────────────────────────────────────────────────────────
-
-class _NavItem {
-  const _NavItem({required this.label, required this.location, required this.icon});
-
-  final String label;
-  final String location;
-  final IconData icon;
 }

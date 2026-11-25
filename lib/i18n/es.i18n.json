@@ -204,16 +204,6 @@
       "openExternally": "Abrir externamente"
     }
   },
-  "tour": {
-    "next": "Siguiente",
-    "gotIt": "Entendido",
-    "back": "Atrás",
-    "chernobylBody": "Kishchanka es también el autor del tapiz «Chernóbil» (1991), donado a las Naciones Unidas, que sigue adornando su sede de Nueva York. El Secretario General de la ONU lo comparó con el «Guernica» de Picasso.",
-    "originsTitle": "En los orígenes del «realismo universal»",
-    "originsBody": "Alexánder Mijáilovich Kishchanka (1933–1997). Pintor. Filósofo. Monumentalista. Nació en la aldea de Bely Kolodez (hoy distrito de Boguchar, óblast de Vorónezh) y alcanzó renombre mundial como autor del mayor tapiz del mundo, el «Tapiz del Siglo».",
-    "scaleTitle": "Escala del Tapiz del Siglo",
-    "scaleBody": "El «Tapiz del Siglo» es un lienzo tejido a mano de 19 × 14 metros (la altura de un edificio de cinco pisos) y de más de una tonelada de peso. En 1999 fue inscrito en el Libro Guinness de los Récords como el mayor tapiz del mundo."
-  },
   "language": {
     "label": "Idioma",
     "russian": "Ruso",
@@ -373,6 +363,91 @@
     "quote": "El arte es un fenómeno divino. Sólo a él le es dado detener el tiempo. El arte puede descifrar el misterio del futuro y también restaurar el pasado perdido.",
     "quoteAuthor": "— Alexander Kishchanka",
     "wikipediaLinkLabel": "LEER EN WIKIPEDIA"
+  },
+  "home": {
+    "hero": {
+      "eyebrow": "Alexander Kishchanka",
+      "title": "Arte de escala cósmica",
+      "lead": "Pintura, mosaicos monumentales y tapices: el mundo de imágenes de Alexander Mikhailovich Kishchanka, donde se unen el cosmos, el ser humano y el tiempo.",
+      "worksCta": "Ver obras",
+      "filmCta": "Película sobre el artista"
+    },
+    "about": {
+      "label": "Sobre el artista",
+      "body": "Artista del Pueblo de la República de Belarús, pintor y monumentalista. Autor del tapiz más grande del mundo, el «Tapiz del Siglo», y del tapiz «Chernóbil», que se conserva en la sede de la ONU en Nueva York.",
+      "cta": "Más sobre el artista"
+    },
+    "story": {
+      "label": "Historia principal",
+      "readArticle": "Leer artículo",
+      "readStory": "Leer la historia"
+    },
+    "links": {
+      "catalog": "Pintura, tapices y gráfica",
+      "news": "Exposiciones, eventos y publicaciones",
+      "films": "Documentales y archivo de vídeo",
+      "archive": "Artículos y materiales sobre el maestro"
+    },
+    "featured": {
+      "label": "Obras destacadas",
+      "title": "El mundo de Kishchanka",
+      "cta": "Ver galería",
+      "moreInCatalog": "en el catálogo",
+      "fullCatalog": "Catálogo completo"
+    },
+    "start": {
+      "title": "Por dónde empezar",
+      "body": "¿Primera visita? Hemos preparado algunas rutas para conocer rápidamente la obra del artista.",
+      "aboutTitle": "Conocer al artista",
+      "aboutSubtitle": "Biografía e hitos clave",
+      "worksTitle": "Ver obras emblemáticas",
+      "worksSubtitle": "Pintura y tapices de la colección",
+      "filmsTitle": "Ver películas",
+      "filmsSubtitle": "Documentales sobre el artista"
+    },
+    "footer": {
+      "sections": "Secciones",
+      "social": "Síguenos",
+      "rights": "Todos los derechos reservados."
+    }
+  },
+  "pages": {
+    "news": {
+      "subtitle": "Publicaciones, exposiciones y eventos dedicados a la obra de Alexander Mikhailovich Kishchanka.",
+      "featuredLabel": "Noticia principal",
+      "stayTitle": "Mantente al día",
+      "stayBody": "Noticias sobre exposiciones, publicaciones y nuevos materiales del archivo de A. M. Kishchanka.",
+      "archiveSubtitle": "Materiales publicados anteriormente"
+    },
+    "catalog": {
+      "eyebrow": "Colección",
+      "subtitle": "Pinturas de Alexander Mikhailovich Kishchanka de distintos periodos de su obra.",
+      "period": "Periodo:",
+      "found": "Obras encontradas: ${count}"
+    },
+    "films": {
+      "subtitle": "Documentales, entrevistas y vídeos sobre la vida, la obra y el legado de Alexander Mikhailovich Kishchanka.",
+      "bandBody": "Películas, entrevistas y reportajes sobre el artista y su legado.",
+      "watch": "Ver",
+      "source": "Fuente: ${host}"
+    },
+    "archive": {
+      "subtitle": "Materiales, artículos, reseñas de exposiciones y otras publicaciones sobre la vida y la obra de Alexander Mikhailovich Kishchanka.",
+      "featuredLabel": "Material destacado del archivo",
+      "searchTitle": "Buscar en el archivo",
+      "searchBody": "Encuentra publicaciones por tema, año o fuente.",
+      "searchHint": "Buscar en el archivo de publicaciones",
+      "allYears": "Todos los años",
+      "noResults": "No se encontró nada. Prueba con otra búsqueda.",
+      "byYears": "Archivo por años"
+    },
+    "contacts": {
+      "subtitle": "Contacta con el estudio de Alexander Mikhailovich Kishchanka sobre su obra, colaboraciones, exposiciones y uso de materiales.",
+      "phoneTitle": "Teléfono / WhatsApp",
+      "instagramHint": "Noticias, archivo e imágenes del estudio",
+      "vkHint": "Comunidad y publicaciones",
+      "studioLabel": "Estudio"
+    }
   },
   "contacts": {
     "title": "Contactos",

@@ -204,16 +204,6 @@
       "openExternally": "Open externally"
     }
   },
-  "tour": {
-    "next": "Next",
-    "gotIt": "Got it",
-    "back": "Back",
-    "chernobylBody": "Kishchanka is also the author of the \"Chernobyl\" tapestry (1991), which was gifted to the United Nations and still adorns its New York headquarters. The UN Secretary-General compared it to Picasso's Guernica.",
-    "originsTitle": "At the origins of \"Universal Realism\"",
-    "originsBody": "Alexander Mikhailovich Kishchanka (1933–1997). Painter. Philosopher. Monumentalist. Born in the hamlet of Bely Kolodez (today the Boguchar District, Voronezh Region), he won worldwide renown as the author of the world's largest tapestry — the \"Tapestry of the Century\".",
-    "scaleTitle": "Scale of the Tapestry of the Century",
-    "scaleBody": "The \"Tapestry of the Century\" is a hand-woven canvas measuring 19 × 14 metres (as tall as a five-storey building) and weighing over a tonne. In 1999 it was entered into the Guinness Book of Records as the largest tapestry in the world."
-  },
   "language": {
     "label": "Language",
     "russian": "Russian",
@@ -373,6 +363,91 @@
     "quote": "Art is a divine phenomenon. Only it is given the power to stop time. Art can unravel the mystery of the future and also restore the lost past.",
     "quoteAuthor": "— Alexander Kishchanka",
     "wikipediaLinkLabel": "READ ON WIKIPEDIA"
+  },
+  "home": {
+    "hero": {
+      "eyebrow": "Alexander Kishchanka",
+      "title": "Art on a cosmic scale",
+      "lead": "Painting, monumental mosaics and tapestries — the world of Alexander Mikhailovich Kishchanka, where the cosmos, humanity and time meet.",
+      "worksCta": "View works",
+      "filmCta": "Film about the artist"
+    },
+    "about": {
+      "label": "About the artist",
+      "body": "People's Artist of the Republic of Belarus, painter and monumentalist. Creator of the world's largest tapestry, the “Tapestry of the Century”, and of the “Chernobyl” tapestry kept at the UN Headquarters in New York.",
+      "cta": "More about the artist"
+    },
+    "story": {
+      "label": "Main story",
+      "readArticle": "Read article",
+      "readStory": "Read the story"
+    },
+    "links": {
+      "catalog": "Paintings, tapestries and drawings",
+      "news": "Exhibitions, events and publications",
+      "films": "Documentaries and video archive",
+      "archive": "Articles and materials about the master"
+    },
+    "featured": {
+      "label": "Selected works",
+      "title": "The world of Kishchanka",
+      "cta": "View gallery",
+      "moreInCatalog": "in the catalogue",
+      "fullCatalog": "Full catalogue"
+    },
+    "start": {
+      "title": "Where to start",
+      "body": "New here? We have put together a few routes to help you quickly get to know the artist's work.",
+      "aboutTitle": "Meet the artist",
+      "aboutSubtitle": "Biography and key milestones",
+      "worksTitle": "See signature works",
+      "worksSubtitle": "Paintings and tapestries from the collection",
+      "filmsTitle": "Watch films",
+      "filmsSubtitle": "Documentaries about the artist"
+    },
+    "footer": {
+      "sections": "Sections",
+      "social": "Follow us",
+      "rights": "All rights reserved."
+    }
+  },
+  "pages": {
+    "news": {
+      "subtitle": "Publications, exhibitions and events dedicated to the work of Alexander Mikhailovich Kishchanka.",
+      "featuredLabel": "Top story",
+      "stayTitle": "Stay up to date",
+      "stayBody": "News about exhibitions, publications and new materials from the A. M. Kishchanka archive.",
+      "archiveSubtitle": "Previously published materials"
+    },
+    "catalog": {
+      "eyebrow": "Collection",
+      "subtitle": "Paintings by Alexander Mikhailovich Kishchanka from different periods of his work.",
+      "period": "Period:",
+      "found": "Works found: ${count}"
+    },
+    "films": {
+      "subtitle": "Documentaries, interviews and video materials about the life, work and legacy of Alexander Mikhailovich Kishchanka.",
+      "bandBody": "Films, interviews and TV reports about the artist and his creative legacy.",
+      "watch": "Watch",
+      "source": "Source: ${host}"
+    },
+    "archive": {
+      "subtitle": "Materials, articles, exhibition reviews and other publications about the life and work of Alexander Mikhailovich Kishchanka.",
+      "featuredLabel": "Featured archive item",
+      "searchTitle": "Search the archive",
+      "searchBody": "Find publications by topic, year or source.",
+      "searchHint": "Search archive publications",
+      "allYears": "All years",
+      "noResults": "Nothing found. Try a different query.",
+      "byYears": "Archive by year"
+    },
+    "contacts": {
+      "subtitle": "Contact the studio of Alexander Mikhailovich Kishchanka about his work, collaboration, exhibitions and use of materials.",
+      "phoneTitle": "Phone / WhatsApp",
+      "instagramHint": "News, archive and studio shots",
+      "vkHint": "Community and publications",
+      "studioLabel": "Studio"
+    }
   },
   "contacts": {
     "title": "Contacts",

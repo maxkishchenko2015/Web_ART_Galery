@@ -49,11 +49,7 @@ class NewsListCubit extends Cubit<NewsListState> {
       }
       emit(NewsListLoaded(articles: articles));
     } catch (error, stackTrace) {
-      AppLogger.instance.e(
-        'News list fetch failed',
-        error: error,
-        stackTrace: stackTrace,
-      );
+      AppLogger.instance.e('News list fetch failed', error: error, stackTrace: stackTrace);
       AppTelemetry.instance.logFirebaseError(error, stackTrace, reason: 'news_list_fetch');
       emit(NewsListError(error.toString()));
     }

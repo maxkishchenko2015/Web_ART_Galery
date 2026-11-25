@@ -4,15 +4,19 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:meta_seo/meta_seo.dart';
 import 'package:go_router/go_router.dart';
 import 'package:web_art_galery/i18n/strings.g.dart';
+import 'package:web_art_galery/src/features/contacts/presentation/screens/contacts_page_constants.dart';
 import 'package:web_art_galery/src/features/news/domain/entities/news_article.dart';
 import 'package:web_art_galery/src/features/news/presentation/cubits/news_list_cubit.dart';
 import 'package:web_art_galery/src/features/news/presentation/widgets/news_list_card.dart';
 import 'package:web_art_galery/src/navigation/presentation/router/app_routes.dart';
+import 'package:web_art_galery/src/navigation/presentation/widgets/page_chrome.dart';
 import 'package:web_art_galery/src/shared/config/app_context_extensions.dart';
 import 'package:web_art_galery/src/shared/config/ksize.dart';
 import 'package:web_art_galery/src/shared/presentation/cubits/app_locale_cubit.dart';
 import 'package:web_art_galery/src/shared/presentation/widgets/app_loader.dart';
 import 'package:web_art_galery/src/shared/presentation/widgets/cubit_initializer.dart';
+import 'package:web_art_galery/src/shared/presentation/widgets/gallery_ui.dart';
+import 'package:web_art_galery/src/shared/utils/url_launcher_utils.dart';
 
 class NewsPage extends StatelessWidget {
   const NewsPage({super.key});
@@ -29,77 +33,34 @@ class NewsPage extends StatelessWidget {
     // own `is Loaded` guard makes revisits a no-op).
     return CubitInitializer(
       onInit: (context) => context.read<NewsListCubit>().load(),
-      child: const _NewsPageView(),
-    );
-  }
-}
-
-class _NewsPageView extends StatelessWidget {
-  const _NewsPageView();
-
-  @override
-  Widget build(BuildContext context) {
-    final width = MediaQuery.sizeOf(context).width;
-    final isCompact = width < KSize.adaptiveExpandedBreakpoint;
-    final horizontalPadding = isCompact ? KSize.margin6x : KSize.margin12x * 2;
-
-    // The app shell does not wrap routed pages in a scroll view, so each
-    // page owns its own scrolling (see FilmsPage / AboutAuthorPage). Without
-    // this the long news list overflows the viewport on small screens.
-    return SingleChildScrollView(
-      // Top inset clears the mobile shell's floating app bar (0 on desktop).
-      padding: EdgeInsets.only(top: MediaQuery.paddingOf(context).top),
-      child: Container(
-        color: context.colors.white,
-        padding: EdgeInsets.symmetric(
-          horizontal: horizontalPadding,
-          vertical: isCompact ? KSize.margin10x : KSize.margin15x,
+      child: GalleryPageScaffold(
+        hero: (layout) => PageHero(
+          layout: layout,
+          eyebrow: context.t.navigation.news,
+          title: context.t.newsFeed.title,
+          subtitle: context.t.pages.news.subtitle,
         ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            const _NewsHeader(),
-            const SizedBox(height: KSize.margin10x),
-            const _NewsBody(),
-          ],
-        ),
+        sections: (context, layout) => [
+          Padding(
+            padding: EdgeInsets.fromLTRB(
+              layout.gutter,
+              layout.sectionGap,
+              layout.gutter,
+              layout.sectionGap + KSize.margin2x,
+            ),
+            child: _NewsBody(layout: layout),
+          ),
+          _StayInTouchBand(layout: layout),
+        ],
       ),
     );
   }
 }
 
-class _NewsHeader extends StatelessWidget {
-  const _NewsHeader();
-
-  @override
-  Widget build(BuildContext context) {
-    final feed = context.t.newsFeed;
-
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(feed.title, style: context.textContent.archiveSectionTitle),
-        const SizedBox(height: KSize.margin4x),
-        Wrap(
-          crossAxisAlignment: WrapCrossAlignment.center,
-          spacing: KSize.margin3x,
-          runSpacing: KSize.margin2x,
-          children: [
-            Container(
-              width: KSize.newsRuleWidth,
-              height: KSize.borderWidthSmallHalf,
-              color: Theme.of(context).dividerColor,
-            ),
-            Text(feed.subtitle.toUpperCase(), style: context.textContent.archiveMeta),
-          ],
-        ),
-      ],
-    );
-  }
-}
-
 class _NewsBody extends StatelessWidget {
-  const _NewsBody();
+  const _NewsBody({required this.layout});
+
+  final PageLayout layout;
 
   @override
   Widget build(BuildContext context) {
@@ -111,7 +72,10 @@ class _NewsBody extends StatelessWidget {
           // shell also hides the news tab in these states, so the page is
           // only reachable via direct deep link.
           NewsListLoaded(articles: final articles) when articles.isEmpty => const _EmptyView(),
-          NewsListLoaded(articles: final articles) => _ArticleList(articles: articles),
+          NewsListLoaded(articles: final articles) => _ArticleFeed(
+            layout: layout,
+            articles: articles,
+          ),
           NewsListError() => const _EmptyView(),
         };
       },
@@ -138,61 +102,76 @@ class _EmptyView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: KSize.margin15x),
-      child: Center(
-        child: Icon(
-          Icons.article_outlined,
-          size: KSize.iconHeroPlaceholder,
-          color: context.colors.onDarkPlaceholderIcon,
-        ),
+      child: Column(
+        children: [
+          Icon(
+            Icons.article_outlined,
+            size: KSize.iconHeroPlaceholder,
+            color: context.colors.contentMuted.withValues(alpha: 0.5),
+          ),
+          const SizedBox(height: KSize.margin4x),
+          Text(
+            context.t.newsFeed.emptyState,
+            style: context.textContent.homeBody,
+            textAlign: TextAlign.center,
+          ),
+        ],
       ),
     );
   }
 }
 
-class _ArticleList extends StatelessWidget {
-  const _ArticleList({required this.articles});
+/// Newest article as the featured card, the rest in an equal-height grid.
+class _ArticleFeed extends StatelessWidget {
+  const _ArticleFeed({required this.layout, required this.articles});
 
+  final PageLayout layout;
   final List<NewsArticle> articles;
 
   @override
   Widget build(BuildContext context) {
     final locale = context.watch<AppLocaleCubit>().state.locale;
-    final width = MediaQuery.sizeOf(context).width;
-    final useTwoColumnLayout = width >= KSize.adaptiveTwoColumnBreakpoint;
+    final featured = articles.first;
+    final rest = articles.skip(1).toList();
+    final columns = layout.isWide ? 3 : 2;
+    final gap = layout.isPhone ? KSize.margin3x : KSize.margin5x;
 
-    if (!useTwoColumnLayout) {
-      return Column(
-        children: [
-          for (int i = 0; i < articles.length; i++) ...[
-            NewsListCard(
-              article: articles[i],
-              locale: locale,
-              onTap: () => _openDetail(context, articles[i]),
-            ),
-            if (!_isLastArticle(i)) const SizedBox(height: KSize.margin6x),
-          ],
-        ],
-      );
-    }
-
-    return Wrap(
-      spacing: KSize.margin8x,
-      runSpacing: KSize.margin8x,
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        for (final article in articles)
-          SizedBox(
-            width: (width - KSize.margin12x * 4 - KSize.margin8x) / 2,
-            child: NewsListCard(
-              article: article,
-              locale: locale,
-              onTap: () => _openDetail(context, article),
+        NewsFeaturedCard(
+          layout: layout,
+          article: featured,
+          locale: locale,
+          onTap: () => _openDetail(context, featured),
+        ),
+        for (var start = 0; start < rest.length; start += columns) ...[
+          SizedBox(height: gap),
+          IntrinsicHeight(
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                for (var i = start; i < start + columns; i++) ...[
+                  if (i > start) SizedBox(width: gap),
+                  Expanded(
+                    child: i < rest.length
+                        ? NewsGridCard(
+                            article: rest[i],
+                            locale: locale,
+                            // Desktop rows put the cover beside the copy.
+                            horizontal: layout.isWide,
+                            onTap: () => _openDetail(context, rest[i]),
+                          )
+                        : const SizedBox.shrink(),
+                  ),
+                ],
+              ],
             ),
           ),
+        ],
       ],
     );
   }
-
-  bool _isLastArticle(int index) => index == articles.length - 1;
 
   void _openDetail(BuildContext context, NewsArticle article) {
     // Prefer the editorial slug for the URL so the address bar shows a
@@ -201,11 +180,46 @@ class _ArticleList extends StatelessWidget {
     // resolves via its id-fallback branch.
     final segment = article.hasName ? article.name : article.id;
     // Use `go`, not `push`: go_router only reflects the location in the
-    // browser address bar for declarative navigation (imperative `push`
-    // leaves the URL at `/news` unless optionURLReflectsImperativeAPIs is
-    // set). Because `:articleSlug` is nested under `/news`, `go` still
-    // builds the [NewsPage, NewsDetailPage] stack, so the in-app back
-    // button (context.canPop) and browser back both return to the list.
+    // browser address bar for declarative navigation. Because
+    // `:articleSlug` is nested under `/news`, `go` still builds the
+    // [NewsPage, NewsDetailPage] stack, so back navigation returns here.
     context.go('${AppRoutes.news}/$segment');
+  }
+}
+
+/// "Будьте в курсе": follow the studio's socials, or open the archive.
+class _StayInTouchBand extends StatelessWidget {
+  const _StayInTouchBand({required this.layout});
+
+  final PageLayout layout;
+
+  @override
+  Widget build(BuildContext context) {
+    final t = context.t;
+
+    return GalleryBand(
+      layout: layout,
+      title: t.pages.news.stayTitle,
+      body: t.pages.news.stayBody,
+      cardFlex: 8,
+      card: GalleryBandRoutes(
+        layout: layout,
+        routes: [
+          GalleryBandRoute(
+            icon: Icons.photo_camera_outlined,
+            title: t.contacts.instagramSectionLabel,
+            subtitle: t.contacts.instagramHandle,
+            onTap: () =>
+                UrlLauncherUtils.launchUrlIfPossible(url: ContactsPageConstants.instagramUrl),
+          ),
+          GalleryBandRoute(
+            icon: Icons.inventory_2_outlined,
+            title: t.archiveFeed.title,
+            subtitle: t.pages.news.archiveSubtitle,
+            onTap: () => context.go(AppRoutes.archive),
+          ),
+        ],
+      ),
+    );
   }
 }

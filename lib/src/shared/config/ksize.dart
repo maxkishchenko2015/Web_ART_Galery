@@ -226,7 +226,7 @@ class KSize {
   // ── App shell layout ────────────────────────────────────────────────────
 
   /// Outer height of the mobile app bar.
-  static const double mobileAppBarHeight = 64;
+  static const double mobileAppBarHeight = 72;
 
   /// Blur strength of the frosted mobile app bar that content scrolls under.
   static const double mobileAppBarBlurSigma = 16;
@@ -400,25 +400,129 @@ class KSize {
   // Scaffolds
   static const double bottomBarPadding = 120.0;
 
-  // ── Onboarding tour (about-author guided tooltips) ──────────────────────
+  // ── Home page (about-author landing) ────────────────────────────────────
 
-  /// Maximum width of a tour tooltip bubble.
-  static const double tourTooltipMaxWidth = 360;
+  /// Content width from which the home page switches to its desktop layout
+  /// (side-by-side hero, card rows, tile strip).
+  static const double homeWideBreakpoint = 960;
 
-  /// Fraction of the viewport height a tour tooltip may occupy before its
-  /// body starts scrolling internally. Kept below half the screen so the
-  /// highlighted widget stays visible even on small phones.
-  static const double tourTooltipMaxHeightFactor = 0.4;
+  /// Side padding of home sections on phones / tablets / desktops.
+  static const double homeGutterCompact = 16;
+  static const double homeGutterMedium = 32;
+  static const double homeGutterWide = 56;
 
-  /// Tooltip pointer triangle: base width and tip length.
-  static const double tourArrowWidth = 18;
-  static const double tourArrowLength = 10;
+  /// Vertical rhythm between home sections.
+  static const double homeSectionGapCompact = 28;
+  static const double homeSectionGapWide = 44;
 
-  /// Gaussian blur sigma applied to the page behind the onboarding overlay.
-  static const double tourBackdropBlur = 10;
+  /// Hero headline size range; the actual size scales with viewport width.
+  static const double homeHeroHeadlineMin = 30;
+  static const double homeHeroHeadlineMax = 68;
 
-  /// Pause after the first frame before the first-visit tour autoscrolls.
-  static const Duration durationTourStartDelay = Duration(milliseconds: 100);
+  /// Hero headline size as a fraction of the viewport width (compact hero).
+  static const double homeHeroHeadlineCompactFactor = 0.09;
+
+  /// Hero headline size as a fraction of the viewport width (wide hero).
+  static const double homeHeroHeadlineWideFactor = 0.045;
+
+  /// Minimum hero height on phones, so the portrait has room under the text.
+  static const double homeHeroMinHeightCompact = 540;
+
+  /// Hero height range on wide viewports (scales with the viewport height).
+  static const double homeHeroMinHeightWide = 460;
+  static const double homeHeroMaxHeightWide = 600;
+
+  /// Share of the hero width the text column may take on phones — the rest
+  /// belongs to the portrait sliding in from the right.
+  static const double homeHeroTextWidthFactorCompact = 0.68;
+
+  /// Share of the hero width the portrait takes on phones.
+  static const double homeHeroPortraitWidthFactorCompact = 0.56;
+
+  /// Portrait frame aspect ratio, width:height.
+  static const double homeHeroPortraitAspectRatio = 0.78;
+
+  /// Opacity of the framed author portrait in the desktop hero.
+  static const double homeHeroPortraitOpacity = 0.8;
+
+  /// Opacity of the tapestry texture faded into the hero background.
+  static const double homeHeroTextureOpacity = 0.16;
+
+  /// Width of the short rule next to section eyebrows.
+  static const double homeEyebrowRuleWidth = 40;
+
+  /// Intro cards (about + main story): image aspect ratios.
+  static const double homeAboutImageAspectRatio = 4 / 5;
+  static const double homeStoryImageAspectRatio = 4 / 3;
+  static const double homeCardImageAspectRatioCompact = 1;
+
+  /// Card width below which intro cards stack the image above the text.
+  static const double homeCardStackBreakpoint = 280;
+
+  /// Featured works strip.
+  static const double homeFeaturedTileHeightWide = 200;
+  static const double homeFeaturedTileMinWidth = 190;
+  static const double homeFeaturedIntroWidth = 260;
+  static const double homeFeaturedMoreTileWidth = 140;
+  static const double homeFeaturedCardWidthFactorCompact = 0.76;
+  static const double homeFeaturedCardAspectRatioCompact = 4 / 3;
+  static const int homeFeaturedMaxTiles = 5;
+
+  /// Quick-link and start-route icon sizes.
+  static const double homeQuickLinkIcon = 36;
+  static const double homeQuickLinkIconCompact = 30;
+  static const double homeStartIcon = 34;
+
+  /// Shared rounded corner of home cards / photos.
+  static const double homeCardRadius = 14;
+
+  /// Gap between the rich footer's columns.
+  static const double homeFooterColumnGap = 48;
+
+  /// Widest the logo + brand title block may get (header, drawer, footer).
+  static const double homeBrandMaxWidth = 340;
+
+  // ── Inner pages (news, catalog, films, archive, contacts) ───────────────
+
+  /// Page banner title size as a fraction of the width (phone / desktop).
+  static const double pageHeroTitlePhoneFactor = 0.088;
+  static const double pageHeroTitleWideFactor = 0.04;
+  static const double pageHeroTitleMax = 58;
+
+  /// Share of the banner width the copy may take (phone / desktop content).
+  static const double pageHeroTextWidthFactorPhone = 0.74;
+  static const double pageHeroTextWidthFactorWide = 0.5;
+
+  /// Share of the banner width the decorative art takes (phone / desktop).
+  static const double pageHeroArtFactorPhone = 0.52;
+  static const double pageHeroArtFactorWide = 0.5;
+
+  /// News cards.
+  static const double newsFeaturedImageAspectRatio = 16 / 9;
+  static const double newsCardImageAspectRatio = 4 / 3;
+
+  /// Catalog cards: image ratio on desktop / phones and the caption height
+  /// reserved under it (title + meta row + paddings).
+  static const double catalogImageAspectRatioWide = 4 / 3;
+  static const double catalogImageAspectRatioPhone = 1.12;
+  static const double catalogCaptionHeightWide = 96;
+  static const double catalogCaptionHeightPhone = 118;
+
+  /// Width from which the catalog grid shows four columns.
+  static const double catalogFourColumnBreakpoint = 1200;
+
+  /// Film list row thumbnail share of the row width.
+  static const double filmRowThumbFactor = 0.4;
+
+  /// Archive gradient thumbnails.
+  static const double archiveThumbAspectRatio = 1.6;
+  static const double archiveThumbYearFontSize = 34;
+  static const double archiveFeaturedYearFontSize = 64;
+
+  /// Contacts: QR code side and map height (phone / desktop).
+  static const double contactsQrSize = 112;
+  static const double contactsMapHeightPhone = 260;
+  static const double contactsMapHeightWide = 340;
 
   /// Count-up animation for the legacy stat numbers (500+, 6+).
   static const Duration durationStatCountUp = Duration(milliseconds: 1100);

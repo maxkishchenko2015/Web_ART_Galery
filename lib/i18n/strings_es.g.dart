@@ -11,7 +11,7 @@ import 'package:slang/generated.dart';
 import 'strings.g.dart';
 
 // Path: <root>
-class TranslationsEs with BaseTranslations<AppLocale, Translations> implements Translations {
+class TranslationsEs extends Translations with BaseTranslations<AppLocale, Translations> {
 	/// You can call this constructor and build your own translation instance of this locale.
 	/// Constructing via the enum [AppLocale.build] is preferred.
 	TranslationsEs({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver, TranslationMetadata<AppLocale, Translations>? meta})
@@ -21,7 +21,8 @@ class TranslationsEs with BaseTranslations<AppLocale, Translations> implements T
 		    overrides: overrides ?? {},
 		    cardinalResolver: cardinalResolver,
 		    ordinalResolver: ordinalResolver,
-		  ) {
+		  ),
+		  super(cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver) {
 		_meta.setFlatMapFunction(_flatMapFunction);
 	}
 
@@ -30,7 +31,7 @@ class TranslationsEs with BaseTranslations<AppLocale, Translations> implements T
 	@override TranslationMetadata<AppLocale, Translations> get $meta => _meta;
 
 	/// Access flat map
-	@override dynamic operator[](String key) => _meta.getTranslation(key);
+	@override dynamic operator[](String key) => _meta.getTranslation(key) ?? super[key];
 
 	late final TranslationsEs _root = this; // ignore: unused_field
 
@@ -42,19 +43,20 @@ class TranslationsEs with BaseTranslations<AppLocale, Translations> implements T
 	@override late final _Translations$navigation$es navigation = _Translations$navigation$es._(_root);
 	@override late final _Translations$catalog$es catalog = _Translations$catalog$es._(_root);
 	@override late final _Translations$common$es common = _Translations$common$es._(_root);
-	@override late final _Translations$tour$es tour = _Translations$tour$es._(_root);
 	@override late final _Translations$language$es language = _Translations$language$es._(_root);
 	@override late final _Translations$archiveFeed$es archiveFeed = _Translations$archiveFeed$es._(_root);
 	@override late final _Translations$films$es films = _Translations$films$es._(_root);
 	@override late final _Translations$newsFeed$es newsFeed = _Translations$newsFeed$es._(_root);
 	@override late final _Translations$bio$es bio = _Translations$bio$es._(_root);
+	@override late final _Translations$home$es home = _Translations$home$es._(_root);
+	@override late final _Translations$pages$es pages = _Translations$pages$es._(_root);
 	@override late final _Translations$contacts$es contacts = _Translations$contacts$es._(_root);
 	@override late final _Translations$seo$es seo = _Translations$seo$es._(_root);
 }
 
 // Path: app
-class _Translations$app$es implements Translations$app$en {
-	_Translations$app$es._(this._root);
+class _Translations$app$es extends Translations$app$ru {
+	_Translations$app$es._(TranslationsEs root) : this._root = root, super.internal(root);
 
 	final TranslationsEs _root; // ignore: unused_field
 
@@ -65,8 +67,8 @@ class _Translations$app$es implements Translations$app$en {
 }
 
 // Path: navigation
-class _Translations$navigation$es implements Translations$navigation$en {
-	_Translations$navigation$es._(this._root);
+class _Translations$navigation$es extends Translations$navigation$ru {
+	_Translations$navigation$es._(TranslationsEs root) : this._root = root, super.internal(root);
 
 	final TranslationsEs _root; // ignore: unused_field
 
@@ -80,8 +82,8 @@ class _Translations$navigation$es implements Translations$navigation$en {
 }
 
 // Path: catalog
-class _Translations$catalog$es implements Translations$catalog$en {
-	_Translations$catalog$es._(this._root);
+class _Translations$catalog$es extends Translations$catalog$ru {
+	_Translations$catalog$es._(TranslationsEs root) : this._root = root, super.internal(root);
 
 	final TranslationsEs _root; // ignore: unused_field
 
@@ -95,8 +97,8 @@ class _Translations$catalog$es implements Translations$catalog$en {
 }
 
 // Path: common
-class _Translations$common$es implements Translations$common$en {
-	_Translations$common$es._(this._root);
+class _Translations$common$es extends Translations$common$ru {
+	_Translations$common$es._(TranslationsEs root) : this._root = root, super.internal(root);
 
 	final TranslationsEs _root; // ignore: unused_field
 
@@ -109,26 +111,9 @@ class _Translations$common$es implements Translations$common$en {
 	@override late final _Translations$common$video$es video = _Translations$common$video$es._(_root);
 }
 
-// Path: tour
-class _Translations$tour$es implements Translations$tour$en {
-	_Translations$tour$es._(this._root);
-
-	final TranslationsEs _root; // ignore: unused_field
-
-	// Translations
-	@override String get next => 'Siguiente';
-	@override String get gotIt => 'Entendido';
-	@override String get back => 'Atrás';
-	@override String get chernobylBody => 'Kishchanka es también el autor del tapiz «Chernóbil» (1991), donado a las Naciones Unidas, que sigue adornando su sede de Nueva York. El Secretario General de la ONU lo comparó con el «Guernica» de Picasso.';
-	@override String get originsTitle => 'En los orígenes del «realismo universal»';
-	@override String get originsBody => 'Alexánder Mijáilovich Kishchanka (1933–1997). Pintor. Filósofo. Monumentalista. Nació en la aldea de Bely Kolodez (hoy distrito de Boguchar, óblast de Vorónezh) y alcanzó renombre mundial como autor del mayor tapiz del mundo, el «Tapiz del Siglo».';
-	@override String get scaleTitle => 'Escala del Tapiz del Siglo';
-	@override String get scaleBody => 'El «Tapiz del Siglo» es un lienzo tejido a mano de 19 × 14 metros (la altura de un edificio de cinco pisos) y de más de una tonelada de peso. En 1999 fue inscrito en el Libro Guinness de los Récords como el mayor tapiz del mundo.';
-}
-
 // Path: language
-class _Translations$language$es implements Translations$language$en {
-	_Translations$language$es._(this._root);
+class _Translations$language$es extends Translations$language$ru {
+	_Translations$language$es._(TranslationsEs root) : this._root = root, super.internal(root);
 
 	final TranslationsEs _root; // ignore: unused_field
 
@@ -143,8 +128,8 @@ class _Translations$language$es implements Translations$language$en {
 }
 
 // Path: archiveFeed
-class _Translations$archiveFeed$es implements Translations$archiveFeed$en {
-	_Translations$archiveFeed$es._(this._root);
+class _Translations$archiveFeed$es extends Translations$archiveFeed$ru {
+	_Translations$archiveFeed$es._(TranslationsEs root) : this._root = root, super.internal(root);
 
 	final TranslationsEs _root; // ignore: unused_field
 
@@ -159,8 +144,8 @@ class _Translations$archiveFeed$es implements Translations$archiveFeed$en {
 }
 
 // Path: films
-class _Translations$films$es implements Translations$films$en {
-	_Translations$films$es._(this._root);
+class _Translations$films$es extends Translations$films$ru {
+	_Translations$films$es._(TranslationsEs root) : this._root = root, super.internal(root);
 
 	final TranslationsEs _root; // ignore: unused_field
 
@@ -176,8 +161,8 @@ class _Translations$films$es implements Translations$films$en {
 }
 
 // Path: newsFeed
-class _Translations$newsFeed$es implements Translations$newsFeed$en {
-	_Translations$newsFeed$es._(this._root);
+class _Translations$newsFeed$es extends Translations$newsFeed$ru {
+	_Translations$newsFeed$es._(TranslationsEs root) : this._root = root, super.internal(root);
 
 	final TranslationsEs _root; // ignore: unused_field
 
@@ -196,8 +181,8 @@ class _Translations$newsFeed$es implements Translations$newsFeed$en {
 }
 
 // Path: bio
-class _Translations$bio$es implements Translations$bio$en {
-	_Translations$bio$es._(this._root);
+class _Translations$bio$es extends Translations$bio$ru {
+	_Translations$bio$es._(TranslationsEs root) : this._root = root, super.internal(root);
 
 	final TranslationsEs _root; // ignore: unused_field
 
@@ -219,9 +204,39 @@ class _Translations$bio$es implements Translations$bio$en {
 	@override String get wikipediaLinkLabel => 'LEER EN WIKIPEDIA';
 }
 
+// Path: home
+class _Translations$home$es extends Translations$home$ru {
+	_Translations$home$es._(TranslationsEs root) : this._root = root, super.internal(root);
+
+	final TranslationsEs _root; // ignore: unused_field
+
+	// Translations
+	@override late final _Translations$home$hero$es hero = _Translations$home$hero$es._(_root);
+	@override late final _Translations$home$about$es about = _Translations$home$about$es._(_root);
+	@override late final _Translations$home$story$es story = _Translations$home$story$es._(_root);
+	@override late final _Translations$home$links$es links = _Translations$home$links$es._(_root);
+	@override late final _Translations$home$featured$es featured = _Translations$home$featured$es._(_root);
+	@override late final _Translations$home$start$es start = _Translations$home$start$es._(_root);
+	@override late final _Translations$home$footer$es footer = _Translations$home$footer$es._(_root);
+}
+
+// Path: pages
+class _Translations$pages$es extends Translations$pages$ru {
+	_Translations$pages$es._(TranslationsEs root) : this._root = root, super.internal(root);
+
+	final TranslationsEs _root; // ignore: unused_field
+
+	// Translations
+	@override late final _Translations$pages$news$es news = _Translations$pages$news$es._(_root);
+	@override late final _Translations$pages$catalog$es catalog = _Translations$pages$catalog$es._(_root);
+	@override late final _Translations$pages$films$es films = _Translations$pages$films$es._(_root);
+	@override late final _Translations$pages$archive$es archive = _Translations$pages$archive$es._(_root);
+	@override late final _Translations$pages$contacts$es contacts = _Translations$pages$contacts$es._(_root);
+}
+
 // Path: contacts
-class _Translations$contacts$es implements Translations$contacts$en {
-	_Translations$contacts$es._(this._root);
+class _Translations$contacts$es extends Translations$contacts$ru {
+	_Translations$contacts$es._(TranslationsEs root) : this._root = root, super.internal(root);
 
 	final TranslationsEs _root; // ignore: unused_field
 
@@ -242,8 +257,8 @@ class _Translations$contacts$es implements Translations$contacts$en {
 }
 
 // Path: seo
-class _Translations$seo$es implements Translations$seo$en {
-	_Translations$seo$es._(this._root);
+class _Translations$seo$es extends Translations$seo$ru {
+	_Translations$seo$es._(TranslationsEs root) : this._root = root, super.internal(root);
 
 	final TranslationsEs _root; // ignore: unused_field
 
@@ -257,8 +272,8 @@ class _Translations$seo$es implements Translations$seo$en {
 }
 
 // Path: catalog.decade
-class _Translations$catalog$decade$es implements Translations$catalog$decade$en {
-	_Translations$catalog$decade$es._(this._root);
+class _Translations$catalog$decade$es extends Translations$catalog$decade$ru {
+	_Translations$catalog$decade$es._(TranslationsEs root) : this._root = root, super.internal(root);
 
 	final TranslationsEs _root; // ignore: unused_field
 
@@ -271,8 +286,8 @@ class _Translations$catalog$decade$es implements Translations$catalog$decade$en 
 }
 
 // Path: catalog.paintingNames
-class _Translations$catalog$paintingNames$es implements Translations$catalog$paintingNames$en {
-	_Translations$catalog$paintingNames$es._(this._root);
+class _Translations$catalog$paintingNames$es extends Translations$catalog$paintingNames$ru {
+	_Translations$catalog$paintingNames$es._(TranslationsEs root) : this._root = root, super.internal(root);
 
 	final TranslationsEs _root; // ignore: unused_field
 
@@ -441,8 +456,8 @@ class _Translations$catalog$paintingNames$es implements Translations$catalog$pai
 }
 
 // Path: catalog.paintingMediums
-class _Translations$catalog$paintingMediums$es implements Translations$catalog$paintingMediums$en {
-	_Translations$catalog$paintingMediums$es._(this._root);
+class _Translations$catalog$paintingMediums$es extends Translations$catalog$paintingMediums$ru {
+	_Translations$catalog$paintingMediums$es._(TranslationsEs root) : this._root = root, super.internal(root);
 
 	final TranslationsEs _root; // ignore: unused_field
 
@@ -454,8 +469,8 @@ class _Translations$catalog$paintingMediums$es implements Translations$catalog$p
 }
 
 // Path: common.video
-class _Translations$common$video$es implements Translations$common$video$en {
-	_Translations$common$video$es._(this._root);
+class _Translations$common$video$es extends Translations$common$video$ru {
+	_Translations$common$video$es._(TranslationsEs root) : this._root = root, super.internal(root);
 
 	final TranslationsEs _root; // ignore: unused_field
 
@@ -465,8 +480,8 @@ class _Translations$common$video$es implements Translations$common$video$en {
 }
 
 // Path: archiveFeed.items
-class _Translations$archiveFeed$items$es implements Translations$archiveFeed$items$en {
-	_Translations$archiveFeed$items$es._(this._root);
+class _Translations$archiveFeed$items$es extends Translations$archiveFeed$items$ru {
+	_Translations$archiveFeed$items$es._(TranslationsEs root) : this._root = root, super.internal(root);
 
 	final TranslationsEs _root; // ignore: unused_field
 
@@ -480,8 +495,8 @@ class _Translations$archiveFeed$items$es implements Translations$archiveFeed$ite
 }
 
 // Path: films.watchOn
-class _Translations$films$watchOn$es implements Translations$films$watchOn$en {
-	_Translations$films$watchOn$es._(this._root);
+class _Translations$films$watchOn$es extends Translations$films$watchOn$ru {
+	_Translations$films$watchOn$es._(TranslationsEs root) : this._root = root, super.internal(root);
 
 	final TranslationsEs _root; // ignore: unused_field
 
@@ -492,8 +507,8 @@ class _Translations$films$watchOn$es implements Translations$films$watchOn$en {
 }
 
 // Path: films.items
-class _Translations$films$items$es implements Translations$films$items$en {
-	_Translations$films$items$es._(this._root);
+class _Translations$films$items$es extends Translations$films$items$ru {
+	_Translations$films$items$es._(TranslationsEs root) : this._root = root, super.internal(root);
 
 	final TranslationsEs _root; // ignore: unused_field
 
@@ -510,8 +525,8 @@ class _Translations$films$items$es implements Translations$films$items$en {
 }
 
 // Path: bio.feature
-class _Translations$bio$feature$es implements Translations$bio$feature$en {
-	_Translations$bio$feature$es._(this._root);
+class _Translations$bio$feature$es extends Translations$bio$feature$ru {
+	_Translations$bio$feature$es._(TranslationsEs root) : this._root = root, super.internal(root);
 
 	final TranslationsEs _root; // ignore: unused_field
 
@@ -530,8 +545,8 @@ class _Translations$bio$feature$es implements Translations$bio$feature$en {
 }
 
 // Path: bio.universalRealism
-class _Translations$bio$universalRealism$es implements Translations$bio$universalRealism$en {
-	_Translations$bio$universalRealism$es._(this._root);
+class _Translations$bio$universalRealism$es extends Translations$bio$universalRealism$ru {
+	_Translations$bio$universalRealism$es._(TranslationsEs root) : this._root = root, super.internal(root);
 
 	final TranslationsEs _root; // ignore: unused_field
 
@@ -541,8 +556,8 @@ class _Translations$bio$universalRealism$es implements Translations$bio$universa
 }
 
 // Path: bio.tapestry
-class _Translations$bio$tapestry$es implements Translations$bio$tapestry$en {
-	_Translations$bio$tapestry$es._(this._root);
+class _Translations$bio$tapestry$es extends Translations$bio$tapestry$ru {
+	_Translations$bio$tapestry$es._(TranslationsEs root) : this._root = root, super.internal(root);
 
 	final TranslationsEs _root; // ignore: unused_field
 
@@ -558,8 +573,8 @@ class _Translations$bio$tapestry$es implements Translations$bio$tapestry$en {
 }
 
 // Path: bio.chernobyl
-class _Translations$bio$chernobyl$es implements Translations$bio$chernobyl$en {
-	_Translations$bio$chernobyl$es._(this._root);
+class _Translations$bio$chernobyl$es extends Translations$bio$chernobyl$ru {
+	_Translations$bio$chernobyl$es._(TranslationsEs root) : this._root = root, super.internal(root);
 
 	final TranslationsEs _root; // ignore: unused_field
 
@@ -569,8 +584,8 @@ class _Translations$bio$chernobyl$es implements Translations$bio$chernobyl$en {
 }
 
 // Path: bio.mosaic
-class _Translations$bio$mosaic$es implements Translations$bio$mosaic$en {
-	_Translations$bio$mosaic$es._(this._root);
+class _Translations$bio$mosaic$es extends Translations$bio$mosaic$ru {
+	_Translations$bio$mosaic$es._(TranslationsEs root) : this._root = root, super.internal(root);
 
 	final TranslationsEs _root; // ignore: unused_field
 
@@ -583,8 +598,8 @@ class _Translations$bio$mosaic$es implements Translations$bio$mosaic$en {
 }
 
 // Path: bio.legacy
-class _Translations$bio$legacy$es implements Translations$bio$legacy$en {
-	_Translations$bio$legacy$es._(this._root);
+class _Translations$bio$legacy$es extends Translations$bio$legacy$ru {
+	_Translations$bio$legacy$es._(TranslationsEs root) : this._root = root, super.internal(root);
 
 	final TranslationsEs _root; // ignore: unused_field
 
@@ -593,9 +608,174 @@ class _Translations$bio$legacy$es implements Translations$bio$legacy$en {
 	@override String get body => 'Alexander Kishchanka dejó tras de sí no sólo lienzos conservados en la Galería Tretiakov y colecciones privadas de líderes mundiales (B. Clinton, F. Mitterrand), sino toda una escuela del tapiz monumental bielorruso. El Combinado de Artes Decorativas y Aplicadas de Borisov, donde se crearon sus grandes tapices, lleva hoy su nombre.';
 }
 
+// Path: home.hero
+class _Translations$home$hero$es extends Translations$home$hero$ru {
+	_Translations$home$hero$es._(TranslationsEs root) : this._root = root, super.internal(root);
+
+	final TranslationsEs _root; // ignore: unused_field
+
+	// Translations
+	@override String get eyebrow => 'Alexander Kishchanka';
+	@override String get title => 'Arte de escala cósmica';
+	@override String get lead => 'Pintura, mosaicos monumentales y tapices: el mundo de imágenes de Alexander Mikhailovich Kishchanka, donde se unen el cosmos, el ser humano y el tiempo.';
+	@override String get worksCta => 'Ver obras';
+	@override String get filmCta => 'Película sobre el artista';
+}
+
+// Path: home.about
+class _Translations$home$about$es extends Translations$home$about$ru {
+	_Translations$home$about$es._(TranslationsEs root) : this._root = root, super.internal(root);
+
+	final TranslationsEs _root; // ignore: unused_field
+
+	// Translations
+	@override String get label => 'Sobre el artista';
+	@override String get body => 'Artista del Pueblo de la República de Belarús, pintor y monumentalista. Autor del tapiz más grande del mundo, el «Tapiz del Siglo», y del tapiz «Chernóbil», que se conserva en la sede de la ONU en Nueva York.';
+	@override String get cta => 'Más sobre el artista';
+}
+
+// Path: home.story
+class _Translations$home$story$es extends Translations$home$story$ru {
+	_Translations$home$story$es._(TranslationsEs root) : this._root = root, super.internal(root);
+
+	final TranslationsEs _root; // ignore: unused_field
+
+	// Translations
+	@override String get label => 'Historia principal';
+	@override String get readArticle => 'Leer artículo';
+	@override String get readStory => 'Leer la historia';
+}
+
+// Path: home.links
+class _Translations$home$links$es extends Translations$home$links$ru {
+	_Translations$home$links$es._(TranslationsEs root) : this._root = root, super.internal(root);
+
+	final TranslationsEs _root; // ignore: unused_field
+
+	// Translations
+	@override String get catalog => 'Pintura, tapices y gráfica';
+	@override String get news => 'Exposiciones, eventos y publicaciones';
+	@override String get films => 'Documentales y archivo de vídeo';
+	@override String get archive => 'Artículos y materiales sobre el maestro';
+}
+
+// Path: home.featured
+class _Translations$home$featured$es extends Translations$home$featured$ru {
+	_Translations$home$featured$es._(TranslationsEs root) : this._root = root, super.internal(root);
+
+	final TranslationsEs _root; // ignore: unused_field
+
+	// Translations
+	@override String get label => 'Obras destacadas';
+	@override String get title => 'El mundo de Kishchanka';
+	@override String get cta => 'Ver galería';
+	@override String get moreInCatalog => 'en el catálogo';
+	@override String get fullCatalog => 'Catálogo completo';
+}
+
+// Path: home.start
+class _Translations$home$start$es extends Translations$home$start$ru {
+	_Translations$home$start$es._(TranslationsEs root) : this._root = root, super.internal(root);
+
+	final TranslationsEs _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Por dónde empezar';
+	@override String get body => '¿Primera visita? Hemos preparado algunas rutas para conocer rápidamente la obra del artista.';
+	@override String get aboutTitle => 'Conocer al artista';
+	@override String get aboutSubtitle => 'Biografía e hitos clave';
+	@override String get worksTitle => 'Ver obras emblemáticas';
+	@override String get worksSubtitle => 'Pintura y tapices de la colección';
+	@override String get filmsTitle => 'Ver películas';
+	@override String get filmsSubtitle => 'Documentales sobre el artista';
+}
+
+// Path: home.footer
+class _Translations$home$footer$es extends Translations$home$footer$ru {
+	_Translations$home$footer$es._(TranslationsEs root) : this._root = root, super.internal(root);
+
+	final TranslationsEs _root; // ignore: unused_field
+
+	// Translations
+	@override String get sections => 'Secciones';
+	@override String get social => 'Síguenos';
+	@override String get rights => 'Todos los derechos reservados.';
+}
+
+// Path: pages.news
+class _Translations$pages$news$es extends Translations$pages$news$ru {
+	_Translations$pages$news$es._(TranslationsEs root) : this._root = root, super.internal(root);
+
+	final TranslationsEs _root; // ignore: unused_field
+
+	// Translations
+	@override String get subtitle => 'Publicaciones, exposiciones y eventos dedicados a la obra de Alexander Mikhailovich Kishchanka.';
+	@override String get featuredLabel => 'Noticia principal';
+	@override String get stayTitle => 'Mantente al día';
+	@override String get stayBody => 'Noticias sobre exposiciones, publicaciones y nuevos materiales del archivo de A. M. Kishchanka.';
+	@override String get archiveSubtitle => 'Materiales publicados anteriormente';
+}
+
+// Path: pages.catalog
+class _Translations$pages$catalog$es extends Translations$pages$catalog$ru {
+	_Translations$pages$catalog$es._(TranslationsEs root) : this._root = root, super.internal(root);
+
+	final TranslationsEs _root; // ignore: unused_field
+
+	// Translations
+	@override String get eyebrow => 'Colección';
+	@override String get subtitle => 'Pinturas de Alexander Mikhailovich Kishchanka de distintos periodos de su obra.';
+	@override String get period => 'Periodo:';
+	@override String found({required Object count}) => 'Obras encontradas: ${count}';
+}
+
+// Path: pages.films
+class _Translations$pages$films$es extends Translations$pages$films$ru {
+	_Translations$pages$films$es._(TranslationsEs root) : this._root = root, super.internal(root);
+
+	final TranslationsEs _root; // ignore: unused_field
+
+	// Translations
+	@override String get subtitle => 'Documentales, entrevistas y vídeos sobre la vida, la obra y el legado de Alexander Mikhailovich Kishchanka.';
+	@override String get bandBody => 'Películas, entrevistas y reportajes sobre el artista y su legado.';
+	@override String get watch => 'Ver';
+	@override String source({required Object host}) => 'Fuente: ${host}';
+}
+
+// Path: pages.archive
+class _Translations$pages$archive$es extends Translations$pages$archive$ru {
+	_Translations$pages$archive$es._(TranslationsEs root) : this._root = root, super.internal(root);
+
+	final TranslationsEs _root; // ignore: unused_field
+
+	// Translations
+	@override String get subtitle => 'Materiales, artículos, reseñas de exposiciones y otras publicaciones sobre la vida y la obra de Alexander Mikhailovich Kishchanka.';
+	@override String get featuredLabel => 'Material destacado del archivo';
+	@override String get searchTitle => 'Buscar en el archivo';
+	@override String get searchBody => 'Encuentra publicaciones por tema, año o fuente.';
+	@override String get searchHint => 'Buscar en el archivo de publicaciones';
+	@override String get allYears => 'Todos los años';
+	@override String get noResults => 'No se encontró nada. Prueba con otra búsqueda.';
+	@override String get byYears => 'Archivo por años';
+}
+
+// Path: pages.contacts
+class _Translations$pages$contacts$es extends Translations$pages$contacts$ru {
+	_Translations$pages$contacts$es._(TranslationsEs root) : this._root = root, super.internal(root);
+
+	final TranslationsEs _root; // ignore: unused_field
+
+	// Translations
+	@override String get subtitle => 'Contacta con el estudio de Alexander Mikhailovich Kishchanka sobre su obra, colaboraciones, exposiciones y uso de materiales.';
+	@override String get phoneTitle => 'Teléfono / WhatsApp';
+	@override String get instagramHint => 'Noticias, archivo e imágenes del estudio';
+	@override String get vkHint => 'Comunidad y publicaciones';
+	@override String get studioLabel => 'Estudio';
+}
+
 // Path: seo.aboutAuthor
-class _Translations$seo$aboutAuthor$es implements Translations$seo$aboutAuthor$en {
-	_Translations$seo$aboutAuthor$es._(this._root);
+class _Translations$seo$aboutAuthor$es extends Translations$seo$aboutAuthor$ru {
+	_Translations$seo$aboutAuthor$es._(TranslationsEs root) : this._root = root, super.internal(root);
 
 	final TranslationsEs _root; // ignore: unused_field
 
@@ -606,8 +786,8 @@ class _Translations$seo$aboutAuthor$es implements Translations$seo$aboutAuthor$e
 }
 
 // Path: seo.catalog
-class _Translations$seo$catalog$es implements Translations$seo$catalog$en {
-	_Translations$seo$catalog$es._(this._root);
+class _Translations$seo$catalog$es extends Translations$seo$catalog$ru {
+	_Translations$seo$catalog$es._(TranslationsEs root) : this._root = root, super.internal(root);
 
 	final TranslationsEs _root; // ignore: unused_field
 
@@ -618,8 +798,8 @@ class _Translations$seo$catalog$es implements Translations$seo$catalog$en {
 }
 
 // Path: seo.news
-class _Translations$seo$news$es implements Translations$seo$news$en {
-	_Translations$seo$news$es._(this._root);
+class _Translations$seo$news$es extends Translations$seo$news$ru {
+	_Translations$seo$news$es._(TranslationsEs root) : this._root = root, super.internal(root);
 
 	final TranslationsEs _root; // ignore: unused_field
 
@@ -630,8 +810,8 @@ class _Translations$seo$news$es implements Translations$seo$news$en {
 }
 
 // Path: seo.films
-class _Translations$seo$films$es implements Translations$seo$films$en {
-	_Translations$seo$films$es._(this._root);
+class _Translations$seo$films$es extends Translations$seo$films$ru {
+	_Translations$seo$films$es._(TranslationsEs root) : this._root = root, super.internal(root);
 
 	final TranslationsEs _root; // ignore: unused_field
 
@@ -642,8 +822,8 @@ class _Translations$seo$films$es implements Translations$seo$films$en {
 }
 
 // Path: seo.archive
-class _Translations$seo$archive$es implements Translations$seo$archive$en {
-	_Translations$seo$archive$es._(this._root);
+class _Translations$seo$archive$es extends Translations$seo$archive$ru {
+	_Translations$seo$archive$es._(TranslationsEs root) : this._root = root, super.internal(root);
 
 	final TranslationsEs _root; // ignore: unused_field
 
@@ -654,8 +834,8 @@ class _Translations$seo$archive$es implements Translations$seo$archive$en {
 }
 
 // Path: seo.contacts
-class _Translations$seo$contacts$es implements Translations$seo$contacts$en {
-	_Translations$seo$contacts$es._(this._root);
+class _Translations$seo$contacts$es extends Translations$seo$contacts$ru {
+	_Translations$seo$contacts$es._(TranslationsEs root) : this._root = root, super.internal(root);
 
 	final TranslationsEs _root; // ignore: unused_field
 
@@ -666,8 +846,8 @@ class _Translations$seo$contacts$es implements Translations$seo$contacts$en {
 }
 
 // Path: archiveFeed.items.boguchar2026
-class _Translations$archiveFeed$items$boguchar2026$es implements Translations$archiveFeed$items$boguchar2026$en {
-	_Translations$archiveFeed$items$boguchar2026$es._(this._root);
+class _Translations$archiveFeed$items$boguchar2026$es extends Translations$archiveFeed$items$boguchar2026$ru {
+	_Translations$archiveFeed$items$boguchar2026$es._(TranslationsEs root) : this._root = root, super.internal(root);
 
 	final TranslationsEs _root; // ignore: unused_field
 
@@ -677,8 +857,8 @@ class _Translations$archiveFeed$items$boguchar2026$es implements Translations$ar
 }
 
 // Path: archiveFeed.items.priorbankChtobyChuvstvovat
-class _Translations$archiveFeed$items$priorbankChtobyChuvstvovat$es implements Translations$archiveFeed$items$priorbankChtobyChuvstvovat$en {
-	_Translations$archiveFeed$items$priorbankChtobyChuvstvovat$es._(this._root);
+class _Translations$archiveFeed$items$priorbankChtobyChuvstvovat$es extends Translations$archiveFeed$items$priorbankChtobyChuvstvovat$ru {
+	_Translations$archiveFeed$items$priorbankChtobyChuvstvovat$es._(TranslationsEs root) : this._root = root, super.internal(root);
 
 	final TranslationsEs _root; // ignore: unused_field
 
@@ -688,8 +868,8 @@ class _Translations$archiveFeed$items$priorbankChtobyChuvstvovat$es implements T
 }
 
 // Path: archiveFeed.items.nitiSudby
-class _Translations$archiveFeed$items$nitiSudby$es implements Translations$archiveFeed$items$nitiSudby$en {
-	_Translations$archiveFeed$items$nitiSudby$es._(this._root);
+class _Translations$archiveFeed$items$nitiSudby$es extends Translations$archiveFeed$items$nitiSudby$ru {
+	_Translations$archiveFeed$items$nitiSudby$es._(TranslationsEs root) : this._root = root, super.internal(root);
 
 	final TranslationsEs _root; // ignore: unused_field
 
@@ -699,8 +879,8 @@ class _Translations$archiveFeed$items$nitiSudby$es implements Translations$archi
 }
 
 // Path: archiveFeed.items.boguchar2024
-class _Translations$archiveFeed$items$boguchar2024$es implements Translations$archiveFeed$items$boguchar2024$en {
-	_Translations$archiveFeed$items$boguchar2024$es._(this._root);
+class _Translations$archiveFeed$items$boguchar2024$es extends Translations$archiveFeed$items$boguchar2024$ru {
+	_Translations$archiveFeed$items$boguchar2024$es._(TranslationsEs root) : this._root = root, super.internal(root);
 
 	final TranslationsEs _root; // ignore: unused_field
 
@@ -710,8 +890,8 @@ class _Translations$archiveFeed$items$boguchar2024$es implements Translations$ar
 }
 
 // Path: archiveFeed.items.belgazprombankKraskiPobedy
-class _Translations$archiveFeed$items$belgazprombankKraskiPobedy$es implements Translations$archiveFeed$items$belgazprombankKraskiPobedy$en {
-	_Translations$archiveFeed$items$belgazprombankKraskiPobedy$es._(this._root);
+class _Translations$archiveFeed$items$belgazprombankKraskiPobedy$es extends Translations$archiveFeed$items$belgazprombankKraskiPobedy$ru {
+	_Translations$archiveFeed$items$belgazprombankKraskiPobedy$es._(TranslationsEs root) : this._root = root, super.internal(root);
 
 	final TranslationsEs _root; // ignore: unused_field
 
@@ -721,8 +901,8 @@ class _Translations$archiveFeed$items$belgazprombankKraskiPobedy$es implements T
 }
 
 // Path: archiveFeed.items.nebaZiamlja
-class _Translations$archiveFeed$items$nebaZiamlja$es implements Translations$archiveFeed$items$nebaZiamlja$en {
-	_Translations$archiveFeed$items$nebaZiamlja$es._(this._root);
+class _Translations$archiveFeed$items$nebaZiamlja$es extends Translations$archiveFeed$items$nebaZiamlja$ru {
+	_Translations$archiveFeed$items$nebaZiamlja$es._(TranslationsEs root) : this._root = root, super.internal(root);
 
 	final TranslationsEs _root; // ignore: unused_field
 
@@ -732,8 +912,8 @@ class _Translations$archiveFeed$items$nebaZiamlja$es implements Translations$arc
 }
 
 // Path: films.items.ispovedVremeni
-class _Translations$films$items$ispovedVremeni$es implements Translations$films$items$ispovedVremeni$en {
-	_Translations$films$items$ispovedVremeni$es._(this._root);
+class _Translations$films$items$ispovedVremeni$es extends Translations$films$items$ispovedVremeni$ru {
+	_Translations$films$items$ispovedVremeni$es._(TranslationsEs root) : this._root = root, super.internal(root);
 
 	final TranslationsEs _root; // ignore: unused_field
 
@@ -743,8 +923,8 @@ class _Translations$films$items$ispovedVremeni$es implements Translations$films$
 }
 
 // Path: films.items.aleksandrKishchenko
-class _Translations$films$items$aleksandrKishchenko$es implements Translations$films$items$aleksandrKishchenko$en {
-	_Translations$films$items$aleksandrKishchenko$es._(this._root);
+class _Translations$films$items$aleksandrKishchenko$es extends Translations$films$items$aleksandrKishchenko$ru {
+	_Translations$films$items$aleksandrKishchenko$es._(TranslationsEs root) : this._root = root, super.internal(root);
 
 	final TranslationsEs _root; // ignore: unused_field
 
@@ -754,8 +934,8 @@ class _Translations$films$items$aleksandrKishchenko$es implements Translations$f
 }
 
 // Path: films.items.voronezhKramskoyExhibition
-class _Translations$films$items$voronezhKramskoyExhibition$es implements Translations$films$items$voronezhKramskoyExhibition$en {
-	_Translations$films$items$voronezhKramskoyExhibition$es._(this._root);
+class _Translations$films$items$voronezhKramskoyExhibition$es extends Translations$films$items$voronezhKramskoyExhibition$ru {
+	_Translations$films$items$voronezhKramskoyExhibition$es._(TranslationsEs root) : this._root = root, super.internal(root);
 
 	final TranslationsEs _root; // ignore: unused_field
 
@@ -765,8 +945,8 @@ class _Translations$films$items$voronezhKramskoyExhibition$es implements Transla
 }
 
 // Path: films.items.mastersOfSovietArt1988
-class _Translations$films$items$mastersOfSovietArt1988$es implements Translations$films$items$mastersOfSovietArt1988$en {
-	_Translations$films$items$mastersOfSovietArt1988$es._(this._root);
+class _Translations$films$items$mastersOfSovietArt1988$es extends Translations$films$items$mastersOfSovietArt1988$ru {
+	_Translations$films$items$mastersOfSovietArt1988$es._(TranslationsEs root) : this._root = root, super.internal(root);
 
 	final TranslationsEs _root; // ignore: unused_field
 
@@ -776,8 +956,8 @@ class _Translations$films$items$mastersOfSovietArt1988$es implements Translation
 }
 
 // Path: films.items.bogucharLecture
-class _Translations$films$items$bogucharLecture$es implements Translations$films$items$bogucharLecture$en {
-	_Translations$films$items$bogucharLecture$es._(this._root);
+class _Translations$films$items$bogucharLecture$es extends Translations$films$items$bogucharLecture$ru {
+	_Translations$films$items$bogucharLecture$es._(TranslationsEs root) : this._root = root, super.internal(root);
 
 	final TranslationsEs _root; // ignore: unused_field
 
@@ -787,8 +967,8 @@ class _Translations$films$items$bogucharLecture$es implements Translations$films
 }
 
 // Path: films.items.culturalCodesTapestries
-class _Translations$films$items$culturalCodesTapestries$es implements Translations$films$items$culturalCodesTapestries$en {
-	_Translations$films$items$culturalCodesTapestries$es._(this._root);
+class _Translations$films$items$culturalCodesTapestries$es extends Translations$films$items$culturalCodesTapestries$ru {
+	_Translations$films$items$culturalCodesTapestries$es._(TranslationsEs root) : this._root = root, super.internal(root);
 
 	final TranslationsEs _root; // ignore: unused_field
 
@@ -798,8 +978,8 @@ class _Translations$films$items$culturalCodesTapestries$es implements Translatio
 }
 
 // Path: films.items.tapestryOfCenturyMinsk
-class _Translations$films$items$tapestryOfCenturyMinsk$es implements Translations$films$items$tapestryOfCenturyMinsk$en {
-	_Translations$films$items$tapestryOfCenturyMinsk$es._(this._root);
+class _Translations$films$items$tapestryOfCenturyMinsk$es extends Translations$films$items$tapestryOfCenturyMinsk$ru {
+	_Translations$films$items$tapestryOfCenturyMinsk$es._(TranslationsEs root) : this._root = root, super.internal(root);
 
 	final TranslationsEs _root; // ignore: unused_field
 
@@ -809,8 +989,8 @@ class _Translations$films$items$tapestryOfCenturyMinsk$es implements Translation
 }
 
 // Path: films.items.chernobylTapestryFacts
-class _Translations$films$items$chernobylTapestryFacts$es implements Translations$films$items$chernobylTapestryFacts$en {
-	_Translations$films$items$chernobylTapestryFacts$es._(this._root);
+class _Translations$films$items$chernobylTapestryFacts$es extends Translations$films$items$chernobylTapestryFacts$ru {
+	_Translations$films$items$chernobylTapestryFacts$es._(TranslationsEs root) : this._root = root, super.internal(root);
 
 	final TranslationsEs _root; // ignore: unused_field
 
@@ -820,8 +1000,8 @@ class _Translations$films$items$chernobylTapestryFacts$es implements Translation
 }
 
 // Path: films.items.kishchenkoReel1
-class _Translations$films$items$kishchenkoReel1$es implements Translations$films$items$kishchenkoReel1$en {
-	_Translations$films$items$kishchenkoReel1$es._(this._root);
+class _Translations$films$items$kishchenkoReel1$es extends Translations$films$items$kishchenkoReel1$ru {
+	_Translations$films$items$kishchenkoReel1$es._(TranslationsEs root) : this._root = root, super.internal(root);
 
 	final TranslationsEs _root; // ignore: unused_field
 
@@ -1027,14 +1207,6 @@ extension on TranslationsEs {
 			'common.learnMore' => 'SABER MÁS',
 			'common.video.loadError' => 'No se pudo cargar la transmisión de video',
 			'common.video.openExternally' => 'Abrir externamente',
-			'tour.next' => 'Siguiente',
-			'tour.gotIt' => 'Entendido',
-			'tour.back' => 'Atrás',
-			'tour.chernobylBody' => 'Kishchanka es también el autor del tapiz «Chernóbil» (1991), donado a las Naciones Unidas, que sigue adornando su sede de Nueva York. El Secretario General de la ONU lo comparó con el «Guernica» de Picasso.',
-			'tour.originsTitle' => 'En los orígenes del «realismo universal»',
-			'tour.originsBody' => 'Alexánder Mijáilovich Kishchanka (1933–1997). Pintor. Filósofo. Monumentalista. Nació en la aldea de Bely Kolodez (hoy distrito de Boguchar, óblast de Vorónezh) y alcanzó renombre mundial como autor del mayor tapiz del mundo, el «Tapiz del Siglo».',
-			'tour.scaleTitle' => 'Escala del Tapiz del Siglo',
-			'tour.scaleBody' => 'El «Tapiz del Siglo» es un lienzo tejido a mano de 19 × 14 metros (la altura de un edificio de cinco pisos) y de más de una tonelada de peso. En 1999 fue inscrito en el Libro Guinness de los Récords como el mayor tapiz del mundo.',
 			'language.label' => 'Idioma',
 			'language.russian' => 'Ruso',
 			'language.english' => 'Ingles',
@@ -1137,6 +1309,63 @@ extension on TranslationsEs {
 			'bio.quote' => 'El arte es un fenómeno divino. Sólo a él le es dado detener el tiempo. El arte puede descifrar el misterio del futuro y también restaurar el pasado perdido.',
 			'bio.quoteAuthor' => '— Alexander Kishchanka',
 			'bio.wikipediaLinkLabel' => 'LEER EN WIKIPEDIA',
+			'home.hero.eyebrow' => 'Alexander Kishchanka',
+			'home.hero.title' => 'Arte de escala cósmica',
+			'home.hero.lead' => 'Pintura, mosaicos monumentales y tapices: el mundo de imágenes de Alexander Mikhailovich Kishchanka, donde se unen el cosmos, el ser humano y el tiempo.',
+			'home.hero.worksCta' => 'Ver obras',
+			'home.hero.filmCta' => 'Película sobre el artista',
+			'home.about.label' => 'Sobre el artista',
+			'home.about.body' => 'Artista del Pueblo de la República de Belarús, pintor y monumentalista. Autor del tapiz más grande del mundo, el «Tapiz del Siglo», y del tapiz «Chernóbil», que se conserva en la sede de la ONU en Nueva York.',
+			'home.about.cta' => 'Más sobre el artista',
+			'home.story.label' => 'Historia principal',
+			'home.story.readArticle' => 'Leer artículo',
+			'home.story.readStory' => 'Leer la historia',
+			'home.links.catalog' => 'Pintura, tapices y gráfica',
+			'home.links.news' => 'Exposiciones, eventos y publicaciones',
+			'home.links.films' => 'Documentales y archivo de vídeo',
+			'home.links.archive' => 'Artículos y materiales sobre el maestro',
+			'home.featured.label' => 'Obras destacadas',
+			'home.featured.title' => 'El mundo de Kishchanka',
+			'home.featured.cta' => 'Ver galería',
+			'home.featured.moreInCatalog' => 'en el catálogo',
+			'home.featured.fullCatalog' => 'Catálogo completo',
+			'home.start.title' => 'Por dónde empezar',
+			'home.start.body' => '¿Primera visita? Hemos preparado algunas rutas para conocer rápidamente la obra del artista.',
+			'home.start.aboutTitle' => 'Conocer al artista',
+			'home.start.aboutSubtitle' => 'Biografía e hitos clave',
+			'home.start.worksTitle' => 'Ver obras emblemáticas',
+			'home.start.worksSubtitle' => 'Pintura y tapices de la colección',
+			'home.start.filmsTitle' => 'Ver películas',
+			'home.start.filmsSubtitle' => 'Documentales sobre el artista',
+			'home.footer.sections' => 'Secciones',
+			'home.footer.social' => 'Síguenos',
+			'home.footer.rights' => 'Todos los derechos reservados.',
+			'pages.news.subtitle' => 'Publicaciones, exposiciones y eventos dedicados a la obra de Alexander Mikhailovich Kishchanka.',
+			'pages.news.featuredLabel' => 'Noticia principal',
+			'pages.news.stayTitle' => 'Mantente al día',
+			'pages.news.stayBody' => 'Noticias sobre exposiciones, publicaciones y nuevos materiales del archivo de A. M. Kishchanka.',
+			'pages.news.archiveSubtitle' => 'Materiales publicados anteriormente',
+			'pages.catalog.eyebrow' => 'Colección',
+			'pages.catalog.subtitle' => 'Pinturas de Alexander Mikhailovich Kishchanka de distintos periodos de su obra.',
+			'pages.catalog.period' => 'Periodo:',
+			'pages.catalog.found' => ({required Object count}) => 'Obras encontradas: ${count}',
+			'pages.films.subtitle' => 'Documentales, entrevistas y vídeos sobre la vida, la obra y el legado de Alexander Mikhailovich Kishchanka.',
+			'pages.films.bandBody' => 'Películas, entrevistas y reportajes sobre el artista y su legado.',
+			'pages.films.watch' => 'Ver',
+			'pages.films.source' => ({required Object host}) => 'Fuente: ${host}',
+			'pages.archive.subtitle' => 'Materiales, artículos, reseñas de exposiciones y otras publicaciones sobre la vida y la obra de Alexander Mikhailovich Kishchanka.',
+			'pages.archive.featuredLabel' => 'Material destacado del archivo',
+			'pages.archive.searchTitle' => 'Buscar en el archivo',
+			'pages.archive.searchBody' => 'Encuentra publicaciones por tema, año o fuente.',
+			'pages.archive.searchHint' => 'Buscar en el archivo de publicaciones',
+			'pages.archive.allYears' => 'Todos los años',
+			'pages.archive.noResults' => 'No se encontró nada. Prueba con otra búsqueda.',
+			'pages.archive.byYears' => 'Archivo por años',
+			'pages.contacts.subtitle' => 'Contacta con el estudio de Alexander Mikhailovich Kishchanka sobre su obra, colaboraciones, exposiciones y uso de materiales.',
+			'pages.contacts.phoneTitle' => 'Teléfono / WhatsApp',
+			'pages.contacts.instagramHint' => 'Noticias, archivo e imágenes del estudio',
+			'pages.contacts.vkHint' => 'Comunidad y publicaciones',
+			'pages.contacts.studioLabel' => 'Estudio',
 			'contacts.title' => 'Contactos',
 			'contacts.tagline' => 'Póngase en contacto con el estudio.',
 			'contacts.phoneSectionLabel' => 'Teléfono',

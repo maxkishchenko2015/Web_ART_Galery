@@ -5,8 +5,10 @@ import 'package:meta_seo/meta_seo.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:web_art_galery/i18n/strings.g.dart';
 import 'package:web_art_galery/src/features/contacts/presentation/screens/contacts_page_constants.dart';
+import 'package:web_art_galery/src/navigation/presentation/widgets/page_chrome.dart';
 import 'package:web_art_galery/src/shared/config/app_context_extensions.dart';
 import 'package:web_art_galery/src/shared/config/ksize.dart';
+import 'package:web_art_galery/src/shared/presentation/widgets/gallery_ui.dart';
 import 'package:web_art_galery/src/shared/utils/url_launcher_utils.dart';
 
 class ContactsPage extends StatelessWidget {
@@ -20,342 +22,171 @@ class ContactsPage extends StatelessWidget {
         ..description(description: context.t.seo.contacts.description)
         ..keywords(keywords: context.t.seo.contacts.keywords);
     }
-    final width = MediaQuery.sizeOf(context).width;
-    final isCompact = width < KSize.adaptiveExpandedBreakpoint;
 
-    return SingleChildScrollView(
-      child: Column(
+    return GalleryPageScaffold(
+      hero: (layout) => PageHero(
+        layout: layout,
+        eyebrow: context.t.navigation.contacts,
+        title: context.t.contacts.title,
+        subtitle: context.t.pages.contacts.subtitle,
+      ),
+      sections: (context, layout) => [
+        Padding(
+          padding: EdgeInsets.fromLTRB(layout.gutter, layout.sectionGap, layout.gutter, 0),
+          child: _ContactCards(layout: layout),
+        ),
+        Padding(
+          padding: EdgeInsets.fromLTRB(
+            layout.gutter,
+            layout.sectionGap,
+            layout.gutter,
+            layout.sectionGap + KSize.margin4x,
+          ),
+          child: _StudioCard(layout: layout),
+        ),
+      ],
+    );
+  }
+}
+
+// ─── Contact cards ───────────────────────────────────────────────────────────
+
+class _ContactCards extends StatelessWidget {
+  const _ContactCards({required this.layout});
+
+  final PageLayout layout;
+
+  @override
+  Widget build(BuildContext context) {
+    final gap = layout.isPhone ? KSize.margin3x : KSize.margin5x;
+    final cards = <Widget>[
+      _PhoneCard(isPhone: layout.isPhone),
+      _InstagramCard(isPhone: layout.isPhone),
+      _VkCard(isPhone: layout.isPhone),
+    ];
+
+    if (!layout.isWide) {
+      return Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          _ContactsHero(isCompact: isCompact),
-          _ContactsCardsSection(isCompact: isCompact),
-          _StudioSection(isCompact: isCompact),
+          for (final (i, card) in cards.indexed) ...[if (i > 0) SizedBox(height: gap), card],
         ],
-      ),
-    );
-  }
-}
-
-// ─── Hero section ─────────────────────────────────────────────────────────────
-
-class _ContactsHero extends StatelessWidget {
-  const _ContactsHero({required this.isCompact});
-
-  final bool isCompact;
-
-  @override
-  Widget build(BuildContext context) {
-    final hPad = isCompact ? KSize.margin6x : KSize.margin12x * 2;
-    final headlineSize = isCompact ? KSize.heroHeadlineCompact : KSize.heroHeadlineWide;
-    final vPad = isCompact ? KSize.heroVerticalPaddingCompact : KSize.heroVerticalPaddingWide;
-    final colors = context.colors;
-
-    return Container(
-      decoration: BoxDecoration(
-        gradient: LinearGradient(
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-          colors: [colors.forestGreen, colors.darkOlive],
-        ),
-      ),
-      // The green hero runs up under the mobile shell's frosted bar
-      // (paddingOf.top = bar height there, 0 on desktop).
-      padding: EdgeInsets.fromLTRB(hPad, vPad + MediaQuery.paddingOf(context).top, hPad, vPad),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+      );
+    }
+    return IntrinsicHeight(
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          Text(
-            context.t.navigation.contacts.toUpperCase(),
-            style: context.textOnDark.heroSectionLabel,
-          ),
-          const SizedBox(height: KSize.margin4x),
-          Text(
-            context.t.contacts.title,
-            style: context.textOnDark.heroHeadline(headlineSize),
-          ),
-          const SizedBox(height: KSize.margin3x),
-          Container(
-            width: KSize.heroDividerWidth,
-            height: KSize.borderWidthSmallHalf,
-            color: colors.onDarkBody,
-          ),
-          const SizedBox(height: KSize.margin3x),
-          Text(context.t.contacts.tagline, style: context.textOnDark.heroSubtitle),
+          Expanded(flex: 10, child: cards[0]),
+          SizedBox(width: gap),
+          Expanded(flex: 10, child: cards[1]),
+          SizedBox(width: gap),
+          Expanded(flex: 12, child: cards[2]),
         ],
       ),
     );
   }
 }
 
-// ─── Contact cards (phones / Instagram / VK + QR) ────────────────────────────
-
-class _ContactsCardsSection extends StatelessWidget {
-  const _ContactsCardsSection({required this.isCompact});
-
-  final bool isCompact;
-
-  @override
-  Widget build(BuildContext context) {
-    final hPad = isCompact ? KSize.margin6x : KSize.margin12x * 2;
-    final colors = context.colors;
-
-    return Container(
-      decoration: BoxDecoration(
-        gradient: LinearGradient(
-          begin: Alignment.topCenter,
-          end: Alignment.bottomCenter,
-          colors: [colors.white, colors.bioBg],
-        ),
-      ),
-      padding: EdgeInsets.symmetric(
-        horizontal: hPad,
-        vertical: isCompact ? KSize.heroVerticalPaddingCompact : KSize.heroVerticalPaddingWide,
-      ),
-      child: Wrap(
-        spacing: KSize.margin5x,
-        runSpacing: KSize.margin5x,
-        alignment: WrapAlignment.start,
-        children: const [_PhoneCard(), _InstagramCard(), _VkCard()],
-      ),
-    );
-  }
-}
-
-/// Polished gradient card used for every contact channel.
-///
-/// Visual contract:
-///  - subtle white → bioBg vertical gradient gives the card depth without
-///    fighting the underlying section gradient;
-///  - 1 px outline using the theme outlineVariant token;
-///  - soft elevation shadow tinted with forestGreen for brand cohesion;
-///  - icon hosted in a circular forestGreen-tinted pill — keeps the brand
-///    accent visible at a glance while the rest of the card stays calm.
+/// Card shell: round icon badge, serif title, muted hint, then [values].
 class _ContactCard extends StatelessWidget {
   const _ContactCard({
-    required this.label,
+    required this.isPhone,
     required this.icon,
-    required this.children,
-    this.subtitle,
+    required this.title,
+    required this.hint,
+    required this.values,
+    this.trailing,
   });
 
-  static const double _maxWidth = 360;
-
-  final String label;
+  final bool isPhone;
   final Widget icon;
-  final String? subtitle;
-  final List<Widget> children;
+  final String title;
+  final String hint;
+  final List<Widget> values;
+  final Widget? trailing;
 
   @override
   Widget build(BuildContext context) {
     final colors = context.colors;
+    final badgeSize = isPhone ? KSize.avatarM : KSize.avatarL;
+    final trailing = this.trailing;
 
-    return ConstrainedBox(
-      constraints: const BoxConstraints(maxWidth: _maxWidth, minWidth: 240),
-      child: Container(
-        padding: const EdgeInsets.all(KSize.margin6x),
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-            colors: [colors.white, colors.bioBg],
-          ),
-          borderRadius: BorderRadius.circular(KSize.radiusLargeExtra),
-          border: Border.all(
-            color: Theme.of(context).colorScheme.outlineVariant,
-            width: KSize.borderWidthVerySmall,
-          ),
-          boxShadow: [
-            BoxShadow(
-              color: colors.forestGreen.withAlpha(20),
-              blurRadius: 24,
-              offset: const Offset(0, 8),
-            ),
-          ],
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                _IconPill(child: icon),
-                const SizedBox(width: KSize.margin4x),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(label, style: context.textContent.bioSectionTitle),
-                      if (subtitle != null && subtitle!.isNotEmpty) ...[
-                        const SizedBox(height: KSize.margin1x),
-                        Text(
-                          subtitle!,
-                          style: context.textContent.bioDetail,
-                        ),
-                      ],
-                    ],
-                  ),
-                ),
-              ],
-            ),
-            const SizedBox(height: KSize.margin5x),
-            ...children,
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-/// Circular gradient pill that hosts a brand glyph (phone / Instagram / VK).
-class _IconPill extends StatelessWidget {
-  const _IconPill({required this.child});
-
-  final Widget child;
-
-  @override
-  Widget build(BuildContext context) {
-    final colors = context.colors;
-    return Container(
-      width: 48,
-      height: 48,
-      decoration: BoxDecoration(
-        shape: BoxShape.circle,
-        gradient: LinearGradient(
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-          colors: [colors.quoteBg, colors.forestGreen.withAlpha(36)],
-        ),
-        border: Border.all(
-          color: colors.forestGreen.withAlpha(40),
-          width: KSize.borderWidthVerySmall,
-        ),
-      ),
-      child: Center(child: child),
-    );
-  }
-}
-
-class _PhoneCard extends StatelessWidget {
-  const _PhoneCard();
-
-  @override
-  Widget build(BuildContext context) {
-    final colors = context.colors;
-    return _ContactCard(
-      label: context.t.contacts.phoneSectionLabel,
-      subtitle: context.t.contacts.phoneSectionHint,
-      icon: Icon(Icons.phone_outlined, size: KSize.iconM, color: colors.forestGreen),
-      children: const [
-        _TappablePhone(
-          display: ContactsPageConstants.phone1Display,
-          telUrl: ContactsPageConstants.phone1Tel,
-        ),
-        SizedBox(height: KSize.margin3x),
-        _TappablePhone(
-          display: ContactsPageConstants.phone2Display,
-          telUrl: ContactsPageConstants.phone2Tel,
-        ),
-      ],
-    );
-  }
-}
-
-class _TappablePhone extends StatelessWidget {
-  const _TappablePhone({required this.display, required this.telUrl});
-
-  final String display;
-  final String telUrl;
-
-  @override
-  Widget build(BuildContext context) {
-    return MouseRegion(
-      cursor: SystemMouseCursors.click,
-      child: GestureDetector(
-        behavior: HitTestBehavior.opaque,
-        onTap: () => UrlLauncherUtils.launchUrlIfPossible(url: telUrl),
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Text(display, style: context.textContent.bioBody),
-            const SizedBox(width: KSize.margin2x),
-            Icon(
-              Icons.arrow_outward_rounded,
-              size: KSize.iconSPlus,
-              color: context.colors.forestGreen,
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class _InstagramCard extends StatelessWidget {
-  const _InstagramCard();
-
-  @override
-  Widget build(BuildContext context) {
-    final colors = context.colors;
-    return _ContactCard(
-      label: context.t.contacts.instagramSectionLabel,
-      icon: SvgPicture.asset(
-        ContactsPageConstants.instagramSvgAsset,
-        width: KSize.iconM,
-        height: KSize.iconM,
-        colorFilter: ColorFilter.mode(colors.forestGreen, BlendMode.srcIn),
-      ),
-      children: [
-        _ExternalLinkRow(
-          label: context.t.contacts.instagramHandle,
-          url: ContactsPageConstants.instagramUrl,
-        ),
-      ],
-    );
-  }
-}
-
-class _VkCard extends StatelessWidget {
-  const _VkCard();
-
-  @override
-  Widget build(BuildContext context) {
-    final colors = context.colors;
-    return _ContactCard(
-      label: context.t.contacts.vkSectionLabel,
-      icon: SvgPicture.asset(
-        ContactsPageConstants.vkSvgAsset,
-        width: KSize.iconM,
-        height: KSize.iconM,
-        colorFilter: ColorFilter.mode(colors.forestGreen, BlendMode.srcIn),
-      ),
-      children: [
-        _ExternalLinkRow(
-          label: context.t.contacts.vkHandle,
-          url: ContactsPageConstants.vkUrl,
-        ),
-        const SizedBox(height: KSize.margin4x),
-        Text(context.t.contacts.vkScanQrHint, style: context.textContent.bioDetail),
-        const SizedBox(height: KSize.margin3x),
-        Center(
-          child: ConstrainedBox(
-            constraints: const BoxConstraints(maxWidth: 200, maxHeight: 200),
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(KSize.radiusMedium),
-              child: Image.asset(
-                ContactsPageConstants.vkQrAsset,
-                fit: BoxFit.contain,
-                semanticLabel: context.t.contacts.vkScanQrHint,
+    return GalleryCard(
+      padding: EdgeInsets.all(isPhone ? KSize.margin4x : KSize.margin6x),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+            width: badgeSize,
+            height: badgeSize,
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              gradient: RadialGradient(
+                center: const Alignment(-0.3, -0.4),
+                colors: [colors.cream, colors.parchmentLine],
               ),
             ),
+            alignment: Alignment.center,
+            child: icon,
           ),
-        ),
-      ],
+          SizedBox(width: isPhone ? KSize.margin4x : KSize.margin5x),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(
+                  title,
+                  style: context.textContent.homeTitle(
+                    isPhone ? KSize.fontSizeL : KSize.fontSizeXL,
+                  ),
+                ),
+                const SizedBox(height: KSize.margin1x),
+                Text(hint, style: context.textContent.quickLinkSubtitle),
+                const SizedBox(height: KSize.margin3x),
+                for (final value in values) ...[value, const SizedBox(height: KSize.margin1Halfx)],
+              ],
+            ),
+          ),
+          if (trailing != null) ...[
+            const SizedBox(width: KSize.margin3x),
+            VerticalDivider(width: KSize.margin5x, color: colors.parchmentLine),
+            const SizedBox(width: KSize.margin3x),
+            Center(child: trailing),
+          ],
+        ],
+      ),
     );
   }
 }
 
-class _ExternalLinkRow extends StatelessWidget {
-  const _ExternalLinkRow({required this.label, required this.url});
+class _ContactIcon extends StatelessWidget {
+  const _ContactIcon({this.icon, this.svgAsset});
+
+  final IconData? icon;
+  final String? svgAsset;
+
+  @override
+  Widget build(BuildContext context) {
+    final color = context.colors.darkOlive;
+    final asset = svgAsset;
+    if (asset != null) {
+      return SvgPicture.asset(
+        asset,
+        width: KSize.iconM,
+        height: KSize.iconM,
+        colorFilter: ColorFilter.mode(color, BlendMode.srcIn),
+      );
+    }
+    return Icon(icon, size: KSize.iconM, color: color);
+  }
+}
+
+/// Tappable contact value ("+375 29 …", "@kishchenko.art") with an
+/// outward arrow.
+class _LinkValue extends StatelessWidget {
+  const _LinkValue({required this.label, required this.url});
 
   final String label;
   final String url;
@@ -373,16 +204,12 @@ class _ExternalLinkRow extends StatelessWidget {
             Flexible(
               child: Text(
                 label,
-                style: context.textContent.bioBody,
+                style: context.textContent.contactValue,
                 overflow: TextOverflow.ellipsis,
               ),
             ),
-            const SizedBox(width: KSize.margin1Halfx),
-            Icon(
-              Icons.arrow_outward_rounded,
-              size: KSize.iconSPlus,
-              color: context.colors.forestGreen,
-            ),
+            const SizedBox(width: KSize.margin2x),
+            Icon(Icons.arrow_outward_rounded, size: KSize.iconS, color: context.colors.terracotta),
           ],
         ),
       ),
@@ -390,209 +217,173 @@ class _ExternalLinkRow extends StatelessWidget {
   }
 }
 
-// ─── Studio section (address + interactive OSM map) ──────────────────────────
+class _PhoneCard extends StatelessWidget {
+  const _PhoneCard({required this.isPhone});
 
-class _StudioSection extends StatelessWidget {
-  const _StudioSection({required this.isCompact});
-
-  final bool isCompact;
+  final bool isPhone;
 
   @override
   Widget build(BuildContext context) {
-    final hPad = isCompact ? KSize.margin6x : KSize.margin12x * 2;
-    final colors = context.colors;
-
-    return Container(
-      decoration: BoxDecoration(
-        gradient: LinearGradient(
-          begin: Alignment.topCenter,
-          end: Alignment.bottomCenter,
-          colors: [colors.bioBg, colors.cream],
+    final t = context.t;
+    return _ContactCard(
+      isPhone: isPhone,
+      icon: const _ContactIcon(icon: Icons.phone_outlined),
+      title: t.pages.contacts.phoneTitle,
+      hint: t.contacts.phoneSectionHint,
+      values: const [
+        _LinkValue(
+          label: ContactsPageConstants.phone1Display,
+          url: ContactsPageConstants.phone1Tel,
         ),
-      ),
-      padding: EdgeInsets.symmetric(
-        horizontal: hPad,
-        vertical: isCompact ? KSize.heroVerticalPaddingCompact : KSize.heroVerticalPaddingWide,
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Text(
-                context.t.contacts.studioSectionTitle,
-                style: context.textContent.bioName(
-                  isCompact ? KSize.bioNameCompact : KSize.bioNameWide,
-                ),
-              ),
-              const SizedBox(width: KSize.margin5x),
-              Expanded(
-                child: Container(
-                  height: KSize.borderWidthSmallHalf,
-                  decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                      colors: [
-                        colors.forestGreen.withAlpha(60),
-                        colors.forestGreen.withAlpha(0),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-            ],
+        _LinkValue(
+          label: ContactsPageConstants.phone2Display,
+          url: ContactsPageConstants.phone2Tel,
+        ),
+      ],
+    );
+  }
+}
+
+class _InstagramCard extends StatelessWidget {
+  const _InstagramCard({required this.isPhone});
+
+  final bool isPhone;
+
+  @override
+  Widget build(BuildContext context) {
+    final t = context.t;
+    return _ContactCard(
+      isPhone: isPhone,
+      icon: const _ContactIcon(svgAsset: ContactsPageConstants.instagramSvgAsset),
+      title: t.contacts.instagramSectionLabel,
+      hint: t.pages.contacts.instagramHint,
+      values: [
+        _LinkValue(label: t.contacts.instagramHandle, url: ContactsPageConstants.instagramUrl),
+      ],
+    );
+  }
+}
+
+class _VkCard extends StatelessWidget {
+  const _VkCard({required this.isPhone});
+
+  final bool isPhone;
+
+  @override
+  Widget build(BuildContext context) {
+    final t = context.t;
+    final qrSize = isPhone ? KSize.contactsQrSize - KSize.margin6x : KSize.contactsQrSize;
+
+    return _ContactCard(
+      isPhone: isPhone,
+      icon: const _ContactIcon(svgAsset: ContactsPageConstants.vkSvgAsset),
+      title: t.contacts.vkSectionLabel,
+      hint: isPhone ? t.contacts.vkScanQrHint : t.pages.contacts.vkHint,
+      values: [_LinkValue(label: t.contacts.vkHandle, url: ContactsPageConstants.vkUrl)],
+      trailing: Semantics(
+        label: t.contacts.vkScanQrHint,
+        image: true,
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(KSize.radiusSmall),
+          child: Image.asset(
+            ContactsPageConstants.vkQrAsset,
+            width: qrSize,
+            height: qrSize,
+            fit: BoxFit.contain,
           ),
-          const SizedBox(height: KSize.margin8x),
-          isCompact ? _buildCompact(context) : _buildWide(context),
-        ],
+        ),
       ),
     );
   }
+}
 
-  Widget _buildWide(BuildContext context) {
-    return Row(
+// ─── Studio ──────────────────────────────────────────────────────────────────
+
+class _StudioCard extends StatelessWidget {
+  const _StudioCard({required this.layout});
+
+  final PageLayout layout;
+
+  @override
+  Widget build(BuildContext context) {
+    final t = context.t;
+    final colors = context.colors;
+    final isPhone = layout.isPhone;
+    final copy = Column(
       crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisSize: MainAxisSize.min,
       children: [
-        Expanded(flex: 4, child: _AddressCard(isCompact: false)),
-        const SizedBox(width: KSize.margin8x),
-        Expanded(flex: 6, child: _StudioMap(isCompact: false)),
-      ],
-    );
-  }
-
-  Widget _buildCompact(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: [
-        _AddressCard(isCompact: true),
-        const SizedBox(height: KSize.margin5x),
-        _StudioMap(isCompact: true),
-      ],
-    );
-  }
-}
-
-class _AddressCard extends StatelessWidget {
-  const _AddressCard({required this.isCompact});
-
-  final bool isCompact;
-
-  @override
-  Widget build(BuildContext context) {
-    final colors = context.colors;
-
-    return Container(
-      padding: const EdgeInsets.all(KSize.margin6x),
-      decoration: BoxDecoration(
-        gradient: LinearGradient(
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-          colors: [colors.white, colors.bioBg],
+        GalleryEyebrow(text: t.pages.contacts.studioLabel),
+        const SizedBox(height: KSize.margin3x),
+        Text(
+          t.contacts.studioSectionTitle,
+          style: context.textContent.homeTitle(layout.sectionTitleSize),
         ),
-        border: Border.all(
-          color: Theme.of(context).colorScheme.outlineVariant,
-          width: KSize.borderWidthVerySmall,
-        ),
-        borderRadius: BorderRadius.circular(KSize.radiusLargeExtra),
-        boxShadow: [
-          BoxShadow(
-            color: colors.forestGreen.withAlpha(20),
-            blurRadius: 24,
-            offset: const Offset(0, 8),
-          ),
-        ],
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              _IconPill(
-                child: Icon(
-                  Icons.place_outlined,
-                  size: KSize.iconM,
-                  color: colors.forestGreen,
-                ),
-              ),
-              const SizedBox(width: KSize.margin4x),
-              Expanded(
-                child: Padding(
-                  padding: const EdgeInsets.only(top: KSize.margin1x),
-                  child: Text(
-                    context.t.contacts.studioAddress,
-                    style: context.textContent.bioBody,
-                  ),
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(height: KSize.margin5x),
-          _OpenInOsmLink(),
-        ],
-      ),
-    );
-  }
-}
-
-class _OpenInOsmLink extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    final label = context.t.contacts.openInOsm;
-
-    return MouseRegion(
-      cursor: SystemMouseCursors.click,
-      child: GestureDetector(
-        behavior: HitTestBehavior.opaque,
-        onTap: () => UrlLauncherUtils.launchUrlIfPossible(url: ContactsPageConstants.osmUrl),
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
+        const SizedBox(height: KSize.margin4x),
+        Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(label, style: context.textContent.archiveLink),
-            const SizedBox(width: KSize.margin1Halfx),
-            Icon(
-              Icons.arrow_outward_rounded,
-              size: KSize.iconSPlus,
-              color: context.colors.forestGreen,
-            ),
+            Icon(Icons.place_outlined, size: KSize.iconM, color: colors.terracotta),
+            const SizedBox(width: KSize.margin2x),
+            Expanded(child: Text(t.contacts.studioAddress, style: context.textContent.homeBody)),
           ],
         ),
-      ),
+        const SizedBox(height: KSize.margin5x),
+        GalleryArrowLink(
+          label: t.contacts.openInOsm,
+          onTap: () => UrlLauncherUtils.launchUrlIfPossible(url: ContactsPageConstants.osmUrl),
+        ),
+      ],
+    );
+    final map = _StudioMap(
+      height: isPhone ? KSize.contactsMapHeightPhone : KSize.contactsMapHeightWide,
+    );
+
+    return GalleryCard(
+      padding: EdgeInsets.all(isPhone ? KSize.margin3x : KSize.margin5x),
+      child: layout.isWide
+          ? Row(
+              children: [
+                Expanded(
+                  flex: 4,
+                  child: Padding(padding: const EdgeInsets.all(KSize.margin4x), child: copy),
+                ),
+                const SizedBox(width: KSize.margin6x),
+                Expanded(flex: 7, child: map),
+              ],
+            )
+          : Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                Padding(padding: const EdgeInsets.all(KSize.margin2x), child: copy),
+                const SizedBox(height: KSize.margin4x),
+                map,
+              ],
+            ),
     );
   }
 }
 
 class _StudioMap extends StatelessWidget {
-  const _StudioMap({required this.isCompact});
+  const _StudioMap({required this.height});
 
-  final bool isCompact;
+  final double height;
 
   @override
   Widget build(BuildContext context) {
     final colors = context.colors;
-    final height = isCompact ? 280.0 : 380.0;
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.end,
       children: [
-        Container(
+        SizedBox(
           height: height,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(KSize.radiusLargeExtra),
-            boxShadow: [
-              BoxShadow(
-                color: colors.forestGreen.withAlpha(28),
-                blurRadius: 32,
-                offset: const Offset(0, 12),
-              ),
-            ],
-          ),
           // The map is rendered as a static "screenshot" with the studio
           // marker — no panning, zooming, taps or rotation. Tile fetch
           // failures are swallowed so they don't bubble up to telemetry as
           // fatal errors (the OSM CDN occasionally rejects browser fetches).
           child: ClipRRect(
-            borderRadius: BorderRadius.circular(KSize.radiusLargeExtra),
+            borderRadius: BorderRadius.circular(KSize.radiusDefaultMedium),
             child: IgnorePointer(
               child: FlutterMap(
                 options: const MapOptions(
@@ -611,14 +402,10 @@ class _StudioMap extends StatelessWidget {
                     markers: [
                       Marker(
                         point: ContactsPageConstants.studioLatLng,
-                        width: 36,
-                        height: 36,
+                        width: KSize.margin9x,
+                        height: KSize.margin9x,
                         alignment: Alignment.topCenter,
-                        child: Icon(
-                          Icons.place,
-                          size: 36,
-                          color: colors.forestGreen,
-                        ),
+                        child: Icon(Icons.place, size: KSize.margin9x, color: colors.terracotta),
                       ),
                     ],
                   ),
@@ -628,10 +415,7 @@ class _StudioMap extends StatelessWidget {
           ),
         ),
         const SizedBox(height: KSize.margin2x),
-        Text(
-          context.t.contacts.mapAttribution,
-          style: context.textContent.bioDetail,
-        ),
+        Text(context.t.contacts.mapAttribution, style: context.textContent.homeMeta),
       ],
     );
   }

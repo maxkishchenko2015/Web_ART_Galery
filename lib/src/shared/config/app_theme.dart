@@ -13,56 +13,56 @@ class AppTheme {
       brightness: Brightness.light,
       primary: AppColors.forestGreen,
       onPrimary: AppColors.white,
-      secondary: AppColors.darkOlive,
+      secondary: AppColors.terracotta,
       onSecondary: AppColors.white,
       error: AppColors.error,
       onError: AppColors.white,
-      surface: AppColors.white,
+      surface: AppColors.parchmentCard,
       onSurface: AppColors.darkText,
       surfaceContainerHighest: AppColors.bioBg,
       surfaceContainerLow: AppColors.cream,
-      outline: AppColors.line,
-      outlineVariant: AppColors.line,
+      outline: AppColors.parchmentLine,
+      outlineVariant: AppColors.parchmentLine,
       onSurfaceVariant: AppColors.contentMuted,
     );
 
     final baseTextTheme = GoogleFonts.robotoTextTheme(base.textTheme);
     final textTheme = baseTextTheme.copyWith(
-      displayLarge: GoogleFonts.roboto(
+      displayLarge: GoogleFonts.ptSerif(
         fontSize: 57,
-        fontWeight: FontWeight.w300,
+        fontWeight: FontWeight.w400,
         letterSpacing: -0.5,
         height: 1.12,
         color: colors.darkText,
       ),
-      displayMedium: GoogleFonts.roboto(
+      displayMedium: GoogleFonts.ptSerif(
         fontSize: 45,
-        fontWeight: FontWeight.w300,
+        fontWeight: FontWeight.w400,
         letterSpacing: -0.3,
         height: 1.16,
         color: colors.darkText,
       ),
-      displaySmall: GoogleFonts.roboto(
+      displaySmall: GoogleFonts.ptSerif(
         fontSize: 36,
-        fontWeight: FontWeight.w300,
+        fontWeight: FontWeight.w400,
         letterSpacing: -0.2,
         height: 1.2,
         color: colors.darkText,
       ),
-      headlineLarge: GoogleFonts.roboto(
+      headlineLarge: GoogleFonts.ptSerif(
         fontSize: 32,
-        fontWeight: FontWeight.w300,
+        fontWeight: FontWeight.w400,
         letterSpacing: -0.1,
         height: 1.25,
         color: colors.darkText,
       ),
-      headlineMedium: GoogleFonts.roboto(
+      headlineMedium: GoogleFonts.ptSerif(
         fontSize: 28,
-        fontWeight: FontWeight.w300,
+        fontWeight: FontWeight.w400,
         height: 1.3,
         color: colors.darkText,
       ),
-      headlineSmall: GoogleFonts.roboto(
+      headlineSmall: GoogleFonts.ptSerif(
         fontSize: 24,
         fontWeight: FontWeight.w400,
         height: 1.33,
@@ -128,8 +128,8 @@ class AppTheme {
 
     return base.copyWith(
       colorScheme: colorScheme,
-      scaffoldBackgroundColor: colors.white,
-      canvasColor: colors.white,
+      scaffoldBackgroundColor: colors.parchment,
+      canvasColor: colors.parchment,
       dividerColor: colors.line,
       splashColor: Colors.transparent,
       highlightColor: Colors.transparent,
@@ -141,8 +141,8 @@ class AppTheme {
       textTheme: textTheme,
       primaryTextTheme: textTheme,
       appBarTheme: AppBarTheme(
-        backgroundColor: colors.forestGreen,
-        foregroundColor: colors.white,
+        backgroundColor: colors.shell,
+        foregroundColor: colors.onDark,
         elevation: 0,
         scrolledUnderElevation: 0,
         centerTitle: false,
@@ -155,7 +155,7 @@ class AppTheme {
         iconTheme: IconThemeData(color: colors.white),
       ),
       navigationBarTheme: NavigationBarThemeData(
-        backgroundColor: colors.forestGreen,
+        backgroundColor: colors.shell,
         indicatorColor: colors.onDarkDivider,
         elevation: 0,
         labelTextStyle: WidgetStateProperty.resolveWith((states) {
@@ -177,8 +177,8 @@ class AppTheme {
       ),
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
-          backgroundColor: colors.forestGreen,
-          foregroundColor: colors.white,
+          backgroundColor: colors.terracotta,
+          foregroundColor: colors.onDark,
           elevation: 0,
           padding: const EdgeInsets.symmetric(horizontal: KSize.margin8x, vertical: KSize.margin4x),
         ),
@@ -215,7 +215,7 @@ class AppTheme {
         circularTrackColor: colors.line,
       ),
       cardTheme: CardThemeData(
-        color: colors.white,
+        color: colors.parchmentCard,
         elevation: 0,
         shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.all(Radius.circular(KSize.radiusDefault)),

@@ -1,390 +1,305 @@
 import 'package:material_ui/material_ui.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:web_art_galery/i18n/strings.g.dart';
+import 'package:web_art_galery/src/features/contacts/presentation/screens/contacts_page_constants.dart';
 import 'package:web_art_galery/src/features/films/domain/entities/film.dart';
 import 'package:web_art_galery/src/features/films/presentation/cubits/films_cubit.dart';
 import 'package:web_art_galery/src/features/films/presentation/film_actions.dart';
 import 'package:web_art_galery/src/features/films/presentation/widgets/film_thumbnail.dart';
+import 'package:web_art_galery/src/navigation/presentation/router/app_routes.dart';
+import 'package:web_art_galery/src/navigation/presentation/widgets/page_chrome.dart';
 import 'package:web_art_galery/src/shared/config/app_context_extensions.dart';
 import 'package:web_art_galery/src/shared/config/ksize.dart';
+import 'package:web_art_galery/src/shared/presentation/widgets/app_loader.dart';
+import 'package:web_art_galery/src/shared/presentation/widgets/gallery_ui.dart';
+import 'package:web_art_galery/src/shared/utils/url_launcher_utils.dart';
 
+/// Films page body: the main film, the next films beside it (desktop), the
+/// rest — long-form videos then Instagram reels — as rows below.
 class FilmsSection extends StatelessWidget {
-  const FilmsSection({super.key});
+  const FilmsSection({super.key, required this.layout});
+
+  final PageLayout layout;
+
+  /// Films shown beside the main one on desktop.
+  static const int _sideCount = 3;
 
   @override
   Widget build(BuildContext context) {
-    final width = MediaQuery.sizeOf(context).width;
-    final isCompact = width < KSize.adaptiveExpandedBreakpoint;
-    final horizontalPadding = isCompact ? KSize.margin6x : KSize.margin12x * 2;
+    return BlocBuilder<FilmsCubit, FilmsState>(
+      builder: (context, state) {
+        if (state is FilmsInitial || state is FilmsLoading) {
+          return const Padding(
+            padding: EdgeInsets.symmetric(vertical: KSize.margin15x),
+            child: Center(child: AppLoader()),
+          );
+        }
+        if (state is! FilmsLoaded || state.isEmpty) {
+          return Padding(
+            padding: const EdgeInsets.symmetric(vertical: KSize.margin15x),
+            child: Icon(
+              Icons.movie_outlined,
+              size: KSize.iconHeroPlaceholder,
+              color: context.colors.contentMuted.withValues(alpha: 0.5),
+            ),
+          );
+        }
 
-    return Container(
-      color: context.colors.white,
-      padding: EdgeInsets.symmetric(
-        horizontal: horizontalPadding,
-        vertical: isCompact ? KSize.margin10x : KSize.margin15x,
-      ),
-      child: BlocBuilder<FilmsCubit, FilmsState>(
-        builder: (context, state) {
-          if (state is! FilmsLoaded || state.isEmpty) {
-            return const SizedBox.shrink();
-          }
-          final useTwoColumnLayout = width >= KSize.adaptiveTwoColumnBreakpoint;
+        final all = <Film>[...state.videos, ...state.reels];
+        final featured = all.first;
+        final gap = layout.isPhone ? KSize.margin3x : KSize.margin5x;
+
+        if (!layout.isWide) {
           return Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              _FilmsBlock(videos: state.videos, useTwoColumnLayout: useTwoColumnLayout),
-              if (state.reels.isNotEmpty) ...[
-                const SizedBox(height: KSize.margin15x),
-                _ReelsBlock(reels: state.reels, isCompact: isCompact),
+              _FeaturedFilmCard(layout: layout, film: featured),
+              for (final film in all.skip(1)) ...[
+                SizedBox(height: gap),
+                _FilmRowCard(layout: layout, film: film),
               ],
             ],
           );
-        },
-      ),
-    );
-  }
-}
+        }
 
-// ─── Films block (header + featured + responsive list) ───────────────────────
-
-class _FilmsBlock extends StatelessWidget {
-  const _FilmsBlock({required this.videos, required this.useTwoColumnLayout});
-
-  final List<Film> videos;
-  final bool useTwoColumnLayout;
-
-  @override
-  Widget build(BuildContext context) {
-    if (videos.isEmpty) return const SizedBox.shrink();
-    final featured = videos.first;
-    final secondary = videos.skip(1).toList(growable: false);
-    final filmsCopy = context.t.films;
-
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        _SectionHeader(
-          title: filmsCopy.title,
-          subtitle: filmsCopy.subtitle.toUpperCase(),
-          icon: Icons.movie_outlined,
-        ),
-        const SizedBox(height: KSize.margin10x),
-        if (!useTwoColumnLayout)
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              _FilmFeaturedCard(film: featured),
-              if (secondary.isNotEmpty) const SizedBox(height: KSize.margin10x),
-              for (var i = 0; i < secondary.length; i++) ...[
-                if (i != 0) const SizedBox(height: KSize.margin6x),
-                _FilmListCard(film: secondary[i]),
+        final side = all.skip(1).take(_sideCount).toList();
+        final rest = all.skip(1 + _sideCount).toList();
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Expanded(
+                  flex: 11,
+                  child: _FeaturedFilmCard(layout: layout, film: featured),
+                ),
+                SizedBox(width: gap),
+                Expanded(
+                  flex: 13,
+                  child: Column(
+                    children: [
+                      for (final (i, film) in side.indexed) ...[
+                        if (i > 0) SizedBox(height: gap),
+                        _FilmRowCard(layout: layout, film: film),
+                      ],
+                    ],
+                  ),
+                ),
               ],
-            ],
-          )
-        else
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Expanded(flex: 6, child: _FilmFeaturedCard(film: featured)),
-              const SizedBox(width: KSize.margin8x),
-              Expanded(
-                flex: 5,
-                child: Column(
+            ),
+            for (var start = 0; start < rest.length; start += 2) ...[
+              SizedBox(height: gap),
+              IntrinsicHeight(
+                child: Row(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
-                    for (var i = 0; i < secondary.length; i++) ...[
-                      if (i != 0) const SizedBox(height: KSize.margin6x),
-                      _FilmListCard(film: secondary[i]),
-                    ],
+                    Expanded(
+                      child: _FilmRowCard(layout: layout, film: rest[start]),
+                    ),
+                    SizedBox(width: gap),
+                    Expanded(
+                      child: start + 1 < rest.length
+                          ? _FilmRowCard(layout: layout, film: rest[start + 1])
+                          : const SizedBox.shrink(),
+                    ),
                   ],
                 ),
               ),
             ],
-          ),
-      ],
-    );
-  }
-}
-
-// ─── Reels block (Instagram grid) ────────────────────────────────────────────
-
-class _ReelsBlock extends StatelessWidget {
-  const _ReelsBlock({required this.reels, required this.isCompact});
-
-  final List<Film> reels;
-  final bool isCompact;
-
-  @override
-  Widget build(BuildContext context) {
-    final filmsCopy = context.t.films;
-    final crossAxisCount = isCompact ? 1 : 3;
-
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        _SectionHeader(
-          title: filmsCopy.instagramTitle,
-          subtitle: filmsCopy.instagramSubtitle.toUpperCase(),
-          icon: Icons.camera_alt_outlined,
-        ),
-        const SizedBox(height: KSize.margin10x),
-        // Reels are vertical 9:16 — a small grid keeps them tight.
-        LayoutBuilder(
-          builder: (context, constraints) {
-            const gap = KSize.margin5x;
-            final cellWidth = (constraints.maxWidth - gap * (crossAxisCount - 1)) / crossAxisCount;
-            return Wrap(
-              spacing: gap,
-              runSpacing: KSize.margin6x,
-              children: [
-                for (final reel in reels)
-                  SizedBox(
-                    width: cellWidth.clamp(220.0, 360.0),
-                    child: _ReelCard(reel: reel),
-                  ),
-              ],
-            );
-          },
-        ),
-      ],
-    );
-  }
-}
-
-// ─── Section header ──────────────────────────────────────────────────────────
-
-class _SectionHeader extends StatelessWidget {
-  const _SectionHeader({required this.title, required this.subtitle, required this.icon});
-
-  final String title;
-  final String subtitle;
-  final IconData icon;
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(title, style: context.textContent.archiveSectionTitle),
-        const SizedBox(height: KSize.margin4x),
-        Wrap(
-          crossAxisAlignment: WrapCrossAlignment.center,
-          spacing: KSize.margin3x,
-          runSpacing: KSize.margin2x,
-          children: [
-            Container(
-              width: KSize.newsRuleWidth,
-              height: KSize.borderWidthSmallHalf,
-              color: Theme.of(context).dividerColor,
-            ),
-            Text(subtitle, style: context.textContent.archiveMeta),
-            Icon(icon, size: KSize.iconSMedium, color: context.colors.forestGreen),
           ],
-        ),
-      ],
+        );
+      },
     );
   }
 }
 
-// ─── Featured card (top of the films block) ─────────────────────────────────
+String _watchLabel(Translations t, Film film) => switch (film.source) {
+  FilmSource.youtube => t.films.watchOn.youtube,
+  FilmSource.googleDrive => t.films.watchOn.googleDrive,
+  FilmSource.instagram => t.films.watchOn.instagram,
+};
 
-class _FilmFeaturedCard extends StatelessWidget {
-  const _FilmFeaturedCard({required this.film});
+class _FeaturedFilmCard extends StatelessWidget {
+  const _FeaturedFilmCard({required this.layout, required this.film});
 
+  final PageLayout layout;
   final Film film;
 
   @override
   Widget build(BuildContext context) {
     final t = context.t;
-    final filmsCopy = t.films;
-
-    return InkWell(
-      borderRadius: BorderRadius.circular(KSize.radiusLargeExtra),
-      onTap: () => openFilm(film),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          FilmThumbnail(film: film, featured: true),
-          const SizedBox(height: KSize.margin5x),
-          Text(filmsCopy.latestLabel.toUpperCase(), style: context.textContent.archiveSectionLabel),
-          const SizedBox(height: KSize.margin2x),
-          Text(filmTitle(t, film), style: context.textContent.archiveFeaturedTitle),
-          const SizedBox(height: KSize.margin3x),
-          Text(filmExcerpt(t, film), style: context.textContent.archiveExcerpt),
-          const SizedBox(height: KSize.margin4x),
-          _FilmMetaRow(film: film),
-        ],
-      ),
-    );
-  }
-}
-
-// ─── List card (everything below the featured card) ──────────────────────────
-
-class _FilmListCard extends StatelessWidget {
-  const _FilmListCard({required this.film});
-
-  final Film film;
-
-  @override
-  Widget build(BuildContext context) {
-    final t = context.t;
-    final isCompact = MediaQuery.sizeOf(context).width < KSize.adaptiveExpandedBreakpoint;
-    final title = filmTitle(t, film);
+    final isPhone = layout.isPhone;
     final excerpt = filmExcerpt(t, film);
 
-    return InkWell(
-      borderRadius: BorderRadius.circular(KSize.radiusLarge),
+    return GalleryCard(
       onTap: () => openFilm(film),
-      child: isCompact
-          ? Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                FilmThumbnail(film: film, featured: false),
-                const SizedBox(height: KSize.margin4x),
-                Text(title, style: context.textContent.archiveCardTitle),
-                const SizedBox(height: KSize.margin2x),
-                Text(
-                  excerpt,
-                  style: context.textContent.archiveExcerpt,
-                  maxLines: 4,
-                  overflow: TextOverflow.ellipsis,
-                ),
-                const SizedBox(height: KSize.margin3x),
-                _FilmMetaRow(film: film),
-              ],
-            )
-          : Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                SizedBox(
-                  width: KSize.newsListArtworkWidth,
-                  child: FilmThumbnail(film: film, featured: false),
-                ),
-                const SizedBox(width: KSize.margin5x),
-                Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.only(top: KSize.margin1x),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(title, style: context.textContent.archiveCardTitle),
-                        const SizedBox(height: KSize.margin2x),
-                        Text(
-                          excerpt,
-                          style: context.textContent.archiveExcerpt,
-                          maxLines: 4,
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                        const SizedBox(height: KSize.margin3x),
-                        _FilmMetaRow(film: film),
-                      ],
-                    ),
-                  ),
-                ),
-              ],
-            ),
-    );
-  }
-}
-
-// ─── Reel card (Instagram, 9:16) ─────────────────────────────────────────────
-
-class _ReelCard extends StatelessWidget {
-  const _ReelCard({required this.reel});
-
-  final Film reel;
-
-  @override
-  Widget build(BuildContext context) {
-    final t = context.t;
-    final title = filmTitle(t, reel);
-    final excerpt = filmExcerpt(t, reel);
-
-    return InkWell(
-      borderRadius: BorderRadius.circular(KSize.radiusLarge),
-      onTap: () => openFilm(reel),
+      padding: EdgeInsets.all(isPhone ? KSize.margin3x : KSize.margin4x),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          FilmThumbnail(film: reel, featured: false, aspectRatio: KSize.reelCardAspectRatio),
-          const SizedBox(height: KSize.margin3x),
-          if (title.isNotEmpty) Text(title, style: context.textContent.archiveCardTitle),
+          FilmThumbnail(
+            film: film,
+            featured: true,
+            showHostChip: false,
+            borderRadius: KSize.radiusDefaultMedium,
+          ),
+          SizedBox(height: isPhone ? KSize.margin4x : KSize.margin5x),
+          GalleryEyebrow(text: t.films.latestLabel, showRule: false),
+          const SizedBox(height: KSize.margin2x),
+          Text(
+            filmTitle(t, film),
+            style: context.textContent.homeTitle(
+              isPhone ? KSize.fontSize2XL : KSize.fontSize3XLHalf,
+            ),
+          ),
           if (excerpt.isNotEmpty) ...[
-            const SizedBox(height: KSize.margin1x),
+            const SizedBox(height: KSize.margin3x),
             Text(
               excerpt,
-              style: context.textContent.archiveExcerpt,
-              maxLines: 3,
-              overflow: TextOverflow.ellipsis,
+              style: isPhone ? context.textContent.homeBodyCompact : context.textContent.homeBody,
             ),
           ],
-          const SizedBox(height: KSize.margin3x),
-          _FilmMetaRow(film: reel),
+          SizedBox(height: isPhone ? KSize.margin4x : KSize.margin5x),
+          _SourceAndLink(film: film, compact: false),
         ],
       ),
     );
   }
 }
 
-// ─── Meta row (source chip + watch link) ─────────────────────────────────────
+class _FilmRowCard extends StatelessWidget {
+  const _FilmRowCard({required this.layout, required this.film});
 
-class _FilmMetaRow extends StatelessWidget {
-  const _FilmMetaRow({required this.film});
-
+  final PageLayout layout;
   final Film film;
 
   @override
   Widget build(BuildContext context) {
-    final filmsCopy = context.t.films;
-    final watchLabel = switch (film.source) {
-      FilmSource.youtube => filmsCopy.watchOn.youtube,
-      FilmSource.googleDrive => filmsCopy.watchOn.googleDrive,
-      FilmSource.instagram => filmsCopy.watchOn.instagram,
-    };
+    final t = context.t;
+    final isPhone = layout.isPhone;
+    final excerpt = filmExcerpt(t, film);
+
+    return GalleryCard(
+      onTap: () => openFilm(film),
+      padding: EdgeInsets.all(isPhone ? KSize.margin2Halfx : KSize.margin3x),
+      child: IntrinsicHeight(
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Expanded(
+              flex: 4,
+              child: Center(
+                child: FilmThumbnail(
+                  film: film,
+                  featured: false,
+                  showHostChip: false,
+                  borderRadius: KSize.radiusDefaultSmall,
+                ),
+              ),
+            ),
+            SizedBox(width: isPhone ? KSize.margin3x : KSize.margin5x),
+            Expanded(
+              flex: 6,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    filmTitle(t, film),
+                    style: context.textContent.homeTitle(
+                      isPhone ? KSize.fontSizeS + 1 : KSize.fontSizeL,
+                    ),
+                    maxLines: 3,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                  if (excerpt.isNotEmpty) ...[
+                    const SizedBox(height: KSize.margin1Halfx),
+                    Text(
+                      excerpt,
+                      style: context.textContent.quickLinkSubtitle,
+                      maxLines: isPhone ? 2 : 3,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ],
+                  const SizedBox(height: KSize.margin3x),
+                  _SourceAndLink(film: film, compact: isPhone),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+/// "Источник: YOUTUBE" chip + watch link.
+class _SourceAndLink extends StatelessWidget {
+  const _SourceAndLink({required this.film, required this.compact});
+
+  final Film film;
+  final bool compact;
+
+  @override
+  Widget build(BuildContext context) {
+    final t = context.t;
 
     return Wrap(
       crossAxisAlignment: WrapCrossAlignment.center,
-      spacing: KSize.margin3x,
+      spacing: compact ? KSize.margin3x : KSize.margin6x,
       runSpacing: KSize.margin2x,
       children: [
-        Container(
-          padding: const EdgeInsets.symmetric(horizontal: KSize.margin2x, vertical: KSize.margin1x),
-          decoration: BoxDecoration(
-            color: context.colors.bioBg,
-            borderRadius: BorderRadius.circular(KSize.radiusOfRoundButton),
-          ),
-          child: Text(
-            '${filmsCopy.sourceLabel}: ${film.hostLabel}',
-            style: context.textContent.archiveMeta,
-          ),
-        ),
-        MouseRegion(
-          cursor: SystemMouseCursors.click,
-          child: GestureDetector(
-            onTap: () => openFilm(film),
-            child: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Flexible(
-                  child: Text(
-                    watchLabel.toUpperCase(),
-                    style: context.textContent.archiveLink,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                ),
-                const SizedBox(width: KSize.margin1Halfx),
-                Icon(
-                  Icons.arrow_outward_rounded,
-                  size: KSize.iconSPlus,
-                  color: context.colors.forestGreen,
-                ),
-              ],
-            ),
-          ),
+        GalleryTagChip(label: t.pages.films.source(host: film.hostLabel)),
+        GalleryArrowLink(
+          label: compact ? t.pages.films.watch : _watchLabel(t, film),
+          onTap: () => openFilm(film),
         ),
       ],
     );
   }
 }
 
+/// "Видеоархив об А. Кищенко": Instagram clips, the publications archive
+/// and the news feed.
+class FilmsArchiveBand extends StatelessWidget {
+  const FilmsArchiveBand({super.key, required this.layout});
+
+  final PageLayout layout;
+
+  @override
+  Widget build(BuildContext context) {
+    final t = context.t;
+
+    return GalleryBand(
+      layout: layout,
+      title: t.films.subtitle,
+      body: t.pages.films.bandBody,
+      card: GalleryBandRoutes(
+        layout: layout,
+        routes: [
+          GalleryBandRoute(
+            icon: Icons.smart_display_outlined,
+            title: t.films.instagramTitle,
+            subtitle: t.films.instagramSubtitle,
+            onTap: () =>
+                UrlLauncherUtils.launchUrlIfPossible(url: ContactsPageConstants.instagramUrl),
+          ),
+          GalleryBandRoute(
+            icon: Icons.inventory_2_outlined,
+            title: t.archiveFeed.title,
+            subtitle: t.archiveFeed.moreLabel,
+            onTap: () => context.go(AppRoutes.archive),
+          ),
+          GalleryBandRoute(
+            icon: Icons.article_outlined,
+            title: t.navigation.news,
+            subtitle: t.home.links.news,
+            onTap: () => context.go(AppRoutes.news),
+          ),
+        ],
+      ),
+    );
+  }
+}

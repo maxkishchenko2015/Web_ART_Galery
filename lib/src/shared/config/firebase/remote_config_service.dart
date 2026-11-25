@@ -14,14 +14,16 @@ class RemoteConfigService {
 
   static RemoteConfigService get instance => _instance;
 
-  /// RC flag gating the first-visit tooltips (onboarding tour).
-  static const String _showTooltipsKey = 'SHOW_TOOLTIPS';
-
   FirebaseRemoteConfig? _remoteConfig;
 
-  /// Whether the onboarding tooltips should be shown. Defaults to false until a
-  /// successful fetch says otherwise.
-  bool get showTooltips => _remoteConfig?.getBool(_showTooltipsKey) ?? false;
+  /// Reads boolean flag [key]; returns [fallback] until a successful fetch
+  /// (or when Firebase isn't available).
+  bool getBool(String key, {bool fallback = false}) {
+    final remoteConfig = _remoteConfig;
+    if (remoteConfig == null) return fallback;
+    final value = remoteConfig.getValue(key);
+    return value.source == ValueSource.valueStatic ? fallback : value.asBool();
+  }
 
   /// Fetches and activates remote config. No-op when Firebase isn't ready.
   /// Never throws — fetch failures are logged and tracked, flags stay at their
@@ -32,7 +34,6 @@ class RemoteConfigService {
     }
     try {
       final remoteConfig = FirebaseRemoteConfig.instance;
-      await remoteConfig.setDefaults(const {_showTooltipsKey: false});
       await remoteConfig.setConfigSettings(
         RemoteConfigSettings(
           fetchTimeout: const Duration(seconds: 10),

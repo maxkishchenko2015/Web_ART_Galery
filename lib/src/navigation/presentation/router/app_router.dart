@@ -92,8 +92,7 @@ final List<RouteBase> _routes = [
           GoRoute(
             path: AppRoutes.catalogWorkSegment,
             pageBuilder: (context, state) {
-              final workId =
-                  state.pathParameters[AppRoutes.workIdParam] ?? 'unknown';
+              final workId = state.pathParameters[AppRoutes.workIdParam] ?? 'unknown';
               return NoTransitionPage<void>(
                 key: state.pageKey,
                 child: _DeferredScreen(
@@ -150,11 +149,7 @@ final List<RouteBase> _routes = [
 /// If the reload already happened (or on a non-web platform), it falls back
 /// to an inline error with a Retry button instead of crashing the route.
 class _DeferredScreen extends StatefulWidget {
-  const _DeferredScreen({
-    required this.routeKey,
-    required this.loader,
-    required this.builder,
-  });
+  const _DeferredScreen({required this.routeKey, required this.loader, required this.builder});
 
   /// Stable per-route identifier for the one-shot reload guard.
   final String routeKey;

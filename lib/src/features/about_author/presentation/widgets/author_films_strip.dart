@@ -17,9 +17,12 @@ import 'package:web_art_galery/src/shared/config/ksize.dart';
 /// page and a tap opens the exact same external link. Taps are logged with
 /// `origin: 'about_author'` so the films funnel can be sliced by surface.
 class AuthorFilmsStrip extends StatelessWidget {
-  const AuthorFilmsStrip({super.key, required this.isCompact});
+  const AuthorFilmsStrip({super.key, required this.isCompact, this.gutter});
 
   final bool isCompact;
+
+  /// Side padding; defaults to the legacy page padding when null.
+  final double? gutter;
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +34,7 @@ class AuthorFilmsStrip extends StatelessWidget {
         // "All films from the Films page" — the long-form videos followed by
         // the short Instagram reels, in display order.
         final films = <Film>[...state.videos, ...state.reels];
-        final hPad = isCompact ? KSize.margin6x : KSize.margin12x * 2;
+        final hPad = gutter ?? (isCompact ? KSize.margin6x : KSize.margin12x * 2);
 
         return Container(
           // bioBg is a soft off-white that reads as a distinct band between the
@@ -76,7 +79,7 @@ class _StripHeader extends StatelessWidget {
               color: Theme.of(context).dividerColor,
             ),
             Text(filmsCopy.subtitle.toUpperCase(), style: context.textContent.archiveMeta),
-            Icon(Icons.movie_outlined, size: KSize.iconSMedium, color: context.colors.forestGreen),
+            Icon(Icons.movie_outlined, size: KSize.iconSMedium, color: context.colors.terracotta),
           ],
         ),
       ],

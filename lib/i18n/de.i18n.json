@@ -204,16 +204,6 @@
       "openExternally": "Extern öffnen"
     }
   },
-  "tour": {
-    "next": "Weiter",
-    "gotIt": "Verstanden",
-    "back": "Zurück",
-    "chernobylBody": "Kischtschanka ist auch der Schöpfer des Wandteppichs „Tschernobyl“ (1991), der den Vereinten Nationen geschenkt wurde und bis heute deren Hauptquartier in New York schmückt. Der UN-Generalsekretär verglich ihn mit Picassos „Guernica“.",
-    "originsTitle": "Am Ursprung des „universellen Realismus“",
-    "originsBody": "Alexander Michailowitsch Kischtschanka (1933–1997). Maler. Philosoph. Monumentalist. Geboren im Weiler Bely Kolodez (heute Rajon Botschar, Oblast Woronesch), erlangte er als Schöpfer des weltgrößten „Wandteppichs des Jahrhunderts“ Weltruhm.",
-    "scaleTitle": "Maßstab des Wandteppichs des Jahrhunderts",
-    "scaleBody": "Der „Wandteppich des Jahrhunderts“ ist eine handgewebte Leinwand von 19 × 14 Metern (so hoch wie ein fünfstöckiges Gebäude) und über eine Tonne schwer. 1999 wurde er als größter Wandteppich der Welt ins Guinness-Buch der Rekorde eingetragen."
-  },
   "language": {
     "label": "Sprache",
     "russian": "Russisch",
@@ -373,6 +363,91 @@
     "quote": "Die Kunst ist ein göttliches Phänomen. Nur ihr ist es gegeben, die Zeit anzuhalten. Kunst kann das Geheimnis der Zukunft entschlüsseln und auch die verlorene Vergangenheit wiederherstellen.",
     "quoteAuthor": "— Alexander Kischanka",
     "wikipediaLinkLabel": "AUF WIKIPEDIA LESEN"
+  },
+  "home": {
+    "hero": {
+      "eyebrow": "Alexander Kischanka",
+      "title": "Kunst von kosmischem Ausmaß",
+      "lead": "Malerei, monumentale Mosaiken und Wandteppiche — die Bildwelt von Alexander Michailowitsch Kischanka, in der sich Kosmos, Mensch und Zeit begegnen.",
+      "worksCta": "Werke ansehen",
+      "filmCta": "Film über den Künstler"
+    },
+    "about": {
+      "label": "Über den Künstler",
+      "body": "Volkskünstler der Republik Belarus, Maler und Monumentalist. Schöpfer des größten Wandteppichs der Welt, des „Wandteppichs des Jahrhunderts“, und des Wandteppichs „Tschernobyl“ im UN-Hauptquartier in New York.",
+      "cta": "Mehr über den Künstler"
+    },
+    "story": {
+      "label": "Hauptgeschichte",
+      "readArticle": "Artikel lesen",
+      "readStory": "Geschichte lesen"
+    },
+    "links": {
+      "catalog": "Malerei, Wandteppiche und Grafik",
+      "news": "Ausstellungen, Ereignisse und Publikationen",
+      "films": "Dokumentarfilme und Videoarchiv",
+      "archive": "Artikel und Materialien über den Meister"
+    },
+    "featured": {
+      "label": "Ausgewählte Werke",
+      "title": "Die Bildwelt Kischankas",
+      "cta": "Galerie ansehen",
+      "moreInCatalog": "im Katalog",
+      "fullCatalog": "Gesamter Katalog"
+    },
+    "start": {
+      "title": "Wo anfangen",
+      "body": "Zum ersten Mal hier? Wir haben einige Wege zusammengestellt, die Ihnen helfen, das Werk des Künstlers schnell kennenzulernen.",
+      "aboutTitle": "Den Künstler kennenlernen",
+      "aboutSubtitle": "Biografie und wichtige Stationen",
+      "worksTitle": "Hauptwerke ansehen",
+      "worksSubtitle": "Malerei und Wandteppiche aus der Sammlung",
+      "filmsTitle": "Filme ansehen",
+      "filmsSubtitle": "Dokumentarfilme über den Künstler"
+    },
+    "footer": {
+      "sections": "Bereiche",
+      "social": "Folgen Sie uns",
+      "rights": "Alle Rechte vorbehalten."
+    }
+  },
+  "pages": {
+    "news": {
+      "subtitle": "Publikationen, Ausstellungen und Ereignisse rund um das Werk von Alexander Michailowitsch Kischanka.",
+      "featuredLabel": "Top-Nachricht",
+      "stayTitle": "Bleiben Sie informiert",
+      "stayBody": "Neuigkeiten zu Ausstellungen, Publikationen und neuen Materialien aus dem Archiv von A. M. Kischanka.",
+      "archiveSubtitle": "Früher veröffentlichte Materialien"
+    },
+    "catalog": {
+      "eyebrow": "Sammlung",
+      "subtitle": "Gemälde von Alexander Michailowitsch Kischanka aus verschiedenen Schaffensperioden.",
+      "period": "Zeitraum:",
+      "found": "Gefundene Werke: ${count}"
+    },
+    "films": {
+      "subtitle": "Dokumentarfilme, Interviews und Videomaterialien über Leben, Werk und Vermächtnis von Alexander Michailowitsch Kischanka.",
+      "bandBody": "Filme, Interviews und Fernsehbeiträge über den Künstler und sein Vermächtnis.",
+      "watch": "Ansehen",
+      "source": "Quelle: ${host}"
+    },
+    "archive": {
+      "subtitle": "Materialien, Artikel, Ausstellungsberichte und weitere Publikationen über Leben und Werk von Alexander Michailowitsch Kischanka.",
+      "featuredLabel": "Hauptbeitrag des Archivs",
+      "searchTitle": "Im Archiv suchen",
+      "searchBody": "Finden Sie Publikationen nach Thema, Jahr oder Quelle.",
+      "searchHint": "Archiv durchsuchen",
+      "allYears": "Alle Jahre",
+      "noResults": "Nichts gefunden. Versuchen Sie eine andere Suche.",
+      "byYears": "Archiv nach Jahren"
+    },
+    "contacts": {
+      "subtitle": "Kontaktieren Sie das Atelier von Alexander Michailowitsch Kischanka zu Werk, Zusammenarbeit, Ausstellungen und Nutzung von Materialien.",
+      "phoneTitle": "Telefon / WhatsApp",
+      "instagramHint": "Neuigkeiten, Archiv und Atelierbilder",
+      "vkHint": "Community und Publikationen",
+      "studioLabel": "Atelier"
+    }
   },
   "contacts": {
     "title": "Kontakte",

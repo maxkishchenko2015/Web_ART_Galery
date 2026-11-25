@@ -5,6 +5,8 @@ import 'package:meta_seo/meta_seo.dart';
 import 'package:web_art_galery/i18n/strings.g.dart';
 import 'package:web_art_galery/src/features/films/presentation/cubits/films_cubit.dart';
 import 'package:web_art_galery/src/features/films/presentation/widgets/films_section.dart';
+import 'package:web_art_galery/src/navigation/presentation/widgets/page_chrome.dart';
+import 'package:web_art_galery/src/shared/config/ksize.dart';
 import 'package:web_art_galery/src/shared/presentation/widgets/cubit_initializer.dart';
 
 class FilmsPage extends StatelessWidget {
@@ -20,10 +22,25 @@ class FilmsPage extends StatelessWidget {
     }
     return CubitInitializer(
       onInit: (context) => context.read<FilmsCubit>().load(),
-      // Top inset clears the mobile shell's floating app bar (0 on desktop).
-      child: SingleChildScrollView(
-        padding: EdgeInsets.only(top: MediaQuery.paddingOf(context).top),
-        child: const FilmsSection(),
+      child: GalleryPageScaffold(
+        hero: (layout) => PageHero(
+          layout: layout,
+          eyebrow: context.t.navigation.films,
+          title: context.t.films.title,
+          subtitle: context.t.pages.films.subtitle,
+        ),
+        sections: (context, layout) => [
+          Padding(
+            padding: EdgeInsets.fromLTRB(
+              layout.gutter,
+              layout.sectionGap,
+              layout.gutter,
+              layout.sectionGap + KSize.margin2x,
+            ),
+            child: FilmsSection(layout: layout),
+          ),
+          FilmsArchiveBand(layout: layout),
+        ],
       ),
     );
   }

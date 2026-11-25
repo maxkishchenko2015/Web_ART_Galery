@@ -1,6 +1,5 @@
 import 'package:material_ui/material_ui.dart';
 import 'package:web_art_galery/src/features/films/domain/entities/film.dart';
-import 'package:web_art_galery/src/shared/config/app_colors.dart';
 import 'package:web_art_galery/src/shared/config/app_context_extensions.dart';
 import 'package:web_art_galery/src/shared/config/ksize.dart';
 import 'package:web_art_galery/src/shared/presentation/widgets/network_image/app_network_image_provider.dart';
@@ -18,16 +17,25 @@ class FilmThumbnail extends StatelessWidget {
     required this.film,
     required this.featured,
     this.aspectRatio = KSize.filmCardAspectRatio,
+    this.showHostChip = true,
+    this.borderRadius,
   });
 
   final Film film;
   final bool featured;
   final double aspectRatio;
 
+  /// Host chip ("YOUTUBE") in the corner; off where the card shows the
+  /// source below the thumbnail.
+  final bool showHostChip;
+
+  /// Overrides the default corner radius.
+  final double? borderRadius;
+
   @override
   Widget build(BuildContext context) {
     final colors = context.colors;
-    final radius = featured ? KSize.radiusLargeExtra : KSize.radiusLarge;
+    final radius = borderRadius ?? (featured ? KSize.radiusLargeExtra : KSize.radiusLarge);
 
     return ClipRRect(
       borderRadius: BorderRadius.circular(radius),
@@ -84,22 +92,23 @@ class FilmThumbnail extends StatelessWidget {
               ),
             ),
             // Host chip
-            Positioned(
-              top: featured ? KSize.featuredArtworkChipInset : KSize.regularFilmChipInset,
-              right: featured ? KSize.featuredArtworkChipInset : KSize.regularFilmChipInset,
-              child: Container(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: KSize.margin3x,
-                  vertical: KSize.margin1x,
+            if (showHostChip)
+              Positioned(
+                top: featured ? KSize.featuredArtworkChipInset : KSize.regularFilmChipInset,
+                right: featured ? KSize.featuredArtworkChipInset : KSize.regularFilmChipInset,
+                child: Container(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: KSize.margin3x,
+                    vertical: KSize.margin1x,
+                  ),
+                  decoration: BoxDecoration(
+                    color: colors.newsChipFill,
+                    borderRadius: BorderRadius.circular(KSize.radiusOfRoundButton),
+                    border: Border.all(color: colors.newsChipBorder),
+                  ),
+                  child: Text(film.hostLabel, style: context.textOnDark.footerSitemapLabel),
                 ),
-                decoration: BoxDecoration(
-                  color: colors.newsChipFill,
-                  borderRadius: BorderRadius.circular(KSize.radiusOfRoundButton),
-                  border: Border.all(color: colors.newsChipBorder),
-                ),
-                child: Text(film.hostLabel, style: context.textOnDark.footerSitemapLabel),
               ),
-            ),
             // Centered red play button — the visual hook from the screenshot.
             Center(child: _PlayButton(featured: featured)),
           ],
@@ -124,7 +133,7 @@ class _PlayButton extends StatelessWidget {
         height: size,
         decoration: BoxDecoration(
           shape: BoxShape.circle,
-          color: AppColors.playButtonRed,
+          color: context.colors.terracotta,
           boxShadow: [
             BoxShadow(
               color: Colors.black.withAlpha(70),

@@ -10,7 +10,6 @@ import 'package:web_art_galery/i18n/strings.g.dart';
 import 'package:web_art_galery/src/features/about_author/data/api/about_author_api_controller.dart';
 import 'package:web_art_galery/src/features/about_author/data/repository/about_author_repository_firebase.dart';
 import 'package:web_art_galery/src/features/about_author/presentation/cubits/about_author_cubit.dart';
-import 'package:web_art_galery/src/features/about_author/presentation/cubits/onboarding_tour_cubit.dart';
 import 'package:web_art_galery/src/features/archive/data/repository/archive_repository_local.dart';
 import 'package:web_art_galery/src/features/archive/presentation/cubits/archive_cubit.dart';
 import 'package:web_art_galery/src/features/catalog_of_works/data/api/catalog_of_works_api_controller.dart';
@@ -98,7 +97,7 @@ void main() {
       }
 
       // Kick off the Remote Config fetch in parallel (never blocks first frame).
-      // Flags (e.g. SHOW_TOOLTIPS) stay at their defaults until it lands.
+      // Flags stay at their defaults until it lands.
       if (firebaseReady) {
         unawaited(RemoteConfigService.instance.initialize());
       }
@@ -133,16 +132,15 @@ void main() {
               // Feature cubits are PROVIDED here but NOT loaded here. Each page
               // triggers its own cubit's load() on mount (via CubitInitializer
               // or page initState), so nothing fetches over the network until
-              // its route is actually visited. This keeps the first route
-              // (/about-author) from firing the news + catalog Firestore
-              // queries it never displays. The providers stay app-wide because
-              // the shell reads news/catalog state to show/hide their nav tabs.
+              // a route that displays it is visited (the home page shows the
+              // latest news story and featured catalog works, so it loads
+              // both). The providers stay app-wide because the shell reads
+              // news/catalog state to show/hide their nav tabs.
               BlocProvider<NewsListCubit>(
                 create: (_) => NewsListCubit(
                   repository: NewsRepositoryFirebase(apiController: NewsApiController()),
                 ),
               ),
-              BlocProvider<OnboardingTourCubit>(create: (_) => OnboardingTourCubit()),
               BlocProvider<AboutAuthorCubit>(
                 create: (_) => AboutAuthorCubit(
                   repository: AboutAuthorRepositoryFirebase(

@@ -46,11 +46,7 @@ class ArchiveCubit extends Cubit<ArchiveState> {
       final items = await _repository.fetchAll();
       emit(ArchiveLoaded(items: items));
     } catch (error, stackTrace) {
-      AppLogger.instance.e(
-        'Archive list fetch failed',
-        error: error,
-        stackTrace: stackTrace,
-      );
+      AppLogger.instance.e('Archive list fetch failed', error: error, stackTrace: stackTrace);
       emit(ArchiveError(error.toString()));
     }
   }

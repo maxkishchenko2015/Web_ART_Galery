@@ -10,11 +10,15 @@ import 'package:web_art_galery/src/features/catalog_of_works/presentation/locali
 import 'package:web_art_galery/src/features/catalog_of_works/presentation/widgets/aspect_aware_image.dart';
 import 'package:web_art_galery/src/features/catalog_of_works/presentation/widgets/catalog_lazy_grid_view.dart';
 import 'package:web_art_galery/src/features/catalog_of_works/presentation/widgets/decade_filter_bar.dart';
+import 'package:web_art_galery/src/navigation/presentation/widgets/gallery_footer.dart';
+import 'package:web_art_galery/src/navigation/presentation/widgets/page_chrome.dart';
 import 'package:web_art_galery/src/shared/config/app_context_extensions.dart';
 import 'package:web_art_galery/src/shared/config/ksize.dart';
 import 'package:web_art_galery/src/shared/presentation/widgets/app_loader.dart';
+import 'package:web_art_galery/src/shared/presentation/widgets/cached_network_image_view.dart';
 import 'package:web_art_galery/src/shared/presentation/widgets/cubit_initializer.dart';
 import 'package:web_art_galery/src/shared/presentation/widgets/fullscreen_image_viewer.dart';
+import 'package:web_art_galery/src/shared/presentation/widgets/gallery_ui.dart';
 import 'package:web_art_galery/src/shared/telemetry/app_telemetry.dart';
 
 class CatalogOfWorksPage extends StatelessWidget {
@@ -32,31 +36,73 @@ class CatalogOfWorksPage extends StatelessWidget {
     // (the cubit's own `is Loaded` guard makes revisits a no-op).
     return CubitInitializer(
       onInit: (context) => context.read<CatalogOfWorksCubit>().loadInitial(),
-      child: const _CatalogOfWorksContent(),
+      child: LayoutBuilder(
+        builder: (context, constraints) =>
+            _CatalogOfWorksContent(layout: PageLayout(constraints.maxWidth)),
+      ),
     );
   }
 }
 
 class _CatalogOfWorksContent extends StatelessWidget {
-  const _CatalogOfWorksContent();
+  const _CatalogOfWorksContent({required this.layout});
+
+  final PageLayout layout;
 
   @override
   Widget build(BuildContext context) {
+    final hero = PageHero(
+      layout: layout,
+      eyebrow: context.t.pages.catalog.eyebrow,
+      title: context.t.navigation.catalogOfWorks,
+      subtitle: context.t.pages.catalog.subtitle,
+    );
+    final footer = GalleryFooter(gutter: layout.gutter, isPhone: layout.isPhone);
+
     return BlocBuilder<CatalogOfWorksCubit, CatalogOfWorksState>(
       builder: (context, state) {
-        return switch (state) {
-          CatalogOfWorksInitial() ||
-          CatalogOfWorksLoading() => const Center(child: AppLoader()),
-          // Errors and the all-filtered-out / empty result share the same
-          // wordless visual: rendering raw exception strings (e.g. "Null check
-          // operator used on a null value") in production was confusing users.
-          // The shell also hides the catalog tab in those states, so this view
-          // is mostly reached via direct deep links.
+        // Errors and the empty result share the same wordless visual:
+        // rendering raw exception strings in production confused users. The
+        // shell also hides the catalog tab in those states, so this view is
+        // mostly reached via direct deep links.
+        final Widget? placeholder = switch (state) {
+          CatalogOfWorksInitial() || CatalogOfWorksLoading() => const Center(child: AppLoader()),
           CatalogOfWorksError() => const _CatalogEmptyState(),
           CatalogOfWorksLoaded(paintings: final paintings) when paintings.isEmpty =>
             const _CatalogEmptyState(),
-          CatalogOfWorksLoaded() => _CatalogOfWorksLoadedView(state: state),
+          CatalogOfWorksLoaded() => null,
         };
+        if (placeholder != null || state is! CatalogOfWorksLoaded) {
+          return SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                hero,
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: KSize.margin15x),
+                  child: placeholder,
+                ),
+                footer,
+              ],
+            ),
+          );
+        }
+
+        return _PaintingsGrid(
+          layout: layout,
+          header: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              hero,
+              _FilterRow(layout: layout, state: state),
+            ],
+          ),
+          footer: footer,
+          paintings: state.visiblePaintings,
+          isLoadingMore: state.isLoadingMore,
+          hasReachedMax: state.hasReachedMax,
+          isFiltered: state.selectedDecade != null,
+        );
       },
     );
   }
@@ -68,50 +114,75 @@ class _CatalogEmptyState extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: Padding(
-        padding: const EdgeInsets.all(KSize.margin8x),
-        child: Icon(
-          Icons.image_outlined,
-          size: KSize.iconHeroPlaceholder,
-          color: context.colors.onDarkPlaceholderIcon,
-        ),
+      child: Icon(
+        Icons.image_outlined,
+        size: KSize.iconHeroPlaceholder,
+        color: context.colors.contentMuted.withValues(alpha: 0.5),
       ),
     );
   }
 }
 
-class _CatalogOfWorksLoadedView extends StatelessWidget {
-  const _CatalogOfWorksLoadedView({required this.state});
+/// "Период:" + decade chips, and the number of works once the whole catalog
+/// is loaded (a partial page count would understate it).
+class _FilterRow extends StatelessWidget {
+  const _FilterRow({required this.layout, required this.state});
 
+  final PageLayout layout;
   final CatalogOfWorksLoaded state;
 
   @override
   Widget build(BuildContext context) {
-    return _PaintingsGrid(
-      // Scrolls with the grid; the top inset clears the mobile shell's
-      // floating app bar (0 on desktop).
-      header: Padding(
-        padding: EdgeInsets.only(top: MediaQuery.paddingOf(context).top),
-        child: const DecadeFilterBar(),
+    final t = context.t.pages.catalog;
+    final count = state.hasReachedMax
+        ? Text(
+            t.found(count: state.visiblePaintings.length),
+            style: context.textContent.quickLinkSubtitle,
+          )
+        : null;
+
+    return Padding(
+      padding: EdgeInsets.fromLTRB(layout.gutter, KSize.margin6x, layout.gutter, 0),
+      child: Container(
+        padding: const EdgeInsets.only(bottom: KSize.margin5x),
+        decoration: BoxDecoration(
+          border: Border(bottom: BorderSide(color: context.colors.parchmentLine)),
+        ),
+        child: layout.isPhone
+            ? Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const DecadeFilterBar(compact: true),
+                  if (count != null) ...[const SizedBox(height: KSize.margin3x), count],
+                ],
+              )
+            : Row(
+                children: [
+                  Text(t.period, style: context.textContent.fieldCaption),
+                  const SizedBox(width: KSize.margin5x),
+                  const Expanded(child: DecadeFilterBar()),
+                  if (count != null) ...[const SizedBox(width: KSize.margin5x), count],
+                ],
+              ),
       ),
-      paintings: state.visiblePaintings,
-      isLoadingMore: state.isLoadingMore,
-      hasReachedMax: state.hasReachedMax,
-      isFiltered: state.selectedDecade != null,
     );
   }
 }
 
 class _PaintingsGrid extends StatefulWidget {
   const _PaintingsGrid({
+    required this.layout,
     required this.header,
+    required this.footer,
     required this.paintings,
     required this.isLoadingMore,
     required this.hasReachedMax,
     required this.isFiltered,
   });
 
+  final PageLayout layout;
   final Widget header;
+  final Widget footer;
   final List<Painting> paintings;
   final bool isLoadingMore;
   final bool hasReachedMax;
@@ -141,145 +212,181 @@ class _PaintingsGridState extends State<_PaintingsGrid> {
   @override
   Widget build(BuildContext context) {
     final cubit = context.read<CatalogOfWorksCubit>();
+    final layout = widget.layout;
 
     // While a decade filter is active and no items match yet, the grid
     // would otherwise be empty during the auto-pager's catch-up phase.
-    // Surface a centered spinner so the page doesn't look broken.
-    // Keep the filter visible above the spinner so the user can switch decade.
+    // Surface a spinner so the page doesn't look broken; the filter stays
+    // visible so the user can switch decade.
     if (widget.isFiltered && widget.paintings.isEmpty && !widget.hasReachedMax) {
-      return Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          widget.header,
-          const Expanded(child: Center(child: AppLoader())),
-        ],
+      return SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            widget.header,
+            const Padding(
+              padding: EdgeInsets.symmetric(vertical: KSize.margin15x),
+              child: Center(child: AppLoader()),
+            ),
+            widget.footer,
+          ],
+        ),
       );
     }
 
-    return LayoutBuilder(
-      builder: (context, constraints) {
-        final width = constraints.maxWidth;
-        final crossAxisCount = width < KSize.adaptiveCompactBreakpoint
-            ? 1
-            : width < KSize.adaptiveExpandedBreakpoint
-            ? 2
-            : 3;
+    final columns = layout.isPhone
+        ? 2
+        : layout.contentWidth < KSize.catalogFourColumnBreakpoint
+        ? 3
+        : 4;
+    final spacing = layout.isPhone ? KSize.margin3x : KSize.margin5x;
+    const cardPadding = KSize.margin2x;
+    final cardWidth = (layout.width - layout.gutter * 2 - spacing * (columns - 1)) / columns;
+    final imageRatio = layout.isPhone
+        ? KSize.catalogImageAspectRatioPhone
+        : KSize.catalogImageAspectRatioWide;
+    final caption = layout.isPhone
+        ? KSize.catalogCaptionHeightPhone
+        : KSize.catalogCaptionHeightWide;
+    final cardHeight = (cardWidth - cardPadding * 2) / imageRatio + caption + cardPadding * 2;
 
-        return CatalogLazyGridView(
-          itemCount: widget.paintings.length,
-          isLoading: widget.isLoadingMore,
-          hasReachedMax: widget.hasReachedMax,
-          onLoadMore: cubit.loadMore,
-          header: widget.header,
-          padding: const EdgeInsets.fromLTRB(
-            KSize.margin4x,
-            KSize.margin5x,
-            KSize.margin4x,
-            KSize.margin12x,
-          ),
-          crossAxisCount: crossAxisCount,
-          childAspectRatio: KSize.catalogCardAspectRatio,
-          mainAxisSpacing: KSize.margin7x,
-          crossAxisSpacing: KSize.margin4x,
-          loadingWidget: const Padding(
-            padding: EdgeInsets.symmetric(vertical: KSize.margin5x),
-            child: Center(child: AppLoader()),
-          ),
-          itemBuilder: (context, index) =>
-              _PaintingCard(painting: widget.paintings[index], onOpen: _onPaintingOpened),
-        );
-      },
+    return CatalogLazyGridView(
+      itemCount: widget.paintings.length,
+      isLoading: widget.isLoadingMore,
+      hasReachedMax: widget.hasReachedMax,
+      onLoadMore: cubit.loadMore,
+      header: widget.header,
+      footer: Padding(
+        padding: EdgeInsets.only(top: layout.sectionGap),
+        child: widget.footer,
+      ),
+      padding: EdgeInsets.fromLTRB(layout.gutter, layout.sectionGap, layout.gutter, 0),
+      crossAxisCount: columns,
+      childAspectRatio: cardWidth / cardHeight,
+      mainAxisSpacing: spacing,
+      crossAxisSpacing: spacing,
+      loadingWidget: const Padding(
+        padding: EdgeInsets.symmetric(vertical: KSize.margin5x),
+        child: Center(child: AppLoader()),
+      ),
+      itemBuilder: (context, index) => _PaintingCard(
+        painting: widget.paintings[index],
+        isPhone: layout.isPhone,
+        onOpen: _onPaintingOpened,
+      ),
     );
   }
 }
 
-class _PaintingCard extends StatelessWidget {
-  const _PaintingCard({required this.painting, required this.onOpen});
+class _PaintingCard extends StatefulWidget {
+  const _PaintingCard({required this.painting, required this.isPhone, required this.onOpen});
 
   final Painting painting;
+  final bool isPhone;
   final void Function(Painting painting) onOpen;
 
   @override
+  State<_PaintingCard> createState() => _PaintingCardState();
+}
+
+class _PaintingCardState extends State<_PaintingCard> {
+  bool _hovered = false;
+
+  @override
   Widget build(BuildContext context) {
+    final painting = widget.painting;
+    final isPhone = widget.isPhone;
     final localizedName = PaintingNameLocalization.resolveName(
       context.t,
       painting.pictureId,
       firebaseName: painting.name,
     );
+    final medium = PaintingMediumLocalization.resolve(context.t, painting.paintedOnAndHow);
+    final metaStyle = context.textContent.quickLinkSubtitle;
 
-    return Container(
-      decoration: BoxDecoration(
-        color: Theme.of(context).colorScheme.surface,
-        border: Border.all(color: Theme.of(context).colorScheme.outlineVariant, width: 1),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          // Expanded so the image fills whatever space the fixed grid cell
-          // leaves after the caption below — the cell size never depends on
-          // the image's own decoded aspect ratio (see CatalogLazyGridView).
-          Expanded(
-            child: MouseRegion(
-              cursor: SystemMouseCursors.zoomIn,
-              child: GestureDetector(
-                behavior: HitTestBehavior.opaque,
-                onTap: () => onOpen(painting),
-                child: Hero(
-                  tag: 'catalog_${painting.pictureId}',
-                  child: AspectAwareImage(
-                    imageUrl: painting.imageUrl,
-                    semanticLabel:
-                        '$localizedName (${painting.yearOfCreation}) — '
-                        '${PaintingMediumLocalization.resolve(context.t, painting.paintedOnAndHow)}',
+    return MouseRegion(
+      cursor: SystemMouseCursors.zoomIn,
+      onEnter: (_) => setState(() => _hovered = true),
+      onExit: (_) => setState(() => _hovered = false),
+      child: GalleryCard(
+        onTap: () => widget.onOpen(painting),
+        padding: const EdgeInsets.all(KSize.margin2x),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            // Fills what the fixed grid cell leaves after the caption, so
+            // the cell size never depends on the image's decoded size.
+            Expanded(
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(KSize.radiusDefaultSmall),
+                child: AnimatedScale(
+                  scale: _hovered ? 1.03 : 1,
+                  duration: KSize.durationMedium,
+                  curve: Curves.easeOut,
+                  child: Hero(
+                    tag: 'catalog_${painting.pictureId}',
+                    child: CachedNetworkImageView(
+                      imagePathOrUrl: painting.imageUrl,
+                      width: double.infinity,
+                      height: double.infinity,
+                      semanticLabel: '$localizedName (${painting.yearOfCreation}) — $medium',
+                    ),
                   ),
                 ),
               ),
             ),
-          ),
-          Padding(
-            padding: const EdgeInsets.fromLTRB(
-              KSize.margin3x,
-              KSize.margin3x,
-              KSize.margin3x,
-              KSize.margin4x,
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  localizedName,
-                  style: Theme.of(
-                    context,
-                  ).textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.w500),
-                  maxLines: 2,
-                  overflow: TextOverflow.ellipsis,
-                ),
-                const SizedBox(height: KSize.margin2x),
-                Text(
-                  '${painting.yearOfCreation}',
-                  style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                    fontStyle: FontStyle.italic,
-                    color: Theme.of(context).colorScheme.onSurfaceVariant,
+            Padding(
+              padding: const EdgeInsets.fromLTRB(
+                KSize.margin1Halfx,
+                KSize.margin3x,
+                KSize.margin1Halfx,
+                KSize.margin1x,
+              ),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Text(
+                          localizedName,
+                          style: context.textContent.homeTitle(
+                            isPhone ? KSize.fontSizeM : KSize.fontSizeL,
+                          ),
+                          maxLines: isPhone ? 2 : 1,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                        const SizedBox(height: KSize.margin1Halfx),
+                        if (isPhone) ...[
+                          Text('${painting.yearOfCreation}', style: context.textContent.cardDate),
+                          const SizedBox(height: KSize.margin1x),
+                          Text(
+                            medium,
+                            style: metaStyle,
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        ] else
+                          Text(
+                            '${painting.yearOfCreation}  ·  $medium',
+                            style: metaStyle,
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                      ],
+                    ),
                   ),
-                ),
-                const SizedBox(height: KSize.margin1x),
-                Text(
-                  PaintingMediumLocalization.resolve(context.t, painting.paintedOnAndHow),
-                  maxLines: 2,
-                  overflow: TextOverflow.ellipsis,
-                  style: Theme.of(context).textTheme.bodyMedium,
-                ),
-                if (painting.location.isNotEmpty)
-                  Text(
-                    painting.location,
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                    style: Theme.of(context).textTheme.bodySmall,
+                  const SizedBox(width: KSize.margin2x),
+                  GalleryCircleArrow(
+                    size: isPhone ? KSize.avatarXS : KSize.avatarXSHalf + KSize.margin1x,
                   ),
-              ],
+                ],
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

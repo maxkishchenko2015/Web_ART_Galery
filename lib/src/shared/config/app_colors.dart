@@ -10,34 +10,69 @@ import 'package:material_ui/material_ui.dart';
 abstract final class AppColors {
   // ── Brand foundation ─────────────────────────────────────────────────────
 
-  /// Primary brand green.
-  static const Color forestGreen = Color(0xFF475F45);
+  /// Primary brand green — deep moss from the project palette.
+  static const Color forestGreen = Color(0xFF46503F);
 
-  /// Dark secondary shell surface.
-  static const Color darkOlive = Color(0xFF414840);
+  /// Near-black olive: headings on light surfaces, footer stripe.
+  static const Color darkOlive = Color(0xFF2A2B26);
 
   /// Base white surface.
   static const Color white = Color(0xFFFFFFFF);
 
   /// Warm light surface.
-  static const Color cream = Color(0xFFF5F0E8);
+  static const Color cream = Color(0xFFEDE3D3);
 
   /// Strong content text on light surfaces.
-  static const Color darkText = Color(0xFF2B2B2B);
+  static const Color darkText = Color(0xFF2A261F);
 
   /// Light-theme outline and divider tone.
-  static const Color line = Color(0xFFE0DBD4);
+  static const Color line = Color(0xFFE2D5BF);
 
   /// Text selection fill.
-  static const Color selection = Color(0xFFBFCEBE);
+  static const Color selection = Color(0xFFE8CDB8);
 
   /// Material error token.
   static const Color error = Color(0xFFB3261E);
 
+  // ── Gallery palette (header, hero, parchment pages) ─────────────────────
+
+  /// Dark olive shell: header, hero, footer, mobile drawer.
+  static const Color shell = Color(0xFF2C3025);
+
+  /// Lighter end of the shell gradient (hero glow).
+  static const Color shellRaised = Color(0xFF3A3F30);
+
+  /// Page background — warm parchment.
+  static const Color parchment = Color(0xFFF2EADC);
+
+  /// Raised card on parchment.
+  static const Color parchmentCard = Color(0xFFF9F3E8);
+
+  /// Card border / divider on parchment.
+  static const Color parchmentLine = Color(0xFFE0D2BB);
+
+  /// Terracotta accent: primary buttons, eyebrows, links.
+  static const Color terracotta = Color(0xFF9C4A26);
+
+  /// Brighter terracotta for eyebrows and rules on dark surfaces.
+  static const Color terracottaLight = Color(0xFFC9703F);
+
+  /// Deep rust end of the terracotta band gradient.
+  static const Color terracottaDeep = Color(0xFF7E3A1E);
+
+  /// Muted gold accent (logo ring, decorative rules).
+  static const Color gold = Color(0xFFB59B57);
+
+  /// Moss tile ("more works") on parchment.
+  static const Color moss = Color(0xFF3F4636);
+
+  /// Card shadow on parchment.
+  static const Color cardShadow = Color(0x1A3B2A14);
+
   // ── On-dark surface (navigation header, mobile drawer, footer) ──────────
 
-  /// Full white — active text, icons, borders.
-  static const Color onDark = Color(0xFFFFFFFF); // Colors.white
+  /// Warm off-white — active text, icons, borders on dark surfaces.
+  static const Color onDark = Color(0xFFF6EFE3); // warm off-white
 
   /// 70 % white — inactive nav links, footer sitemap text.
   static const Color onDarkBody = Color(0xB3FFFFFF); // Colors.white70
@@ -58,7 +93,7 @@ abstract final class AppColors {
   static const Color onDarkOverlay = Color(0x1FFFFFFF); // Colors.white12
 
   /// Elevated panel for floating menus over dark surfaces.
-  static const Color onDarkPanel = Color(0xFF40563E);
+  static const Color onDarkPanel = Color(0xFF3A3F31);
 
   /// Active menu item fill inside a dark panel.
   static const Color onDarkPanelActive = Color(0x33FFFFFF);
@@ -80,20 +115,20 @@ abstract final class AppColors {
 
   // ── Content surface (light pages) ────────────────────────────────────────────────
 
-  /// Primary body text on light surfaces — #4A4A4A.
-  static const Color contentBody = Color(0xFF4A4A4A);
+  /// Primary body text on light surfaces.
+  static const Color contentBody = Color(0xFF4B443A);
 
-  /// Secondary body text — #5A5A5A.
-  static const Color contentBodyLight = Color(0xFF5A5A5A);
+  /// Secondary body text.
+  static const Color contentBodyLight = Color(0xFF5A5246);
 
-  /// Muted / meta text — #7A7E78.
-  static const Color contentMuted = Color(0xFF7A7E78);
+  /// Muted / meta text.
+  static const Color contentMuted = Color(0xFF857B6C);
 
-  /// Biography section background — #F8F6F2.
-  static const Color bioBg = Color(0xFFF8F6F2);
+  /// Soft parchment band (biography, films strip).
+  static const Color bioBg = Color(0xFFF6EFE3);
 
-  /// Pull-quote block background — #EDF3EF.
-  static const Color quoteBg = Color(0xFFEDF3EF);
+  /// Pull-quote block background.
+  static const Color quoteBg = Color(0xFFEFE4D2);
 
   /// Decorative highlight on archive gradients.
   static const Color newsGlowLight = Color(0x14FFFFFF);
@@ -179,6 +214,17 @@ class AppDesignColors extends ThemeExtension<AppDesignColors> {
     required this.newsChipBorder,
     required this.newsYearFeatured,
     required this.newsYearDefault,
+    required this.shell,
+    required this.shellRaised,
+    required this.parchment,
+    required this.parchmentCard,
+    required this.parchmentLine,
+    required this.terracotta,
+    required this.terracottaLight,
+    required this.terracottaDeep,
+    required this.gold,
+    required this.moss,
+    required this.cardShadow,
   });
 
   static const AppDesignColors light = AppDesignColors(
@@ -215,6 +261,17 @@ class AppDesignColors extends ThemeExtension<AppDesignColors> {
     newsChipBorder: AppColors.newsChipBorder,
     newsYearFeatured: AppColors.newsYearFeatured,
     newsYearDefault: AppColors.newsYearDefault,
+    shell: AppColors.shell,
+    shellRaised: AppColors.shellRaised,
+    parchment: AppColors.parchment,
+    parchmentCard: AppColors.parchmentCard,
+    parchmentLine: AppColors.parchmentLine,
+    terracotta: AppColors.terracotta,
+    terracottaLight: AppColors.terracottaLight,
+    terracottaDeep: AppColors.terracottaDeep,
+    gold: AppColors.gold,
+    moss: AppColors.moss,
+    cardShadow: AppColors.cardShadow,
   );
 
   final Color forestGreen;
@@ -250,6 +307,17 @@ class AppDesignColors extends ThemeExtension<AppDesignColors> {
   final Color newsChipBorder;
   final Color newsYearFeatured;
   final Color newsYearDefault;
+  final Color shell;
+  final Color shellRaised;
+  final Color parchment;
+  final Color parchmentCard;
+  final Color parchmentLine;
+  final Color terracotta;
+  final Color terracottaLight;
+  final Color terracottaDeep;
+  final Color gold;
+  final Color moss;
+  final Color cardShadow;
 
   @override
   AppDesignColors copyWith({
@@ -286,6 +354,17 @@ class AppDesignColors extends ThemeExtension<AppDesignColors> {
     Color? newsChipBorder,
     Color? newsYearFeatured,
     Color? newsYearDefault,
+    Color? shell,
+    Color? shellRaised,
+    Color? parchment,
+    Color? parchmentCard,
+    Color? parchmentLine,
+    Color? terracotta,
+    Color? terracottaLight,
+    Color? terracottaDeep,
+    Color? gold,
+    Color? moss,
+    Color? cardShadow,
   }) {
     return AppDesignColors(
       forestGreen: forestGreen ?? this.forestGreen,
@@ -321,6 +400,17 @@ class AppDesignColors extends ThemeExtension<AppDesignColors> {
       newsChipBorder: newsChipBorder ?? this.newsChipBorder,
       newsYearFeatured: newsYearFeatured ?? this.newsYearFeatured,
       newsYearDefault: newsYearDefault ?? this.newsYearDefault,
+      shell: shell ?? this.shell,
+      shellRaised: shellRaised ?? this.shellRaised,
+      parchment: parchment ?? this.parchment,
+      parchmentCard: parchmentCard ?? this.parchmentCard,
+      parchmentLine: parchmentLine ?? this.parchmentLine,
+      terracotta: terracotta ?? this.terracotta,
+      terracottaLight: terracottaLight ?? this.terracottaLight,
+      terracottaDeep: terracottaDeep ?? this.terracottaDeep,
+      gold: gold ?? this.gold,
+      moss: moss ?? this.moss,
+      cardShadow: cardShadow ?? this.cardShadow,
     );
   }
 
@@ -369,6 +459,17 @@ class AppDesignColors extends ThemeExtension<AppDesignColors> {
       newsChipBorder: Color.lerp(newsChipBorder, other.newsChipBorder, t) ?? newsChipBorder,
       newsYearFeatured: Color.lerp(newsYearFeatured, other.newsYearFeatured, t) ?? newsYearFeatured,
       newsYearDefault: Color.lerp(newsYearDefault, other.newsYearDefault, t) ?? newsYearDefault,
+      shell: Color.lerp(shell, other.shell, t) ?? shell,
+      shellRaised: Color.lerp(shellRaised, other.shellRaised, t) ?? shellRaised,
+      parchment: Color.lerp(parchment, other.parchment, t) ?? parchment,
+      parchmentCard: Color.lerp(parchmentCard, other.parchmentCard, t) ?? parchmentCard,
+      parchmentLine: Color.lerp(parchmentLine, other.parchmentLine, t) ?? parchmentLine,
+      terracotta: Color.lerp(terracotta, other.terracotta, t) ?? terracotta,
+      terracottaLight: Color.lerp(terracottaLight, other.terracottaLight, t) ?? terracottaLight,
+      terracottaDeep: Color.lerp(terracottaDeep, other.terracottaDeep, t) ?? terracottaDeep,
+      gold: Color.lerp(gold, other.gold, t) ?? gold,
+      moss: Color.lerp(moss, other.moss, t) ?? moss,
+      cardShadow: Color.lerp(cardShadow, other.cardShadow, t) ?? cardShadow,
     );
   }
 }

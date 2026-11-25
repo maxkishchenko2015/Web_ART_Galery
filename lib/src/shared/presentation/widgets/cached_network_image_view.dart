@@ -9,6 +9,7 @@ class CachedNetworkImageView extends StatelessWidget {
     super.key,
     required this.imagePathOrUrl,
     this.fit = BoxFit.cover,
+    this.alignment = Alignment.center,
     this.width,
     this.height,
     this.borderRadius,
@@ -22,6 +23,10 @@ class CachedNetworkImageView extends StatelessWidget {
 
   final String imagePathOrUrl;
   final BoxFit fit;
+
+  /// Focal point kept in frame when [fit] crops the image (e.g.
+  /// [Alignment.topCenter] keeps a portrait's face visible).
+  final Alignment alignment;
   final double? width;
   final double? height;
   final BorderRadius? borderRadius;
@@ -58,6 +63,7 @@ class CachedNetworkImageView extends StatelessWidget {
         width: width,
         height: height,
         fit: fit,
+        alignment: alignment,
         semanticLabel: semanticLabel,
         errorBuilder: (context, error, stackTrace) =>
             const Center(child: Icon(Icons.broken_image_outlined)),
@@ -102,6 +108,7 @@ class CachedNetworkImageView extends StatelessWidget {
       width: width,
       height: height,
       fit: fit,
+      alignment: alignment,
       frameBuilder: (context, child, frame, _) =>
           frame == null ? const Center(child: AppLoader()) : child,
       errorBuilder: (context, error, stackTrace) {
@@ -113,6 +120,7 @@ class CachedNetworkImageView extends StatelessWidget {
             width: width,
             height: height,
             fit: fit,
+            alignment: alignment,
             errorBuilder: (context, _, _) => const Center(child: Icon(Icons.broken_image_outlined)),
           );
         }
@@ -125,7 +133,6 @@ class CachedNetworkImageView extends StatelessWidget {
           child: IconButton(
             onPressed: () => UrlLauncherUtils.launchUrlIfPossible(url: originalUrl),
             icon: const Icon(Icons.open_in_new),
-            tooltip: 'Open image URL',
           ),
         );
       },
@@ -174,7 +181,7 @@ class CachedNetworkImageView extends StatelessWidget {
 
   /// Provider matching what this widget renders for [imagePathOrUrl] — lets
   /// callers `precacheImage` a photo so it is already decoded when the widget
-  /// appears (e.g. before the onboarding tour highlights it). Pass the same
+  /// appears. Pass the same
   /// [requestWidth] the widget computes (see [requestWidthFor]) so both hit
   /// one cached URL.
   static ImageProvider providerFor(
