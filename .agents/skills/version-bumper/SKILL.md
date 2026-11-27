@@ -46,11 +46,15 @@ Examples (all valid):
 
 ## When to apply
 
+- **After every change set** that touches the app (`lib/`, `web/`, `assets/`,
+  dependencies) — features, fixes, redesigns, content edits. This is a
+  mandatory project rule (see `AGENTS.md`).
 - **Always** before `flutter build web --release` for production.
-- **Optional** for ad-hoc dev builds, but recommended so dev artefacts have
-  monotonic versions.
-- Skip during pure refactor/code-review sessions that do not result in a
-  deploy.
+- Skip only for pure questions, reviews and agent-config edits that don't
+  change the app.
+
+After writing the new `version:` line, run `dart run tool/sync_app_version.dart`
+so `lib/src/shared/config/app_version.dart` follows pubspec.
 
 ## Suggested guard for build scripts
 

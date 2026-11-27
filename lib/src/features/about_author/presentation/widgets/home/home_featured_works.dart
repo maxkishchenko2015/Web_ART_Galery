@@ -7,23 +7,24 @@ import 'package:go_router/go_router.dart';
 import 'package:web_art_galery/i18n/strings.g.dart';
 import 'package:web_art_galery/src/shared/presentation/widgets/gallery_ui.dart';
 import 'package:web_art_galery/src/features/catalog_of_works/domain/entities/painting.dart';
-import 'package:web_art_galery/src/features/catalog_of_works/presentation/cubits/catalog_of_works_cubit.dart';
+import 'package:web_art_galery/src/features/catalog_of_works/presentation/cubits/featured_works_cubit.dart';
+import 'package:web_art_galery/src/features/catalog_of_works/presentation/painting_viewer.dart';
 import 'package:web_art_galery/src/features/catalog_of_works/presentation/localization/painting_name_localization.dart';
-import 'package:web_art_galery/src/features/catalog_of_works/presentation/widgets/aspect_aware_image.dart';
 import 'package:web_art_galery/src/navigation/presentation/router/app_routes.dart';
 import 'package:web_art_galery/src/shared/config/app_context_extensions.dart';
 import 'package:web_art_galery/src/shared/config/ksize.dart';
 import 'package:web_art_galery/src/shared/presentation/widgets/app_loader.dart';
 import 'package:web_art_galery/src/shared/presentation/widgets/cached_network_image_view.dart';
-import 'package:web_art_galery/src/shared/presentation/widgets/fullscreen_image_viewer.dart';
-import 'package:web_art_galery/src/shared/telemetry/app_telemetry.dart';
+import 'package:web_art_galery/src/shared/telemetry/analytics_events.dart';
 
-/// "Избранные работы" — the first paintings of the Firestore catalog.
+/// "Избранные работы" — hand-picked catalog paintings (Remote Config
+/// `MAIN_PICTURES_IDS`, or its bundled fallback), sorted by `pictureId` so
+/// the selection and order are identical in every language.
 ///
-/// Desktop: intro text, a strip of equal tiles (as many as fit) and a
-/// "more works" tile. Phone / tablet: header row above a horizontal carousel
-/// of captioned cards. Tapping a work opens it full screen, like the catalog.
-/// Hidden when the catalog has nothing to show.
+/// Desktop: intro text, a strip of equal tiles and a "full catalog" tile.
+/// Phone / tablet: header row above a horizontal carousel of captioned cards.
+/// Tapping a work opens it full screen with its details (title, size …).
+/// Hidden when none of the works can be loaded.
 class HomeFeaturedWorks extends StatelessWidget {
   const HomeFeaturedWorks({super.key, required this.layout});
 
@@ -31,54 +32,46 @@ class HomeFeaturedWorks extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<CatalogOfWorksCubit, CatalogOfWorksState>(
+    return BlocBuilder<FeaturedWorksCubit, FeaturedWorksState>(
       builder: (context, state) {
         final List<Painting>? paintings = switch (state) {
-          CatalogOfWorksLoaded(:final paintings) => paintings,
-          CatalogOfWorksInitial() || CatalogOfWorksLoading() => null,
-          CatalogOfWorksError() => const [],
+          FeaturedWorksLoaded(:final paintings) => paintings,
+          FeaturedWorksInitial() || FeaturedWorksLoading() => null,
+          FeaturedWorksError() => const [],
         };
         if (paintings != null && paintings.isEmpty) {
           return const SizedBox.shrink();
         }
-        final hasReachedMax = state is CatalogOfWorksLoaded && state.hasReachedMax;
 
         return layout.isWide
-            ? _WideStrip(paintings: paintings, hasReachedMax: hasReachedMax)
-            : _Carousel(layout: layout, paintings: paintings, hasReachedMax: hasReachedMax);
+            ? _WideStrip(paintings: paintings)
+            : _Carousel(layout: layout, paintings: paintings);
       },
     );
   }
 }
 
 void _openPainting(BuildContext context, Painting painting) {
-  AppTelemetry.instance.logEvent(
-    'gallery_image_opened',
-    params: <String, Object?>{
-      'painting_id': painting.pictureId,
-      'painting_title': painting.name,
-      'painting_year': painting.yearOfCreation,
-      'origin': 'home',
-    },
-  );
-  FullscreenImageViewer.show(
-    context,
-    imagePathOrUrl: AspectAwareImage.resolveUrl(painting.imageUrl),
-    heroTag: _heroTag(painting),
-    useImageKitEndpoint: false,
-  );
+  openPaintingFullscreen(context, painting, heroTag: _heroTag(painting), origin: 'home');
+}
+
+void _goToCatalog(BuildContext context) {
+  AnalyticsEvents.cta(origin: 'home_featured', target: AppRoutes.catalog);
+  context.go(AppRoutes.catalog);
 }
 
 String _heroTag(Painting painting) => 'home_featured_${painting.pictureId}';
 
+/// Placeholder tiles while the selection loads.
+const int _placeholderCount = KSize.homeFeaturedPlaceholderCount;
+
 // ─── Desktop strip ───────────────────────────────────────────────────────────
 
 class _WideStrip extends StatelessWidget {
-  const _WideStrip({required this.paintings, required this.hasReachedMax});
+  const _WideStrip({required this.paintings});
 
   /// Null while the catalog loads.
   final List<Painting>? paintings;
-  final bool hasReachedMax;
 
   @override
   Widget build(BuildContext context) {
@@ -96,7 +89,7 @@ class _WideStrip extends StatelessWidget {
               const SizedBox(height: KSize.margin3x),
               Text(t.title, style: context.textContent.homeTitle(KSize.br6fontSize4XLHalf)),
               const SizedBox(height: KSize.margin5x),
-              GalleryArrowLink(label: t.cta, onTap: () => context.go(AppRoutes.catalog)),
+              GalleryArrowLink(label: t.cta, onTap: () => _goToCatalog(context)),
             ],
           ),
         ),
@@ -110,7 +103,7 @@ class _WideStrip extends StatelessWidget {
                 final room = constraints.maxWidth - KSize.homeFeaturedMoreTileWidth - gap;
                 final fit = ((room + gap) / (KSize.homeFeaturedTileMinWidth + gap)).floor();
                 final int count = paintings == null
-                    ? fit.clamp(1, KSize.homeFeaturedMaxTiles).toInt()
+                    ? fit.clamp(1, _placeholderCount).toInt()
                     : fit.clamp(1, math.min(KSize.homeFeaturedMaxTiles, paintings!.length)).toInt();
                 final shown = paintings?.take(count).toList();
 
@@ -125,13 +118,7 @@ class _WideStrip extends StatelessWidget {
                       ),
                       const SizedBox(width: gap),
                     ],
-                    SizedBox(
-                      width: KSize.homeFeaturedMoreTileWidth,
-                      child: _MoreTile(
-                        remaining: paintings == null ? null : paintings!.length - count,
-                        hasReachedMax: hasReachedMax,
-                      ),
-                    ),
+                    SizedBox(width: KSize.homeFeaturedMoreTileWidth, child: const _MoreTile()),
                   ],
                 );
               },
@@ -146,11 +133,10 @@ class _WideStrip extends StatelessWidget {
 // ─── Phone / tablet carousel ─────────────────────────────────────────────────
 
 class _Carousel extends StatefulWidget {
-  const _Carousel({required this.layout, required this.paintings, required this.hasReachedMax});
+  const _Carousel({required this.layout, required this.paintings});
 
   final PageLayout layout;
   final List<Painting>? paintings;
-  final bool hasReachedMax;
 
   @override
   State<_Carousel> createState() => _CarouselState();
@@ -186,7 +172,7 @@ class _CarouselState extends State<_Carousel> {
         : KSize.floatingMenuMaxWidth + KSize.margin10x;
     final cardHeight = cardWidth / KSize.homeFeaturedCardAspectRatioCompact;
     final shown = paintings?.take(KSize.homeFeaturedMaxTiles).toList();
-    final itemCount = (shown?.length ?? 2) + 1; // + the "more" card
+    final itemCount = (shown?.length ?? _placeholderCount) + 1; // + the "more" card
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -212,7 +198,7 @@ class _CarouselState extends State<_Carousel> {
                 child: GalleryArrowLink(
                   label: t.cta,
                   uppercase: false,
-                  onTap: () => context.go(AppRoutes.catalog),
+                  onTap: () => _goToCatalog(context),
                 ),
               ),
             ],
@@ -244,10 +230,7 @@ class _CarouselState extends State<_Carousel> {
                   return SizedBox(
                     width: isMore ? cardWidth * 0.5 : cardWidth,
                     child: isMore
-                        ? _MoreTile(
-                            remaining: paintings == null ? null : paintings.length - shown!.length,
-                            hasReachedMax: widget.hasReachedMax,
-                          )
+                        ? const _MoreTile()
                         : shown == null
                         ? const _LoadingTile()
                         : _WorkTile(painting: shown[index], showCaption: true),
@@ -359,28 +342,18 @@ class _WorkTileState extends State<_WorkTile> {
 }
 
 class _MoreTile extends StatelessWidget {
-  const _MoreTile({required this.remaining, required this.hasReachedMax});
-
-  /// Paintings left after the shown tiles; null while loading.
-  final int? remaining;
-  final bool hasReachedMax;
+  const _MoreTile();
 
   @override
   Widget build(BuildContext context) {
     final colors = context.colors;
-    final t = context.t.home.featured;
-    final remaining = this.remaining;
-    // An exact count only when the whole catalog is loaded; otherwise the
-    // loaded page size would understate it.
-    final label = hasReachedMax && remaining != null && remaining > 0
-        ? '+$remaining\n${t.moreInCatalog}'
-        : t.fullCatalog;
+    final label = context.t.home.featured.fullCatalog;
 
     return MouseRegion(
       cursor: SystemMouseCursors.click,
       child: GestureDetector(
         behavior: HitTestBehavior.opaque,
-        onTap: () => context.go(AppRoutes.catalog),
+        onTap: () => _goToCatalog(context),
         child: Container(
           decoration: BoxDecoration(
             color: colors.moss,
@@ -390,11 +363,11 @@ class _MoreTile extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Icon(Icons.photo_library_outlined, size: KSize.iconL, color: colors.onDarkBody),
+              Icon(Icons.photo_library_outlined, size: KSize.iconL, color: colors.onAccent),
               const SizedBox(height: KSize.margin3x),
               Text(label, style: context.textOnDark.tileLabel, textAlign: TextAlign.center),
               const SizedBox(height: KSize.margin3x),
-              Icon(Icons.arrow_forward_rounded, size: KSize.iconM, color: colors.onDark),
+              Icon(Icons.arrow_forward_rounded, size: KSize.iconM, color: colors.onAccent),
             ],
           ),
         ),

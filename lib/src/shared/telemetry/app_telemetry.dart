@@ -208,8 +208,12 @@ class AppTelemetry {
       if (value == null) {
         return;
       }
-      if (value is num || value is bool) {
+      if (value is num) {
         sanitized[key] = value;
+      } else if (value is bool) {
+        // Firebase Analytics accepts only strings and numbers (asserts on
+        // bool), so flags go out as "true" / "false".
+        sanitized[key] = value.toString();
       } else {
         sanitized[key] = _truncate(value.toString(), 100);
       }

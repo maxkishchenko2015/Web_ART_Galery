@@ -12,6 +12,7 @@ import 'package:web_art_galery/src/features/films/presentation/film_actions.dart
 import 'package:web_art_galery/src/navigation/presentation/router/app_routes.dart';
 import 'package:web_art_galery/src/shared/config/app_context_extensions.dart';
 import 'package:web_art_galery/src/shared/config/ksize.dart';
+import 'package:web_art_galery/src/shared/telemetry/analytics_events.dart';
 
 /// Dark hero of the home page: eyebrow, serif headline, italic lead, CTAs and
 /// the author portrait (Firestore photo #0), with the "Tapestry of the
@@ -210,7 +211,10 @@ class _HeroCopy extends StatelessWidget {
       label: hero.worksCta,
       trailingIcon: Icons.arrow_forward_rounded,
       expand: stackButtons,
-      onTap: () => context.go(AppRoutes.catalog),
+      onTap: () {
+        AnalyticsEvents.cta(origin: 'home_hero', target: 'catalog');
+        context.go(AppRoutes.catalog);
+      },
     );
 
     return Column(

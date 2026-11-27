@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:web_art_galery/i18n/strings.g.dart';
+import 'package:web_art_galery/src/shared/telemetry/analytics_events.dart';
 
 class AppLocaleState {
   const AppLocaleState({required this.locale, this.isLanguageMenuOpen = false});
@@ -46,6 +47,7 @@ class AppLocaleCubit extends HydratedCubit<AppLocaleState> {
       return;
     }
 
+    AnalyticsEvents.languageChanged(from: state.locale.languageCode, to: locale.languageCode);
     emit(state.copyWith(locale: locale, isLanguageMenuOpen: false));
     unawaited(LocaleSettings.setLocale(locale));
   }

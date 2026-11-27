@@ -12,6 +12,7 @@ import 'package:web_art_galery/src/navigation/presentation/widgets/gallery_brand
 import 'package:web_art_galery/src/shared/config/app_context_extensions.dart';
 import 'package:web_art_galery/src/shared/config/ksize.dart';
 import 'package:web_art_galery/src/shared/presentation/widgets/language_switcher.dart';
+import 'package:web_art_galery/src/shared/presentation/widgets/palette_switcher.dart';
 
 class AppShellMenu extends StatelessWidget {
   const AppShellMenu({super.key, required this.child});
@@ -351,7 +352,9 @@ class _GalleryHeader extends StatelessWidget {
               onTap: () => onSelected(contactsIndex),
               compact: isMediumWidth,
             ),
-          SizedBox(width: isMediumWidth ? KSize.margin2x : KSize.margin6x),
+          SizedBox(width: isMediumWidth ? KSize.margin1x : KSize.margin3x),
+          const PaletteMenuButton(),
+          SizedBox(width: isMediumWidth ? KSize.margin1x : KSize.margin2x),
           // Language switcher themed for dark background
           Theme(
             data: Theme.of(context).copyWith(
@@ -498,6 +501,10 @@ class _GalleryDrawer extends StatelessWidget {
               ),
             ),
             Divider(color: colors.onDarkDivider, height: KSize.borderWidthVerySmall),
+            const Padding(
+              padding: EdgeInsets.fromLTRB(KSize.margin6x, KSize.margin5x, KSize.margin6x, 0),
+              child: PaletteSwatchRow(),
+            ),
             Padding(
               padding: const EdgeInsets.all(KSize.margin6x),
               child: Theme(

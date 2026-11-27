@@ -1,5 +1,6 @@
 import 'package:web_art_galery/src/features/catalog_of_works/data/api/catalog_of_works_api_controller.dart';
 import 'package:web_art_galery/src/features/catalog_of_works/data/mappers/painting_firebase_object_mapper.dart';
+import 'package:web_art_galery/src/features/catalog_of_works/domain/entities/painting.dart';
 import 'package:web_art_galery/src/features/catalog_of_works/domain/repository/catalog_of_works_repository.dart';
 
 class CatalogOfWorksRepositoryFirebase implements CatalogOfWorksRepository {
@@ -28,5 +29,11 @@ class CatalogOfWorksRepositoryFirebase implements CatalogOfWorksRepository {
       page: page,
       hasReachedMax: result.hasReachedMax,
     );
+  }
+
+  @override
+  Future<List<Painting>> fetchPaintingsByIds(List<String> pictureIds) async {
+    final result = await _apiController.fetchPaintingsByIds(pictureIds);
+    return result.map((obj) => obj.toDomain()).toList(growable: false);
   }
 }

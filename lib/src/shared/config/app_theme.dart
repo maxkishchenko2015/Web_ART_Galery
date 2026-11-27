@@ -1,29 +1,36 @@
 import 'package:material_ui/material_ui.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:web_art_galery/src/shared/config/app_colors.dart';
+import 'package:web_art_galery/src/shared/config/app_palette.dart';
 import 'package:web_art_galery/src/shared/config/ksize.dart';
 
 class AppTheme {
   const AppTheme._();
 
-  static ThemeData get light {
-    final base = ThemeData.light(useMaterial3: true);
-    const colors = AppDesignColors.light;
-    final colorScheme = const ColorScheme.light(
-      brightness: Brightness.light,
-      primary: AppColors.forestGreen,
-      onPrimary: AppColors.white,
-      secondary: AppColors.terracotta,
-      onSecondary: AppColors.white,
-      error: AppColors.error,
-      onError: AppColors.white,
-      surface: AppColors.parchmentCard,
-      onSurface: AppColors.darkText,
-      surfaceContainerHighest: AppColors.bioBg,
-      surfaceContainerLow: AppColors.cream,
-      outline: AppColors.parchmentLine,
-      outlineVariant: AppColors.parchmentLine,
-      onSurfaceVariant: AppColors.contentMuted,
+  /// Default (parchment) theme.
+  static ThemeData get light => forPalette(AppPalette.parchment);
+
+  /// Theme built from [palette]'s design tokens; the tokens are also attached
+  /// as the [AppDesignColors] extension that widgets read via `context.colors`.
+  static ThemeData forPalette(AppPalette palette) {
+    final isDark = palette.brightness == Brightness.dark;
+    final base = isDark ? ThemeData.dark(useMaterial3: true) : ThemeData.light(useMaterial3: true);
+    final colors = palette.colors;
+    final colorScheme = ColorScheme(
+      brightness: palette.brightness,
+      primary: colors.forestGreen,
+      onPrimary: colors.onAccent,
+      secondary: colors.terracotta,
+      onSecondary: colors.onAccent,
+      error: colors.error,
+      onError: colors.white,
+      surface: colors.parchmentCard,
+      onSurface: colors.darkText,
+      surfaceContainerHighest: colors.bioBg,
+      surfaceContainerLow: colors.cream,
+      outline: colors.parchmentLine,
+      outlineVariant: colors.parchmentLine,
+      onSurfaceVariant: colors.contentMuted,
     );
 
     final baseTextTheme = GoogleFonts.robotoTextTheme(base.textTheme);
@@ -133,7 +140,7 @@ class AppTheme {
       dividerColor: colors.line,
       splashColor: Colors.transparent,
       highlightColor: Colors.transparent,
-      extensions: const <ThemeExtension<dynamic>>[AppDesignColors.light],
+      extensions: <ThemeExtension<dynamic>>[colors],
       textSelectionTheme: TextSelectionThemeData(
         selectionColor: colors.selection,
         selectionHandleColor: colors.forestGreen,
@@ -178,7 +185,7 @@ class AppTheme {
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
           backgroundColor: colors.terracotta,
-          foregroundColor: colors.onDark,
+          foregroundColor: colors.onAccent,
           elevation: 0,
           padding: const EdgeInsets.symmetric(horizontal: KSize.margin8x, vertical: KSize.margin4x),
         ),

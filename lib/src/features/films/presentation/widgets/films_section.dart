@@ -14,6 +14,7 @@ import 'package:web_art_galery/src/shared/config/ksize.dart';
 import 'package:web_art_galery/src/shared/presentation/widgets/app_loader.dart';
 import 'package:web_art_galery/src/shared/presentation/widgets/gallery_ui.dart';
 import 'package:web_art_galery/src/shared/utils/url_launcher_utils.dart';
+import 'package:web_art_galery/src/shared/telemetry/analytics_events.dart';
 
 /// Films page body: the main film, the next films beside it (desktop), the
 /// rest — long-form videos then Instagram reels — as rows below.
@@ -283,20 +284,28 @@ class FilmsArchiveBand extends StatelessWidget {
             icon: Icons.smart_display_outlined,
             title: t.films.instagramTitle,
             subtitle: t.films.instagramSubtitle,
-            onTap: () =>
-                UrlLauncherUtils.launchUrlIfPossible(url: ContactsPageConstants.instagramUrl),
+            onTap: () {
+              AnalyticsEvents.contactClicked(channel: 'instagram', origin: 'films_band');
+              UrlLauncherUtils.launchUrlIfPossible(url: ContactsPageConstants.instagramUrl);
+            },
           ),
           GalleryBandRoute(
             icon: Icons.inventory_2_outlined,
             title: t.archiveFeed.title,
             subtitle: t.archiveFeed.moreLabel,
-            onTap: () => context.go(AppRoutes.archive),
+            onTap: () {
+              AnalyticsEvents.cta(origin: 'films_band', target: AppRoutes.archive);
+              context.go(AppRoutes.archive);
+            },
           ),
           GalleryBandRoute(
             icon: Icons.article_outlined,
             title: t.navigation.news,
             subtitle: t.home.links.news,
-            onTap: () => context.go(AppRoutes.news),
+            onTap: () {
+              AnalyticsEvents.cta(origin: 'films_band', target: AppRoutes.news);
+              context.go(AppRoutes.news);
+            },
           ),
         ],
       ),

@@ -15,6 +15,7 @@ import 'package:web_art_galery/src/features/archive/presentation/cubits/archive_
 import 'package:web_art_galery/src/features/catalog_of_works/data/api/catalog_of_works_api_controller.dart';
 import 'package:web_art_galery/src/features/catalog_of_works/data/repository/catalog_of_works_repository_firebase.dart';
 import 'package:web_art_galery/src/features/catalog_of_works/presentation/cubits/catalog_of_works_cubit.dart';
+import 'package:web_art_galery/src/features/catalog_of_works/presentation/cubits/featured_works_cubit.dart';
 import 'package:web_art_galery/src/features/films/data/repository/films_repository_local.dart';
 import 'package:web_art_galery/src/features/films/presentation/cubits/films_cubit.dart';
 import 'package:web_art_galery/src/features/news/data/api/news_api_controller.dart';
@@ -25,9 +26,13 @@ import 'package:web_art_galery/src/shared/config/app_theme.dart';
 import 'package:web_art_galery/src/shared/config/app_version.dart';
 import 'package:web_art_galery/src/shared/config/firebase/firebase_bootstrap.dart';
 import 'package:web_art_galery/src/shared/config/firebase/remote_config_service.dart';
+import 'package:web_art_galery/src/shared/config/remote_config/app_remote_config.dart';
+import 'package:web_art_galery/src/shared/config/remote_config/remote_config_fallback.dart';
 import 'package:web_art_galery/src/shared/config/ksize.dart';
 import 'package:web_art_galery/src/shared/platform/page_title/page_title.dart';
 import 'package:web_art_galery/src/shared/presentation/cubits/app_locale_cubit.dart';
+import 'package:web_art_galery/src/shared/presentation/cubits/app_config_cubit.dart';
+import 'package:web_art_galery/src/shared/presentation/cubits/app_palette_cubit.dart';
 import 'package:web_art_galery/src/shared/presentation/widgets/app_error_fallback.dart';
 import 'package:web_art_galery/src/shared/telemetry/app_telemetry.dart';
 import 'package:web_art_galery/src/shared/utils/app_logger.dart';
@@ -96,11 +101,13 @@ void main() {
         deferredFirebaseError = (error: e, stack: s);
       }
 
-      // Kick off the Remote Config fetch in parallel (never blocks first frame).
-      // Flags stay at their defaults until it lands.
-      if (firebaseReady) {
-        unawaited(RemoteConfigService.instance.initialize());
-      }
+      // Site config (default theme, featured paintings, news announcements):
+      // the bundled fallback JSON is local and loads instantly, so the first
+      // frame already has a complete config; Remote Config replaces it in the
+      // background once fetched.
+      final fallbackConfig = await RemoteConfigFallback.load();
+      final configCubit = AppConfigCubit(initial: fallbackConfig);
+      final paletteCubit = AppPaletteCubit(defaultPalette: fallbackConfig.palette);
 
       // Guarded: MetaSEO touches document/web APIs and must never be able to
       // throw synchronously here — a throw before runApp() leaves the page
@@ -129,6 +136,8 @@ void main() {
           child: MultiBlocProvider(
             providers: [
               BlocProvider<AppLocaleCubit>(create: (_) => AppLocaleCubit()),
+              BlocProvider<AppConfigCubit>.value(value: configCubit),
+              BlocProvider<AppPaletteCubit>.value(value: paletteCubit),
               // Feature cubits are PROVIDED here but NOT loaded here. Each page
               // triggers its own cubit's load() on mount (via CubitInitializer
               // or page initState), so nothing fetches over the network until
@@ -155,6 +164,15 @@ void main() {
                   ),
                 ),
               ),
+              // Hand-picked works for the home page — fetched by id, own
+              // repository instance so it never shares the catalog's cursor.
+              BlocProvider<FeaturedWorksCubit>(
+                create: (_) => FeaturedWorksCubit(
+                  repository: CatalogOfWorksRepositoryFirebase(
+                    apiController: CatalogOfWorksApiController(),
+                  ),
+                ),
+              ),
               BlocProvider<FilmsCubit>(
                 create: (_) => FilmsCubit(repository: const FilmsRepositoryLocal()),
               ),
@@ -172,11 +190,21 @@ void main() {
       // Deferred Firebase / HydratedBloc errors captured above are flushed once
       // telemetry is ready (telemetry depends on Firebase, so it can't be the
       // receiver during the init steps).
+      final telemetryReady = _initTelemetry(
+        firebaseReady: firebaseReady,
+        deferredHydratedBlocError: deferredHydratedBlocError,
+        deferredFirebaseError: deferredFirebaseError,
+      );
+
+      // Remote Config never blocks the first frame; until (or unless) it
+      // lands, the fallback config above stays active.
       unawaited(
-        _initTelemetry(
+        _applyRemoteConfig(
           firebaseReady: firebaseReady,
-          deferredHydratedBlocError: deferredHydratedBlocError,
-          deferredFirebaseError: deferredFirebaseError,
+          telemetryReady: telemetryReady,
+          fallback: fallbackConfig,
+          configCubit: configCubit,
+          paletteCubit: paletteCubit,
         ),
       );
 
@@ -195,6 +223,28 @@ void main() {
       );
     },
   );
+}
+
+/// Fetches Remote Config (with the bundled fallback as defaults) and applies
+/// the result — or reports that the fallback stays in use.
+Future<void> _applyRemoteConfig({
+  required bool firebaseReady,
+  required Future<void> telemetryReady,
+  required AppRemoteConfig fallback,
+  required AppConfigCubit configCubit,
+  required AppPaletteCubit paletteCubit,
+}) async {
+  final fetched =
+      firebaseReady &&
+      await RemoteConfigService.instance.initialize(defaults: fallback.toRemoteDefaults());
+  final config = fetched
+      ? (RemoteConfigService.instance.readConfig(fallback: fallback) ?? fallback)
+      : fallback;
+  // Applying logs which config / theme is shown — wait for telemetry so those
+  // events aren't dropped (it's bounded by its own init timeout).
+  await telemetryReady;
+  configCubit.apply(config);
+  paletteCubit.applyConfigDefault(config.palette, source: config.source.name);
 }
 
 /// Initializes telemetry off the first-frame critical path and, once it is
@@ -244,10 +294,7 @@ void _setDeviceFormFactorUserProperties() {
     AppTelemetry.instance.setUserProperty('app_locale', locale);
     AppTelemetry.instance.logEvent(
       'app_open',
-      params: {
-        'version': AppVersion.current,
-        'locale': locale,
-      },
+      params: {'version': AppVersion.current, 'locale': locale},
     );
 
     final view = WidgetsBinding.instance.platformDispatcher.views.isNotEmpty
@@ -277,13 +324,16 @@ class ArtGalleryApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // The visitor's palette (parchment / classic / night) drives the theme.
+    final palette = context.watch<AppPaletteCubit>().state.palette;
+
     return MaterialApp.router(
       title: t.app.title,
       routerConfig: appRouter,
       locale: TranslationProvider.of(context).flutterLocale,
       supportedLocales: AppLocaleUtils.supportedLocales,
       localizationsDelegates: GlobalMaterialLocalizations.delegates,
-      theme: AppTheme.light,
+      theme: AppTheme.forPalette(palette),
       // go_router emits SDK-legacy MaterialPage routes; bridge maps the
       // material_ui theme + localizations so those legacy pages resolve.
       // ignore: deprecated_member_use

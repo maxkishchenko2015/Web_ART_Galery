@@ -46,6 +46,7 @@ class Translations with BaseTranslations<AppLocale, Translations> {
 	late final Translations$catalog$ru catalog = Translations$catalog$ru.internal(_root);
 	late final Translations$common$ru common = Translations$common$ru.internal(_root);
 	late final Translations$language$ru language = Translations$language$ru.internal(_root);
+	late final Translations$palette$ru palette = Translations$palette$ru.internal(_root);
 	late final Translations$archiveFeed$ru archiveFeed = Translations$archiveFeed$ru.internal(_root);
 	late final Translations$films$ru films = Translations$films$ru.internal(_root);
 	late final Translations$newsFeed$ru newsFeed = Translations$newsFeed$ru.internal(_root);
@@ -177,6 +178,27 @@ class Translations$language$ru {
 
 	/// ru: 'Белорусский'
 	String get belarusian => 'Белорусский';
+}
+
+// Path: palette
+class Translations$palette$ru {
+	Translations$palette$ru.internal(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// ru: 'Палитра'
+	String get title => 'Палитра';
+
+	/// ru: 'Пергамент'
+	String get parchment => 'Пергамент';
+
+	/// ru: 'Классика'
+	String get classic => 'Классика';
+
+	/// ru: 'Ночь'
+	String get night => 'Ночь';
 }
 
 // Path: archiveFeed
@@ -337,6 +359,7 @@ class Translations$home$ru {
 	late final Translations$home$featured$ru featured = Translations$home$featured$ru.internal(_root);
 	late final Translations$home$start$ru start = Translations$home$start$ru.internal(_root);
 	late final Translations$home$footer$ru footer = Translations$home$footer$ru.internal(_root);
+	late final Translations$home$announcements$ru announcements = Translations$home$announcements$ru.internal(_root);
 }
 
 // Path: pages
@@ -1319,6 +1342,21 @@ class Translations$home$footer$ru {
 	String get rights => 'Все права защищены.';
 }
 
+// Path: home.announcements
+class Translations$home$announcements$ru {
+	Translations$home$announcements$ru.internal(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// ru: 'Анонсы о Кищенко'
+	String get label => 'Анонсы о Кищенко';
+
+	/// ru: 'Читать на сайте'
+	String get readCta => 'Читать на сайте';
+}
+
 // Path: pages.news
 class Translations$pages$news$ru {
 	Translations$pages$news$ru.internal(this._root);
@@ -1362,6 +1400,12 @@ class Translations$pages$catalog$ru {
 
 	/// ru: 'Найдено работ: ${count}'
 	String found({required Object count}) => 'Найдено работ: ${count}';
+
+	/// ru: 'Размер'
+	String get size => 'Размер';
+
+	/// ru: 'см'
+	String get cm => 'см';
 }
 
 // Path: pages.films
@@ -1979,6 +2023,10 @@ extension on Translations {
 			'language.french' => 'Français',
 			'language.german' => 'Deutsch',
 			'language.belarusian' => 'Белорусский',
+			'palette.title' => 'Палитра',
+			'palette.parchment' => 'Пергамент',
+			'palette.classic' => 'Классика',
+			'palette.night' => 'Ночь',
 			'archiveFeed.title' => 'Архив публикаций',
 			'archiveFeed.latestLabel' => 'Последняя публикация',
 			'archiveFeed.moreLabel' => 'Материалы и новости',
@@ -2105,6 +2153,8 @@ extension on Translations {
 			'home.footer.sections' => 'Разделы',
 			'home.footer.social' => 'Мы в соцсетях',
 			'home.footer.rights' => 'Все права защищены.',
+			'home.announcements.label' => 'Анонсы о Кищенко',
+			'home.announcements.readCta' => 'Читать на сайте',
 			'pages.news.subtitle' => 'Публикации, выставки и события, посвящённые творчеству Александра Михайловича Кищенко.',
 			'pages.news.featuredLabel' => 'Главная новость',
 			'pages.news.stayTitle' => 'Будьте в курсе',
@@ -2114,6 +2164,8 @@ extension on Translations {
 			'pages.catalog.subtitle' => 'Живописные произведения Александра Михайловича Кищенко из разных периодов творчества.',
 			'pages.catalog.period' => 'Период:',
 			'pages.catalog.found' => ({required Object count}) => 'Найдено работ: ${count}',
+			'pages.catalog.size' => 'Размер',
+			'pages.catalog.cm' => 'см',
 			'pages.films.subtitle' => 'Документальные фильмы, интервью и видеоматериалы о жизни, творчестве и наследии Александра Михайловича Кищенко.',
 			'pages.films.bandBody' => 'Фильмы, интервью и телесюжеты о художнике и его творческом наследии.',
 			'pages.films.watch' => 'Смотреть',

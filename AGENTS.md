@@ -13,6 +13,25 @@ Agent configuration is vendor-agnostic. The single source of truth is `.agents/`
 * To change agent config, edit `.agents/` (or this `AGENTS.md`) and run
   `bash .agents/setup`.
 
+## Mandatory: bump the version with every change
+
+Every change set (feature, fix, redesign, content edit — anything that alters
+`lib/`, `web/`, `assets/` or `pubspec.yaml` dependencies) MUST end with a
+version bump. Versions are calendar-based, `YY.M.D+B`, by **today's date**
+(see [Version Bumper](.agents/skills/version-bumper/SKILL.md)):
+
+1. `TODAY=$(date +%y.%-m.%-d)` — e.g. `26.11.27` (no leading zeros).
+2. Read `version:` in `pubspec.yaml`.
+   - its date part is older than `TODAY` → `version: <TODAY>+1`;
+   - same date → increment the build number (`+1` → `+2`);
+   - newer than `TODAY` → stop and ask (clock or pubspec is wrong).
+3. Run `dart run tool/sync_app_version.dart` so
+   `lib/src/shared/config/app_version.dart` (analytics `app_version`) matches.
+4. Mention the new version in your summary of the change.
+
+Pure questions, reviews and agent-config edits that don't touch the app don't
+need a bump. Never lower the version.
+
 ## Core Stack
 * Framework: Flutter (Web target)
 * Routing: go_router

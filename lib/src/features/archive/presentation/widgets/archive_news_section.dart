@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:material_ui/material_ui.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -14,6 +16,7 @@ import 'package:web_art_galery/src/shared/config/app_context_extensions.dart';
 import 'package:web_art_galery/src/shared/config/ksize.dart';
 import 'package:web_art_galery/src/shared/presentation/widgets/app_loader.dart';
 import 'package:web_art_galery/src/shared/presentation/widgets/gallery_ui.dart';
+import 'package:web_art_galery/src/shared/telemetry/analytics_events.dart';
 
 /// Archive page body: the newest publication as the featured card, the rest
 /// grouped by year, a search band (text + year filter, applied to both) and
@@ -34,11 +37,30 @@ class _ArchiveNewsSectionState extends State<ArchiveNewsSection> {
   @override
   void initState() {
     super.initState();
-    _query.addListener(() => setState(() {}));
+    _query.addListener(_onQueryChanged);
+  }
+
+  /// Logs a search once typing pauses — the query text itself isn't sent.
+  Timer? _searchLog;
+
+  void _onQueryChanged() {
+    setState(() {});
+    _searchLog?.cancel();
+    final query = _query.text.trim();
+    if (query.isEmpty) return;
+    _searchLog = Timer(KSize.durationSearchLog, () {
+      final state = context.read<ArchiveCubit>().state;
+      final t = context.t;
+      final results = state is ArchiveLoaded
+          ? state.items.where((item) => _matches(t, item)).length
+          : 0;
+      AnalyticsEvents.archiveSearched(queryLength: query.length, results: results);
+    });
   }
 
   @override
   void dispose() {
+    _searchLog?.cancel();
     _query.dispose();
     super.dispose();
   }
@@ -88,7 +110,10 @@ class _ArchiveNewsSectionState extends State<ArchiveNewsSection> {
           controller: _query,
           years: years,
           selectedYear: _year,
-          onYearChanged: (year) => setState(() => _year = year),
+          onYearChanged: (year) {
+            AnalyticsEvents.archiveFiltered(year: year);
+            setState(() => _year = year);
+          },
         );
         final sections = Padding(
           padding: EdgeInsets.fromLTRB(
@@ -178,7 +203,13 @@ class _ArchiveNewsSectionState extends State<ArchiveNewsSection> {
   }
 }
 
-Future<void> _openItem(ArchiveNewsItem item) async {
+Future<void> _openItem(ArchiveNewsItem item, {required String origin}) async {
+  AnalyticsEvents.archiveItemOpened(
+    key: item.key,
+    host: item.host,
+    year: item.date.year,
+    origin: origin,
+  );
   final uri = Uri.tryParse(item.url);
   if (uri == null) return;
   await launchUrl(uri, webOnlyWindowName: '_blank');
@@ -238,12 +269,15 @@ class _FeaturedArchiveCard extends StatelessWidget {
         const SizedBox(height: KSize.margin4x),
         meta,
         const SizedBox(height: KSize.margin4x),
-        GalleryArrowLink(label: t.archiveFeed.openArticle, onTap: () => _openItem(item)),
+        GalleryArrowLink(
+          label: t.archiveFeed.openArticle,
+          onTap: () => _openItem(item, origin: 'archive_featured'),
+        ),
       ],
     );
 
     return GalleryCard(
-      onTap: () => _openItem(item),
+      onTap: () => _openItem(item, origin: 'archive_featured'),
       padding: EdgeInsets.all(isPhone ? KSize.margin3x : KSize.margin4x),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -344,7 +378,7 @@ class _ArchiveRow extends StatelessWidget {
     final excerpt = item.localizedExcerpt(t);
 
     return GalleryCard(
-      onTap: () => _openItem(item),
+      onTap: () => _openItem(item, origin: 'archive_list'),
       padding: const EdgeInsets.all(KSize.margin3x),
       child: IntrinsicHeight(
         child: Row(
@@ -634,28 +668,33 @@ class _SiteSections extends StatelessWidget {
             title: t.navigation.news,
             subtitle: t.home.links.news,
             icon: Icons.article_outlined,
-            onTap: () => context.go(AppRoutes.news),
+            onTap: () => _goSection(context, AppRoutes.news),
           ),
         if (!NavVisibility.catalogIsSettledEmpty(catalogState))
           GalleryQuickLink(
             title: t.navigation.catalogOfWorks,
             subtitle: t.home.links.catalog,
             icon: Icons.image_outlined,
-            onTap: () => context.go(AppRoutes.catalog),
+            onTap: () => _goSection(context, AppRoutes.catalog),
           ),
         GalleryQuickLink(
           title: t.navigation.films,
           subtitle: t.home.links.films,
           icon: Icons.smart_display_outlined,
-          onTap: () => context.go(AppRoutes.films),
+          onTap: () => _goSection(context, AppRoutes.films),
         ),
         GalleryQuickLink(
           title: t.navigation.contacts,
           subtitle: t.contacts.tagline,
           icon: Icons.mail_outline_rounded,
-          onTap: () => context.go(AppRoutes.contacts),
+          onTap: () => _goSection(context, AppRoutes.contacts),
         ),
       ],
     );
   }
+}
+
+void _goSection(BuildContext context, String location) {
+  AnalyticsEvents.cta(origin: 'archive_sections', target: location);
+  context.go(location);
 }

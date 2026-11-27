@@ -1,5 +1,7 @@
 import 'package:material_ui/material_ui.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:web_art_galery/src/features/about_author/presentation/widgets/home/home_announcements.dart';
+import 'package:web_art_galery/src/shared/presentation/cubits/app_config_cubit.dart';
 import 'package:go_router/go_router.dart';
 import 'package:web_art_galery/i18n/strings.g.dart';
 import 'package:web_art_galery/src/features/about_author/presentation/screens/about_author_page_constants.dart';
@@ -13,8 +15,11 @@ import 'package:web_art_galery/src/shared/config/ksize.dart';
 import 'package:web_art_galery/src/shared/presentation/cubits/app_locale_cubit.dart';
 import 'package:web_art_galery/src/shared/presentation/widgets/app_loader.dart';
 import 'package:web_art_galery/src/shared/presentation/widgets/cached_network_image_view.dart';
+import 'package:web_art_galery/src/shared/telemetry/analytics_events.dart';
 
-/// "О художнике" + "Главная история" cards under the hero.
+/// "Главная история" first, then the announcements carousel (or "О
+/// художнике" when there are no announcements) — stacked on phones / tablets,
+/// side by side on desktop.
 ///
 /// The story card shows the newest Firestore news article (cover image,
 /// title, excerpt, date); until news is available — or when there is none —
@@ -27,16 +32,25 @@ class HomeIntroCards extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final about = _AboutCard(layout: layout, onMore: onReadBiography);
+    // Third-party news announcements (Remote Config `MAIN_NEWS`) take the
+    // "About the artist" slot; the artist card returns when there are none.
+    final config = context.watch<AppConfigCubit>().state;
+    final about = config.announcements.isEmpty
+        ? _AboutCard(layout: layout, onMore: onReadBiography)
+        : HomeAnnouncementsCard(
+            layout: layout,
+            announcements: config.announcements,
+            source: config.source,
+          );
     final story = _StoryCard(layout: layout, onReadBiography: onReadBiography);
 
     if (!layout.isWide) {
       return Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          about,
-          SizedBox(height: layout.isPhone ? KSize.margin3x : KSize.margin5x),
           story,
+          SizedBox(height: layout.isPhone ? KSize.margin3x : KSize.margin5x),
+          about,
         ],
       );
     }
@@ -45,9 +59,9 @@ class HomeIntroCards extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          Expanded(flex: 10, child: about),
-          const SizedBox(width: KSize.margin6x),
           Expanded(flex: 11, child: story),
+          const SizedBox(width: KSize.margin6x),
+          Expanded(flex: 10, child: about),
         ],
       ),
     );
@@ -189,7 +203,13 @@ class _AboutCard extends StatelessWidget {
             overflow: isPhone ? TextOverflow.ellipsis : null,
           ),
           SizedBox(height: isPhone ? KSize.margin3x : KSize.margin5x),
-          GalleryArrowLink(label: t.home.about.cta, onTap: onMore),
+          GalleryArrowLink(
+            label: t.home.about.cta,
+            onTap: () {
+              AnalyticsEvents.cta(origin: 'home_about', target: 'biography');
+              onMore();
+            },
+          ),
         ],
       ),
     );
@@ -239,7 +259,10 @@ class _StoryCard extends StatelessWidget {
                   title: context.t.bio.tapestry.title,
                   excerpt: context.t.bio.tapestry.intro,
                   ctaLabel: context.t.home.story.readStory,
-                  onTap: onReadBiography,
+                  onTap: () {
+                    AnalyticsEvents.cta(origin: 'home_story', target: 'biography');
+                    onReadBiography();
+                  },
                 ),
         );
       },
@@ -272,6 +295,7 @@ class _StoryCard extends StatelessWidget {
   void _openArticle(BuildContext context, NewsArticle article) {
     // Same URL scheme as the news list: editorial slug, else the doc id.
     final segment = article.hasName ? article.name : article.id;
+    AnalyticsEvents.newsArticleOpened(articleId: article.id, origin: 'home_story');
     context.go('${AppRoutes.news}/$segment');
   }
 }

@@ -10,4 +10,7 @@ class PaintingsPage {
 
 abstract class CatalogOfWorksRepository {
   Future<PaintingsPage> fetchPaintingsPage({required int page, required int pageSize});
+
+  /// Paintings with the given ids, sorted by `pictureId`.
+  Future<List<Painting>> fetchPaintingsByIds(List<String> pictureIds);
 }

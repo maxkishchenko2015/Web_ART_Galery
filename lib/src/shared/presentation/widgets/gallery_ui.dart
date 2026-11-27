@@ -151,6 +151,7 @@ class _GalleryPillButtonState extends State<GalleryPillButton> {
   @override
   Widget build(BuildContext context) {
     final colors = context.colors;
+    final onColor = widget.filled ? colors.onAccent : colors.onDark;
     final fill = widget.filled
         ? (_hovered ? colors.terracottaLight : colors.terracotta)
         : (_hovered ? colors.onDarkOverlay : Colors.transparent);
@@ -178,20 +179,20 @@ class _GalleryPillButtonState extends State<GalleryPillButton> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               if (widget.leadingIcon != null) ...[
-                Icon(widget.leadingIcon, size: KSize.iconMS, color: colors.onDark),
+                Icon(widget.leadingIcon, size: KSize.iconMS, color: onColor),
                 const SizedBox(width: KSize.margin3x),
               ],
               Flexible(
                 child: Text(
                   widget.label.toUpperCase(),
-                  style: context.textOnDark.pillButtonLabel,
+                  style: context.textOnDark.pillButtonLabel(onAccent: widget.filled),
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                 ),
               ),
               if (widget.trailingIcon != null) ...[
                 const SizedBox(width: KSize.margin3x),
-                Icon(widget.trailingIcon, size: KSize.iconMS, color: colors.onDark),
+                Icon(widget.trailingIcon, size: KSize.iconMS, color: onColor),
               ],
             ],
           ),
@@ -318,7 +319,7 @@ class GalleryFilterChip extends StatelessWidget {
           child: Text(
             label,
             style: context.textContent.filterChipLabel.copyWith(
-              color: selected ? colors.onDark : colors.darkText,
+              color: selected ? colors.onAccent : colors.darkText,
             ),
           ),
         ),

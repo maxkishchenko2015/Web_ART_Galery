@@ -1,0 +1,18 @@
+{
+  "APP_THEME": ["BL"],
+  "MAIN_PICTURES_IDS": ["1965.2", "1981.1", "1997.5"],
+  "MAIN_NEWS": [
+    {
+      "title": "THE PARIS REVIEW",
+      "url": "https://www.theparisreview.org/blog/2026/06/30/united-nations-art-tour/?utm_source=chatgpt.com#:~:text=%E2%80%9D%20We%20rushed%20from,the%20nuclear%20explosion."
+    },
+    {
+      "title": "MINSK NEWS",
+      "url": "https://minsknews.by/ot-kishhenko-do-sovremennikov-eksklyuzivnuyu-vystavku-etyudov-predstavil-belorusskij-soyuz-dizajnerov/"
+    },
+    {
+      "title": "INSTAGRAM_01",
+      "url": "https://www.instagram.com/reel/Df0B_W7yU4C/?gwpx=MTcxZjRlbTEyNWhhNQ=="
+    }
+  ]
+}

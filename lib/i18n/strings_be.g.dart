@@ -44,6 +44,7 @@ class TranslationsBe extends Translations with BaseTranslations<AppLocale, Trans
 	@override late final _Translations$catalog$be catalog = _Translations$catalog$be._(_root);
 	@override late final _Translations$common$be common = _Translations$common$be._(_root);
 	@override late final _Translations$language$be language = _Translations$language$be._(_root);
+	@override late final _Translations$palette$be palette = _Translations$palette$be._(_root);
 	@override late final _Translations$archiveFeed$be archiveFeed = _Translations$archiveFeed$be._(_root);
 	@override late final _Translations$films$be films = _Translations$films$be._(_root);
 	@override late final _Translations$newsFeed$be newsFeed = _Translations$newsFeed$be._(_root);
@@ -125,6 +126,19 @@ class _Translations$language$be extends Translations$language$ru {
 	@override String get french => 'Французская';
 	@override String get german => 'Нямецкая';
 	@override String get belarusian => 'Беларуская';
+}
+
+// Path: palette
+class _Translations$palette$be extends Translations$palette$ru {
+	_Translations$palette$be._(TranslationsBe root) : this._root = root, super.internal(root);
+
+	final TranslationsBe _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Палітра';
+	@override String get parchment => 'Пергамент';
+	@override String get classic => 'Класіка';
+	@override String get night => 'Ноч';
 }
 
 // Path: archiveFeed
@@ -218,6 +232,7 @@ class _Translations$home$be extends Translations$home$ru {
 	@override late final _Translations$home$featured$be featured = _Translations$home$featured$be._(_root);
 	@override late final _Translations$home$start$be start = _Translations$home$start$be._(_root);
 	@override late final _Translations$home$footer$be footer = _Translations$home$footer$be._(_root);
+	@override late final _Translations$home$announcements$be announcements = _Translations$home$announcements$be._(_root);
 }
 
 // Path: pages
@@ -702,6 +717,17 @@ class _Translations$home$footer$be extends Translations$home$footer$ru {
 	@override String get rights => 'Усе правы абаронены.';
 }
 
+// Path: home.announcements
+class _Translations$home$announcements$be extends Translations$home$announcements$ru {
+	_Translations$home$announcements$be._(TranslationsBe root) : this._root = root, super.internal(root);
+
+	final TranslationsBe _root; // ignore: unused_field
+
+	// Translations
+	@override String get label => 'Анонсы пра Кішчанку';
+	@override String get readCta => 'Чытаць на сайце';
+}
+
 // Path: pages.news
 class _Translations$pages$news$be extends Translations$pages$news$ru {
 	_Translations$pages$news$be._(TranslationsBe root) : this._root = root, super.internal(root);
@@ -727,6 +753,8 @@ class _Translations$pages$catalog$be extends Translations$pages$catalog$ru {
 	@override String get subtitle => 'Жывапісныя творы Аляксандра Міхайлавіча Кішчанкі з розных перыядаў творчасці.';
 	@override String get period => 'Перыяд:';
 	@override String found({required Object count}) => 'Знойдзена прац: ${count}';
+	@override String get size => 'Памер';
+	@override String get cm => 'см';
 }
 
 // Path: pages.films
@@ -1214,6 +1242,10 @@ extension on TranslationsBe {
 			'language.french' => 'Французская',
 			'language.german' => 'Нямецкая',
 			'language.belarusian' => 'Беларуская',
+			'palette.title' => 'Палітра',
+			'palette.parchment' => 'Пергамент',
+			'palette.classic' => 'Класіка',
+			'palette.night' => 'Ноч',
 			'archiveFeed.title' => 'Архіў публікацый',
 			'archiveFeed.latestLabel' => 'Апошняя публікацыя',
 			'archiveFeed.moreLabel' => 'Навіны і матэрыялы',
@@ -1340,6 +1372,8 @@ extension on TranslationsBe {
 			'home.footer.sections' => 'Раздзелы',
 			'home.footer.social' => 'Мы ў сацсетках',
 			'home.footer.rights' => 'Усе правы абаронены.',
+			'home.announcements.label' => 'Анонсы пра Кішчанку',
+			'home.announcements.readCta' => 'Чытаць на сайце',
 			'pages.news.subtitle' => 'Публікацыі, выставы і падзеі, прысвечаныя творчасці Аляксандра Міхайлавіча Кішчанкі.',
 			'pages.news.featuredLabel' => 'Галоўная навіна',
 			'pages.news.stayTitle' => 'Будзьце ў курсе',
@@ -1349,6 +1383,8 @@ extension on TranslationsBe {
 			'pages.catalog.subtitle' => 'Жывапісныя творы Аляксандра Міхайлавіча Кішчанкі з розных перыядаў творчасці.',
 			'pages.catalog.period' => 'Перыяд:',
 			'pages.catalog.found' => ({required Object count}) => 'Знойдзена прац: ${count}',
+			'pages.catalog.size' => 'Памер',
+			'pages.catalog.cm' => 'см',
 			'pages.films.subtitle' => 'Дакументальныя фільмы, інтэрв\'ю і відэаматэрыялы пра жыццё, творчасць і спадчыну Аляксандра Міхайлавіча Кішчанкі.',
 			'pages.films.bandBody' => 'Фільмы, інтэрв\'ю і тэлесюжэты пра мастака і яго творчую спадчыну.',
 			'pages.films.watch' => 'Глядзець',

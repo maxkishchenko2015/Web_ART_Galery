@@ -18,12 +18,15 @@ import 'package:web_art_galery/src/features/about_author/presentation/widgets/ho
 import 'package:web_art_galery/src/features/about_author/presentation/widgets/home/home_start_band.dart';
 import 'package:web_art_galery/src/features/about_author/presentation/widgets/stat_icons.dart';
 import 'package:web_art_galery/src/features/catalog_of_works/presentation/cubits/catalog_of_works_cubit.dart';
+import 'package:web_art_galery/src/features/catalog_of_works/presentation/cubits/featured_works_cubit.dart';
 import 'package:web_art_galery/src/features/films/presentation/cubits/films_cubit.dart';
 import 'package:web_art_galery/src/features/news/presentation/cubits/news_list_cubit.dart';
 import 'package:web_art_galery/src/navigation/presentation/router/app_routes.dart';
 import 'package:web_art_galery/src/navigation/presentation/widgets/gallery_footer.dart';
 import 'package:web_art_galery/src/shared/config/app_context_extensions.dart';
 import 'package:web_art_galery/src/shared/config/ksize.dart';
+import 'package:web_art_galery/src/shared/config/remote_config/app_remote_config.dart';
+import 'package:web_art_galery/src/shared/presentation/cubits/app_config_cubit.dart';
 import 'package:web_art_galery/src/shared/utils/url_launcher_utils.dart';
 
 /// Home page (`/about-author`): hero, intro cards, section shortcuts,
@@ -65,6 +68,9 @@ class _AboutAuthorViewState extends State<_AboutAuthorView> {
     unawaited(context.read<FilmsCubit>().load());
     unawaited(context.read<NewsListCubit>().load());
     unawaited(context.read<CatalogOfWorksCubit>().loadInitial());
+    unawaited(
+      context.read<FeaturedWorksCubit>().load(context.read<AppConfigCubit>().state.pictureIds),
+    );
   }
 
   void _scrollToBio() {
@@ -81,36 +87,41 @@ class _AboutAuthorViewState extends State<_AboutAuthorView> {
         final isCompact = layout.width < KSize.adaptiveExpandedBreakpoint;
         final gap = layout.sectionGap;
 
-        return SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              HomeHero(layout: layout),
-              Padding(
-                padding: EdgeInsets.fromLTRB(layout.gutter, gap, layout.gutter, 0),
-                child: HomeIntroCards(layout: layout, onReadBiography: _scrollToBio),
-              ),
-              Padding(
-                padding: EdgeInsets.fromLTRB(layout.gutter, gap, layout.gutter, 0),
-                child: HomeQuickLinks(layout: layout),
-              ),
-              Padding(
-                // The phone / tablet carousel pads itself so cards can scroll
-                // edge to edge.
-                padding: EdgeInsets.fromLTRB(
-                  layout.isWide ? layout.gutter : 0,
-                  gap,
-                  layout.isWide ? layout.gutter : 0,
-                  gap + KSize.margin2x,
+        // Remote Config may swap the featured ids after the fallback ones.
+        return BlocListener<AppConfigCubit, AppRemoteConfig>(
+          listenWhen: (previous, current) => !listEquals(previous.pictureIds, current.pictureIds),
+          listener: (context, config) => context.read<FeaturedWorksCubit>().load(config.pictureIds),
+          child: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                HomeHero(layout: layout),
+                Padding(
+                  padding: EdgeInsets.fromLTRB(layout.gutter, gap, layout.gutter, 0),
+                  child: HomeIntroCards(layout: layout, onReadBiography: _scrollToBio),
                 ),
-                child: HomeFeaturedWorks(layout: layout),
-              ),
-              HomeStartBand(layout: layout, onReadBiography: _scrollToBio),
-              AuthorFilmsStrip(isCompact: isCompact, gutter: layout.gutter),
-              _FeatureSection(isCompact: isCompact, gutter: layout.gutter),
-              _BiographySection(key: _bioKey, isCompact: isCompact, gutter: layout.gutter),
-              GalleryFooter(gutter: layout.gutter, isPhone: layout.isPhone),
-            ],
+                Padding(
+                  padding: EdgeInsets.fromLTRB(layout.gutter, gap, layout.gutter, 0),
+                  child: HomeQuickLinks(layout: layout),
+                ),
+                Padding(
+                  // The phone / tablet carousel pads itself so cards can scroll
+                  // edge to edge.
+                  padding: EdgeInsets.fromLTRB(
+                    layout.isWide ? layout.gutter : 0,
+                    gap,
+                    layout.isWide ? layout.gutter : 0,
+                    gap + KSize.margin2x,
+                  ),
+                  child: HomeFeaturedWorks(layout: layout),
+                ),
+                HomeStartBand(layout: layout, onReadBiography: _scrollToBio),
+                AuthorFilmsStrip(isCompact: isCompact, gutter: layout.gutter),
+                _FeatureSection(isCompact: isCompact, gutter: layout.gutter),
+                _BiographySection(key: _bioKey, isCompact: isCompact, gutter: layout.gutter),
+                GalleryFooter(gutter: layout.gutter, isPhone: layout.isPhone),
+              ],
+            ),
           ),
         );
       },

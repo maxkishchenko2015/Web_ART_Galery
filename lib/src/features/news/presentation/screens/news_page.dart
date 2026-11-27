@@ -17,6 +17,7 @@ import 'package:web_art_galery/src/shared/presentation/widgets/app_loader.dart';
 import 'package:web_art_galery/src/shared/presentation/widgets/cubit_initializer.dart';
 import 'package:web_art_galery/src/shared/presentation/widgets/gallery_ui.dart';
 import 'package:web_art_galery/src/shared/utils/url_launcher_utils.dart';
+import 'package:web_art_galery/src/shared/telemetry/analytics_events.dart';
 
 class NewsPage extends StatelessWidget {
   const NewsPage({super.key});
@@ -143,7 +144,7 @@ class _ArticleFeed extends StatelessWidget {
           layout: layout,
           article: featured,
           locale: locale,
-          onTap: () => _openDetail(context, featured),
+          onTap: () => _openDetail(context, featured, position: 1),
         ),
         for (var start = 0; start < rest.length; start += columns) ...[
           SizedBox(height: gap),
@@ -160,7 +161,7 @@ class _ArticleFeed extends StatelessWidget {
                             locale: locale,
                             // Desktop rows put the cover beside the copy.
                             horizontal: layout.isWide,
-                            onTap: () => _openDetail(context, rest[i]),
+                            onTap: () => _openDetail(context, rest[i], position: i + 2),
                           )
                         : const SizedBox.shrink(),
                   ),
@@ -173,7 +174,12 @@ class _ArticleFeed extends StatelessWidget {
     );
   }
 
-  void _openDetail(BuildContext context, NewsArticle article) {
+  void _openDetail(BuildContext context, NewsArticle article, {required int position}) {
+    AnalyticsEvents.newsArticleOpened(
+      articleId: article.id,
+      origin: 'news_list',
+      position: position,
+    );
     // Prefer the editorial slug for the URL so the address bar shows a
     // human-readable `/news/<name>` segment. Legacy items without `name`
     // fall back to the raw Firestore doc id, which the detail page still
@@ -209,14 +215,19 @@ class _StayInTouchBand extends StatelessWidget {
             icon: Icons.photo_camera_outlined,
             title: t.contacts.instagramSectionLabel,
             subtitle: t.contacts.instagramHandle,
-            onTap: () =>
-                UrlLauncherUtils.launchUrlIfPossible(url: ContactsPageConstants.instagramUrl),
+            onTap: () {
+              AnalyticsEvents.contactClicked(channel: 'instagram', origin: 'news_band');
+              UrlLauncherUtils.launchUrlIfPossible(url: ContactsPageConstants.instagramUrl);
+            },
           ),
           GalleryBandRoute(
             icon: Icons.inventory_2_outlined,
             title: t.archiveFeed.title,
             subtitle: t.pages.news.archiveSubtitle,
-            onTap: () => context.go(AppRoutes.archive),
+            onTap: () {
+              AnalyticsEvents.cta(origin: 'news_band', target: AppRoutes.archive);
+              context.go(AppRoutes.archive);
+            },
           ),
         ],
       ),

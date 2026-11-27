@@ -10,6 +10,7 @@ import 'package:web_art_galery/src/shared/config/app_context_extensions.dart';
 import 'package:web_art_galery/src/shared/config/ksize.dart';
 import 'package:web_art_galery/src/shared/presentation/widgets/gallery_ui.dart';
 import 'package:web_art_galery/src/shared/utils/url_launcher_utils.dart';
+import 'package:web_art_galery/src/shared/telemetry/analytics_events.dart';
 
 class ContactsPage extends StatelessWidget {
   const ContactsPage({super.key});
@@ -186,10 +187,13 @@ class _ContactIcon extends StatelessWidget {
 /// Tappable contact value ("+375 29 …", "@kishchenko.art") with an
 /// outward arrow.
 class _LinkValue extends StatelessWidget {
-  const _LinkValue({required this.label, required this.url});
+  const _LinkValue({required this.label, required this.url, required this.channel});
 
   final String label;
   final String url;
+
+  /// Analytics channel: `phone`, `instagram`, `vk`.
+  final String channel;
 
   @override
   Widget build(BuildContext context) {
@@ -197,7 +201,10 @@ class _LinkValue extends StatelessWidget {
       cursor: SystemMouseCursors.click,
       child: GestureDetector(
         behavior: HitTestBehavior.opaque,
-        onTap: () => UrlLauncherUtils.launchUrlIfPossible(url: url),
+        onTap: () {
+          AnalyticsEvents.contactClicked(channel: channel, origin: 'contacts');
+          UrlLauncherUtils.launchUrlIfPossible(url: url);
+        },
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
@@ -234,10 +241,12 @@ class _PhoneCard extends StatelessWidget {
         _LinkValue(
           label: ContactsPageConstants.phone1Display,
           url: ContactsPageConstants.phone1Tel,
+          channel: 'phone',
         ),
         _LinkValue(
           label: ContactsPageConstants.phone2Display,
           url: ContactsPageConstants.phone2Tel,
+          channel: 'phone',
         ),
       ],
     );
@@ -258,7 +267,11 @@ class _InstagramCard extends StatelessWidget {
       title: t.contacts.instagramSectionLabel,
       hint: t.pages.contacts.instagramHint,
       values: [
-        _LinkValue(label: t.contacts.instagramHandle, url: ContactsPageConstants.instagramUrl),
+        _LinkValue(
+          label: t.contacts.instagramHandle,
+          url: ContactsPageConstants.instagramUrl,
+          channel: 'instagram',
+        ),
       ],
     );
   }
@@ -279,7 +292,9 @@ class _VkCard extends StatelessWidget {
       icon: const _ContactIcon(svgAsset: ContactsPageConstants.vkSvgAsset),
       title: t.contacts.vkSectionLabel,
       hint: isPhone ? t.contacts.vkScanQrHint : t.pages.contacts.vkHint,
-      values: [_LinkValue(label: t.contacts.vkHandle, url: ContactsPageConstants.vkUrl)],
+      values: [
+        _LinkValue(label: t.contacts.vkHandle, url: ContactsPageConstants.vkUrl, channel: 'vk'),
+      ],
       trailing: Semantics(
         label: t.contacts.vkScanQrHint,
         image: true,
@@ -331,7 +346,10 @@ class _StudioCard extends StatelessWidget {
         const SizedBox(height: KSize.margin5x),
         GalleryArrowLink(
           label: t.contacts.openInOsm,
-          onTap: () => UrlLauncherUtils.launchUrlIfPossible(url: ContactsPageConstants.osmUrl),
+          onTap: () {
+            AnalyticsEvents.contactClicked(channel: 'map', origin: 'contacts');
+            UrlLauncherUtils.launchUrlIfPossible(url: ContactsPageConstants.osmUrl);
+          },
         ),
       ],
     );

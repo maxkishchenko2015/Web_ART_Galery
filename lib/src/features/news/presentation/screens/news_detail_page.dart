@@ -440,7 +440,8 @@ class _ExpandedImagePanel extends StatelessWidget {
               top: KSize.margin2x,
               right: KSize.margin2x,
               child: Material(
-                color: context.colors.darkOlive.withValues(alpha: 0.72),
+                // Neutral over the photo in every palette.
+                color: Colors.black.withValues(alpha: 0.55),
                 shape: const CircleBorder(),
                 child: InkWell(
                   customBorder: const CircleBorder(),
@@ -450,7 +451,7 @@ class _ExpandedImagePanel extends StatelessWidget {
                     child: Icon(
                       Icons.close_rounded,
                       size: KSize.iconSMedium,
-                      color: context.colors.onDark,
+                      color: Colors.white,
                     ),
                   ),
                 ),

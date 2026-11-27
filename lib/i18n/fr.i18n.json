@@ -213,6 +213,12 @@
     "german": "Allemand",
     "belarusian": "Bielorusse"
   },
+  "palette": {
+    "title": "Palette",
+    "parchment": "Parchemin",
+    "classic": "Classique",
+    "night": "Nuit"
+  },
   "archiveFeed": {
     "title": "Archives et publications",
     "latestLabel": "Derniere publication",
@@ -409,6 +415,10 @@
       "sections": "Rubriques",
       "social": "Suivez-nous",
       "rights": "Tous droits réservés."
+    },
+    "announcements": {
+      "label": "Actualités sur Kichtchanka",
+      "readCta": "Lire sur le site"
     }
   },
   "pages": {
@@ -423,7 +433,9 @@
       "eyebrow": "Collection",
       "subtitle": "Peintures d'Alexandre Mikhaïlovitch Kichtchanka de différentes périodes de son œuvre.",
       "period": "Période :",
-      "found": "Œuvres trouvées : ${count}"
+      "found": "Œuvres trouvées : ${count}",
+      "size": "Dimensions",
+      "cm": "cm"
     },
     "films": {
       "subtitle": "Documentaires, entretiens et vidéos sur la vie, l'œuvre et l'héritage d'Alexandre Mikhaïlovitch Kichtchanka.",

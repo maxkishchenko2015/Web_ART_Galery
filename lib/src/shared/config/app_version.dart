@@ -1,3 +1,3 @@
 abstract final class AppVersion {
-  static const String current = '26.6.29';
+  static const String current = '26.11.27';
 }

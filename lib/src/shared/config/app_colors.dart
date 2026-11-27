@@ -69,6 +69,9 @@ abstract final class AppColors {
   /// Card shadow on parchment.
   static const Color cardShadow = Color(0x1A3B2A14);
 
+  /// Text / icons on accent fills (terracotta buttons, bands, chips).
+  static const Color onAccent = Color(0xFFF6EFE3);
+
   // ── On-dark surface (navigation header, mobile drawer, footer) ──────────
 
   /// Warm off-white — active text, icons, borders on dark surfaces.
@@ -153,6 +156,14 @@ abstract final class AppColors {
   /// Brand red used by the circular play-button overlay on film thumbnails.
   static const Color playButtonRed = Color(0xFFE0203A);
 
+  // ── Instagram brand gradient (announcement badge) ──────────────────────
+
+  static const Color instagramYellow = Color(0xFFFEDA75);
+  static const Color instagramOrange = Color(0xFFFA7E1E);
+  static const Color instagramPink = Color(0xFFD62976);
+  static const Color instagramPurple = Color(0xFF962FBF);
+  static const Color instagramBlue = Color(0xFF4F5BD5);
+
   // ── Archive card gradient accents ───────────────────────────────────────
   //
   // Each archive entry pairs a primary + secondary color to drive a
@@ -225,9 +236,11 @@ class AppDesignColors extends ThemeExtension<AppDesignColors> {
     required this.gold,
     required this.moss,
     required this.cardShadow,
+    required this.onAccent,
   });
 
-  static const AppDesignColors light = AppDesignColors(
+  /// Default palette: dark olive shell, warm parchment, terracotta accent.
+  static const AppDesignColors parchmentPalette = AppDesignColors(
     forestGreen: AppColors.forestGreen,
     darkOlive: AppColors.darkOlive,
     white: AppColors.white,
@@ -272,7 +285,109 @@ class AppDesignColors extends ThemeExtension<AppDesignColors> {
     gold: AppColors.gold,
     moss: AppColors.moss,
     cardShadow: AppColors.cardShadow,
+    onAccent: AppColors.onAccent,
   );
+
+  /// Light classic: white surfaces, ink text, burgundy accent.
+  static const AppDesignColors classicPalette = AppDesignColors(
+    forestGreen: Color(0xFF6E1E28),
+    darkOlive: Color(0xFF1F1B18),
+    white: AppColors.white,
+    cream: Color(0xFFF2ECE4),
+    darkText: Color(0xFF1F1B18),
+    line: Color(0xFFE6DED3),
+    selection: Color(0xFFEBC9CD),
+    error: AppColors.error,
+    onDark: Color(0xFF1F1B18),
+    onDarkBody: Color(0xB31F1B18),
+    onDarkMuted: Color(0x991F1B18),
+    onDarkSubtle: Color(0x8A1F1B18),
+    onDarkFaint: Color(0x611F1B18),
+    onDarkDivider: Color(0x2E1F1B18),
+    onDarkOverlay: Color(0x141F1B18),
+    onDarkPanel: Color(0xFFFFFFFF),
+    onDarkPanelActive: Color(0x1A6E1E28),
+    onDarkPanelBorder: Color(0x1F1F1B18),
+    overlayShadow: Color(0x33000000),
+    footerOverlay: Color(0x0F000000),
+    onDarkPlaceholder: Color(0x141F1B18),
+    onDarkPlaceholderIcon: Color(0x4D1F1B18),
+    contentBody: Color(0xFF45403B),
+    contentBodyLight: Color(0xFF57514A),
+    contentMuted: Color(0xFF8A837A),
+    bioBg: Color(0xFFFAF7F3),
+    quoteBg: Color(0xFFF4ECE8),
+    newsGlowLight: AppColors.newsGlowLight,
+    newsGlowDark: AppColors.newsGlowDark,
+    newsChipFill: AppColors.newsChipFill,
+    newsChipBorder: AppColors.newsChipBorder,
+    newsYearFeatured: AppColors.newsYearFeatured,
+    newsYearDefault: AppColors.newsYearDefault,
+    shell: Color(0xFFFBF8F4),
+    shellRaised: Color(0xFFF1EBE3),
+    parchment: Color(0xFFFFFDFB),
+    parchmentCard: Color(0xFFFFFFFF),
+    parchmentLine: Color(0xFFE8E0D6),
+    terracotta: Color(0xFF6E1E28),
+    terracottaLight: Color(0xFF8E2A36),
+    terracottaDeep: Color(0xFF4F141C),
+    gold: Color(0xFFB08D57),
+    moss: Color(0xFF4F141C),
+    cardShadow: Color(0x14301A10),
+    onAccent: Color(0xFFFFFFFF),
+  );
+
+  /// Night: deep navy surfaces, light text, gold accent.
+  static const AppDesignColors nightPalette = AppDesignColors(
+    forestGreen: Color(0xFFC9A961),
+    darkOlive: Color(0xFFEDE6D6),
+    white: AppColors.white,
+    cream: Color(0xFF1F2733),
+    darkText: Color(0xFFEDE6D6),
+    line: Color(0xFF2A3342),
+    selection: Color(0xFF5A4A26),
+    error: AppColors.error,
+    onDark: Color(0xFFF1EAD9),
+    onDarkBody: Color(0xB3F1EAD9),
+    onDarkMuted: Color(0x99F1EAD9),
+    onDarkSubtle: Color(0x8AF1EAD9),
+    onDarkFaint: Color(0x61F1EAD9),
+    onDarkDivider: Color(0x3DF1EAD9),
+    onDarkOverlay: Color(0x1FF1EAD9),
+    onDarkPanel: Color(0xFF18202C),
+    onDarkPanelActive: Color(0x33C9A961),
+    onDarkPanelBorder: Color(0x24F1EAD9),
+    overlayShadow: Color(0x66000000),
+    footerOverlay: Color(0x33000000),
+    onDarkPlaceholder: Color(0x1AFFFFFF),
+    onDarkPlaceholderIcon: Color(0x3DFFFFFF),
+    contentBody: Color(0xFFC9C2B3),
+    contentBodyLight: Color(0xFFB5AE9F),
+    contentMuted: Color(0xFF8A8475),
+    bioBg: Color(0xFF121924),
+    quoteBg: Color(0xFF1A2230),
+    newsGlowLight: AppColors.newsGlowLight,
+    newsGlowDark: AppColors.newsGlowDark,
+    newsChipFill: AppColors.newsChipFill,
+    newsChipBorder: AppColors.newsChipBorder,
+    newsYearFeatured: AppColors.newsYearFeatured,
+    newsYearDefault: AppColors.newsYearDefault,
+    shell: Color(0xFF0A0E15),
+    shellRaised: Color(0xFF151C28),
+    parchment: Color(0xFF0F141D),
+    parchmentCard: Color(0xFF161D29),
+    parchmentLine: Color(0xFF2A3342),
+    terracotta: Color(0xFFC9A961),
+    terracottaLight: Color(0xFFE0C383),
+    terracottaDeep: Color(0xFF8C7239),
+    gold: Color(0xFFC9A961),
+    moss: Color(0xFFB39550),
+    cardShadow: Color(0x40000000),
+    onAccent: Color(0xFF15110A),
+  );
+
+  /// Kept for call sites that just need the default palette.
+  static const AppDesignColors light = parchmentPalette;
 
   final Color forestGreen;
   final Color darkOlive;
@@ -318,6 +433,7 @@ class AppDesignColors extends ThemeExtension<AppDesignColors> {
   final Color gold;
   final Color moss;
   final Color cardShadow;
+  final Color onAccent;
 
   @override
   AppDesignColors copyWith({
@@ -365,6 +481,7 @@ class AppDesignColors extends ThemeExtension<AppDesignColors> {
     Color? gold,
     Color? moss,
     Color? cardShadow,
+    Color? onAccent,
   }) {
     return AppDesignColors(
       forestGreen: forestGreen ?? this.forestGreen,
@@ -411,6 +528,7 @@ class AppDesignColors extends ThemeExtension<AppDesignColors> {
       gold: gold ?? this.gold,
       moss: moss ?? this.moss,
       cardShadow: cardShadow ?? this.cardShadow,
+      onAccent: onAccent ?? this.onAccent,
     );
   }
 
@@ -470,6 +588,7 @@ class AppDesignColors extends ThemeExtension<AppDesignColors> {
       gold: Color.lerp(gold, other.gold, t) ?? gold,
       moss: Color.lerp(moss, other.moss, t) ?? moss,
       cardShadow: Color.lerp(cardShadow, other.cardShadow, t) ?? cardShadow,
+      onAccent: Color.lerp(onAccent, other.onAccent, t) ?? onAccent,
     );
   }
 }

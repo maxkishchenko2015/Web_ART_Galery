@@ -10,7 +10,9 @@ import 'package:web_art_galery/src/navigation/presentation/nav_destinations.dart
 import 'package:web_art_galery/src/navigation/presentation/widgets/gallery_brand.dart';
 import 'package:web_art_galery/src/shared/config/app_context_extensions.dart';
 import 'package:web_art_galery/src/shared/config/ksize.dart';
+import 'package:web_art_galery/src/shared/presentation/widgets/palette_switcher.dart';
 import 'package:web_art_galery/src/shared/utils/url_launcher_utils.dart';
+import 'package:web_art_galery/src/shared/telemetry/analytics_events.dart';
 
 /// Full site footer placed at the end of the home page: brand, section
 /// links, social links and the copyright line.
@@ -51,7 +53,13 @@ class GalleryFooter extends StatelessWidget {
         runSpacing: KSize.margin2x,
         children: [
           for (final item in items)
-            _FooterLink(label: item.label, onTap: () => context.go(item.location)),
+            _FooterLink(
+              label: item.label,
+              onTap: () {
+                AnalyticsEvents.cta(origin: 'footer', target: item.location);
+                context.go(item.location);
+              },
+            ),
         ],
       ),
     );
@@ -62,12 +70,14 @@ class GalleryFooter extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           _SocialButton(
+            channel: 'instagram',
             asset: ContactsPageConstants.instagramSvgAsset,
             label: t.contacts.instagramSectionLabel,
             url: ContactsPageConstants.instagramUrl,
           ),
           const SizedBox(width: KSize.margin3x),
           _SocialButton(
+            channel: 'vk',
             asset: ContactsPageConstants.vkSvgAsset,
             label: t.contacts.vkSectionLabel,
             url: ContactsPageConstants.vkUrl,
@@ -91,6 +101,8 @@ class GalleryFooter extends StatelessWidget {
                 sections,
                 const SizedBox(height: KSize.margin8x),
                 social,
+                const SizedBox(height: KSize.margin8x),
+                const PaletteSwatchRow(),
               ],
             )
           else
@@ -102,6 +114,8 @@ class GalleryFooter extends StatelessWidget {
                 Expanded(flex: 2, child: sections),
                 const SizedBox(width: KSize.homeFooterColumnGap),
                 Expanded(flex: 2, child: social),
+                const SizedBox(width: KSize.homeFooterColumnGap),
+                const Expanded(flex: 2, child: PaletteSwatchRow()),
               ],
             ),
           const SizedBox(height: KSize.margin8x),
@@ -156,8 +170,15 @@ class _FooterLink extends StatelessWidget {
 }
 
 class _SocialButton extends StatelessWidget {
-  const _SocialButton({required this.asset, required this.label, required this.url});
+  const _SocialButton({
+    required this.channel,
+    required this.asset,
+    required this.label,
+    required this.url,
+  });
 
+  /// Analytics channel key (`instagram`, `vk`) — not the localized label.
+  final String channel;
   final String asset;
   final String label;
   final String url;
@@ -172,7 +193,10 @@ class _SocialButton extends StatelessWidget {
       child: MouseRegion(
         cursor: SystemMouseCursors.click,
         child: GestureDetector(
-          onTap: () => UrlLauncherUtils.launchUrlIfPossible(url: url),
+          onTap: () {
+            AnalyticsEvents.contactClicked(channel: channel, origin: 'footer');
+            UrlLauncherUtils.launchUrlIfPossible(url: url);
+          },
           child: Container(
             width: KSize.avatarDefault,
             height: KSize.avatarDefault,

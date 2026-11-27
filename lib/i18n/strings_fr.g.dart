@@ -44,6 +44,7 @@ class TranslationsFr extends Translations with BaseTranslations<AppLocale, Trans
 	@override late final _Translations$catalog$fr catalog = _Translations$catalog$fr._(_root);
 	@override late final _Translations$common$fr common = _Translations$common$fr._(_root);
 	@override late final _Translations$language$fr language = _Translations$language$fr._(_root);
+	@override late final _Translations$palette$fr palette = _Translations$palette$fr._(_root);
 	@override late final _Translations$archiveFeed$fr archiveFeed = _Translations$archiveFeed$fr._(_root);
 	@override late final _Translations$films$fr films = _Translations$films$fr._(_root);
 	@override late final _Translations$newsFeed$fr newsFeed = _Translations$newsFeed$fr._(_root);
@@ -125,6 +126,19 @@ class _Translations$language$fr extends Translations$language$ru {
 	@override String get french => 'Francais';
 	@override String get german => 'Allemand';
 	@override String get belarusian => 'Bielorusse';
+}
+
+// Path: palette
+class _Translations$palette$fr extends Translations$palette$ru {
+	_Translations$palette$fr._(TranslationsFr root) : this._root = root, super.internal(root);
+
+	final TranslationsFr _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Palette';
+	@override String get parchment => 'Parchemin';
+	@override String get classic => 'Classique';
+	@override String get night => 'Nuit';
 }
 
 // Path: archiveFeed
@@ -218,6 +232,7 @@ class _Translations$home$fr extends Translations$home$ru {
 	@override late final _Translations$home$featured$fr featured = _Translations$home$featured$fr._(_root);
 	@override late final _Translations$home$start$fr start = _Translations$home$start$fr._(_root);
 	@override late final _Translations$home$footer$fr footer = _Translations$home$footer$fr._(_root);
+	@override late final _Translations$home$announcements$fr announcements = _Translations$home$announcements$fr._(_root);
 }
 
 // Path: pages
@@ -702,6 +717,17 @@ class _Translations$home$footer$fr extends Translations$home$footer$ru {
 	@override String get rights => 'Tous droits réservés.';
 }
 
+// Path: home.announcements
+class _Translations$home$announcements$fr extends Translations$home$announcements$ru {
+	_Translations$home$announcements$fr._(TranslationsFr root) : this._root = root, super.internal(root);
+
+	final TranslationsFr _root; // ignore: unused_field
+
+	// Translations
+	@override String get label => 'Actualités sur Kichtchanka';
+	@override String get readCta => 'Lire sur le site';
+}
+
 // Path: pages.news
 class _Translations$pages$news$fr extends Translations$pages$news$ru {
 	_Translations$pages$news$fr._(TranslationsFr root) : this._root = root, super.internal(root);
@@ -727,6 +753,8 @@ class _Translations$pages$catalog$fr extends Translations$pages$catalog$ru {
 	@override String get subtitle => 'Peintures d\'Alexandre Mikhaïlovitch Kichtchanka de différentes périodes de son œuvre.';
 	@override String get period => 'Période :';
 	@override String found({required Object count}) => 'Œuvres trouvées : ${count}';
+	@override String get size => 'Dimensions';
+	@override String get cm => 'cm';
 }
 
 // Path: pages.films
@@ -1214,6 +1242,10 @@ extension on TranslationsFr {
 			'language.french' => 'Francais',
 			'language.german' => 'Allemand',
 			'language.belarusian' => 'Bielorusse',
+			'palette.title' => 'Palette',
+			'palette.parchment' => 'Parchemin',
+			'palette.classic' => 'Classique',
+			'palette.night' => 'Nuit',
 			'archiveFeed.title' => 'Archives et publications',
 			'archiveFeed.latestLabel' => 'Derniere publication',
 			'archiveFeed.moreLabel' => 'Actualites et references',
@@ -1340,6 +1372,8 @@ extension on TranslationsFr {
 			'home.footer.sections' => 'Rubriques',
 			'home.footer.social' => 'Suivez-nous',
 			'home.footer.rights' => 'Tous droits réservés.',
+			'home.announcements.label' => 'Actualités sur Kichtchanka',
+			'home.announcements.readCta' => 'Lire sur le site',
 			'pages.news.subtitle' => 'Publications, expositions et événements consacrés à l\'œuvre d\'Alexandre Mikhaïlovitch Kichtchanka.',
 			'pages.news.featuredLabel' => 'À la une',
 			'pages.news.stayTitle' => 'Restez informé',
@@ -1349,6 +1383,8 @@ extension on TranslationsFr {
 			'pages.catalog.subtitle' => 'Peintures d\'Alexandre Mikhaïlovitch Kichtchanka de différentes périodes de son œuvre.',
 			'pages.catalog.period' => 'Période :',
 			'pages.catalog.found' => ({required Object count}) => 'Œuvres trouvées : ${count}',
+			'pages.catalog.size' => 'Dimensions',
+			'pages.catalog.cm' => 'cm',
 			'pages.films.subtitle' => 'Documentaires, entretiens et vidéos sur la vie, l\'œuvre et l\'héritage d\'Alexandre Mikhaïlovitch Kichtchanka.',
 			'pages.films.bandBody' => 'Films, entretiens et reportages sur l\'artiste et son héritage.',
 			'pages.films.watch' => 'Regarder',

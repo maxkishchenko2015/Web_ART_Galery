@@ -8,6 +8,7 @@ import 'package:web_art_galery/src/navigation/presentation/nav_destinations.dart
 import 'package:web_art_galery/src/navigation/presentation/router/app_routes.dart';
 import 'package:web_art_galery/src/shared/config/app_context_extensions.dart';
 import 'package:web_art_galery/src/shared/config/ksize.dart';
+import 'package:web_art_galery/src/shared/telemetry/analytics_events.dart';
 
 /// Terracotta "С чего начать" band: a short welcome plus a cream card with
 /// three first-visit routes (biography, signature works, films).
@@ -28,20 +29,29 @@ class HomeStartBand extends StatelessWidget {
         title: t.aboutTitle,
         subtitle: t.aboutSubtitle,
         icon: Icons.menu_book_outlined,
-        onTap: onReadBiography,
+        onTap: () {
+          AnalyticsEvents.cta(origin: 'home_start_band', target: 'biography');
+          onReadBiography();
+        },
       ),
       if (!NavVisibility.catalogIsSettledEmpty(catalogState))
         _StartRoute(
           title: t.worksTitle,
           subtitle: t.worksSubtitle,
           icon: Icons.filter_frames_outlined,
-          onTap: () => context.go(AppRoutes.catalog),
+          onTap: () {
+            AnalyticsEvents.cta(origin: 'home_start_band', target: AppRoutes.catalog);
+            context.go(AppRoutes.catalog);
+          },
         ),
       _StartRoute(
         title: t.filmsTitle,
         subtitle: t.filmsSubtitle,
         icon: Icons.movie_creation_outlined,
-        onTap: () => context.go(AppRoutes.films),
+        onTap: () {
+          AnalyticsEvents.cta(origin: 'home_start_band', target: AppRoutes.films);
+          context.go(AppRoutes.films);
+        },
       ),
     ];
 

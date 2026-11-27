@@ -44,6 +44,7 @@ class TranslationsDe extends Translations with BaseTranslations<AppLocale, Trans
 	@override late final _Translations$catalog$de catalog = _Translations$catalog$de._(_root);
 	@override late final _Translations$common$de common = _Translations$common$de._(_root);
 	@override late final _Translations$language$de language = _Translations$language$de._(_root);
+	@override late final _Translations$palette$de palette = _Translations$palette$de._(_root);
 	@override late final _Translations$archiveFeed$de archiveFeed = _Translations$archiveFeed$de._(_root);
 	@override late final _Translations$films$de films = _Translations$films$de._(_root);
 	@override late final _Translations$newsFeed$de newsFeed = _Translations$newsFeed$de._(_root);
@@ -125,6 +126,19 @@ class _Translations$language$de extends Translations$language$ru {
 	@override String get french => 'Franzosisch';
 	@override String get german => 'Deutsch';
 	@override String get belarusian => 'Belarussisch';
+}
+
+// Path: palette
+class _Translations$palette$de extends Translations$palette$ru {
+	_Translations$palette$de._(TranslationsDe root) : this._root = root, super.internal(root);
+
+	final TranslationsDe _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Farbschema';
+	@override String get parchment => 'Pergament';
+	@override String get classic => 'Klassisch';
+	@override String get night => 'Nacht';
 }
 
 // Path: archiveFeed
@@ -218,6 +232,7 @@ class _Translations$home$de extends Translations$home$ru {
 	@override late final _Translations$home$featured$de featured = _Translations$home$featured$de._(_root);
 	@override late final _Translations$home$start$de start = _Translations$home$start$de._(_root);
 	@override late final _Translations$home$footer$de footer = _Translations$home$footer$de._(_root);
+	@override late final _Translations$home$announcements$de announcements = _Translations$home$announcements$de._(_root);
 }
 
 // Path: pages
@@ -702,6 +717,17 @@ class _Translations$home$footer$de extends Translations$home$footer$ru {
 	@override String get rights => 'Alle Rechte vorbehalten.';
 }
 
+// Path: home.announcements
+class _Translations$home$announcements$de extends Translations$home$announcements$ru {
+	_Translations$home$announcements$de._(TranslationsDe root) : this._root = root, super.internal(root);
+
+	final TranslationsDe _root; // ignore: unused_field
+
+	// Translations
+	@override String get label => 'Neues über Kischanka';
+	@override String get readCta => 'Auf der Website lesen';
+}
+
 // Path: pages.news
 class _Translations$pages$news$de extends Translations$pages$news$ru {
 	_Translations$pages$news$de._(TranslationsDe root) : this._root = root, super.internal(root);
@@ -727,6 +753,8 @@ class _Translations$pages$catalog$de extends Translations$pages$catalog$ru {
 	@override String get subtitle => 'Gemälde von Alexander Michailowitsch Kischanka aus verschiedenen Schaffensperioden.';
 	@override String get period => 'Zeitraum:';
 	@override String found({required Object count}) => 'Gefundene Werke: ${count}';
+	@override String get size => 'Größe';
+	@override String get cm => 'cm';
 }
 
 // Path: pages.films
@@ -1214,6 +1242,10 @@ extension on TranslationsDe {
 			'language.french' => 'Franzosisch',
 			'language.german' => 'Deutsch',
 			'language.belarusian' => 'Belarussisch',
+			'palette.title' => 'Farbschema',
+			'palette.parchment' => 'Pergament',
+			'palette.classic' => 'Klassisch',
+			'palette.night' => 'Nacht',
 			'archiveFeed.title' => 'Archiv & Veroffentlichungen',
 			'archiveFeed.latestLabel' => 'Neueste Veroffentlichung',
 			'archiveFeed.moreLabel' => 'Nachrichten und Hinweise',
@@ -1340,6 +1372,8 @@ extension on TranslationsDe {
 			'home.footer.sections' => 'Bereiche',
 			'home.footer.social' => 'Folgen Sie uns',
 			'home.footer.rights' => 'Alle Rechte vorbehalten.',
+			'home.announcements.label' => 'Neues über Kischanka',
+			'home.announcements.readCta' => 'Auf der Website lesen',
 			'pages.news.subtitle' => 'Publikationen, Ausstellungen und Ereignisse rund um das Werk von Alexander Michailowitsch Kischanka.',
 			'pages.news.featuredLabel' => 'Top-Nachricht',
 			'pages.news.stayTitle' => 'Bleiben Sie informiert',
@@ -1349,6 +1383,8 @@ extension on TranslationsDe {
 			'pages.catalog.subtitle' => 'Gemälde von Alexander Michailowitsch Kischanka aus verschiedenen Schaffensperioden.',
 			'pages.catalog.period' => 'Zeitraum:',
 			'pages.catalog.found' => ({required Object count}) => 'Gefundene Werke: ${count}',
+			'pages.catalog.size' => 'Größe',
+			'pages.catalog.cm' => 'cm',
 			'pages.films.subtitle' => 'Dokumentarfilme, Interviews und Videomaterialien über Leben, Werk und Vermächtnis von Alexander Michailowitsch Kischanka.',
 			'pages.films.bandBody' => 'Filme, Interviews und Fernsehbeiträge über den Künstler und sein Vermächtnis.',
 			'pages.films.watch' => 'Ansehen',

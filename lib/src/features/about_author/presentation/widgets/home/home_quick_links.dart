@@ -7,6 +7,7 @@ import 'package:web_art_galery/src/features/news/presentation/cubits/news_list_c
 import 'package:web_art_galery/src/navigation/presentation/nav_destinations.dart';
 import 'package:web_art_galery/src/navigation/presentation/router/app_routes.dart';
 import 'package:web_art_galery/src/shared/presentation/widgets/gallery_ui.dart';
+import 'package:web_art_galery/src/shared/telemetry/analytics_events.dart';
 
 /// Home-page section shortcuts: catalog, news, films, archive. Catalog / news
 /// drop out when their Firestore content settled empty, the same rule the
@@ -30,28 +31,33 @@ class HomeQuickLinks extends StatelessWidget {
             title: t.navigation.catalogOfWorks,
             subtitle: t.home.links.catalog,
             icon: Icons.image_outlined,
-            onTap: () => context.go(AppRoutes.catalog),
+            onTap: () => _go(context, AppRoutes.catalog),
           ),
         if (!NavVisibility.newsIsSettledEmpty(newsState))
           GalleryQuickLink(
             title: t.navigation.news,
             subtitle: t.home.links.news,
             icon: Icons.article_outlined,
-            onTap: () => context.go(AppRoutes.news),
+            onTap: () => _go(context, AppRoutes.news),
           ),
         GalleryQuickLink(
           title: t.navigation.films,
           subtitle: t.home.links.films,
           icon: Icons.smart_display_outlined,
-          onTap: () => context.go(AppRoutes.films),
+          onTap: () => _go(context, AppRoutes.films),
         ),
         GalleryQuickLink(
           title: t.navigation.archive,
           subtitle: t.home.links.archive,
           icon: Icons.inventory_2_outlined,
-          onTap: () => context.go(AppRoutes.archive),
+          onTap: () => _go(context, AppRoutes.archive),
         ),
       ],
     );
   }
+}
+
+void _go(BuildContext context, String location) {
+  AnalyticsEvents.cta(origin: 'home_quick_links', target: location);
+  context.go(location);
 }

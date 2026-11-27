@@ -468,6 +468,28 @@ class KSize {
   static const double homeFeaturedCardAspectRatioCompact = 4 / 3;
   static const int homeFeaturedMaxTiles = 5;
 
+  /// Home announcements card: most items shown, size of the decorative
+  /// quotation mark, and the live-dot pulse period.
+  static const int homeAnnouncementsMax = 4;
+  static const double homeAnnouncementQuoteSize = 220;
+  static const Duration durationLivePulse = Duration(milliseconds: 1600);
+
+  /// Announcement carousel: page height (phone / wider) and auto-advance
+  /// period while nobody hovers or drags it.
+  static const double homeAnnouncementPageHeightPhone = 200;
+  static const double homeAnnouncementPageHeight = 230;
+
+  /// Page heights when no announcement carries a teaser text.
+  static const double homeAnnouncementPageHeightPhoneCompact = 150;
+  static const double homeAnnouncementPageHeightCompact = 170;
+  static const Duration durationAnnouncementAutoAdvance = Duration(seconds: 7);
+
+  /// Typing pause after which an archive search is logged.
+  static const Duration durationSearchLog = Duration(milliseconds: 1200);
+
+  /// Placeholder tiles shown while the featured works load.
+  static const int homeFeaturedPlaceholderCount = 3;
+
   /// Quick-link and start-route icon sizes.
   static const double homeQuickLinkIcon = 36;
   static const double homeQuickLinkIconCompact = 30;
@@ -523,6 +545,19 @@ class KSize {
   static const double contactsQrSize = 112;
   static const double contactsMapHeightPhone = 260;
   static const double contactsMapHeightWide = 340;
+
+  /// Palette switcher swatches (header button / drawer + footer rows).
+  static const double paletteSwatchSize = 22;
+  static const double paletteSwatchSizeLarge = 32;
+  static const double paletteMenuMinWidth = 140;
+
+  /// Painting details panel in the fullscreen viewer.
+  static const double paintingPanelMaxWidth = 720;
+  static const double paintingDiagramSide = 96;
+  static const double paintingDiagramSidePhone = 64;
+
+  /// Room right of / below the size diagram for its labels.
+  static const double paintingDiagramLabelSpace = 64;
 
   /// Count-up animation for the legacy stat numbers (500+, 6+).
   static const Duration durationStatCountUp = Duration(milliseconds: 1100);

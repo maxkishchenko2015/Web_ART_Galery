@@ -176,12 +176,13 @@ class ShellTextTheme {
     color: _colors.onDarkMuted,
   );
 
-  /// Pill button label on dark surfaces — 13 px · w600 · ls 1.6 · [AppColors.onDark].
-  TextStyle get pillButtonLabel => GoogleFonts.roboto(
+  /// Pill button label — 13 px · w600 · ls 1.6. [onAccent] for filled
+  /// (accent) buttons, otherwise the shell's on-color.
+  TextStyle pillButtonLabel({required bool onAccent}) => GoogleFonts.roboto(
     fontSize: KSize.fontSize2XSHalf,
     fontWeight: FontWeight.w600,
     letterSpacing: 1.6,
-    color: _colors.onDark,
+    color: onAccent ? _colors.onAccent : _colors.onDark,
   );
 
   /// Hero button label — 12 px · w500 · ls 1.5.
@@ -193,28 +194,28 @@ class ShellTextTheme {
     color: filled ? _colors.forestGreen : _colors.onDark,
   );
 
-  /// Terracotta band title — PT Serif · dynamic [fontSize] · [AppColors.onDark].
+  /// Accent band title — PT Serif · dynamic [fontSize] · [AppColors.onAccent].
   TextStyle bandTitle(double fontSize) => GoogleFonts.ptSerif(
     fontSize: fontSize,
     fontWeight: FontWeight.w400,
     height: 1.15,
-    color: _colors.onDark,
+    color: _colors.onAccent,
   );
 
-  /// Terracotta band body — 14 px · w300 · h 1.55 · [AppColors.onDarkBody].
+  /// Accent band body — 14 px · w300 · h 1.55 · [AppColors.onAccent] 80 %.
   TextStyle get bandBody => GoogleFonts.roboto(
     fontSize: KSize.fontSizeXS,
     fontWeight: FontWeight.w300,
     height: 1.55,
-    color: _colors.onDarkBody,
+    color: _colors.onAccent.withValues(alpha: 0.8),
   );
 
-  /// "More works" tile label — 15 px · w400 · h 1.35 · [AppColors.onDark].
+  /// "Full catalog" tile label — 15 px · w400 · h 1.35 · [AppColors.onAccent].
   TextStyle get tileLabel => GoogleFonts.roboto(
     fontSize: KSize.fontSizeXSHalf,
     fontWeight: FontWeight.w400,
     height: 1.35,
-    color: _colors.onDark,
+    color: _colors.onAccent,
   );
 
   /// Caption laid over a photo gradient — PT Serif 16 px · [AppColors.onDark].

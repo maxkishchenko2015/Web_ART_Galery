@@ -24,6 +24,7 @@ class FullscreenImageViewer {
     Object? heroTag,
     bool useImageKitEndpoint = true,
     String? fallbackAssetPath,
+    Widget? details,
   }) {
     if (imagePathOrUrl.trim().isEmpty) {
       return Future<void>.value();
@@ -41,6 +42,7 @@ class FullscreenImageViewer {
           heroTag: heroTag,
           useImageKitEndpoint: useImageKitEndpoint,
           fallbackAssetPath: fallbackAssetPath,
+          details: details,
         );
       },
       transitionBuilder: (dialogContext, animation, secondaryAnimation, child) {
@@ -63,6 +65,7 @@ class _FullscreenImageOverlay extends StatefulWidget {
     required this.heroTag,
     required this.useImageKitEndpoint,
     required this.fallbackAssetPath,
+    required this.details,
   });
 
   final String imagePathOrUrl;
@@ -71,6 +74,9 @@ class _FullscreenImageOverlay extends StatefulWidget {
 
   /// Bundled copy shown when the network image fails.
   final String? fallbackAssetPath;
+
+  /// Optional caption under the image (e.g. a painting's title and size).
+  final Widget? details;
 
   @override
   State<_FullscreenImageOverlay> createState() => _FullscreenImageOverlayState();
@@ -134,41 +140,51 @@ class _FullscreenImageOverlayState extends State<_FullscreenImageOverlay> {
       child: Scaffold(
         backgroundColor: Colors.transparent,
         body: SafeArea(
-          child: Stack(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              Positioned.fill(
-                child: GestureDetector(
-                  behavior: HitTestBehavior.opaque,
-                  onTap: () => Navigator.of(context).maybePop(),
-                  child: Padding(
-                    padding: viewportPadding,
-                    child: Center(
-                      child: GestureDetector(
-                        onTap: () {},
-                        onDoubleTap: _toggleZoom,
-                        child: InteractiveViewer(
-                          transformationController: _transformationController,
-                          minScale: _minScale,
-                          maxScale: _maxScale,
-                          clipBehavior: Clip.none,
-                          child: widget.heroTag != null
-                              ? Hero(tag: widget.heroTag!, child: image)
-                              : image,
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-              Positioned(
-                top: KSize.margin3x,
-                right: KSize.margin3x,
-                child: _CloseButton(onPressed: () => Navigator.of(context).maybePop()),
-              ),
+              Expanded(child: _buildImageArea(context, viewportPadding, image)),
+              if (widget.details != null) _DetailsSlideIn(child: widget.details!),
             ],
           ),
         ),
       ),
+    );
+  }
+
+  Widget _buildImageArea(BuildContext context, EdgeInsets viewportPadding, Widget image) {
+    return Stack(
+      children: [
+        Positioned.fill(
+          child: GestureDetector(
+            behavior: HitTestBehavior.opaque,
+            onTap: () => Navigator.of(context).maybePop(),
+            child: Padding(
+              padding: viewportPadding,
+              child: Center(
+                child: GestureDetector(
+                  onTap: () {},
+                  onDoubleTap: _toggleZoom,
+                  child: InteractiveViewer(
+                    transformationController: _transformationController,
+                    minScale: _minScale,
+                    maxScale: _maxScale,
+                    clipBehavior: Clip.none,
+                    child: widget.heroTag != null
+                        ? Hero(tag: widget.heroTag!, child: image)
+                        : image,
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ),
+        Positioned(
+          top: KSize.margin3x,
+          right: KSize.margin3x,
+          child: _CloseButton(onPressed: () => Navigator.of(context).maybePop()),
+        ),
+      ],
     );
   }
 
@@ -177,6 +193,37 @@ class _FullscreenImageOverlayState extends State<_FullscreenImageOverlay> {
     final targetScale = currentScale > 1.01 ? _minScale : 2.0;
     _transformationController.value = Matrix4.identity()
       ..scaleByDouble(targetScale, targetScale, 1.0, 1.0);
+  }
+}
+
+/// Fades and slides the details caption up once the viewer opens.
+class _DetailsSlideIn extends StatelessWidget {
+  const _DetailsSlideIn({required this.child});
+
+  final Widget child;
+
+  @override
+  Widget build(BuildContext context) {
+    final isPhone = MediaQuery.sizeOf(context).width < KSize.adaptiveCompactBreakpoint;
+
+    return TweenAnimationBuilder<double>(
+      tween: Tween(begin: 0, end: 1),
+      duration: KSize.durationScroll,
+      curve: Curves.easeOutCubic,
+      builder: (context, t, child) => Opacity(
+        opacity: t,
+        child: Transform.translate(offset: Offset(0, (1 - t) * KSize.margin6x), child: child),
+      ),
+      child: Padding(
+        padding: EdgeInsets.fromLTRB(
+          isPhone ? KSize.margin3x : KSize.margin8x,
+          0,
+          isPhone ? KSize.margin3x : KSize.margin8x,
+          isPhone ? KSize.margin3x : KSize.margin6x,
+        ),
+        child: Center(child: child),
+      ),
+    );
   }
 }
 

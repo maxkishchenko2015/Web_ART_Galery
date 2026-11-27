@@ -213,6 +213,12 @@
     "german": "Deutsch",
     "belarusian": "Belarussisch"
   },
+  "palette": {
+    "title": "Farbschema",
+    "parchment": "Pergament",
+    "classic": "Klassisch",
+    "night": "Nacht"
+  },
   "archiveFeed": {
     "title": "Archiv & Veroffentlichungen",
     "latestLabel": "Neueste Veroffentlichung",
@@ -409,6 +415,10 @@
       "sections": "Bereiche",
       "social": "Folgen Sie uns",
       "rights": "Alle Rechte vorbehalten."
+    },
+    "announcements": {
+      "label": "Neues über Kischanka",
+      "readCta": "Auf der Website lesen"
     }
   },
   "pages": {
@@ -423,7 +433,9 @@
       "eyebrow": "Sammlung",
       "subtitle": "Gemälde von Alexander Michailowitsch Kischanka aus verschiedenen Schaffensperioden.",
       "period": "Zeitraum:",
-      "found": "Gefundene Werke: ${count}"
+      "found": "Gefundene Werke: ${count}",
+      "size": "Größe",
+      "cm": "cm"
     },
     "films": {
       "subtitle": "Dokumentarfilme, Interviews und Videomaterialien über Leben, Werk und Vermächtnis von Alexander Michailowitsch Kischanka.",

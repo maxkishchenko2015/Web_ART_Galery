@@ -184,8 +184,11 @@ class CatalogOfWorksCubit extends Cubit<CatalogOfWorksState> {
           : null;
 
       final merged = <Painting>[...existing, ..._filterDisplayable(result.items)];
+      // An empty page can only mean the end of the catalog, whatever the
+      // repository reported — never keep paging (and spinning) after it.
+      final hasReachedMax = result.hasReachedMax || result.items.isEmpty;
 
-      if (reset && merged.isEmpty && result.hasReachedMax) {
+      if (reset && merged.isEmpty && hasReachedMax) {
         AppTelemetry.instance.logEmptyContent(source: 'catalog_paintings');
       }
 
@@ -193,7 +196,7 @@ class CatalogOfWorksCubit extends Cubit<CatalogOfWorksState> {
         CatalogOfWorksLoaded(
           paintings: merged,
           page: result.page,
-          hasReachedMax: result.hasReachedMax,
+          hasReachedMax: hasReachedMax,
           isLoadingMore: false,
           selectedDecade: preservedDecade,
         ),

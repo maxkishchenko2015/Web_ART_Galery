@@ -213,6 +213,12 @@
     "german": "German",
     "belarusian": "Belarusian"
   },
+  "palette": {
+    "title": "Palette",
+    "parchment": "Parchment",
+    "classic": "Classic",
+    "night": "Night"
+  },
   "archiveFeed": {
     "title": "Archive & Publications",
     "latestLabel": "Latest publication",
@@ -409,6 +415,10 @@
       "sections": "Sections",
       "social": "Follow us",
       "rights": "All rights reserved."
+    },
+    "announcements": {
+      "label": "News about Kishchanka",
+      "readCta": "Read on the site"
     }
   },
   "pages": {
@@ -423,7 +433,9 @@
       "eyebrow": "Collection",
       "subtitle": "Paintings by Alexander Mikhailovich Kishchanka from different periods of his work.",
       "period": "Period:",
-      "found": "Works found: ${count}"
+      "found": "Works found: ${count}",
+      "size": "Size",
+      "cm": "cm"
     },
     "films": {
       "subtitle": "Documentaries, interviews and video materials about the life, work and legacy of Alexander Mikhailovich Kishchanka.",

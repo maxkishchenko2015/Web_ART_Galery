@@ -5,9 +5,10 @@ import 'package:meta_seo/meta_seo.dart';
 import 'package:web_art_galery/i18n/strings.g.dart';
 import 'package:web_art_galery/src/features/catalog_of_works/domain/entities/painting.dart';
 import 'package:web_art_galery/src/features/catalog_of_works/presentation/cubits/catalog_of_works_cubit.dart';
+import 'package:web_art_galery/src/features/catalog_of_works/presentation/painting_viewer.dart';
+import 'package:web_art_galery/src/features/catalog_of_works/presentation/localization/painting_dimensions.dart';
 import 'package:web_art_galery/src/features/catalog_of_works/presentation/localization/painting_medium_localization.dart';
 import 'package:web_art_galery/src/features/catalog_of_works/presentation/localization/painting_name_localization.dart';
-import 'package:web_art_galery/src/features/catalog_of_works/presentation/widgets/aspect_aware_image.dart';
 import 'package:web_art_galery/src/features/catalog_of_works/presentation/widgets/catalog_lazy_grid_view.dart';
 import 'package:web_art_galery/src/features/catalog_of_works/presentation/widgets/decade_filter_bar.dart';
 import 'package:web_art_galery/src/navigation/presentation/widgets/gallery_footer.dart';
@@ -17,9 +18,7 @@ import 'package:web_art_galery/src/shared/config/ksize.dart';
 import 'package:web_art_galery/src/shared/presentation/widgets/app_loader.dart';
 import 'package:web_art_galery/src/shared/presentation/widgets/cached_network_image_view.dart';
 import 'package:web_art_galery/src/shared/presentation/widgets/cubit_initializer.dart';
-import 'package:web_art_galery/src/shared/presentation/widgets/fullscreen_image_viewer.dart';
 import 'package:web_art_galery/src/shared/presentation/widgets/gallery_ui.dart';
-import 'package:web_art_galery/src/shared/telemetry/app_telemetry.dart';
 
 class CatalogOfWorksPage extends StatelessWidget {
   const CatalogOfWorksPage({super.key});
@@ -194,20 +193,8 @@ class _PaintingsGrid extends StatefulWidget {
 
 class _PaintingsGridState extends State<_PaintingsGrid> {
   void _onPaintingOpened(Painting painting) {
-    AppTelemetry.instance.logEvent('gallery_image_opened', params: _galleryParams(painting));
-    FullscreenImageViewer.show(
-      context,
-      imagePathOrUrl: AspectAwareImage.resolveUrl(painting.imageUrl),
-      heroTag: 'catalog_${painting.pictureId}',
-      useImageKitEndpoint: false,
-    );
+    openPaintingFullscreen(context, painting, heroTag: 'catalog_${painting.pictureId}');
   }
-
-  Map<String, Object?> _galleryParams(Painting painting) => <String, Object?>{
-    'painting_id': painting.pictureId,
-    'painting_title': painting.name,
-    'painting_year': painting.yearOfCreation,
-  };
 
   @override
   Widget build(BuildContext context) {
@@ -301,7 +288,10 @@ class _PaintingCardState extends State<_PaintingCard> {
       painting.pictureId,
       firebaseName: painting.name,
     );
-    final medium = PaintingMediumLocalization.resolve(context.t, painting.paintedOnAndHow);
+    final fullMedium = PaintingMediumLocalization.resolve(context.t, painting.paintedOnAndHow);
+    // The size often doesn't fit the card — it's shown in the fullscreen
+    // details panel instead.
+    final medium = PaintingDimensions.stripFrom(fullMedium);
     final metaStyle = context.textContent.quickLinkSubtitle;
 
     return MouseRegion(
@@ -329,7 +319,7 @@ class _PaintingCardState extends State<_PaintingCard> {
                       imagePathOrUrl: painting.imageUrl,
                       width: double.infinity,
                       height: double.infinity,
-                      semanticLabel: '$localizedName (${painting.yearOfCreation}) — $medium',
+                      semanticLabel: '$localizedName (${painting.yearOfCreation}) — $fullMedium',
                     ),
                   ),
                 ),
